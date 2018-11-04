@@ -1,0 +1,41 @@
+<h1><%= t("customer.attach_products") %></h1>
+<%# byebug %>
+<%= form_tag(attach_products_create_customer_path(@customer.id), authenticity_token: true) do -%>
+  <%= label_tag :product %>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <table class="table-all table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th><%= Product.human_attribute_name("name") %></th>
+              <th class="table-icons-1" colspan="1"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% for product in @products %>
+              <tr>
+                <td><%= t("product.name." + product.name) %></td>
+                <td>
+                  <%= check_box_tag "products[]", product.id,
+                   @products_attached.include?(product.id),
+                   id: "product_" + product.id.to_s %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div><%= submit_tag 'Save' %></div>
+<% end -%>
+</br>
+
+<%= link_to t("products.new"), link_new_product_path%>
+<% if broker_signed_in? %>
+  </br>
+  <%= link_to t("customers.list"), customers_path(@customer_id) %>
+<% end %>

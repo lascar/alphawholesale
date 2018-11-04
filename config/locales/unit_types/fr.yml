@@ -1,0 +1,11 @@
+fr:
+  unit_types:
+      kilogram:
+        unit_type: "kilogramme"
+        symbol: "kg"
+      tonne:
+        unit_type: "tonne"
+        symbol: "t"
+      pound:
+        unit_type: "livre"
+        symbol: "lb"

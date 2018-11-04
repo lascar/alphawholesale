@@ -1,0 +1,37 @@
+<h1><%= Aspect.model_name.human(count: @aspects.count) %></h1>
+
+<table class="table-all table-bordered">
+  <thead>
+    <tr>
+      <th><%= Aspect.human_attribute_name("name") %></th>
+      <th><%= Aspect.human_attribute_name("product") %></th>
+      <th class="table-icons" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aspects.each do |aspect| %>
+      <tr>
+        <td><%= aspect.name %></td>
+        <td><%= aspect.product.name %></td>
+        <td>
+          <%= link_to icon('fas', 'eye'), aspect, title: t("show") %>
+        </td>
+        <td>
+          <%= link_to icon('fas', 'edit'), edit_aspect_path(aspect),
+           title: t("edit") %>
+        </td>
+        <td>
+          <%= link_to icon('fas', 'trash'), aspect, title: t("destroy"),
+           method: :delete, data: { confirm: t(:are_you_sure) } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% if broker_signed_in? %>
+  <%= link_to t("aspects.new"), new_aspect_path %>
+<% end %>

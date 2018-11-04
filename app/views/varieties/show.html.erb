@@ -1,0 +1,22 @@
+<p>
+  <strong><%= Variety.human_attribute_name("name") %></strong>
+  <%= @variety.name %>
+</p>
+
+<p>
+  <strong><%= Variety.human_attribute_name("product") %></strong>
+  <%= @variety.product.name %>
+</p>
+
+<p>
+  <strong><%= Variety.human_attribute_name("supplier") %></strong>
+  <%= @variety.supplier ? @variety.supplier.identifier : "" %>
+</p>
+
+<p>
+  <strong><%= Variety.human_attribute_name("approved") %></strong>
+  <%= check_box_tag :approved, '', @variety.approved, disabled: true %>
+</p>
+
+<%= link_to t("edit"), edit_variety_path(@variety) %> |
+<%= link_to t("varieties.list"), varieties_path %>

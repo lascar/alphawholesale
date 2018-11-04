@@ -1,0 +1,41 @@
+<%# byebug %>
+<%= form_with(tender_form_hash(@customer_id, @tender)) do |form| %>
+<% if @tender.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tender.errors.count, "error") %> prohibited this tender from being saved:</h2>
+
+      <ul>
+      <% @tender.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= form.label :customer %>
+      <%= form.select :customer_id, @customers%>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :date_start %>
+    <%= form.date_field :date_start %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_end %>
+    <%= form.date_field :date_end %>
+  </div>
+
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= form.label :approved %>
+      <%= form.check_box :approved %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

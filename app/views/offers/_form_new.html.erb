@@ -1,0 +1,229 @@
+<%= javascript_include_tag 'offers' %>
+<%= form_with(offer_form_hash(@supplier_id, @offer)) do |form| %>
+  <% if offer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
+
+      <ul>
+      <% offer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= form.label :supplier %>
+      <%= form.select :supplier_id, @suppliers%>
+    </div>
+  <% end %>
+  <% @products.each do |product_name, product| %>
+    <div class="card card_product" id="card_product_<%= product_name %>">
+      <b>
+        <%= form.radio_button :product_id, product["product_id"],
+          class: "radio_product", id: "offer_product_name_" + product_name,
+          autocomplete: :off %>
+        <%= t("product.name." + product_name) %>
+      </b>
+      <br>
+  <!-- {"pistachio"=>{"product_variety"=>[["pistachio none", 19]], "aspects"=>[["shelled_whole", 255], ["shelled_pieces", 256], ["dark_whole", 257], ["green_whole", 258], ["yellow_green_whole", 259], ["yellow_whole", 260], ["in_shell_no", 261], ["in_shell_mo", 262], ["shelled", 263], ["dark_green", 264], ["green", 265], ["yellow_green", 266], ["yellow", 267], ["pieces", 268], ["meal", 269], ["paste", 270], ["none", 271]], "sizes"=>[["ir_sh_28/30", 241], ["ir_sh_30/32", 242], ["us_sh_21/25", 243], ["none", 244]]}, "cashew"=>{"product_variety"=>[["cashew none", 20]], "aspects"=>[["whole", 272], ["none", 273]], "sizes"=>[["w_240", 245], ["w_320", 246], ["w_450", 247], ["pieces", 248], ["none", 249]]}} -->
+      <div class="row">
+        <div class="col col_not_product">
+          <table class="table-bordered table-hover table-sm table-all table-responsive">
+            <thead>
+              <tr>
+                <th><%= Variety.human_attribute_name("name") %></th>
+                <th class="table-icons-1" colspan="1"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% for variety in product["variety"] %>
+                <% variety_name = variety.first %>
+                <tr>
+                  <td><%= t("product.variety." + product_name +  "." + variety_name) %></td>
+      <%# byebug %>
+                  <td>
+                    <%= form.radio_button :variety_id, variety.last,
+                     id: "variety_" + variety.last.to_s,
+                     class: "radio_variety variety_" + product_name %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="col col_not_product">
+          <table class="table-bordered table-hover table-sm table-all table-responsive">
+            <thead>
+              <tr>
+                <th><%= Aspect.human_attribute_name("name") %></th>
+                <th class="table-icons-1" colspan="1"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% for aspect in product["aspects"] %>
+                <% aspect_name = aspect.first %>
+                <tr>
+                  <td><%= t("product.aspect." + product_name +  "." + aspect_name) %></td>
+                  <td>
+                    <%= form.radio_button :aspect_id, aspect.last,
+                     id: "aspect_" + aspect.last.to_s,
+                     class: "aspect_" + product_name %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="col col_not_product">
+          <table class="table-bordered table-hover table-sm table-all table-responsive">
+            <thead>
+              <tr>
+                <th><%= Size.human_attribute_name("name") %></th>
+                <th class="table-icons-1" colspan="1"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% for size in product["sizes"] %>
+                <% size_name = size.first %>
+                <tr>
+                  <td><%= t("product.size." + product_name +  "." + size_name) %></td>
+                  <td>
+                    <%= form.radio_button :size_id, size.last,
+                     id: "size_" + size.last.to_s,
+                     class: "size_" + product_name %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="col col_not_product">
+          <table class="table-bordered table-hover table-sm table-all table-responsive">
+            <thead>
+              <tr>
+                <th><%= Packaging.human_attribute_name("name") %></th>
+                <th class="table-icons-1" colspan="1"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% for packaging in product["packagings"] %>
+                <% packaging_name = packaging.first %>
+                <tr>
+                  <td><%= t("product.packaging." + product_name +  "." + packaging_name) %></td>
+                  <td>
+                    <%= form.radio_button :packaging_id, packaging.last,
+                     id: "packaging_" + packaging.last.to_s,
+                     class: "packaging_" + product_name %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <br>
+  <br>
+  <div class="card">
+    <div class="row">
+      <div class="col-3">
+        <%= label_tag t('activerecord.attributes.offer.quantity') %>
+        <div style="clear: both;"></div>
+        <%= form.number_field :quantity %>
+        &nbsp;
+      </div>
+      <div class="col-3">
+        <%= label_tag t('activerecord.attributes.offer.unit_type') %>
+        <div style="clear: both;"></div>
+        <%= form.select :unit_type, options_for_select(@unit_types) %>
+        &nbsp;
+      </div>
+      <div class="col-3">
+        <%= label_tag t('activerecord.attributes.offer.unit_price_supplier') %>
+        <div style="clear: both;"></div>
+        <%= monetary_field 'offer', 'unit_price_supplier', 0 %>
+        &nbsp;
+      </div>
+      <div class="col-3">
+        <%= label_tag t('activerecord.attributes.offer.currency') %>
+        <div style="clear: both;"></div>
+        <%= form.select :currency, options_for_select(@currencies) %>
+      </div>
+    </div>
+
+    <div class="row row_offer">
+      <div class="col-3">
+        <%= label_tag t('activerecord.attributes.offer.incoterm') %>
+        <div style="clear: both;"></div>
+        <%= form.select :incoterm, @incoterms%>
+        &nbsp;
+      </div>
+
+      <div class="col-3">
+        <%= label_tag t('activerecord.attributes.offer.localisation_supplier') %>
+        <div style="clear: both;"></div>
+        <%= form.text_field :localisation_supplier %>
+        &nbsp;
+      </div>
+
+      <div class="col-3">
+        <%= label_tag t('activerecord.attributes.offer.date_start') %>
+        <div style="clear: both;"></div>
+        <%= form.text_field :date_start, value: Time.now.strftime("%d/%m/%Y"), disabled: true %>
+        &nbsp;
+      </div>
+
+      <div class="col-3">
+        <%= label_tag t('activerecord.attributes.offer.date_end') %>
+        <div style="clear: both;"></div>
+        <%= form.date_field :date_end, min:  Time.now.strftime("%d/%m/%Y") %>
+        &nbsp;
+      </div>
+    </div>
+
+    <div class="row row_offer">
+      <div class="col-9">
+        <%= label_tag t('activerecord.attributes.offer.observation') %>
+        <div style="clear: both;"></div>
+          <%= form.text_area :observation, :rows => 10, style: 'width:100%;' %>
+        &nbsp;
+      </div>
+    </div>
+  </div>
+
+  <% if broker_signed_in? %>
+    <div class="card">
+      <div class="row">
+        <div class="col">
+          <%= label_tag t('activerecord.attributes.offer.unit_price_broker') %>
+          <div style="clear: both;"></div>
+          <%= monetary_field 'offer', 'unit_price_broker', 0 %>
+          &nbsp;
+        </div>
+        <div class="col">
+          <%= label_tag t('activerecord.attributes.offer.localisation_broker') %>
+          <div style="clear: both;"></div>
+          <%= form.text_field :localisation_broker %>
+          &nbsp;
+        </div>
+
+        &nbsp;
+        <div class="col">
+          <%= label_tag t('activerecord.attributes.offer.approved') %>
+          <div style="clear: both;"></div>
+          <%= form.check_box :approved %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

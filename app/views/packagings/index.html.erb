@@ -1,0 +1,39 @@
+<h1><%= Packaging.model_name.human(count: @packagings.count) %></h1>
+
+<table class="table-all table-bordered">
+  <thead>
+    <tr>
+      <th><%= Packaging.human_attribute_name("name") %></th>
+      <th><%= Packaging.human_attribute_name("product") %></th>
+      <th class="table-icons" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @packagings.each do |packaging| %>
+      <tr>
+        <td><%= t("product.packaging." + packaging.product.name + "." +
+                  packaging.name) %></td>
+        <td><%= t("product.name." + packaging.product.name) %></td>
+        <td>
+          <%= link_to icon('fas', 'eye'), packaging, title: t("show") %>
+        </td>
+        <td>
+          <%= link_to icon('fas', 'edit'), edit_packaging_path(packaging),
+           title: t("edit") %>
+        </td>
+        <td>
+          <%= link_to icon('fas', 'trash'), packaging, title: t("destroy"),
+           method: :delete, data: { confirm: t(:are_you_sure) } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to t("back"), :back %>
+<br>
+<% if broker_signed_in? %>
+  <%= link_to t("packagings.new"), new_packaging_path %>
+<% end %>

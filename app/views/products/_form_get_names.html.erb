@@ -1,0 +1,20 @@
+<%# byebug %>
+<%= form_tag(link_new_product_path, method: :get, authenticity_token: true) do %>
+
+  <div class="field">
+    <%= label_tag :name %>
+    <%= select_tag "product[name]", options_for_select(@names), include_blank: t("product.select_name") %>
+  </div>
+
+  <div class="field">
+    <%= label_tag t('products.name_not_in_list') %>
+    <br>
+    <%= text_field_tag "product[name_new]" %>
+      <br>
+    <%= t('products.name_only_allowed') %>
+  </div>
+
+  <div class="field">
+    <%= submit_tag t('products.new') %>
+  </div>
+<% end %>

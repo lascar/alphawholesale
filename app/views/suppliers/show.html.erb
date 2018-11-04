@@ -1,0 +1,108 @@
+<% if broker_signed_in? %>
+  <p>
+    <strong><%= Supplier.human_attribute_name("identifier") %></strong>
+    <%= @supplier.identifier %>
+  </p>
+  <p>
+    <strong><%= Supplier.human_attribute_name("email") %></strong>
+    <%= @supplier.email %>
+  </p>
+  <p>
+    <strong><%= Supplier.human_attribute_name("approved") %></strong>
+    <%= check_box_tag :approved, '', @supplier.approved, disabled: true %>
+  </p>
+<% end %>
+<%= link_to t("suppliers.edit"), edit_supplier_path(@supplier), class: "btn btn-info btn-sm give-me-some-space" %>
+<div class="row small-font">
+  <div class="col-md-9">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <b><%= Offer.model_name.human(count: @offers.count) %> : <%= @offers.count %></b>
+      </div>
+      <% if @offers.count > 0 %>
+      <table class="table table-responsive table-hover table-all">
+        <thead>
+          <tr>
+            <th scope="col" class="text-truncate"
+              title="<%= Offer.human_attribute_name("product") %>">
+              <%= Offer.human_attribute_name("product") %>
+            </th>
+            <th scope="col" class="text-truncate"
+              title="<%= Offer.human_attribute_name("quantity") %>">
+              <%= Offer.human_attribute_name("quantity") %>
+            </th>
+            <th scope="col" class="text-truncate"
+              title="<%= Offer.human_attribute_name("unit_price_supplier") %>">
+              <%= Offer.human_attribute_name("unit_price_supplier") %>
+            </th>
+            <th scope="col" colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @offers.each do |offer| %>
+            <tr>
+              <td class="text-truncate" title="<%= offer.product.name %>">
+                <%= offer.product.name %>
+              </td>
+              <td class="text-truncate" title="<%= offer.quantity %>">
+                <%= offer.quantity.to_s + " " + offer.unit_type %>
+              </td>
+              <td class="text-truncate" title="<%= offer.unit_price_supplier %>">
+                  <%= offer.unit_price_supplier.to_s  + " " + offer.currency %>
+              </td>
+              <td><%= link_to icon('fas', 'eye'),
+                       supplier_offer_path(@supplier, offer),
+                       title: t("show") %></td>
+              <td><%= link_to icon('fas', 'edit'),
+                       edit_supplier_offer_path(@supplier, offer),
+                       title: t("edit") %></td>
+              <td><%= link_to icon('fas', 'trash'),
+                       supplier_offer_path(@supplier, offer),
+                       title: t("destroy"), method: :delete,
+                       data: { confirm: t(:are_you_sure) } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% end %>
+      <br>
+      <%= link_to t("offers.new"), new_supplier_offer_path(@supplier.id), class:  "btn btn-primary btn-sm" %>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <%= Product.model_name.human(count: @products.count) %> : <%= @products.count %>
+      </div>
+      <% if @products.count > 0 %>
+      <table class="table table-responsive table-hover table-all">
+        <thead>
+          <tr>
+            <th scope="col" class="text-truncate"
+             title="<%= Product.human_attribute_name("name") %>">
+              <%= Product.human_attribute_name("name") %>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @products.each do |product| %>
+            <tr>
+              <td class="text-truncate" title="<%= product.name %>">
+                <%= product.name %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% end %>
+      <br>
+      <%# byebug %>
+      <%= link_to t("suppliers.attach_products"), attach_products_supplier_path(@supplier.id), class:  "btn btn-primary btn-sm" %>
+    </div>
+  </div>
+</div>
+<% if broker_signed_in? %>
+  <%= link_to t("suppliers.list"), suppliers_path %>
+<% end %>

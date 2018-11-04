@@ -1,0 +1,219 @@
+fr:
+  activerecord:
+    models:
+      broker: "Courtier"
+      broker:
+        zero: "Pas de Courtier"
+        one: "Courtier"
+        other: "Courtiers"
+      supplier: "Fournisseur"
+      supplier:
+        zero: "Pas de Fournisseur"
+        one: "Fournisseur"
+        other: "Fournisseurs"
+      customer: "Client"
+      customer:
+        zero: "Pas de Client"
+        one: "Client"
+        other: "Clients"
+      product:
+        zero: "Pas de Produit"
+        one: "Produit"
+        other: "Produits"
+      packaging:
+        zero: "Pas de Calibre ou Conditionnement"
+        one: "Calibre et Conditionnement"
+        other: "Calibres et Conditionnements"
+      origin:
+        zero: "Pas d'Origine"
+        one: "Origine"
+        other: "Origines"
+      aspect:
+        zero: "Pas d'Aspect"
+        one: "Aspect"
+        other: "Aspects"
+      size:
+        zero: "Pas de Calibre"
+        one: "Calibre"
+        other: "Calibres"
+      offer:
+        zero: "Pas d'offre"
+        one: "Offre"
+        other: "Offres"
+      order: "Commande"
+      order:
+        zero: "Aucune Commande"
+        one: "Commande"
+        other: "Commandes"
+      order_line: "Ligne de Commande"
+      order_line:
+        zero: "No Ligne de Commande"
+        one: "Ligne de Commande"
+        other: "Lignes de Commande"
+      tender: "Appel d'Offre"
+      tender:
+        zero: "Aucune Appel d'Offre"
+        one: "Appel d'Offre"
+        other: "Appels d'Offre"
+      tender_line: "Ligne d'Appel d'Offre"
+      tender_line:
+        zero: "No Ligne d'Appel d'Offre"
+        one: "Ligne d'Appel d'Offre"
+        other: "Lignes d'Appel d'Offre"
+    attributes:
+      broker:
+        identifier: "identifiant"
+        email: "courrier électronique"
+        password: "mot de passe"
+        remember_me: "se souvenir de moi"
+        password_confirmation: "confirmation du mot de passe"
+        current_password: "mot de passe actuel"
+      supplier:
+        identifier: "identifiant"
+        entreprise_name: "Nom de l'Entreprise"
+        email: "courrier électronique"
+        tin: "cif"
+        street_and_number: "numero et rue"
+        city: "Ville"
+        postal_code: "code postal"
+        state: "province"
+        country: "pays"
+        telephone_number1: "numero de téléphone 1"
+        telephone_number2: "numero de téléphone 2"
+        password: "mot de passe"
+        remember_me: "se souvenir de moi"
+        password_confirmation: "confirmation du mot de passe"
+        current_password: "mot de passe actuel"
+        approved: "approuvé"
+      customer:
+        identifier: "identifiant"
+        entreprise_name: "Nom de l'Entreprise"
+        email: "courrier électronique"
+        tin: "cif"
+        street_and_number: "numero et rue"
+        city: "Ville"
+        postal_code: "code postal"
+        state: "province"
+        country: "pays"
+        telephone_number1: "numero de téléphone 1"
+        telephone_number2: "numero de téléphone 2"
+        password: "mot de passe"
+        remember_me: "se souvenir de moi"
+        password_confirmation: "confirmation du mot de passe"
+        current_password: "mot de passe actuel"
+        approved: "approuvé"
+      product:
+        name: "nom"
+        reference: "référence"
+        variety: "variété"
+        origin: "origine"
+        aspect: "aspect"
+        approved: "approuvé"
+      variety:
+        name: "variété"
+        product: "produit"
+        approved: "approuvé"
+      aspect:
+        name: "aspect"
+        product: "produit"
+        approved: "approuvé"
+      size:
+        name: "calibre"
+        product: "produit"
+        approved: "approuvé"
+      packaging:
+        name: "conditionement"
+        product: "produit"
+        approved: "approuvé"
+      origin:
+        name: "pays"
+        product: "produit"
+        approved: "approuvé"
+      offer:
+        product: "Produit"
+        supplier: "Fournisseur"
+        quantity: "Quantité"
+        unit_price_supplier: "Prix à l'unité"
+        unit_price_broker: "Prix à l'unité"
+        currency: "Monaie"
+        unit_type: "Type d'Unité"
+        localisation_supplier: "Localisation de la Marchandise Fournisseur"
+        localisation_broker: "Localisation de la Marchandise"
+        incoterm: "INCOTERM"
+        observation: "Observation du Fournisseur"
+        variety: "Variété"
+        packaging: "Conditionnement"
+        aspect: "Aspect"
+        size: "Calibre"
+        approved: "approuvé"
+        date_start: "Date de l'offre"
+        date_end: "Date de validité"
+      order:
+        customer: "Client"
+        customer_observation: "Observation du Client"
+        offer: "Offre"
+        quantity: "Quantité"
+        approved: "approuvé"
+      order_line:
+        order: "Commande"
+        product: "Produit"
+        quantity: "Quantité"
+        unit: "Unité"
+        unit_price: "Prix à l'unité"
+      tender:
+        customer: "Client"
+        date_start: "Date Initiale"
+        date_end: "Date Finale"
+        approved: "approuvé"
+      tender_line:
+        tender: "Appel d'Offre"
+        product: "Produit"
+        quantity: "Quantité"
+        unit: "Unité"
+        unit_price: "Prix à l'unité"
+    errors:
+      models:
+        broker:
+          attributes:
+            identifier:
+              blank: "ne peux pas être vide"
+            password:
+              blank: "ne peut pas être vide"
+              too_short: "trop court"
+        supplier:
+          attributes:
+            identifier:
+              blank: "ne peux pas être vide"
+            password:
+              blank: "ne peut pas être vide"
+              too_short: "trop court"
+        customer:
+          attributes:
+            identifier:
+              blank: "ne peux pas être vide"
+            password:
+              blank: "ne peut pas être vide"
+              too_short: "trop court"
+        offer:
+          attributes:
+            supplier:
+              blank: "ne peux pas être vide"
+              required: "requis"
+            product:
+              required: "ne peux pas être vide"
+              blank: "ne peux pas être vide"
+        order:
+          attributes:
+            customer:
+              blank: "ne peux pas être vide"
+            offer:
+              blank: "ne peux pas être vide"
+              required: "est requis"
+        tender:
+          attributes:
+            customer:
+              blank: "ne peux pas être vide"
+        product:
+          attributes:
+            name:
+              taken: "le nom de produit doit être unique avec l'espèce, l'origine, l'aspect, le size et le conditionnement"

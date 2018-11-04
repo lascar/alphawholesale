@@ -1,0 +1,331 @@
+<%= link_to t("brokers.edit"), edit_broker_path(@broker), class: "btn btn-info btn-sm give-me-some-space" %>
+<div class="card shadow-sm">
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table-bordered table-hover table-sm table-all table-broker">
+        <caption class="text-top">
+          <%= t('products.without_approved') %>
+        </caption>
+        <thead>
+          <tr>
+            <th><div class="cell-resumen">
+              <%= Product.human_attribute_name("identifier") %>
+            </div></th>
+            <th class="table-icons" colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @products_without_approved.each do |product| %>
+            <tr>
+              <td><div class="cell-resumen">
+                <%= product.name %>
+              </div></td>
+              <td>
+                <%= link_to icon('fas', 'eye'), product, title: t("show") %>
+              </td>
+              <td>
+                <%= link_to icon('fas', 'edit'), edit_product_path(product),
+                 title: t("edit") %>
+              </td>
+              <td>
+                <%= link_to icon('fas', 'trash'), product, title: t("destroy"),
+                 method: :delete, data: { confirm: t(:are_you_sure) } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= link_to t("products.new"), new_product_path %>
+      <br>
+      <%= link_to t("products.list"), products_path %>
+    </div>
+    <div class="col-md-6">
+      <table class="table-bordered table-hover table-sm table-all table-broker">
+        <caption class="text-top">
+          <%= t('packagings.without_approved') %>
+        </caption>
+        <thead>
+          <tr>
+            <th><div class="cell-resumen">
+              <%= Packaging.human_attribute_name("name") %>
+            </div></th>
+            <th><div class="cell-resumen">
+              <%= Packaging.human_attribute_name("product") %>
+            </div></th>
+            <th class="table-icons" colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @packagings_without_approved.each do |packaging| %>
+            <tr>
+              <td><div class="cell-resumen">
+                <%= packaging.name %>
+              </div></td>
+              <td><div class="cell-resumen">
+                <%= packaging.product.name %>
+              </div></td>
+              <td>
+                <%= link_to icon('fas', 'eye'), packaging, title: t("show") %>
+              </td>
+              <td>
+                <%= link_to icon('fas', 'edit'), edit_packaging_path(packaging),
+                 title: t("edit") %>
+              </td>
+              <td>
+                <%= link_to icon('fas', 'trash'), packaging, title: t("destroy"),
+                 method: :delete, data: { confirm: t(:are_you_sure) } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= link_to t("packagings.new"), new_packaging_path %>
+      <br>
+      <%= link_to t("packagings.list"), packagings_path %>
+    </div>
+  </div>
+</div><div class="card shadow-sm">
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table-bordered table-hover table-sm table-all table-broker">
+        <caption class="text-top">
+          <%= t('suppliers.without_approved') %>
+        </caption>
+        <thead>
+          <tr>
+            <th><div class="cell-resumen">
+              <%= Supplier.human_attribute_name("identifier") %>
+            </div></th>
+            <th><div class="cell-resumen">
+              <%= Supplier.human_attribute_name("email") %>
+            </div></th>
+            <th class="table-icons" colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @suppliers_without_approved.each do |supplier| %>
+            <tr>
+              <td><div class="cell-resumen">
+                <%= supplier.identifier %>
+              </div></td>
+              <td><div class="cell-resumen">
+                <%= supplier.email %>
+              </div></td>
+              <td><%= link_to icon('fas', 'eye'), supplier, title: t("show") %></td>
+              <td><%= link_to icon('fas', 'edit'), edit_supplier_path(supplier), title: t("edit") %></td>
+              <td><%= link_to icon('fas', 'trash'), supplier,
+                title: t("destroy"), method: :delete,
+                data: { confirm: t(:are_you_sure) } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= link_to t("suppliers.new"), new_supplier_path %>
+      <br>
+      <%= link_to t("suppliers.list"), suppliers_path %>
+    </div>
+    <div class="col-md-6">
+      <table class="table-bordered table-hover table-sm table-all table-broker">
+        <caption class="text-top">
+          <%= t('offers.without_approved') %>
+        </caption>
+        <thead>
+          <tr>
+            <th><div class="cell-resumen">
+              <%= Offer.human_attribute_name("product") %>
+            </div></th>
+            <th><div class="cell-resumen">
+              <%= Offer.human_attribute_name("quantity") %>
+            </div></th>
+            <th><div class="cell-resumen">
+              <%= Offer.human_attribute_name("unit_price_supplier") %>
+            </div></th>
+            <th class="table-icons" colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @offers_without_approved.each do |offer| %>
+            <tr>
+              <td><div class="cell-resumen">
+                <%= offer.product.name + " " + offer.variety.name%>
+                <%= offer.product.name %>
+              </div></td>
+              <td><div class="cell-resumen">
+                <%= offer.quantity.to_s + " " + offer.unit_type %>
+              </div></td>
+              <td><div class="cell-resumen">
+                <%= offer.unit_price_supplier.to_s + " " + offer.currency %>
+              </div></td>
+              <td>
+                <%= link_to icon('fas', 'eye'),
+                 offer_show_path(@supplier_id, offer), title: t("show") %>
+              </td>
+              <td>
+                <%= link_to icon('fas', 'edit'),
+                 offer_edit_path(@supplier_id, offer), title: t("edit") %>
+              </td>
+              <td>
+                <%= link_to icon('fas', 'trash'),
+                 offer_show_path(@supplier_id, offer), title: t("destroy"),
+                 method: :delete, data: { confirm: t(:are_you_sure) } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= link_to t("offers.new"), new_offer_path %>
+      <br>
+      <%= link_to t("offers.list"), offers_path %>
+    </div>
+  </div>
+</div>
+<br>
+<div class="card">
+  <div class="row">
+    <div class="col-md-4">
+      <table class="table-bordered table-hover table-sm table-all table-broker">
+        <caption class="text-top">
+          <%= t('customers.without_approved') %>
+        </caption>
+        <thead>
+          <tr>
+            <th><div class="cell-resumen">
+              <%= Customer.human_attribute_name("identifier") %>
+            </div></th>
+            <th><div class="cell-resumen">
+              <%= Customer.human_attribute_name("email") %>
+            </div></th>
+            <th class="table-icons" colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @customers_without_approved.each do |customer| %>
+            <tr>
+              <td><div class="cell-resumen">
+                <%= customer.identifier %>
+              </div></td>
+              <td><div class="cell-resumen">
+                <%= customer.email %>
+              </div></td>
+              <td>
+                <%= link_to icon('fas', 'eye'), customer, title: t("show") %>
+              </td>
+              <td>
+                <%= link_to icon('fas', 'edit'),
+                 edit_customer_path(customer), title: t("edit") %>
+              </td>
+              <td>
+                <%= link_to icon('fas', 'trash'), customer,
+                 title: t("destroy"), method: :delete,
+                 data: { confirm: t(:are_you_sure) } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= link_to t("customers.new"), new_customer_path %>
+      <br>
+      <%= link_to t("customers.list"), customers_path %>
+    </div>
+    <div class="col-md-4">
+      <table class="table-bordered table-hover table-sm table-all table-broker">
+        <caption class="text-top">
+          <%= t('orders.without_approved') %>
+        </caption>
+        <thead>
+          <tr>
+            <th><div class="cell-resumen">
+              <%= Order.human_attribute_name("date_start") %>
+            </div></th>
+            <th><div class="cell-resumen">
+              <%= Order.human_attribute_name("date_end") %>
+            </div></th>
+            <th class="table-icons" colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders_without_approved.each do |order| %>
+            <tr>
+              <td><div class="cell-resumen">
+                <%= order.date_start %>
+              </div></td>
+              <td><div class="cell-resumen">
+                <%= order.date_end %>
+              </div></td>
+              <td>
+                <%= link_to icon('fas', 'eye'), order, title: t("show") %>
+              </td>
+              <td>
+                <%= link_to icon('fas', 'edit'), edit_order_path(order),
+                 title: t("edit") %>
+              </td>
+              <td>
+                <%= link_to icon('fas', 'trash'), order, title: t("destroy"),
+                 method: :delete, data: { confirm: t(:are_you_sure) } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= link_to t("orders.new"), new_order_path %>
+      <br>
+      <%= link_to t("orders.list"), orders_path %>
+    </div>
+    <div class="col-md-4">
+      <table class="table-bordered table-hover table-sm table-all table-broker">
+        <caption class="text-top">
+          <%= t('tenders.without_approved') %>
+        </caption>
+        <thead>
+          <tr>
+            <th><div class="cell-resumen">
+              <%= Tender.human_attribute_name("date_start") %>
+            </div></th>
+            <th><div class="cell-resumen">
+              <%= Tender.human_attribute_name("date_end") %>
+            </div></th>
+            <th><div class="cell-resumen">
+              <%= Tender.human_attribute_name("total") %>
+            </div></th>
+            <th class="table-icons" colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tenders_without_approved.each do |tender| %>
+            <tr>
+              <td><div class="cell-resumen">
+                <%= tender.date_start %>
+              </div></td>
+              <td><div class="cell-resumen">
+                <%= tender.date_end %>
+              </div></td>
+              <td><div class="cell-resumen">
+                <%= tender.total %>
+              </div></td>
+              <td>
+                <%= link_to icon('fas', 'eye'), tender, title: t("show") %>
+              </td>
+              <td>
+                <%= link_to icon('fas', 'edit'), edit_tender_path(tender),
+                 title: t("edit") %>
+              </td>
+              <td>
+                <%= link_to icon('fas', 'trash'), tender,
+                 title: t("destroy"), method: :delete,
+                 data: { confirm: t(:are_you_sure) } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= link_to t("tenders.new"), new_tender_path %>
+      <br>
+      <%= link_to t("tenders.list"), tenders_path %>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="card card-without-border">
+  <%= link_to t("brokers.list"), brokers_path %>
+</div>

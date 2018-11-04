@@ -1,0 +1,39 @@
+<%= form_for(size, local: true) do |form| %>
+  <% if size.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(size.errors.count, "error") %> <%= t("sizes.prohibited_size_saved") %></h2>
+
+      <ul>
+      <% size.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= label_tag :size %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :product %>
+    <%= form.select :product_id, @products %>
+  </div>
+
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= label_tag :supplier %>
+      <%= form.select :supplier_id, @suppliers %>
+    </div>
+
+    <div class="field">
+      <%= form.label :approved %>
+      <%= form.check_box :approved %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

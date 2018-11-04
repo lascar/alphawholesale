@@ -1,0 +1,11 @@
+en:
+  unit_types:
+      kilogram:
+        unit_type: "kilogram"
+        symbol: "kg"
+      tonne:
+        unit_type: "tonne"
+        symbol: "t"
+      pound:
+        unit_type: "pound"
+        symbol: "lb"

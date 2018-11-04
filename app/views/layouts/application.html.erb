@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<%# debugger %>
+<html>
+  <head>
+    <title>Alphawholesales</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <%= stylesheet_link_tag    'application',
+     media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application',
+     'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-expand-sm bg-light">
+      <div class="container-fluid">
+        <div class="logo_wrapper">
+          <a href="#">
+            <%= image_tag('logo/logoNB.svg',
+             alt: "logo", class: "img_responsive") %>
+          </a>
+        </div>
+        <%# byebug %>
+        <%= render "layouts/login_logout_menu" %>
+      </div>
+
+    </nav>
+    <div id="container">
+      <p id="notice" class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+
+      <%= yield %>
+		</div>
+    <footer class="page-footer font-small blue pt-4">
+      <%= render "layouts/choose_lang" %>
+    </footer>
+  </body>
+</html>

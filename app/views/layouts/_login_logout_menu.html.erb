@@ -1,0 +1,18 @@
+<%# byebug %>
+<% user_type = determine_user_type %>
+<ul class="nav nav-pills pull-right">
+  <%= user_logged(user_type) %>
+  <% case determine_user_type %>
+  <% when "broker" %>
+    <li><%= link_to t("devise.action.signout"), destroy_broker_session_path, method: :delete, class: "btn btn-danger btn-sm" %></li>
+  <% when "supplier" %>
+    <li><%= link_to t("devise.action.signout"), destroy_supplier_session_path, method: :delete, class: "btn btn-danger btn-sm" %></li>
+  <% when "customer" %>
+    <li><%= link_to t("devise.action.signout"), destroy_customer_session_path, method: :delete, class: "btn btn-danger btn-sm" %></li>
+  <% else %>
+    <li><%= link_to t("devise.action.supplier.signin"), new_supplier_session_path, class: "btn btn-gris btn-sm" %></li>
+    <li><%= link_to t("devise.action.customer.signin"), new_customer_session_path, class: "btn btn-gris btn-sm" %></li>
+    <li><%= link_to t("devise.action.supplier.signup"), new_supplier_registration_path, class: "btn btn-info btn-sm" %></li>
+    <li><%= link_to t("devise.action.customer.signup"), new_customer_registration_path, class: "btn btn-info btn-sm" %></li>
+  <% end %>
+</ul>

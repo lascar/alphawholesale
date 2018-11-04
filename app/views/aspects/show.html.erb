@@ -1,0 +1,22 @@
+<p>
+  <strong><%= Aspect.human_attribute_name("name") %></strong>
+  <%= @aspect.name %>
+</p>
+
+<p>
+  <strong><%= Aspect.human_attribute_name("product") %></strong>
+  <%= @aspect.product.name %>
+</p>
+
+<p>
+  <strong><%= Aspect.human_attribute_name("supplier") %></strong>
+  <%= @aspect.supplier ? @aspect.supplier.identifier : "" %>
+</p>
+
+<p>
+  <strong><%= Aspect.human_attribute_name("approved") %></strong>
+  <%= check_box_tag :approved, '', @aspect.approved, disabled: true %>
+</p>
+
+<%= link_to t("edit"), edit_aspect_path(@aspect) %> |
+<%= link_to t("aspects.list"), aspects_path %>

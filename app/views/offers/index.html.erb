@@ -1,0 +1,65 @@
+<h1><%= Offer.model_name.human(count: 2) %></h1>
+
+<div class="card">
+  <table class="table-all table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th><%= Offer.human_attribute_name("product") %></th>
+        <th><%= Offer.human_attribute_name("quantity") %></th>
+        <% if !customer_signed_in? %>
+          <th><%= Offer.human_attribute_name("unit_price_supplier") %></th>
+        <% end %>
+        <% if !supplier_signed_in? %>
+          <th><%= Offer.human_attribute_name("unit_price_broker") %></th>
+        <% end %>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @offers.each do |offer| %>
+        <tr>
+          <%# byebug %>
+          <td><%= offer.product.name + " " +
+           (offer.variety ? offer.variety.name : "") %></td>
+          <td><%= offer.quantity.to_s + " " +
+           t("unit_types." + offer.unit_type + ".symbol") %></td>
+          <% if !customer_signed_in? %>
+            <td>
+              <%= offer.unit_price_supplier.to_s + " " +
+                   t("currencies." + offer.currency + ".symbol") %>
+            </td>
+          <% end %>
+          <% if !supplier_signed_in? %>
+            <td>
+              <%= offer.unit_price_broker.to_s + " " +
+                   t("currencies." + offer.currency + ".symbol") %>
+            </td>
+          <% end %>
+          <td>
+            <%= link_to icon('fas', 'eye'), offer_show_path(@supplier_id, offer),
+                                            title: t("show") %>
+          </td>
+          <td>
+            <%= link_to icon('fas', 'edit'), offer_edit_path(@supplier_id, offer),
+                                            title: t("edit") %>
+          </td>
+          <td>
+            <%= link_to icon('fas', 'trash'), offer_show_path(@supplier_id, offer),
+              method: :delete, data: { confirm: t(:are_you_sure) },
+              title: t("destroy") %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<br>
+
+<% if !customer_signed_in? %>
+  <%= link_to t("offers.new"), offer_new_path(@supplier_id) %>
+<% end %>
+<% if @supplier_id %>
+  <br>
+  <%= link_to t("supplier.page"), supplier_path(@supplier_id) %>
+<% end %>

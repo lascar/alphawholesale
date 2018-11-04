@@ -1,0 +1,213 @@
+es:
+  activerecord:
+    models:
+      broker: "Corredor"
+      broker:
+        zero: "No Corredor"
+        one: "Corredor"
+        other: "Corredores"
+      supplier: "Proveedor"
+      supplier:
+        zero: "No Proveedor"
+        one: "Proveedor"
+        other: "Proveedores"
+      customer: "Cliente"
+      customer:
+        zero: "No Cliente"
+        one: "Cliente"
+        other: "Clientes"
+      product:
+        zero: "No Producto"
+        one: "Producto"
+        other: "Productos"
+      packaging:
+        zero: "No Almacenamiento"
+        one: "Almacenamiento"
+        other: "Almacenamientos"
+      origin:
+        zero: "No Origen"
+        one: "Origen"
+        other: "Origenes"
+      aspect:
+        zero: "No Aspecto"
+        one: "Aspecto"
+        other: "'Aspectos y Calibres'"
+      size:
+        zero: "No Calibre"
+        one: "Calibre"
+        other: "'Aspectos y Calibres'"
+      offer:
+        zero: "No Oferta"
+        one: "Oferta"
+        other: "Ofertas"
+      order: "Pedido"
+      order:
+        zero: "No Pedido"
+        one: "Pedido"
+        other: "Pedidos"
+      order_line: "Linea de Pedido"
+      order_line:
+        zero: "No Linea de Pedido"
+        one: "Linea de Pedido"
+        other: "Lineas de Pedido"
+      tender: "Licitación"
+      tender:
+        zero: "No Licitación"
+        one: "Licitación"
+        other: "Licitaciones"
+      tender_line: "Linea de Licitación"
+      tender_line:
+        zero: "No Linea de Licitación"
+        one: "Linea de Licitación"
+        other: "Lineas de Licitación"
+    attributes:
+      broker:
+        identifier: "identificador"
+        email: "correo electrónico"
+        password: "contraseña"
+        remember_me: "acordarse de mí"
+        password_confirmation: "confirmación de la contraseña"
+        current_password: "contraseña actual"
+      supplier:
+        identifier: "identificador"
+        entreprise_name: "Nombre de la Empresa"
+        email: "correo electrónico"
+        tin: "cif"
+        street_and_number: "calle y número"
+        city: "Ciudad"
+        postal_code: "código postal"
+        state: "provincia"
+        country: "pais"
+        telephone_number1: "número de teléfono 1"
+        telephone_number2: "número de teléfono 2"
+        password: "contraseña"
+        remember_me: "acordarse de mí"
+        password_confirmation: "confirmación de la contraseña"
+        current_password: "contraseña actual"
+        approved: "validación"
+      customer:
+        identifier: "identificador"
+        entreprise_name: "Nombre de la Empresa"
+        email: "correo electrónico"
+        tin: "cif"
+        street_and_number: "calle y número"
+        city: "Ciudad"
+        postal_code: "código postal"
+        state: "provincia"
+        country: "pais"
+        telephone_number1: "número de teléfono 1"
+        telephone_number2: "número de teléfono 2"
+        password: "contraseña"
+        remember_me: "acordarse de mí"
+        password_confirmation: "confirmación de la contraseña"
+        current_password: "contraseña actual"
+        approved: "validación"
+      product:
+        name: "nombre"
+        reference: "referencia"
+        variety: "variedad"
+        origin: "origen"
+        aspect: "aspecto"
+        approved: "validación"
+      variety:
+        name: "variedad"
+        product: "producto"
+        approved: "validación"
+      aspect:
+        name: "aspecto"
+        product: "producto"
+        approved: "validación"
+      size:
+        name: "calibre"
+        product: "producto"
+        approved: "validación"
+      packaging:
+        name: "acondicionamiento"
+        product: "producto"
+        approved: "validación"
+      offer:
+        product: "Producto"
+        supplier: "Proveedor"
+        quantity: "Cantidad"
+        unit_price_supplier: "Precio por Unitad"
+        unit_price_broker: "Precio por Unitad"
+        currency: "Moneda"
+        unit_type: "Tipo de Unidad"
+        localisation_supplier: "Localisación de la Mecandería Proveedor"
+        localisation_broker: "Localisación de la Mecandería"
+        incoterm: "INCOTERM"
+        observation: "Observation Proveedor"
+        variety: "Variedad"
+        packaging: "Acondicionamiento"
+        aspect: "Aspecto"
+        size: "Calibre"
+        approved: "validación"
+        date_start: "Fecha de Inicio"
+        date_end: "Fecha Final"
+      order:
+        customer: "Cliente"
+        date_start: "Fecha de Inicio"
+        date_end: "Fecha de Finalización"
+        approved: "validación"
+      order_line:
+        order: "Pedido"
+        product: "Producto"
+        quantity: "Cantidad"
+        unit: "Unitad"
+        unit_price: "Precio por Unitad"
+      tender:
+        customer: "Cliente"
+        date_start: "Fecha de Inicio"
+        date_end: "Fecha de Finalización"
+        approved: "validación"
+      tender_line:
+        tender: "Pedido"
+        product: "Producto"
+        quantity: "Cantidad"
+        unit: "Unitad"
+        unit_price: "Precio por Unitad"
+    errors:
+      models:
+        broker:
+          attributes:
+            identifier:
+              blank: "no puede estar vacio"
+            password:
+              blank: "no puede estar vacio"
+              too_short: "demasiado corto"
+        supplier:
+          attributes:
+            identifier:
+              blank: "no puede estar vacio"
+            password:
+              blank: "no puede estar vacio"
+              too_short: "demasiado corto"
+        customer:
+          attributes:
+            identifier:
+              blank: "no puede estar vacio"
+            password:
+              blank: "no puede estar vacio"
+              too_short: "demasiado corto"
+        offer:
+          attributes:
+            supplier:
+              blank: "no puede estar vacio"
+              required: "obligatorio"
+            product:
+              blank: "no puede estar vacio"
+        order:
+          attributes:
+            customer:
+              blank: "no puede estar vacio"
+            offer:
+              blank: "no puede estar vacio"
+              required: "esta requerido"
+        tender:
+          attributes:
+            customer:
+              blank: "no puede estar vacio"
+        product:
+          attributes:
+            name:
+              taken: "el nombre de producto tiene que ser unico con la especie, la origen, el aspecto, el size y el acondicionamiento"

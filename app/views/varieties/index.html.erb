@@ -1,0 +1,37 @@
+<h1><%= Variety.model_name.human(count: @varieties.count) %></h1>
+
+<table class="table-all table-bordered">
+  <thead>
+    <tr>
+      <th><%= Variety.human_attribute_name("variety") %></th>
+      <th><%= Variety.human_attribute_name("product") %></th>
+      <th class="table-icons" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @varieties.each do |variety| %>
+      <tr>
+       <td><%= variety.name %></td>
+        <td><%= variety.product.name %></td>
+        <td>
+          <%= link_to icon('fas', 'eye'), variety, title: t("show") %>
+        </td>
+        <td>
+          <%= link_to icon('fas', 'edit'), edit_variety_path(variety),
+           title: t("edit") %>
+        </td>
+        <td>
+          <%= link_to icon('fas', 'trash'), variety, title: t("destroy"),
+           method: :delete, data: { confirm: t(:are_you_sure) } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% if broker_signed_in? %>
+  <%= link_to t("varieties.new"), new_variety_path %>
+<% end %>

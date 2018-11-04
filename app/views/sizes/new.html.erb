@@ -1,0 +1,8 @@
+<h1><%= t("sizes.new") %></h1>
+
+<%= render 'form', size: @size %>
+
+<%= link_to t("back"), :back %>
+<% if broker_signed_in? %>
+  <%= link_to t("sizes.list"), sizes_path %>
+<% end %>

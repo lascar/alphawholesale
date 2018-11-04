@@ -1,0 +1,31 @@
+<h1><%= Order.model_name.human(count: 2) %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= Order.human_attribute_name("date_start") %></th>
+      <th><%= Order.human_attribute_name("date_end") %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.date_start %></td>
+        <td><%= order.date_end %></td>
+        <td><%= link_to t("show"), order_show_path(@customer_id, order) %></td>
+        <td><%= link_to t("edit"), order_edit_path(@customer_id, order) %></td>
+        <td><%= link_to t("destroy"), order_show_path(@customer_id, order), method: :delete, data: { confirm: t(:are_you_sure) } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to t("orders.new"), order_new_path(@customer_id) %>
+<% if @customer_id %>
+  <br>
+  <%= link_to t("customer.page"), customer_path(@customer_id) %>
+<% end %>

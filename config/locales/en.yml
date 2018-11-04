@@ -1,0 +1,49 @@
+en:
+  choose_lang_html: "<span class='flag-icon flag-icon-gb'></span> choose the language"
+  english_html: "<br>English"
+  french_html: "<br>French"
+  spanish_html: "<br>Spanish"
+  available_locales: "Available locales"
+  edit: "Edit"
+  update: "Update"
+  back: "Back"
+  show: "Show"
+  destroy: "destroy"
+  are_you_sure: "are you sure?"
+  about_us: "About us"
+  about_us_html: "Alphawholesale is a brokerage website.<br>It is a free software.<br>The goal is to network worldwide suppliers and purchasers in order to facilitate their business transactions.<br>Suppliers upload an offer of their products and customers can browse and order online.<br>Or Customer can put a tender and Supplier respond to it"
+  about_us_contact_html: ""
+  about_us_emails_html: "Informations : pascal.carrie@gmail.com"
+  broker:
+    broker: "Broker"
+    new: "New Broker"
+    editing: "Editing Broker"
+  supplier:
+    supplier: "Supplier"
+    new: "New Supplier"
+    editing: "Editing Supplier"
+    page: "Supplier Home"
+    attach_products: "Attach products"
+  customer:
+    customer: "Customer"
+    new: "New Customer"
+    editing: "Editing Customer"
+    page: "Customer Home"
+  offer:
+    offer: "Offer"
+    new: "New Offer"
+    editing: "Editing Offer"
+  order:
+    order: "Order"
+    new: "New Order"
+    editing: "Editing Order"
+  tender:
+    tender: "Tender"
+    new: "New Tender"
+    editing: "Editing Tender"
+  tender_line:
+    tender_line: "Tender Line"
+    new: "New Tender Line"
+    editing: "Editing Tender Line"
+  errors:
+    format: "format"

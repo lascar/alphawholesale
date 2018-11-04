@@ -1,0 +1,11 @@
+<h1><%= t("supplier.editing") %></h1>
+
+<%# byebug %>
+<% if current_broker %>
+  <%= render 'form_for_broker', supplier: @supplier %>
+<% else %>
+  <%= render 'form', supplier: @supplier %>
+<% end %>
+
+<%= link_to t("show"), @supplier %> |
+<%= link_to t("back"), :back %>

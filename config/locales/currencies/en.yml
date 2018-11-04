@@ -1,0 +1,8 @@
+en:
+  currencies:
+    dollar_us:
+      currency: "dollar us"
+      symbol: "$"
+    euro:
+      currency: "euro"
+      symbol: "€"

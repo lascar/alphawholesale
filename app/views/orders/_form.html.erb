@@ -1,0 +1,137 @@
+<%# byebug %>
+<%= form_for(@order) do |form| %>
+<% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= form.label :customer %>
+      <%= form.select :customer_id, @customers%>
+    </div>
+  <% end %>
+
+
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= form.label :approved %>
+      <%= form.check_box :approved %>
+    </div>
+  <% end %>
+
+  <div class="card">
+    <div class="row">
+      <div class="col-3">
+        <strong><%= Offer.human_attribute_name("product") %>:</strong>
+        <%= t("product.name." + @offer.product.name) %>
+      </div>
+
+      <div class="col-3">
+        <strong><%= Product.human_attribute_name("variety") %>:</strong>
+        <%= @offer.variety ? t("product.variety." + @offer.product.name + 
+                               "." + @offer.variety.name) : "" %>
+      </div>
+
+      <div class="col-3">
+        <strong><%= Offer.human_attribute_name("aspect") %>:</strong>
+        <%= @offer.aspect ? t("product.aspect." + @offer.product.name +
+                              "." + @offer.aspect.name) : "" %>
+      </div>
+
+      <div class="col-3">
+        <strong><%= Offer.human_attribute_name("packaging") %>:</strong>
+        <%= @offer.packaging ? t("product.packaging." + @offer.product.name +
+                                 "." + @offer.packaging.name) : "" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div class="col-3">
+        <div class="field">
+          <%= form.label :quantity %>
+          <%= form.number_field :quantity, min: 1, max: @offer.quantity %>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <strong><%= Offer.human_attribute_name("unit_type") %>:</strong>
+        <%= @offer.unit_type %>
+      </div>
+
+      <% if broker_signed_in? %>
+        <div class="col-3">
+          <strong><%= Offer.human_attribute_name("unit_price_supplier") %>:</strong>
+          <%= @offer.unit_price_supplier.to_s + " " + t("currencies." + @offer.currency + ".symbol") %>
+        </div>
+      <% end %>
+
+      <% if !supplier_signed_in? %>
+        <div class="col-3">
+          <strong><%= Offer.human_attribute_name("unit_price_broker") %>:</strong>
+          <%= @offer.unit_price_broker.to_s + " " + t("currencies." + @offer.currency + ".symbol") %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div class="col-3">
+        <div class="field">
+          <strong><%= Offer.human_attribute_name("incoterm") %>:</strong>
+          <%= @offer.incoterm %>
+        </div>
+      </div>
+
+      <% if !customer_signed_in? %>
+        <div class="col-3">
+          <div class="field">
+            <strong><%= Offer.human_attribute_name("localisation_supplier") %>:</strong>
+            <%= @offer.localisation_supplier %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if !supplier_signed_in? %>
+        <div class="col-3">
+          <div class="field">
+            <strong><%= Offer.human_attribute_name("localisation_broker") %>:</strong>
+            <%= @offer.localisation_broker %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div class="col-9">
+        <strong><%= Offer.human_attribute_name("observation") %>:</strong>
+        <%= simple_format(@offer.observation) %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-9">
+        <div class="field">
+          <%= form.label :customer_observation %>
+          <div style="clear: both;"></div>
+          <%= form.text_area :customer_observation, :rows => 10, style: 'width:100%;' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.hidden_field :offer_id, value: @offer.id %>
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

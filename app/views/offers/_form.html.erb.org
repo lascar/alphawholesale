@@ -1,0 +1,50 @@
+<%# byebug %>
+<%= form_with(offer_form_hash(@supplier_id, @offer)) do |form| %>
+  <% if offer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
+
+      <ul>
+      <% offer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= form.label :supplier %>
+      <%= form.select :supplier_id, @suppliers%>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= form.label :product %>
+    <%= form.select :product_id, @products%>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unit %>
+    <%= form.number_field :unit %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unit_price %>
+    <%= form.number_field :unit_price %>
+  </div>
+
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= form.label :approved %>
+      <%= form.check_box :approved %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

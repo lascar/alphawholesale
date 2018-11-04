@@ -1,0 +1,34 @@
+en:
+  helpers:
+    submit:
+      broker:
+        create: "New Broker"
+        update: "Update Broker"
+      supplier:
+        create: "New Supplier"
+        update: "Update Supplier"
+      customer:
+        create: "New Customer"
+        update: "Update Customer"
+      offer:
+        create: "New Offer"
+        update: "Update Offer"
+      order:
+        create: "New Order"
+        update: "Update Order"
+      tender:
+        create: "New Tender"
+        update: "Update Tender"
+      tender_line:
+        create: "New Tender Line"
+        update: "Update Tender Line"
+      product:
+        create: "New Product"
+        update: "Update Product"
+    label:
+      broker:
+        remember_me: "remember me"
+      supplier:
+        remember_me: "remember me"
+      customer:
+        remember_me: "remember me"

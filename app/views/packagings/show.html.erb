@@ -1,0 +1,22 @@
+<p>
+  <strong><%= Packaging.human_attribute_name("name") %></strong>
+  <%= @packaging.name %>
+</p>
+
+<p>
+  <strong><%= Packaging.human_attribute_name("product") %></strong>
+  <%= @packaging.product.name %>
+</p>
+
+<p>
+  <strong><%= Packaging.human_attribute_name("supplier") %></strong>
+  <%= @packaging.supplier ? @packaging.supplier.identifier : "" %>
+</p>
+
+<p>
+  <strong><%= Packaging.human_attribute_name("approved") %></strong>
+  <%= check_box_tag :approved, '', @packaging.approved, disabled: true %>
+</p>
+
+<%= link_to t("edit"), edit_packaging_path(@packaging) %> |
+<%= link_to t("packagings.list"), packagings_path %>

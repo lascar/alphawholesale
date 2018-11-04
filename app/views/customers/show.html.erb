@@ -1,0 +1,148 @@
+<% if broker_signed_in? %>
+  <p>
+    <strong><%= Customer.human_attribute_name("identifier") %></strong>
+    <%= @customer.identifier %>
+  </p>
+  <p>
+    <strong><%= Customer.human_attribute_name("email") %></strong>
+    <%= @customer.email %>
+  </p>
+  <p>
+    <strong><%= Customer.human_attribute_name("approved") %></strong>
+    <%= check_box_tag :approved, '', @customer.approved, disabled: true %>
+  </p>
+<% end %>
+<%= link_to t("customers.edit"), edit_customer_path(@customer), class: "btn btn-info btn-sm give-me-some-space" %>
+<div class="row small-font">
+  <div class="col-md-9">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <b><%= Offer.model_name.human(count: @offers.count) %> : <%= @offers.count %></b>
+      </div>
+      <% if @offers.count > 0 %>
+      <table class="table table-responsive table-hover table-all">
+        <thead>
+          <tr>
+            <th scope="col" class="text-truncate"
+              title="<%= Offer.human_attribute_name("product") %>">
+              <%= Offer.human_attribute_name("product") %>
+            </th>
+            <th scope="col" class="text-truncate"
+              title="<%= Offer.human_attribute_name("quantity") %>">
+              <%= Offer.human_attribute_name("quantity") %>
+            </th>
+            <th scope="col" class="text-truncate"
+              title="<%= Offer.human_attribute_name("unit_price") %>">
+              <%= Offer.human_attribute_name("unit_price") %>
+            </th>
+            <th scope="col" colspan="1"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @offers.each do |offer| %>
+            <tr>
+              <td class="text-truncate" title="<%= offer.product.name %>">
+                <%= offer.product.name %>
+              </td>
+              <td class="text-truncate" title="<%= offer.quantity %>">
+                <%= offer.quantity.to_s + " " + offer.unit_type %>
+              </td>
+              <td class="text-truncate" title="<%= offer.unit_price_broker %>">
+                  <%= offer.unit_price_broker.to_s  + " " + offer.currency %>
+              </td>
+              <%# byebug %>
+              <td><%= link_to icon('fas', 'eye'),
+                       customer_offer_path(@customer, offer),
+                       title: t("show") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <%= Product.model_name.human(count: @products.count) %> : <%= @products.count %>
+      </div>
+      <% if @products.count > 0 %>
+      <table class="table table-responsive table-hover table-all">
+        <thead>
+          <tr>
+            <th scope="col" class="text-truncate"
+             title="<%= Product.human_attribute_name("name") %>">
+              <%= Product.human_attribute_name("name") %>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @products.each do |product| %>
+            <tr>
+              <td class="text-truncate" title="<%= product.name %>">
+                <%= product.name %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% end %>
+      <br>
+      <%= link_to t("customers.attach_products"), attach_products_customer_path(@customer.id), class:  "btn btn-primary btn-sm" %>
+    </div>
+  </div>
+</div>
+<div class="row small-font">
+  <div class="col-md-9">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <b><%= Order.model_name.human(count: @orders.count) %> : <%= @orders.count %></b>
+      </div>
+      <% if @orders.count > 0 %>
+      <table class="table table-responsive table-hover table-all">
+        <thead>
+          <tr>
+            <th scope="col" class="text-truncate"
+              title="<%= Offer.human_attribute_name("product") %>">
+              <%= Offer.human_attribute_name("product") %>
+            </th>
+            <th scope="col" class="text-truncate"
+              title="<%= Order.human_attribute_name("quantity") %>">
+              <%= Order.human_attribute_name("quantity") %>
+            </th>
+            <th scope="col" class="text-truncate"
+              title="<%= Offer.human_attribute_name("unit_price_broker") %>">
+              <%= Offer.human_attribute_name("unit_price_broker") %>
+            </th>
+            <th scope="col" colspan="1"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @orders.each do |order| %>
+            <tr>
+              <td class="text-truncate" title="<%= order.offer.product.name %>">
+                <%= order.offer.product.name %>
+              </td>
+              <td class="text-truncate" title="<%= order.quantity %>">
+                <%= order.quantity.to_s + " " + order.offer.unit_type %>
+              </td>
+              <td class="text-truncate" title="<%= order.offer.unit_price_broker %>">
+                  <%= order.offer.unit_price_broker.to_s  + " " + order.offer.currency %>
+              </td>
+              <td><%= link_to icon('fas', 'eye'),
+                       customer_order_path(@customer, order),
+                       title: t("show") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% if broker_signed_in? %>
+  <%= link_to t("customers.list"), customers_path %>
+<% end %>

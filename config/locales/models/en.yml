@@ -1,0 +1,221 @@
+en:
+  activerecord:
+    models:
+      broker: "Broker"
+      broker:
+        zero: "No Broker"
+        one: "Broker"
+        other: "Brokers"
+      supplier: "Supplier"
+      supplier:
+        zero: "No Supplier"
+        one: "Supplier"
+        other: "Suppliers"
+      customer: "Customer"
+      customer:
+        zero: "No Customer"
+        one: "Customer"
+        other: "Customers"
+      product: "Product"
+      product:
+        zero: "No Product"
+        one: "Product"
+        other: "Products"
+      packaging: "Packaging"
+      packaging:
+        zero: "No Packaging"
+        one: "Packaging"
+        other: "Packaging"
+      aspect: "Aspect"
+      aspect_orgin:
+        zero: "No Aspect"
+        one: "Aspect"
+        other: "Aspect"
+      size: "Size"
+      aspect_orgin:
+        zero: "No Size"
+        one: "Size"
+        other: "Size"
+      origin: "Origin"
+      origin:
+        zero: "No Origin"
+        one: "Origin"
+        other: "Origins"
+      offer: "Offer"
+      offer:
+        zero: "No Offer"
+        one: "Offer"
+        other: "Offers"
+      order: "Order"
+      order:
+        zero: "No Order"
+        one: "Order"
+        other: "Orders"
+      order_line: "Order Line"
+      order_line:
+        zero: "No Order Line"
+        one: "Order Line"
+        other: "Order Lines"
+      tender: "Tender"
+      tender:
+        zero: "No Tender"
+        one: "Tender"
+        other: "Tenders"
+      tender_line: "Tender Line"
+      tender_line:
+        zero: "No Tender Line"
+        one: "Tender Line"
+        other: "Tender Lines"
+    attributes:
+      broker:
+        identifier: "identifier"
+        email: "email"
+        password: "password"
+        remember_me: "remember me"
+        password_confirmation: "password confirmation"
+        current_password: "current password"
+        locale: "locale"
+      supplier:
+        identifier: "identifier"
+        entreprise_name: "Entreprise Name"
+        email: "email"
+        tin: "tin"
+        street_and_number: "street and number"
+        city: "city"
+        postal_code: "postal code"
+        state: "state"
+        country: "country"
+        telephone_number1: "telephone number 1"
+        telephone_number2: "telephone number 2"
+        password: "password"
+        remember_me: "remember me"
+        password_confirmation: "password confirmation"
+        current_password: "current password"
+        approved: "approved"
+      customer:
+        identifier: "identifier"
+        entreprise_name: "Entreprise Name"
+        email: "email"
+        tin: "tin"
+        street_and_number: "street and number"
+        city: "city"
+        postal_code: "postal code"
+        state: "state"
+        country: "country"
+        telephone_number1: "telephone number 1"
+        telephone_number2: "telephone number 2"
+        password: "password"
+        remember_me: "remember me"
+        password_confirmation: "password confirmation"
+        current_password: "current password"
+        approved: "approved"
+      product:
+        name: "name"
+        reference: "reference"
+        variety: "variety"
+        origin: "origin"
+        aspect: "aspect"
+        approved: "approved"
+      variety:
+        name: "variety"
+        product: "product"
+        approved: "approved"
+      aspect:
+        name: "aspect"
+        product: "product"
+        approved: "approved"
+      size:
+        name: "size"
+        product: "product"
+        approved: "approved"
+      packaging:
+        name: "packaging"
+        product: "product"
+        approved: "approved"
+      offer:
+        product: "Product"
+        supplier: "Supplier"
+        quantity: "Quantity"
+        unit_price_supplier: "Unit price"
+        unit_price_broker: "Unit price"
+        currency: "Currency"
+        unit_type: "Unit Type"
+        localisation_supplier: "Stock Localisation Supplier"
+        localisation_broker: "Stock Localisation"
+        incoterm: "INCOTERM"
+        observation: "Supplier Observation"
+        variety: "Variety"
+        packaging: "Packaging"
+        aspect: "Aspect"
+        size: "Size"
+        approved: "approved"
+        date_start: "Date Start"
+        date_end: "Date End"
+      order:
+        customer: "Customer"
+        customer_observation: "Customer Observation"
+        offer: "Offer"
+        quantity: "Quantity"
+        approved: "approved"
+      order_line:
+        order: "Order"
+        product: "Product"
+        quantity: "Quantity"
+        unit: "Unit"
+        unit_price: "Unit price"
+      tender:
+        customer: "Customer"
+        date_start: "Date Start"
+        date_end: "Date End"
+        approved: "approved"
+      tender_line:
+        tender: "Tender"
+        product: "Product"
+        quantity: "Quantity"
+        unit: "Unit"
+        unit_price: "Unit price"
+    errors:
+      models:
+        broker:
+          attributes:
+            identifier:
+              blank: "can't be blank"
+            password:
+              blank: "can't be blank"
+              too_short: "too short"
+        supplier:
+          attributes:
+            identifier:
+              blank: "can't be blank"
+            password:
+              blank: "can't be blank"
+              too_short: "too short"
+        customer:
+          attributes:
+            identifier:
+              blank: "can't be blank"
+            password:
+              blank: "can't be blank"
+              too_short: "too short"
+        offer:
+          attributes:
+            supplier:
+              blank: "can't be blank"
+              required: "required"
+            product:
+              blank: "can't be blank"
+        order:
+          attributes:
+            customer:
+              blank: "can't be blank"
+            offer:
+              blank: "can't be blank"
+              required: "is required"
+        tender:
+          attributes:
+            customer:
+              blank: "can't be blank"
+        product:
+          attributes:
+            name:
+              taken: "product name must be uniq with variety, origin, aspect, size and packaging"

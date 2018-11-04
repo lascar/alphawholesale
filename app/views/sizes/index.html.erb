@@ -1,0 +1,37 @@
+<h1><%= Size.model_name.human(count: @sizes.count) %></h1>
+
+<table class="table-all table-bordered">
+  <thead>
+    <tr>
+      <th><%= Size.human_attribute_name("name") %></th>
+      <th><%= Size.human_attribute_name("product") %></th>
+      <th class="table-icons" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sizes.each do |size| %>
+      <tr>
+        <td><%= size.name %></td>
+        <td><%= size.product.name %></td>
+        <td>
+          <%= link_to icon('fas', 'eye'), size, title: t("show") %>
+        </td>
+        <td>
+          <%= link_to icon('fas', 'edit'), edit_size_path(size),
+           title: t("edit") %>
+        </td>
+        <td>
+          <%= link_to icon('fas', 'trash'), size, title: t("destroy"),
+           method: :delete, data: { confirm: t(:are_you_sure) } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% if broker_signed_in? %>
+  <%= link_to t("sizes.new"), new_size_path %>
+<% end %>

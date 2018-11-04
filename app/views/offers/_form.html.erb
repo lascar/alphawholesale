@@ -1,0 +1,146 @@
+<%# byebug %>
+<%= form_with(offer_form_hash(@supplier_id, @offer)) do |form| %>
+  <% if offer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
+
+      <ul>
+      <% offer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= form.label :supplier %>
+      <%= form.select :supplier_id, @suppliers%>
+    </div>
+  <% end %>
+
+  <div class="card">
+    <div class="row">
+      <div class="col-3">
+        <div class="field">
+          <%= form.label :product %>
+          <%= form.text_field :product, value: form.object.product.name, disabled: true%>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="field">
+          <%= form.label :variety %>
+          <%= form.select :variety_id, @varieties %>
+          </div>
+      </div>
+
+      <div class="col-3">
+        <div class="field">
+          <%= form.label :aspect %>
+          <%= form.select :aspect_id, @aspects %>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="field">
+          <%= form.label :packaging %>
+          <%= form.select :packaging_id, @packagings %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <div class="field">
+          <%= form.label :quantity %>
+          <%= form.number_field :quantity %>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="field">
+          <%= form.label :unit_type %>
+          <%= form.select :unit_type, @unit_types %>
+        </div>
+      </div>
+
+      <% if !customer_signed_in? %>
+        <div class="col-3">
+          <div class="field">
+            <%= form.label :unit_price_supplier %>
+            <%= monetary_field 'offer', 'unit_price_supplier', offer.unit_price_supplier %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if !supplier_signed_in? %>
+        <div class="col-3">
+          <div class="field">
+            <%= form.label :unit_price_broker %>
+            <%= monetary_field 'offer', 'unit_price_broker', offer.unit_price_broker %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="col-3">
+        <div class="field">
+          <%= form.label :currency %>
+          <%= form.select :currency, @currencies %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <div class="field">
+          <%= form.label :incoterms %>
+          <%= form.select :incoterm, @incoterms %>
+        </div>
+      </div>
+
+      <% if !customer_signed_in? %>
+        <div class="col-3">
+          <div class="field">
+            <%= form.label :localisation_supplier %>
+            <%= form.text_field :localisation_supplier %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if !supplier_signed_in? %>
+        <div class="col-3">
+          <div class="field">
+            <%= form.label :localisation_broker %>
+            <%= form.text_field :localisation_broker %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="row">
+      <div class="col-9">
+        <div class="field">
+          <%= form.label :observation %>
+          <div style="clear: both;"></div>
+          <%= form.text_area :observation, :rows => 10, style: 'width:100%;' %>
+        </div>
+      </div>
+    </div>
+
+    <% if broker_signed_in? %>
+      <div class="row">
+        <div class="col-3">
+          <div class="field">
+            <%= form.label :approved %>
+            <%= form.check_box :approved %>
+          </div>
+        </div>
+      <% end %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= form.submit class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

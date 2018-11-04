@@ -1,0 +1,96 @@
+<div class="card">
+  <div class="row">
+    <div class="col-3">
+      <strong><%= Offer.human_attribute_name("product") %>:</strong>
+      <%= @offer.product.name %>
+    </div>
+
+    <div class="col-3">
+      <strong><%= Product.human_attribute_name("variety") %>:</strong>
+      <%= @offer.variety ? @offer.variety.name : "" %>
+    </div>
+
+    <div class="col-3">
+      <strong><%= Offer.human_attribute_name("aspect") %>:</strong>
+      <%= @offer.aspect ? @offer.aspect.name : "" %>
+    </div>
+
+    <div class="col-3">
+      <strong><%= Offer.human_attribute_name("packaging") %>:</strong>
+      <%= @offer.packaging ? @offer.packaging.name : "" %>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="row">
+    <div class="col-3">
+      <strong><%= Offer.human_attribute_name("quantity") %>:</strong>
+      <%= @offer.quantity.to_s + " " + t("unit_types." + @offer.unit_type +
+          ".symbol") %>
+    </div>
+
+    <% if !customer_signed_in? %>
+      <div class="col-3">
+        <strong><%= Offer.human_attribute_name("unit_price_supplier") %>:</strong>
+        <%= @offer.unit_price_supplier.to_s + " " +
+          t("currencies." + @offer.currency + ".symbol") %>
+      </div>
+    <% end %>
+
+    <% if !supplier_signed_in? %>
+      <div class="col-3">
+        <strong><%= Offer.human_attribute_name("unit_price_broker") %>:</strong>
+        <%= @offer.unit_price_broker.to_s + " " +
+          t("currencies." + @offer.currency + ".symbol") %>
+      </div>
+    <% end %>
+
+
+  </div>
+</div>
+
+<div class="card">
+  <div class="row">
+    <div class="col-3">
+      <strong><%= Offer.human_attribute_name("incoterm") %>:</strong>
+      <%= @offer.incoterm %>
+    </div>
+
+    <% if !customer_signed_in? %>
+      <div class="col-3">
+        <strong><%= Offer.human_attribute_name("localisation_supplier") %>:</strong>
+        <%= @offer.localisation_supplier %>
+      </div>
+    <% end %>
+
+    <% if !supplier_signed_in? %>
+      <div class="col-3">
+        <strong><%= Offer.human_attribute_name("localisation_broker") %>:</strong>
+        <%= @offer.localisation_broker %>
+      </div>
+    <% end %>
+
+    <div class="col-3">
+      <strong><%= Offer.human_attribute_name("approved") %></strong>
+      <%= check_box_tag :approved, '', @offer.approved, disabled: true %>
+    </div>
+
+  </div>
+</div>
+
+<div class="card">
+  <div class="row">
+    <div class="col">
+      <strong><%= Offer.human_attribute_name("observation") %>:</strong>
+      <%= simple_format(@offer.observation) %>
+    </div>
+  </div>
+</div>
+<%# byebug %>
+<% if customer_signed_in? %>
+  <%= button_to t("orders.new"), new_customer_order_path(current_customer.id), params: {offer_id: @offer.id}, method: :get %> |
+<% else %>
+<%= link_to t("edit"), offer_edit_path(@supplier_id, @offer) %> |
+<% end %>
+<%= link_to t("back"), :back %>

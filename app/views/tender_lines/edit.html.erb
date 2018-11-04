@@ -1,0 +1,5 @@
+<h1><%= t("tender_lines.editing") %></h1>
+
+<%= render 'form', tender: @tender %>
+<%= link_to t("show"), tender_show_path(@customer_id, @tender) %> |
+<%= link_to t("back"), :back %>

@@ -1,0 +1,28 @@
+<p>
+  <strong><%= TenderLine.human_attribute_name("tender") %>:</strong>
+  <%= @tender_line.tender_id %>
+</p>
+
+<p>
+  <strong><%= TenderLine.human_attribute_name("product") %>:</strong>
+  <%= @tender_line.product.name %>
+</p>
+
+<p>
+  <strong><%= TenderLine.human_attribute_name("quantity") %>:</strong>
+  <%= @tender_line.quantity %>
+</p>
+
+<p>
+  <strong><%= TenderLine.human_attribute_name("unit") %>:</strong>
+  <%= @tender_line.unit %>
+</p>
+
+<p>
+  <strong><%= TenderLine.human_attribute_name("unit_price") %>:</strong>
+  <%= @tender_line.unit_price %>
+</p>
+
+<%# byebug %>
+<%= link_to t("edit"), tender_line_edit_path(@customer_id, @tender_line) %> |
+<%= link_to t("back"), :back %>
