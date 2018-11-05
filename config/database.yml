@@ -23,10 +23,10 @@ default: &default
 
 development:
   <<: *default
-  database: alphawholesale_development
-  username: alphawholesale
-  password: milu2000
-  host: localhost
+  database: <%= Rails.application.credentials.postgres[:database][:development] %>
+  username: <%= Rails.application.credentials.postgres[:username][:development] %>
+  password: <%= Rails.application.credentials.postgres[:password][:development] %>
+  host: <%= Rails.application.credentials.postgres[:host][:development] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -90,5 +90,3 @@ production:
   username: hosting-db
   host: localhost
   password:
-  encoding: unicode
-  pool: 5
