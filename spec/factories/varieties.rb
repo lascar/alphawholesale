@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :variety do
-    name { "MyString" }
+    name { generate :name }
     product { nil }
   end
 end

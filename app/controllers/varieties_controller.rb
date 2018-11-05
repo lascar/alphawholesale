@@ -36,6 +36,7 @@ class VarietiesController < ApplicationController
     if supplier_signed_in?
       @variety.supplier_id =  current_supplier.id
     end
+    I18n.locale = :fr
     if @variety.save
        message = I18n.t('controllers.varieties.successfully_created')
        if supplier_signed_in?
@@ -47,11 +48,8 @@ class VarietiesController < ApplicationController
          redirect_to @variety, notice: message
        end
     else
-      message = ''
-      @variety.errors.messages.each do |k,v|
-        message += I18n.t('activerecord.attributes.variety.' + k.to_s) +
-         ' : ' + v.inject(''){|s, m| s += m}
-      end
+      message = helper_activerecord_error_message('variety',
+                                                  @variety.errors.messages)
       redirect_to helper_new_variety_path, alert: message
     end
   end
@@ -62,6 +60,8 @@ class VarietiesController < ApplicationController
       redirect_to @variety, notice:
        I18n.t('controllers.varieties.successfully_updated')
     else
+      message = helper_activerecord_error_message('variety',
+                                                  @variety.errors.messages)
       render :edit
     end
   end

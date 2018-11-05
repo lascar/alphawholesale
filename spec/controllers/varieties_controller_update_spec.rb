@@ -4,7 +4,8 @@ RSpec.describe VarietiesController, type: :controller do
   let!(:product1) {create(:product)}
   let!(:product2) {create(:product)}
   let!(:variety1) {create(:variety, product_id: product1.id)}
-  let!(:variety2) {create(:variety, product_id: product2.id)}
+  let!(:variety1) {create(:variety, product_id: product1.id)}
+  let!(:variety3) {create(:variety, product_id: product1.id)}
   let(:variety_hash) {{name: "name",
                          product_id: product1.id}}
   let(:customer1) {create(:customer)}

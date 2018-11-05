@@ -227,3 +227,31 @@ es:
           attributes:
             name:
               taken: "el nombre de producto tiene que ser unico con la especie, la origen, el aspecto, el size y el acondicionamiento"
+        variety:
+          attributes:
+            name:
+              taken: "el nombre de la variedad tiene que ser unico dentro del producto"
+            product:
+              blank: "no puede estar vacio"
+              required: "esta requerido"
+        size:
+          attributes:
+            name:
+              taken: "el nombre del calibre tiene que ser unico dentro del producto"
+            product:
+              blank: "no puede estar vacio"
+              required: "esta requerido"
+        aspect:
+          attributes:
+            name:
+              taken: "el nombre del calibre tiene que ser unico dentro del producto"
+            product:
+              blank: "no puede estar vacio"
+              required: "esta requerido"
+        packaging:
+          attributes:
+            name:
+              taken: "el nombre del acondicionamiento tiene que ser unico dentro del producto"
+            product:
+              blank: "no puede estar vacio"
+              required: "esta requerido"

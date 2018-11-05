@@ -235,3 +235,31 @@ en:
           attributes:
             name:
               taken: "product name must be uniq with variety, origin, aspect, size and packaging"
+        variety:
+          attributes:
+            name:
+              taken: "variety name must be uniq within product"
+            product:
+              blank: "can't be blank"
+              required: "is required"
+        size:
+          attributes:
+            name:
+              taken: "size name must be uniq within product"
+            product:
+              blank: "can't be blank"
+              required: "is required"
+        aspect:
+          attributes:
+            name:
+              taken: "aspect name must be uniq within product"
+            product:
+              blank: "can't be blank"
+              required: "is required"
+        packaging:
+          attributes:
+            name:
+              taken: "packaging name must be uniq within product"
+            product:
+              blank: "can't be blank"
+              required: "is required"

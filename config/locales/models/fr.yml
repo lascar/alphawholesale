@@ -233,3 +233,31 @@ fr:
           attributes:
             name:
               taken: "le nom de produit doit être unique avec l'espèce, l'origine, l'aspect, le size et le conditionnement"
+        variety:
+          attributes:
+            name:
+              taken: "le nom de la variété doit être unique avec le produit"
+            product:
+              blank: "ne peux pas être vide"
+              required: "est requis"
+        size:
+          attributes:
+            name:
+              taken: "le nom du calibre doit être unique avec le produit"
+            product:
+              blank: "ne peux pas être vide"
+              required: "est requis"
+        aspect:
+          attributes:
+            name:
+              taken: "le nom de l'aspect doit être unique avec le produit"
+            product:
+              blank: "ne peux pas être vide"
+              required: "est requis"
+        packaging:
+          attributes:
+            name:
+              taken: "le nom du conditionnement doit être unique avec le produit"
+            product:
+              blank: "ne peux pas être vide"
+              required: "est requis"

@@ -65,4 +65,15 @@ HERE
     end
     string.html_safe
   end
+
+  def helper_activerecord_error_message(attribute, messages)
+    message = ''
+    messages.each do |k,v|
+      message += I18n.t('activerecord.attributes.' + attribute + '.' + k.to_s) +
+       ' : ' + v.inject('')do |s, m|
+        s += ' ' + m.to_s + ', '
+      end
+    end
+    message.sub(/, $/, '')
+  end
 end
