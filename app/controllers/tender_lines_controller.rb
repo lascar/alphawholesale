@@ -1,6 +1,6 @@
 class TenderLinesController < ApplicationController
   before_action :authenticate_user!
-  before_action :verify_permission
+  before_action {verify_permission_nested("tender")}
   before_action :set_tender_line, only: [:show, :edit, :update, :destroy]
 
   # GET /tender_lines

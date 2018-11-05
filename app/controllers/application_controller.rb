@@ -35,28 +35,46 @@ class ApplicationController < ActionController::Base
     current_user_type(user_type)
   end
 
+  def verify_permission_user
+    PERMISSIONS[controller_name.to_sym][action_name.to_sym].
+     call(self, current_user, params[:id])
+  end
 
   def verify_permission
-    if ['suppliers', 'customers', 'brokers'].include? controller_name
-      PERMISSIONS[controller_name.to_sym][action_name.to_sym].
-       call(self, current_user, params[:id])
-    else
-      object = controller_name.singularize.capitalize.
-       constantize.find_by_id params[:id]
-      id = case user_type
-           when 'supplier'
-             then
-             object && object.has_attribute?('supplier_id') ?
-              object.supplier_id : nil
-           when 'customer'
-             object && object.has_attribute?('customer_id') ?
-              object.customer_id : nil
-           end.to_s
-      controller = ['varieties', 'sizes', 'aspects', 'packagings'].
-       include?(controller_name) ? :variants_for_product : controller_name.to_sym
-      PERMISSIONS[controller][action_name.to_sym].
-       call(self, current_user, id)
-    end
+    object = controller_name.singularize.capitalize.
+     gsub(/_(.)/){|l| + l.upcase}.gsub(/_/, '').
+     constantize.find_by_id params[:id]
+    id = case user_type
+         when 'supplier'
+           then
+           object && object.has_attribute?('supplier_id') ?
+            object.supplier_id : nil
+         when 'customer'
+           object && object.has_attribute?('customer_id') ?
+            object.customer_id : nil
+         end.to_s
+    controller = ['varieties', 'sizes', 'aspects', 'packagings'].
+     include?(controller_name) ? :variants_for_product : controller_name.to_sym
+    PERMISSIONS[controller][action_name.to_sym].
+     call(self, current_user, id)
+  end
+
+  def verify_permission_nested(attribute)
+    object = controller_name.singularize.capitalize.
+     gsub(/_(.)/){|l| + l.upcase}.gsub(/_/, '').
+     constantize.find_by_id params[:id]
+    nested_object = object ? object.send(attribute) : nil
+    id = case user_type
+         when 'supplier'
+           then
+           nested_object && nested_object.has_attribute?('supplier_id') ?
+            nested_object.supplier_id : nil
+         when 'customer'
+           nested_object && nested_object.has_attribute?('customer_id') ?
+            nested_object.customer_id : nil
+         end.to_s
+    PERMISSIONS[controller_name.to_sym][action_name.to_sym].
+     call(self, current_user, id)
   end
 
   def extract_locale_from_domain
