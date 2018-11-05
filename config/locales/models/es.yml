@@ -182,6 +182,14 @@ es:
             password:
               blank: "no puede estar vacio"
               too_short: "demasiado corto"
+            email:
+              blank: "no puede estar vacio"
+            tin:
+              blank: "no puede estar vacio"
+            country:
+              blank: "no puede estar vacio"
+            entreprise_name:
+              blank: "no puede estar vacio"
         customer:
           attributes:
             identifier:
@@ -189,6 +197,14 @@ es:
             password:
               blank: "no puede estar vacio"
               too_short: "demasiado corto"
+            email:
+              blank: "no puede estar vacio"
+            tin:
+              blank: "no puede estar vacio"
+            country:
+              blank: "no puede estar vacio"
+            entreprise_name:
+              blank: "no puede estar vacio"
         offer:
           attributes:
             supplier:

@@ -187,12 +187,28 @@ en:
           attributes:
             identifier:
               blank: "can't be blank"
+            email:
+              blank: "can't be blank"
+            tin:
+              blank: "can't be blank"
+            country:
+              blank: "can't be blank"
+            entreprise_name:
+              blank: "can't be blank"
             password:
               blank: "can't be blank"
               too_short: "too short"
         customer:
           attributes:
             identifier:
+              blank: "can't be blank"
+            email:
+              blank: "can't be blank"
+            tin:
+              blank: "can't be blank"
+            country:
+              blank: "can't be blank"
+            entreprise_name:
               blank: "can't be blank"
             password:
               blank: "can't be blank"

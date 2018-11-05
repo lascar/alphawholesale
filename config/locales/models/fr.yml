@@ -184,6 +184,14 @@ fr:
           attributes:
             identifier:
               blank: "ne peux pas être vide"
+            email:
+              blank: "ne peut pas être vide"
+            tin:
+              blank: "ne peut pas être vide"
+            country:
+              blank: "ne peut pas être vide"
+            entreprise_name:
+              blank: "ne peut pas être vide"
             password:
               blank: "ne peut pas être vide"
               too_short: "trop court"
@@ -191,6 +199,14 @@ fr:
           attributes:
             identifier:
               blank: "ne peux pas être vide"
+            email:
+              blank: "ne peut pas être vide"
+            tin:
+              blank: "ne peut pas être vide"
+            country:
+              blank: "ne peut pas être vide"
+            entreprise_name:
+              blank: "ne peut pas être vide"
             password:
               blank: "ne peut pas être vide"
               too_short: "trop court"

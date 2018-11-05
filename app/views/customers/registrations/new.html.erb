@@ -1,7 +1,9 @@
 <h2><%= t("devise.action.signup") %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+  <% devise_error_messages!.each do |key, value| %>
+    <div class="flash <%= key %>"><%= key %> <%= value %></div>
+  <% end %>
 
   <%= t("required_fields") %>
   <div class="field">
