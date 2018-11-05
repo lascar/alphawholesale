@@ -1,29 +1,29 @@
+<%# byebug %>
 <h2><%= t("devise.action.signup") %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%# byebug %>
   <%= devise_error_messages! %>
 
   <%= t("required_fields") %>
   <div class="field">
-    <%= f.label :identifier* %><br />
+    <%= f.label :identifier %>*<br />
     <%= f.text_field :identifier, autofocus: true, autocomplete: "identifier",
         required: true %>
   </div>
 
   <div class="field">
-    <%= f.label :email* %><br />
+    <%= f.label :email %>*<br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email",
         required: true %>
   </div>
 
   <div class="field">
-    <%= f.label :entreprise_name* %>
+    <%= f.label :entreprise_name %>*
     <%= f.text_field :entreprise_name, required: true %>
   </div>
 
   <div class="field">
-    <%= f.label :tin* %>
+    <%= f.label :tin %>*
     <%= f.text_field :tin, required: true %>
   </div>
 
@@ -48,7 +48,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :country* %>
+    <%= f.label :country %>*
     <%= f.text_field :country, required: true %>
   </div>
 
@@ -63,7 +63,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :password* %>
+    <%= f.label :password %>*
     <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> <%= t("devise.messages.password_minimum_length") %>)</em>
     <% end %><br />
@@ -71,7 +71,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation* %><br />
+    <%= f.label :password_confirmation %>*<br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true %>
   </div>
 
