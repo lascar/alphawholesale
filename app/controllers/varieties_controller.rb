@@ -52,10 +52,7 @@ class VarietiesController < ApplicationController
         message += I18n.t('activerecord.attributes.variety.' + k.to_s) +
          ' : ' + v.inject(''){|s, m| s += m}
       end
-      path = supplier_signed_in? ?
-       new_supplier_variety_path(current_supplier) :
-        varieties_new_path
-      redirect_to path, alert: message
+      redirect_to helper_new_variety_path, alert: message
     end
   end
 

@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include VarietiesHelper
   # http://www.socialmemorycomplex.net/2007/09/16/text_field-and-currency-values/
 	def monetary_field(objname, method, value)
 		text_field "#{objname}", "#{method}", value: ('%0.2f' % value), size: 6,

@@ -5,6 +5,7 @@ class Packaging < ApplicationRecord
   has_many :order_lines
   has_many :tender_lines
   validates :name, uniqueness: { scope: [:product_id] }
+  validates :product, presence: true
 
   def self.with_approved(approved)
     where(approved: approved)

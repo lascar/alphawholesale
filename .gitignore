@@ -25,7 +25,12 @@ Session.vim
 config/application.yml
 # secrets.yml
 config/secrets.yml
+# master.key
+config/master.key
 # gandi
 gandi.txt
 # heroku
 heroku.txt
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
