@@ -14,4 +14,12 @@ module VarietiesHelper
       new_variety_path
     end
   end
+
+  def helper_edit_variety_path
+    if supplier_signed_in?
+      edit_supplier_variety_path(current_supplier)
+    else
+      edit_variety_path
+    end
+  end
 end

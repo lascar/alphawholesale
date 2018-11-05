@@ -62,7 +62,7 @@ class VarietiesController < ApplicationController
     else
       message = helper_activerecord_error_message('variety',
                                                   @variety.errors.messages)
-      render :edit
+      redirect_to helper_edit_variety_path, alert: message
     end
   end
 
