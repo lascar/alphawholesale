@@ -133,12 +133,13 @@ class OffersController < ApplicationController
         redirect_to offer_path(@offer), notice: I18n.t('controllers.offers.successfully_updated')
       end
     else
+      @offer = Offer.find(params[:id])
       message = helper_activerecord_error_message('offer',
                                                   @offer.errors.messages)
       path = supplier_signed_in? ?
        new_supplier_offer_path(current_supplier) :
         new_offer_path
-      redirect_to path, alert: message, supplier_id: params['supplier_id']
+      redirect_to path, alert: message
     end
   end
 

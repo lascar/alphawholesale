@@ -118,7 +118,8 @@ RSpec.describe OffersController, type: :controller do
       end
 
       it "renders the edit template" do
-        expect(response).to render_template(:edit)
+        expect(response.redirect_url).to eq(
+         "http://test.host/offers/new")
       end
     end
 
