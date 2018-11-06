@@ -32,7 +32,8 @@ module OffersHelper
   end
 
   def offer_form_hash(supplier_id, offer)
-    path = offers_index_path(supplier_id)
+    path = supplier_signed_in? ?
+     supplier_offer_path(supplier_id) : offer_path({supplier_id: supplier_id})
     method = offer.persisted? ? "patch" : "post"
     {url: path, model: offer, local: true, method: method}
   end
