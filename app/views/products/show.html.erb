@@ -14,40 +14,6 @@
 </p>
 
 <p>
-<h6><%= Origin.model_name.human(count: @product.origins.count) %> : <%= @product.origins.count %></h6>
-  <% if @product.origins.count > 0 %>
-    <div class="row">
-      <div class="col-md-8">
-        <div class="card">
-          <table class="table-all table-bordered table-responsive">
-            <thead>
-              <tr>
-                <th><%= Origin.human_attribute_name("country") %></th>
-                <th class="table-icons-1" colspan="1"></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% for origin in @product.origins %>
-                <tr>
-                  <td><%= t("product.origin." + @product.name + "." + origin.country) %></td>
-                  <td>
-                    <% if broker_signed_in? %>
-                      <%# byebug %>
-                      <%= link_to icon('fas', 'trash'), origin_path(origin.id), title: t("destroy"),
-                       method: :delete, data: { confirm: t(:are_you_sure) } %>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</p>
-<p>
   <h6><%= Aspect.model_name.human(count: @product.aspects.count) %></h6>
   <% if @product.aspects.count > 0 %>
     <div class="row">
@@ -150,4 +116,4 @@
   <% end %>
 </p>
 <%= link_to t("edit"), edit_product_path(@product) %> |
-<%= link_to t("products.list"), product_path %>
+<%= link_to t("products.list"), products_path %>

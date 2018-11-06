@@ -222,7 +222,7 @@ es:
         product:
           attributes:
             name:
-              taken: "el nombre de producto tiene que ser único con la especie, el aspecto, el calibre y el acondicionamiento"
+              taken: "el nombre de producto tiene que ser único"
         variety:
           attributes:
             name:

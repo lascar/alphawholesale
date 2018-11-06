@@ -7,7 +7,7 @@ class Product < ApplicationRecord
   has_many :product_suppliers, dependent: :delete_all
   has_many :suppliers, through: :product_suppliers
   validates :name, presence: true, allow_blank: false
-  validates :name, uniqueness: { scope: [:variety] }
+  validates :name, uniqueness: true
   has_many :varieties
   has_many :packagings
   has_many :aspects

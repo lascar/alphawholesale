@@ -13,71 +13,8 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name, disabled: product.name ? true : false %>
-    <%= hidden_field_tag( 'product[name]', product.name, id: "product_name_hidden") if product.name %>
+    <%= form.text_field :name %>
   </div>
-
-  <div class="field">
-    <%= label_tag :variety %>
-    <%# byebug %>
-    <%= select_tag "product[variety]", options_for_select(@varieties, product.variety), autocomplete: "off", include_blank: t("product.select_variety") %>
-  </div>
-
-  <div class="field">
-    <%= label_tag t('products.variety_not_in_list') %>
-    <br>
-    <%= text_field_tag "product[variety_new]" %>
-      <br>
-    <%= t('products.variety_only_allowed') %>
-  </div>
-
-  <div class="field">
-    <%= label_tag :origin %>
-    <%= select_tag "product[origin]", options_for_select(@origins, product.origin), autocomplete: "off", include_blank: t("product.select_origin") %>
-  </div>
-
-  <div class="field">
-    <%= label_tag t('products.origin_not_in_list') %>
-    <br>
-    <%= text_field_tag "product[origin_new]" %>
-      <br>
-    <%= t('products.origin_only_allowed') %>
-  </div>
-
-  <div class="field">
-    <%= label_tag :aspect %>
-    <%# byebug %>
-    <%= select_tag "product[aspect]", options_for_select(@aspects, product.aspect), autocomplete: "off", include_blank: t("product.select_aspect") %>
-  </div>
-
-  <div class="field">
-    <%= label_tag t('products.aspect_not_in_list') %>
-    <br>
-    <%= text_field_tag "product[aspect_new]" %>
-      <br>
-    <%= t('products.aspect_only_allowed') %>
-  </div>
-
-  <% if product.id %>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="field_group card">
-          <h6><%= Packaging.model_name.human(
-           count: @product.packagings.count) %></h6>
-          <%= form.fields_for :packagings do |packaging_form| %>
-            <div class="card">
-              <p>
-                <%= Packaging.human_attribute_name("name") %> :
-                 <%= packaging_form.text_field :name %>
-              </p>
-            </div>
-          <% end %>
-          <br>
-          <%= link_to t("packagings.new") %>
-        </div>
-      </div>
-    </div>
-  <% end %>
 
   <% if broker_signed_in? %>
     <div class="field">

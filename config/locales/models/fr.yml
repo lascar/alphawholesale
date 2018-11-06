@@ -228,7 +228,7 @@ fr:
         product:
           attributes:
             name:
-              taken: "le nom de produit doit être unique avec l'espèce, l'aspect, le calibre et le conditionnement"
+              taken: "le nom de produit doit être unique"
         variety:
           attributes:
             name:

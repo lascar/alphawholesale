@@ -72,11 +72,8 @@ class ProductsController < ApplicationController
          redirect_to @product, notice: message
        end
     else
-      message = ''
-      @product.errors.messages.each do |k,v|
-        message += I18n.t('activerecord.attributes.product.' + k.to_s) + ' : ' +
-         v.inject(''){|s, m| s += m}
-      end
+      message = helper_activerecord_error_message('product',
+                                                  @product.errors.messages)
       path = supplier_signed_in? ?
        supplier_products_get_names_path(current_supplier) :
        products_get_names_path
@@ -90,7 +87,12 @@ class ProductsController < ApplicationController
       redirect_to @product, notice:
        I18n.t('controllers.products.successfully_updated')
     else
-      render :edit
+      message = helper_activerecord_error_message('product',
+                                                  @product.errors.messages)
+      path = supplier_signed_in? ?
+       edit_supplier_product_path(current_supplier) :
+       edit_product_path
+      redirect_to path, alert: message
     end
   end
 

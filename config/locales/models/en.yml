@@ -229,7 +229,7 @@ en:
         product:
           attributes:
             name:
-              taken: "product name must be uniq with variety, aspect, size and packaging"
+              taken: "product name must be uniq"
         variety:
           attributes:
             name:
