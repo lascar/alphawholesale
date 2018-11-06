@@ -47,14 +47,11 @@ class SizesController < ApplicationController
          redirect_to @size, notice: message
        end
     else
-      message = ''
-      @size.errors.messages.each do |k,v|
-        message += I18n.t('activerecord.attributes.size.' + k.to_s) +
-         ' : ' + v.inject(''){|s, m| s += m}
-      end
+      message = helper_activerecord_error_message('size',
+                                                  @size.errors.messages)
       path = supplier_signed_in? ?
        new_supplier_size_path(current_supplier) :
-        sizes_new_path
+        new_size_path
       redirect_to path, alert: message
     end
   end
@@ -65,7 +62,12 @@ class SizesController < ApplicationController
       redirect_to @size, notice:
        I18n.t('controllers.sizes.successfully_updated')
     else
-      render :edit
+      message = helper_activerecord_error_message('size',
+                                                  @size.errors.messages)
+      path = supplier_signed_in? ?
+       edit_supplier_size_path(current_supplier) :
+        edit_size_path
+      redirect_to path, alert: message
     end
   end
 

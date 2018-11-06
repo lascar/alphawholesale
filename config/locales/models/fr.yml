@@ -21,13 +21,9 @@ fr:
         one: "Produit"
         other: "Produits"
       packaging:
-        zero: "Pas de Calibre ou Conditionnement"
-        one: "Calibre et Conditionnement"
-        other: "Calibres et Conditionnements"
-      origin:
-        zero: "Pas d'Origine"
-        one: "Origine"
-        other: "Origines"
+        zero: "Pas de Conditionnement"
+        one: "Conditionnement"
+        other: "Conditionnements"
       aspect:
         zero: "Pas d'Aspect"
         one: "Aspect"
@@ -106,8 +102,8 @@ fr:
         name: "nom"
         reference: "référence"
         variety: "variété"
-        origin: "origine"
         aspect: "aspect"
+        packaging: "conditionnement"
         approved: "approuvé"
       variety:
         name: "variété"
@@ -232,7 +228,7 @@ fr:
         product:
           attributes:
             name:
-              taken: "le nom de produit doit être unique avec l'espèce, l'origine, l'aspect, le size et le conditionnement"
+              taken: "le nom de produit doit être unique avec l'espèce, l'aspect, le calibre et le conditionnement"
         variety:
           attributes:
             name:

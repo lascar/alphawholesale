@@ -27,20 +27,15 @@ en:
         one: "Packaging"
         other: "Packaging"
       aspect: "Aspect"
-      aspect_orgin:
+      aspect:
         zero: "No Aspect"
         one: "Aspect"
         other: "Aspect"
       size: "Size"
-      aspect_orgin:
+      size:
         zero: "No Size"
         one: "Size"
         other: "Size"
-      origin: "Origin"
-      origin:
-        zero: "No Origin"
-        one: "Origin"
-        other: "Origins"
       offer: "Offer"
       offer:
         zero: "No Offer"
@@ -113,8 +108,8 @@ en:
         name: "name"
         reference: "reference"
         variety: "variety"
-        origin: "origin"
         aspect: "aspect"
+        packaging: "packaging"
         approved: "approved"
       variety:
         name: "variety"
@@ -234,7 +229,7 @@ en:
         product:
           attributes:
             name:
-              taken: "product name must be uniq with variety, origin, aspect, size and packaging"
+              taken: "product name must be uniq with variety, aspect, size and packaging"
         variety:
           attributes:
             name:

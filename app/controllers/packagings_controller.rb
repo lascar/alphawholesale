@@ -47,14 +47,11 @@ class PackagingsController < ApplicationController
          redirect_to @packaging, notice: message
        end
     else
-      message = ''
-      @packaging.errors.messages.each do |k,v|
-        message += I18n.t('activerecord.attributes.packaging.' + k.to_s) +
-         ' : ' + v.inject(''){|s, m| s += m}
-      end
+      message = helper_activerecord_error_message('packaging',
+                                                  @packaging.errors.messages)
       path = supplier_signed_in? ?
        new_supplier_packaging_path(current_supplier) :
-        packagings_new_path
+        new_packaging_path
       redirect_to path, alert: message
     end
   end
@@ -65,7 +62,12 @@ class PackagingsController < ApplicationController
       redirect_to @packaging, notice:
        I18n.t('controllers.packagings.successfully_updated')
     else
-      render :edit
+      message = helper_activerecord_error_message('packaging',
+                                                  @packaging.errors.messages)
+      path = supplier_signed_in? ?
+       edit_supplier_packaging_path(current_supplier) :
+        edit_packaging_path
+      redirect_to path, alert: message
     end
   end
 

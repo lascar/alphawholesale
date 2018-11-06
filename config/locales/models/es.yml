@@ -24,10 +24,6 @@ es:
         zero: "No Almacenamiento"
         one: "Almacenamiento"
         other: "Almacenamientos"
-      origin:
-        zero: "No Origen"
-        one: "Origen"
-        other: "Origenes"
       aspect:
         zero: "No Aspecto"
         one: "Aspecto"
@@ -106,8 +102,8 @@ es:
         name: "nombre"
         reference: "referencia"
         variety: "variedad"
-        origin: "origen"
         aspect: "aspecto"
+        packaging: "acondicinamiento"
         approved: "validación"
       variety:
         name: "variedad"
@@ -226,7 +222,7 @@ es:
         product:
           attributes:
             name:
-              taken: "el nombre de producto tiene que ser unico con la especie, la origen, el aspecto, el size y el acondicionamiento"
+              taken: "el nombre de producto tiene que ser único con la especie, el aspecto, el calibre y el acondicionamiento"
         variety:
           attributes:
             name:

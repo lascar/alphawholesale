@@ -47,14 +47,11 @@ class AspectsController < ApplicationController
          redirect_to @aspect, notice: message
        end
     else
-      message = ''
-      @aspect.errors.messages.each do |k,v|
-        message += I18n.t('activerecord.attributes.aspect.' + k.to_s) +
-         ' : ' + v.inject(''){|s, m| s += m}
-      end
+      message = helper_activerecord_error_message('aspect',
+                                                  @aspect.errors.messages)
       path = supplier_signed_in? ?
        new_supplier_aspect_path(current_supplier) :
-        aspects_new_path
+        new_aspect_path
       redirect_to path, alert: message
     end
   end
@@ -65,7 +62,12 @@ class AspectsController < ApplicationController
       redirect_to @aspect, notice:
        I18n.t('controllers.aspects.successfully_updated')
     else
-      render :edit
+      message = helper_activerecord_error_message('aspect',
+                                                  @aspect.errors.messages)
+      path = supplier_signed_in? ?
+       edit_supplier_aspect_path(current_supplier) :
+        edit_aspect_path
+      redirect_to path, alert: message
     end
   end
 
