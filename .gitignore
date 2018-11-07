@@ -31,6 +31,10 @@ config/master.key
 gandi.txt
 # heroku
 heroku.txt
+# docker
+docker.txt
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+# environment variables for docker
+.env
