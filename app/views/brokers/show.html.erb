@@ -147,7 +147,9 @@
           <% @offers_without_approved.each do |offer| %>
             <tr>
               <td><div class="cell-resumen">
-                <%= offer.product.name + " " + offer.variety.name%>
+                <%# byebug %>
+                <%= offer.product.name + " " +
+                 (offer.variety ? offer.variety.name : "") %>
                 <%= offer.product.name %>
               </div></td>
               <td><div class="cell-resumen">
