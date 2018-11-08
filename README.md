@@ -12,6 +12,7 @@ A Product can have a size, an aspect or a packaging.
 
 An Offer has a price for supplier and a price for customer; in the middle... the broker.
 
+Deploy with docker at http://wholesale.lascar.me/
 
 * Ruby version
 ruby 2.5.3p105
