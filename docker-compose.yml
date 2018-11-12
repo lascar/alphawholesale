@@ -4,17 +4,29 @@ volumes:
   postgres_data: {}
 
 services:
+  db:
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_DB: $POSTGRES_DB
+    restart: always
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   app:
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_DB: $POSTGRES_DB
+      RAILS_ENV: production
     build:
       context: .
       dockerfile: ./docker/app/DockerFile
     depends_on:
       - db
-
-  db:
-    image: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
 
   web:
     build:

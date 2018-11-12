@@ -33,6 +33,7 @@ gandi.txt
 heroku.txt
 # docker
 docker.txt
+log-docker.log
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
