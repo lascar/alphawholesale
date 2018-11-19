@@ -40,6 +40,9 @@ class SuppliersController < ApplicationController
   # PATCH/PUT /suppliers/1
   def update
     if @supplier.update(supplier_params)
+      if supplier_params[:approved]
+        SupplierMailer.with(user: @supplier).welcome_email.deliver_later
+      end
       redirect_to( @supplier,
        notice: I18n.t('controllers.suppliers.successfully_updated')) and return
     else

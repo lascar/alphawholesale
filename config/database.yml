@@ -23,10 +23,10 @@ default: &default
 
 development:
   <<: *default
-  database: <%= Rails.application.credentials.postgres[:database][:development] %>
-  username: <%= Rails.application.credentials.postgres[:username][:development] %>
-  password: <%= Rails.application.credentials.postgres[:password][:development] %>
-  host: <%= Rails.application.credentials.postgres[:host][:development] %>
+  database: <%= Rails.application.credentials.postgres[:development][:database] %>
+  username: <%= Rails.application.credentials.postgres[:development][:username] %>
+  password: <%= Rails.application.credentials.postgres[:development][:password] %>
+  host: <%= Rails.application.credentials.postgres[:development][:host] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

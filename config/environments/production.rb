@@ -68,9 +68,12 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 	config.action_mailer.delivery_method = :smtp
 	config.action_mailer.smtp_settings = {
-		address:              'smtp1.dc2.gpaas.net',
-		port:                 587,
-    enable_starttls_auto: false
+		address: <%= Rails.application.credentials.mail[:ADDRESS] %>,
+		port: <%= Rails.application.credentials.mail[:PORT] %>,
+		user_name: <%= Rails.application.credentials.mail[:USER_NAME] %>,
+		password: <%= Rails.application.credentials.mail[:PASSWORD] %>,
+		authentication: <%= Rails.application.credentials.mail[:AUTHENTICATION] %>,
+		enable_starttls_auto: <%= Rails.application.credentials.mail[:ENABLE_STARTTLS_AUTO] %>,
 	}
 
   # Ignore bad email addresses and do not raise email delivery errors.

@@ -35,8 +35,17 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  # for device
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # mail
+  config.action_mailer.default_url_options =
+   { host: Rails.application.credentials.mail[:development][:HOST],
+     port: Rails.application.credentials.mail[:development][:HOST_PORT] }
+	config.action_mailer.smtp_settings = {
+    address: Rails.application.credentials.mail[:development][:ADDRESS],
+		user_name: Rails.application.credentials.mail[:development][:USER_NAME],
+		password: Rails.application.credentials.mail[:development][:PASSWORD],
+		authentication: Rails.application.credentials.mail[:development][:AUTHENTICATION],
+		enable_starttls_auto: Rails.application.credentials.mail[:development][:ENABLE_STARTTLS_AUTO],
+	}
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
