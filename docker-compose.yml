@@ -23,6 +23,7 @@ services:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       POSTGRES_DB: $POSTGRES_DB
       RAILS_ENV: production
+      DOCKER_HOST=$DOCKER_HOST
     build:
       context: .
       dockerfile: ./docker/app/DockerFile
