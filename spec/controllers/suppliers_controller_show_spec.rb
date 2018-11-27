@@ -83,10 +83,6 @@ RSpec.describe SuppliersController, type: :controller do
         get :show, params: {id: supplier1.to_param}
       end
 
-      it "assigns the supplier" do
-        expect(assigns(:supplier)).to eq(supplier1)
-      end
-
       it "assigns all the supplier's offers" do
         expect(assigns(:offers).sort).to eq(supplier1.offers.sort)
       end
@@ -95,9 +91,6 @@ RSpec.describe SuppliersController, type: :controller do
         expect(assigns(:products).sort).to eq(supplier1.products.sort)
       end
 
-      it "returns the supplier's page" do
-        expect(response).to render_template(:show)
-      end
     end
 
     # TEST as a logged broker
@@ -112,10 +105,6 @@ RSpec.describe SuppliersController, type: :controller do
         get :show, params: {id: supplier1.to_param}
       end
 
-      it "assigns the supplier" do
-        expect(assigns(:supplier)).to eq(supplier1)
-      end
-
       it "assigns all the supplier's offers" do
         expect(assigns(:offers).sort).to eq(supplier1.offers.sort)
       end
@@ -124,9 +113,6 @@ RSpec.describe SuppliersController, type: :controller do
         expect(assigns(:products).sort).to eq(supplier1.products.sort)
       end
 
-      it "returns the supplier's page" do
-        expect(response).to render_template(:show)
-      end
     end
   end
 end

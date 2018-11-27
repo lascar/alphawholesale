@@ -69,19 +69,5 @@ RSpec.describe SuppliersController, type: :controller do
          I18n.t('devise.errors.messages.not_authorized'))
       end
     end
-
-    # TEST as a logged broker
-    # TEST when the list of suppliers is asked for
-    # TEST then the list of suppliers is returned
-    describe "as a logged broker" do
-      before :each do
-        sign_in(broker1)
-        get :index
-      end
-
-      it "returns the list of suppliers" do
-        expect(assigns(:suppliers).sort).to eq(Supplier.with_approved(true).sort)
-      end
-    end
   end
 end

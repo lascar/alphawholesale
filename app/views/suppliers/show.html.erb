@@ -46,10 +46,10 @@
                 <%= offer.product.name %>
               </td>
               <td class="text-truncate" title="<%= offer.quantity %>">
-                <%= offer.quantity.to_s + " " + offer.unit_type %>
+                <%= offer.quantity.to_s + " " + offer.unit_type.to_s %>
               </td>
               <td class="text-truncate" title="<%= offer.unit_price_supplier %>">
-                  <%= offer.unit_price_supplier.to_s  + " " + offer.currency %>
+                  <%= offer.unit_price_supplier.to_s  + " " + offer.currency.to_s %>
               </td>
               <td><%= link_to icon('fas', 'eye'),
                        supplier_offer_path(@supplier, offer),
