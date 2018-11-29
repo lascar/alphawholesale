@@ -49,59 +49,5 @@ RSpec.describe OffersController, type: :controller do
          I18n.t('devise.errors.messages.not_authorized'))
       end
     end
-
-    # TEST as a logged supplier
-    # TEST when offer is asked for new
-    # TEST then a new offer is assigned
-    # TEST and the new offer's supplier is the supplier
-    # TEST and suppliers is not assigned
-    # TEST and the offer's new page is rendered
-    describe "as a logged supplier" do
-      before :each do
-        sign_in(supplier1)
-        get :new
-      end
-
-      it "assigns a offer new" do
-        expect(assigns(:offer).persisted?).to be(false)
-      end
-
-      it "puts the supplier as the new offer's supplier" do
-        expect(assigns(:offer).supplier_id).to be(supplier1.id)
-      end
-
-      it "does not assign suppliers" do
-        expect(assigns(:suppliers)).to be(nil)
-      end
-
-      it "render the new template" do
-        expect(response).to render_template(:new)
-      end
-    end
-
-    # TEST as a logged broker
-    # TEST when offer is asked for new
-    # TEST then a new offer is assigned
-    # TEST and suppliers is assigned
-    # TEST and the offer's new page is rendered
-    describe "as a logged broker" do
-      before :each do
-        sign_in(broker1)
-        get :new
-      end
-
-      it "assigns a offer new" do
-        expect(assigns(:offer).persisted?).to be(false)
-      end
-
-      it "assigns suppliers" do
-        expect(assigns(:suppliers).sort).to eq(
-         Supplier.all.pluck(:identifier, :id).sort)
-      end
-
-      it "render the new template" do
-        expect(response).to render_template(:new)
-      end
-    end
   end
 end

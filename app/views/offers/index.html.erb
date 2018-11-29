@@ -22,18 +22,27 @@
           <%# byebug %>
           <td><%= offer.product.name + " " +
            (offer.variety ? offer.variety.name : "") %></td>
-          <td><%= offer.quantity.to_s + " " +
-           t("unit_types." + offer.unit_type + ".symbol") %></td>
+          <% quantity_string = (offer.quantity && offer.unit_type ?
+            (offer.quantity.to_s + " " +
+            t("unit_types." + offer.unit_type + ".symbol")) :
+            "-" ) %>
+          <td><%= quantity_string %></td>
           <% if !customer_signed_in? %>
+            <% supplier_price_string = (offer.unit_price_supplier && offer.currency ?
+                (offer.unit_price_supplier.to_s + " " +
+                 t("currencies." + offer.currency + ".symbol")) :
+                 "-") %>
             <td>
-              <%= offer.unit_price_supplier.to_s + " " +
-                   t("currencies." + offer.currency + ".symbol") %>
+              <%= supplier_price_string %>
             </td>
           <% end %>
           <% if !supplier_signed_in? %>
+            <% broker_price_string = (offer.unit_price_broker && offer.currency ?
+                (offer.unit_price_broker.to_s + " " +
+                 t("currencies." + offer.currency + ".symbol")) :
+                 "-") %>
             <td>
-              <%= offer.unit_price_broker.to_s + " " +
-                   t("currencies." + offer.currency + ".symbol") %>
+              <%= broker_price_string %>
             </td>
           <% end %>
           <td>

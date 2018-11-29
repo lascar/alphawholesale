@@ -21,13 +21,10 @@ RSpec.describe OffersController, type: :controller do
         post :create, params: {offer: offer_hash}
       end
 
-      it "returns the root page" do
-        expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authorized message" do
-        expect(flash.alert).to match(I18n.t(
-         'devise.failure.offer.unauthenticated'))
+      context "when creating" do
+        it {is_expected.to redirect_to "http://test.host/"}
+        it {is_expected.to set_flash[:alert].to I18n.t(
+         'devise.failure.offer.unauthenticated')}
       end
     end
 
@@ -39,6 +36,13 @@ RSpec.describe OffersController, type: :controller do
       before :each do
         sign_in(customer1)
         post :create, params: {offer: offer_hash}
+      end
+
+      context "when creating" do
+        it {is_expected.to redirect_to(
+         "http://test.host/customers/#{customer1.id.to_s}")}
+        it {is_expected.to set_flash[:alert].to I18n.t(
+         'devise.errors.messages.not_authorized')}
       end
     end
 

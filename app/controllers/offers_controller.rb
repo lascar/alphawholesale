@@ -5,7 +5,12 @@ class OffersController < ApplicationController
 
   # GET /offers
   def index
-    if current_customer || current_broker
+    if current_customer
+      products = current_customer.products
+      @offers = Offer.with_approved(true).select do |offer|
+        products.include? offer.product
+      end
+    elsif current_broker
       @offers = Offer.with_approved(true)
      else
       @supplier_id = current_supplier.id

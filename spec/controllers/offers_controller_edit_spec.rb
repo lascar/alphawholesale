@@ -71,59 +71,5 @@ RSpec.describe OffersController, type: :controller do
       end
 
     end
-
-
-    # TEST as a logged supplier
-    # TEST when offer owned by the supplier is asked for editing
-    # TEST then the edited offer is assigned
-    # TEST and suppliers is not assigned
-    # TEST and the supplier is the supplier's offer
-    # TEST and the new template is rendered
-    describe "as a logged supplier" do
-      before :each do
-        sign_in(supplier1)
-        get :edit, params: {id: offer1.to_param}
-      end
-
-      it "assigns a new offer" do
-        expect(assigns(:offer).persisted?).to be(true)
-      end
-
-      it "does not assign suppliers" do
-        expect(assigns(:suppliers)).to be(nil)
-      end
-
-      it "assigns the supplier to the new offer" do
-        expect(assigns(:offer).supplier).to eq(supplier1)
-      end
-
-      it "redirect to the newly created offer" do
-        expect(response).to render_template(:edit)
-      end
-    end
-
-    # TEST as a logged broker
-    # TEST when a offer is asked for edit
-    # TEST then the asked offer is assigned
-    # TEST and suppliers is assigned
-    # TEST then the offer's edit page is rendered
-    describe "as a logged broker" do
-      before :each do
-        sign_in(broker1)
-        get :edit, params: {id: offer1.to_param}
-      end
-
-      it "assigns the offer" do
-        expect(assigns(:offer)).to eq(offer1)
-      end
-
-      it "assigns suppliers" do
-        expect(assigns(:suppliers).sort).to eq(Supplier.all.pluck(:identifier, :id).sort)
-      end
-
-      it "render the edit template" do
-        expect(response).to render_template(:edit)
-      end
-    end
   end
 end
