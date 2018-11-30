@@ -12,8 +12,6 @@ A Product can have a size, an aspect or a packaging.
 
 An Offer has a price for supplier and a price for customer; in the middle... the broker.
 
-Deploy with docker at http://wholesale.lascar.me/
-
 * Ruby version
 ruby 2.5.3p105
 
@@ -22,3 +20,45 @@ rails 5.2.1
 
 * Database
 postgresql
+
+## RESILIENT NATURE
+
+No inference are made (we try...) upon the media employed by the user (screen or not, size
+
+of screen, help with webreader or not).
+
+Bootstrap 4 is amazing (thanks to the flexboxes) at that.
+
+## TODO
+
+Customer can put a tender. Supplier can respond to a tender.
+
+## DOCKER
+
+The application is 'dokerized'. It is using docker-compose.
+
+There is 3 containers :
+
+* the 'app', the ruby on rails application
+
+* the 'db', the database
+
+* the 'web', the nginx that lisen to the 80 port
+
+## TESTING
+
+It is a work in progress, because it serves me for exploring.
+
+I try this :
+
+* all the 'routes' are covered whith each of the user nature (anonymous, customer,
+
+supplier, broker).
+
+* the negative situations are explored with controller test (not authentificated,
+
+not enough permission, failed parameter)
+
+* the positive situations are explored with feature test (behaviour likewise with
+
+capybara syntax, highly simplified thanks to the 'resilient' nature of the application).
