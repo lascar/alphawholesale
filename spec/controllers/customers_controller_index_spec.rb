@@ -70,18 +70,5 @@ RSpec.describe CustomersController, type: :controller do
       end
     end
 
-    # TEST as a logged broker
-    # TEST when the list of customers is asked for
-    # TEST then the list of customers is returned
-    describe "as a logged broker" do
-      before :each do
-        sign_in(broker1)
-        get :index
-      end
-
-      it "returns the list of customers" do
-        expect(assigns(:customers).sort).to eq(Customer.with_approved(true).sort)
-      end
-    end
   end
 end
