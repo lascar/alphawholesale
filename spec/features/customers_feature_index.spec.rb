@@ -10,7 +10,7 @@ RSpec.describe "Customers Feature", type: :feature do
 
     # TEST as a logged broker
     # TEST when the list of customers is asked for
-    # TEST then the list of customers is returned
+    # TEST then the list of approved customers is returned
     describe "as a logged broker" do
       before :each do
         sign_in(broker1)
@@ -19,9 +19,6 @@ RSpec.describe "Customers Feature", type: :feature do
 
       it "returns the list of customers approved" do
         expect(page).to have_content customer1.identifier
-      end
-
-      it "does not return the not approved customers" do
         expect(page).to have_no_content customer2.identifier
       end
     end
