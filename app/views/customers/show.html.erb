@@ -46,10 +46,10 @@
                 <%= offer.product.name %>
               </td>
               <td class="text-truncate" title="<%= offer.quantity %>">
-                <%= offer.quantity.to_s + " " + offer.unit_type %>
+                <%= offer.quantity.to_s + " " + offer.supplier.unit_type %>
               </td>
               <td class="text-truncate" title="<%= offer.unit_price_broker %>">
-                  <%= offer.unit_price_broker.to_s  + " " + offer.currency %>
+                  <%= offer.unit_price_broker.to_s  + " " + offer.supplier.currency %>
               </td>
               <%# byebug %>
               <td><%= link_to icon('fas', 'eye'),
@@ -127,10 +127,11 @@
                 <%= order.offer.product.name %>
               </td>
               <td class="text-truncate" title="<%= order.quantity %>">
-                <%= order.quantity.to_s + " " + order.offer.unit_type %>
+                <%= order.quantity.to_s + " " + order.offer.supplier.unit_type %>
               </td>
               <td class="text-truncate" title="<%= order.offer.unit_price_broker %>">
-                  <%= order.offer.unit_price_broker.to_s  + " " + order.offer.currency %>
+                <%= order.offer.unit_price_broker.to_s  + " " +
+                    order.offer.supplier.currency %>
               </td>
               <td><%= link_to icon('fas', 'eye'),
                        customer_order_path(@customer, order),

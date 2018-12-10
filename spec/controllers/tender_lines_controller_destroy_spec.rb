@@ -12,11 +12,9 @@ RSpec.describe TenderLinesController, type: :controller do
   let!(:tender2) {create(:tender, customer: customer2,
                          date_start: date, date_end: date + 1.months)}
   let!(:tender_line1) {create(:tender_line, tender: tender1, product: product1,
-                              unit: 1, unit_type: 'kilogram', unit_price: 2.09,
-                              currency: 'euro')}
+                              unit: 1, unit_price: 2.09)}
   let!(:tender_line2) {create(:tender_line, tender: tender2, product: product1,
-                              unit: 1, unit_type: 'kilogram', unit_price: 2.09,
-                              currency: 'euro')}
+                              unit: 1, unit_price: 2.09)}
 
   describe "DELETE #destroy" do
 

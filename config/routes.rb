@@ -18,7 +18,6 @@ Rails.application.routes.draw do
 
   concern :orderable do
     resources :orders
-    post 'orders/make/:offer_id', to: 'orders#make', as: :order_make
   end
 
   concern :tenderable do

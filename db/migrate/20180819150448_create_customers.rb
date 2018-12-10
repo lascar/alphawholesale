@@ -14,6 +14,8 @@ class CreateCustomers < ActiveRecord::Migration[5.2]
       t.string :telephone_number2
       ## Database authenticatable
       t.string :identifier,              null: false, default: ""
+      t.string :currency
+      t.string :unit_type
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable

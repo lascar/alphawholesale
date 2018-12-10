@@ -18,11 +18,31 @@ class SuppliersController < ApplicationController
 
   # GET /suppliers/new
   def new
+    @currencies = CURRENCIES.map do |currency|
+      [I18n.t('currencies.' + currency + '.currency') +
+       ' (' + I18n.t('currencies.' + currency + '.symbol') + ')',
+       currency]
+    end
+    @unit_types = UNIT_TYPES.map do |unit_type|
+      [I18n.t('unit_types.' + unit_type + '.unit_type') +
+       ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
+       unit_type]
+    end
     @supplier = Supplier.new
   end
 
   # GET /suppliers/1/edit
   def edit
+    @currencies = CURRENCIES.map do |currency|
+      [I18n.t('currencies.' + currency + '.currency') +
+       ' (' + I18n.t('currencies.' + currency + '.symbol') + ')',
+       currency]
+    end
+    @unit_types = UNIT_TYPES.map do |unit_type|
+      [I18n.t('unit_types.' + unit_type + '.unit_type') +
+       ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
+       unit_type]
+    end
   end
 
   # POST /suppliers
@@ -87,6 +107,7 @@ class SuppliersController < ApplicationController
                                        :tin, :street_and_number, :postal_code,
                                        :state, :country, :entreprise_name,
                                        :telephone_number1, :telephone_number2,
+                                       :unit_type, :currency,
                                        :password, :password_confirmation)
     else
       if !params[:supplier][:current_password].blank? &&
@@ -95,12 +116,14 @@ class SuppliersController < ApplicationController
                                          :tin, :street_and_number, :postal_code,
                                          :state, :country, :entreprise_name,
                                          :telephone_number1, :telephone_number2,
+                                         :unit_type, :currency,
                                          :password, :password_confirmation)
       else
         params.require(:supplier).permit(:email,
                                          :tin, :street_and_number, :postal_code,
                                          :state, :country, :entreprise_name,
-                                         :telephone_number1, :telephone_number2)
+                                         :telephone_number1, :telephone_number2,
+                                         :unit_type, :currency)
       end
     end
   end

@@ -51,6 +51,16 @@
     <%= form.text_field :telephone_number2 %>
   </div>
 
+  <div class="field">
+    <%= form.label :unit_type %>
+    <%= form.select :unit_type, @unit_types %>
+  </div>
+
+  <div class="field">
+    <%= form.label :currency %>
+    <%= form.select :currency, @currencies %>
+  </div>
+
   <% if Devise.mappings[:supplier].confirmable? && resource.pending_reconfirmation? %>
     <div><%= t("devise.messages.currenty_waiting_confirmation_for") %>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>

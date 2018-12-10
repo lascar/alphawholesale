@@ -5,9 +5,9 @@
       <h2><%= pluralize(offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
 
       <ul>
-      <% offer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% offer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -31,7 +31,7 @@
         <div class="field">
           <%= form.label :variety %>
           <%= form.select :variety_id, @varieties %>
-          </div>
+        </div>
       </div>
 
       <div class="col-3">
@@ -57,13 +57,6 @@
         </div>
       </div>
 
-      <div class="col-3">
-        <div class="field">
-          <%= form.label :unit_type %>
-          <%= form.select :unit_type, @unit_types %>
-        </div>
-      </div>
-
       <% if !customer_signed_in? %>
         <div class="col-3">
           <div class="field">
@@ -81,13 +74,6 @@
           </div>
         </div>
       <% end %>
-
-      <div class="col-3">
-        <div class="field">
-          <%= form.label :currency %>
-          <%= form.select :currency, @currencies %>
-        </div>
-      </div>
     </div>
 
     <div class="row">

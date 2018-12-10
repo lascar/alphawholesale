@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 2018_10_18_082948) do
     t.string "telephone_number1"
     t.string "telephone_number2"
     t.string "identifier", default: "", null: false
+    t.string "currency"
+    t.string "unit_type"
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -74,8 +76,6 @@ ActiveRecord::Schema.define(version: 2018_10_18_082948) do
     t.integer "quantity"
     t.decimal "unit_price_supplier", precision: 8, scale: 2, default: "0.0", null: false
     t.decimal "unit_price_broker", precision: 8, scale: 2, default: "0.0", null: false
-    t.string "currency"
-    t.string "unit_type"
     t.string "localisation_supplier"
     t.string "localisation_broker"
     t.string "incoterm"
@@ -168,6 +168,8 @@ ActiveRecord::Schema.define(version: 2018_10_18_082948) do
     t.string "telephone_number1"
     t.string "telephone_number2"
     t.string "identifier", default: "", null: false
+    t.string "currency"
+    t.string "unit_type"
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -187,9 +189,7 @@ ActiveRecord::Schema.define(version: 2018_10_18_082948) do
     t.bigint "size_id"
     t.bigint "packaging_id"
     t.integer "unit"
-    t.string "unit_type"
     t.integer "unit_price"
-    t.string "currency"
     t.text "observation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

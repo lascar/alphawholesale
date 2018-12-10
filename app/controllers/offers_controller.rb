@@ -67,16 +67,6 @@ class OffersController < ApplicationController
       products_hash
     end
     @incoterms = INCOTERMS
-    @currencies = CURRENCIES.map do |currency|
-      [I18n.t('currencies.' + currency + '.currency') +
-       ' (' + I18n.t('currencies.' + currency + '.symbol') + ')',
-       currency]
-    end
-    @unit_types = UNIT_TYPES.map do |unit_type|
-      [I18n.t('unit_types.' + unit_type + '.unit_type') +
-       ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
-       unit_type]
-    end
   end
 
   # GET /offers/1/edit
@@ -91,17 +81,7 @@ class OffersController < ApplicationController
     @varieties = product.varieties.map{|v| [v.name, v.id]}
     @aspects = product.aspects.map{|a| [a.name, a.id]}
     @packagings = product.packagings.map{|p| [p.name, p.id]}
-    @currencies = CURRENCIES.map do |currency|
     @incoterms = INCOTERMS
-      [I18n.t('currencies.' + currency + '.currency') +
-       ' (' + I18n.t('currencies.' + currency + '.symbol') + ')',
-       currency]
-    end
-    @unit_types = UNIT_TYPES.map do |unit_type|
-      [I18n.t('unit_types.' + unit_type + '.unit_type') +
-       ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
-       unit_type]
-    end
   end
 
   # POST /offers
@@ -171,8 +151,7 @@ class OffersController < ApplicationController
 	def offer_params
 		if broker_signed_in?
 			params.require(:offer).permit(:supplier_id,
-                                    :date_start, :date_end,
-                                    :quantity, :unit_type, :currency,
+                                    :date_start, :date_end, :quantity,
 																		:unit_price_supplier, :unit_price_broker,
                                     :localisation_supplier,
                                     :localisation_broker,
@@ -182,8 +161,7 @@ class OffersController < ApplicationController
 		else
 			params.require(:offer).permit(:supplier_id,
                                     :date_start, :date_end,
-                                    :quantity, :unit_type, :currency,
-																		:unit_price_supplier,
+                                    :quantity, :unit_price_supplier,
                                     :localisation_supplier,
                                     :observation, :incoterm,
 																		:product_id, :variety_id, :aspect_id,

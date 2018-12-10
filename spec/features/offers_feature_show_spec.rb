@@ -6,8 +6,8 @@ RSpec.describe "Offers Feature", type: :feature do
   let(:supplier1) {create(:supplier)}
   let(:supplier2) {create(:supplier)}
   let(:broker1) {create(:broker)}
-  let!(:offer1) {create(:offer, approved: true, currency: "euro",
-                                unit_price_supplier: 0.1, unit_price_broker: 0.2)}
+  let!(:offer1) {create(:offer, approved: true, unit_price_supplier: 0.1,
+                                unit_price_broker: 0.2)}
 
   describe "GET #show" do
 

@@ -139,21 +139,10 @@
         &nbsp;
       </div>
       <div class="col-3">
-        <%= label_tag t('activerecord.attributes.offer.unit_type') %>
-        <div style="clear: both;"></div>
-        <%= form.select :unit_type, options_for_select(@unit_types) %>
-        &nbsp;
-      </div>
-      <div class="col-3">
         <%= label_tag t('activerecord.attributes.offer.unit_price_supplier') %>
         <div style="clear: both;"></div>
         <%= monetary_field 'offer', 'unit_price_supplier', 0 %>
         &nbsp;
-      </div>
-      <div class="col-3">
-        <%= label_tag t('activerecord.attributes.offer.currency') %>
-        <div style="clear: both;"></div>
-        <%= form.select :currency, options_for_select(@currencies) %>
       </div>
     </div>
 

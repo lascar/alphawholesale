@@ -153,10 +153,10 @@
                 <%= offer.product.name %>
               </div></td>
               <td><div class="cell-resumen">
-                <%= offer.quantity.to_s + " " + offer.unit_type %>
+                <%= offer.quantity.to_s + " " + offer.supplier.unit_type %>
               </div></td>
               <td><div class="cell-resumen">
-                <%= offer.unit_price_supplier.to_s + " " + offer.currency %>
+                <%= offer.unit_price_supplier.to_s + " " + offer.supplier.currency %>
               </div></td>
               <td>
                 <%= link_to icon('fas', 'eye'),
@@ -237,10 +237,10 @@
         <thead>
           <tr>
             <th><div class="cell-resumen">
-              <%= Order.human_attribute_name("date_start") %>
+              <%= Product.human_attribute_name("name") %>
             </div></th>
             <th><div class="cell-resumen">
-              <%= Order.human_attribute_name("date_end") %>
+              <%= Order.human_attribute_name("quantity") %>
             </div></th>
             <th class="table-icons" colspan="3"></th>
           </tr>
@@ -249,10 +249,10 @@
           <% @orders_without_approved.each do |order| %>
             <tr>
               <td><div class="cell-resumen">
-                <%= order.date_start %>
+                <%= order.offer.product.name %>
               </div></td>
               <td><div class="cell-resumen">
-                <%= order.date_end %>
+                <%= order.quantity %>
               </div></td>
               <td>
                 <%= link_to icon('fas', 'eye'), order, title: t("show") %>

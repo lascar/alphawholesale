@@ -80,6 +80,8 @@ es:
         remember_me: "acordarse de mí"
         password_confirmation: "confirmación de la contraseña"
         current_password: "contraseña actual"
+        currency: "Moneda"
+        unit_type: "Tipo de Unidad"
         approved: "validación"
       customer:
         identifier: "identificador"
@@ -97,6 +99,8 @@ es:
         remember_me: "acordarse de mí"
         password_confirmation: "confirmación de la contraseña"
         current_password: "contraseña actual"
+        currency: "Moneda"
+        unit_type: "Tipo de Unidad"
         approved: "validación"
       product:
         name: "nombre"
@@ -127,8 +131,6 @@ es:
         quantity: "Cantidad"
         unit_price_supplier: "Precio por Unitad"
         unit_price_broker: "Precio por Unitad"
-        currency: "Moneda"
-        unit_type: "Tipo de Unidad"
         localisation_supplier: "Localisación de la Mecandería Proveedor"
         localisation_broker: "Localisación de la Mecandería"
         incoterm: "INCOTERM"

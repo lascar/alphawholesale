@@ -8,9 +8,7 @@ class CreateTenderLines < ActiveRecord::Migration[5.2]
       t.belongs_to :size
       t.belongs_to :packaging
       t.integer :unit
-      t.string :unit_type
       t.integer :unit_price
-      t.string :currency
       t.text :observation
 
       t.timestamps

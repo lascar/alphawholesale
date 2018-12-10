@@ -42,16 +42,6 @@ class TenderLinesController < ApplicationController
       @tenders = Tender.all
       tender = t
     end
-    @currencies = CURRENCIES.map do |currency|
-      [I18n.t('currencies.' + currency + '.currency') +
-       ' (' + I18n.t('currencies.' + currency + '.symbol') + ')',
-       currency]
-    end
-    @unit_types = UNIT_TYPES.map do |unit_type|
-      [I18n.t('unit_types.' + unit_type + '.unit_type') +
-       ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
-       unit_type]
-    end
     @tender_line = TenderLine.new(tender_id: (tender ? tender.id : nil))
   end
 
@@ -154,7 +144,6 @@ class TenderLinesController < ApplicationController
     def tender_line_params
       params.require(:tender_line).permit(:tender_id, :product_id, :variety_id,
                                           :aspect_id, :size, :packaging, :unit,
-                                          :unit_type, :unit_price, :currency,
-                                          :observation)
+                                          :unit_price, :observation)
     end
 end

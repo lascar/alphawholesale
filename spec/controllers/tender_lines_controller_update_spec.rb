@@ -11,13 +11,11 @@ RSpec.describe TenderLinesController, type: :controller do
                          date_start: date, date_end: date + 1.months)}
   let!(:tender2) {create(:tender, customer: customer2)}
   let!(:tender_line1) {create(:tender_line, tender: tender1, product: product1,
-                              unit: 1, unit_type: 'kilogram', unit_price: 2.09,
-                              currency: 'euro')}
+                              unit: 1, unit_price: 2.09)}
   let!(:tender_line2) {create(:tender_line, tender: tender2, product: product1,
-                              unit: 2, unit_type: 'kilogram', unit_price: 4.18,
-                              currency: 'euro')}
+                              unit: 2, unit_price: 4.18)}
   let!(:tender_line_hash) {{ tender_id: tender1.id, product_id: product1.id,
-                             unit: 3, unit_type: 'kilogram'}}
+                             unit: 3}}
 
   describe "PUT #update" do
 

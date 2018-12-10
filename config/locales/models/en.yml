@@ -86,6 +86,8 @@ en:
         remember_me: "remember me"
         password_confirmation: "password confirmation"
         current_password: "current password"
+        currency: "Currency"
+        unit_type: "Unit Type"
         approved: "approved"
       customer:
         identifier: "identifier"
@@ -103,6 +105,8 @@ en:
         remember_me: "remember me"
         password_confirmation: "password confirmation"
         current_password: "current password"
+        currency: "Currency"
+        unit_type: "Unit Type"
         approved: "approved"
       product:
         name: "name"
@@ -133,8 +137,6 @@ en:
         quantity: "Quantity"
         unit_price_supplier: "Unit price"
         unit_price_broker: "Unit price"
-        currency: "Currency"
-        unit_type: "Unit Type"
         localisation_supplier: "Stock Localisation Supplier"
         localisation_broker: "Stock Localisation"
         incoterm: "INCOTERM"

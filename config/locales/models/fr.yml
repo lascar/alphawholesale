@@ -80,6 +80,8 @@ fr:
         remember_me: "se souvenir de moi"
         password_confirmation: "confirmation du mot de passe"
         current_password: "mot de passe actuel"
+        currency: "Monaie"
+        unit_type: "Type d'Unité"
         approved: "approuvé"
       customer:
         identifier: "identifiant"
@@ -97,6 +99,8 @@ fr:
         remember_me: "se souvenir de moi"
         password_confirmation: "confirmation du mot de passe"
         current_password: "mot de passe actuel"
+        currency: "Monaie"
+        unit_type: "Type d'Unité"
         approved: "approuvé"
       product:
         name: "nom"
@@ -131,8 +135,6 @@ fr:
         quantity: "Quantité"
         unit_price_supplier: "Prix à l'unité"
         unit_price_broker: "Prix à l'unité"
-        currency: "Monaie"
-        unit_type: "Type d'Unité"
         localisation_supplier: "Localisation de la Marchandise Fournisseur"
         localisation_broker: "Localisation de la Marchandise"
         incoterm: "INCOTERM"

@@ -26,18 +26,18 @@
   <div class="row">
     <div class="col-3">
       <strong><%= Offer.human_attribute_name("quantity") %>:</strong>
-      <% quantity_string = @offer.quantity && @offer.unit_type  ?
-        (@offer.quantity.to_s + " " + t("unit_types." + @offer.unit_type +
-          ".symbol")) : "-" %>
+      <% quantity_string = @offer.quantity && @offer.supplier.unit_type  ?
+        (@offer.quantity.to_s + " " + t("unit_types." +
+         @offer.supplier.unit_type + ".symbol")) : "-" %>
       <%= quantity_string %>
     </div>
 
     <% if !customer_signed_in? %>
       <div class="col-3">
         <strong><%= Offer.human_attribute_name("unit_price_supplier") %>:</strong>
-        <% price_supplier_string = @offer.unit_price_supplier && @offer.currency ?
-          (@offer.unit_price_supplier.to_s + " " +
-          t("currencies." + @offer.currency + ".symbol")) : "-" %>
+        <% price_supplier_string = @offer.unit_price_supplier &&
+          @offer.supplier.currency ? (@offer.unit_price_supplier.to_s + " " +
+          t("currencies." + @offer.supplier.currency + ".symbol")) : "-" %>
         <%= price_supplier_string %>
       </div>
     <% end %>
@@ -45,9 +45,9 @@
     <% if !supplier_signed_in? %>
       <div class="col-3">
         <strong><%= Offer.human_attribute_name("unit_price_broker") %>:</strong>
-        <% price_broker_string = @offer.unit_price_broker && @offer.currency ?
-          (@offer.unit_price_broker.to_s + " " +
-          t("currencies." + @offer.currency + ".symbol")) : "-" %>
+        <% price_broker_string = @offer.unit_price_broker &&
+          @offer.supplier.currency ? (@offer.unit_price_broker.to_s + " " +
+          t("currencies." + @offer.supplier.currency + ".symbol")) : "-" %>
         <%= price_broker_string %>
       </div>
     <% end %>

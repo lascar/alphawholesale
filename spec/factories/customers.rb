@@ -7,6 +7,8 @@ FactoryBot.define do
     tin { "heoduo" }
     country {"france"}
     entreprise_name { "entreprise name"}
+    unit_type { "kilogram" }
+    currency { "euro" }
 
   end
 end

@@ -11,8 +11,6 @@ class CreateOffers < ActiveRecord::Migration[5.2]
       t.integer :quantity
       t.decimal :unit_price_supplier, :precision => 8, :scale => 2, :null => false, default: 0
       t.decimal :unit_price_broker, :precision => 8, :scale => 2, :null => false, default: 0
-      t.string :currency
-      t.string :unit_type
       t.string :localisation_supplier
       t.string :localisation_broker
       t.string :incoterm

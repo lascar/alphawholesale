@@ -37,6 +37,7 @@ class OrdersController < ApplicationController
     end
     @customer_id = @order.customer_id
     @order.customer_id = @customer_id
+    @offer = @order.offer
   end
 
   # POST /orders
