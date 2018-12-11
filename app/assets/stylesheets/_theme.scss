@@ -1,0 +1,23 @@
+@import 'variables';
+caption{
+  caption-side: top !important;
+}
+a:visited{
+  color: $color-first;
+}
+.btn-primary, .btn-info, .btn-danger{
+  color: white !important;
+}
+.btn-gris {
+  color: white !important;
+  background-color: $color-second !important;
+}
+.fas{
+  color: $color-first;
+}
+.card{
+  padding: 0.8rem !important;
+}
+#notice, .alert{
+  color: $color-second;
+}
