@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     resources :tenders
     resources :tender_lines
   end
-  resources :suppliers, concerns: [:offertable, :productable] do
+  resources :suppliers, except: [:new, :create], concerns: [:offertable, :productable] do
     member do
       get 'attach_products', as: :attach_products
       post 'attach_products_create', as: :attach_products_create

@@ -12,7 +12,7 @@ RSpec.describe "Suppliers Feature", type: :feature do
     describe "as a logged broker" do
       before :each do
         sign_in(broker1)
-        visit new_supplier_url
+        visit new_supplier_registration_url
       end
 
       it "assigns a new supplier" do

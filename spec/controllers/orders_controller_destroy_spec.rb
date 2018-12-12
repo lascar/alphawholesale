@@ -26,7 +26,7 @@ RSpec.describe OrdersController, type: :controller do
 
       it "returns a non authorized message" do
         expect(flash.alert).to match(I18n.t(
-         'devise.failure.order.unauthenticated'))
+         'devise.failure.unauthenticated'))
       end
 
       it "does not destroy the order" do

@@ -17,31 +17,8 @@ fr:
       send_instructions: "You will receive an email with instructions for how to confirm your email address in a few minutes."
       send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes."
     failure:
-      broker:
-        unauthenticated: "Vous devez soit vous loger soit vous registrer."
-      supplier:
-        unauthenticated: "Vous devez soit vous loger soit vous registrer."
-      customer:
-        unauthenticated: "Vous devez soit vous loger soit vous registrer."
-      product:
-        unauthenticated: "Vous devez soit vous loger soit vous registrer."
-      packaging:
-        unauthenticated: "Vous devez soit vous loger soit vous registrer."
-      aspect:
-        unauthenticated: "Vous devez soit vous loger soit vous registrer."
-      size:
-        unauthenticated: "Vous devez soit vous loger soit vous registrer."
-      variety:
-        unauthenticated: "Vous devez soit vous loger soit vous registrer."
-      offer:
-        unauthenticated: "Vous devez soit vous loger soit vous registrer."
-      order:
-        unauthenticated: "Vous devez soit vous loger soit vous registrer."
-      tender:
-        unauthenticated: "Vous devez soit vous loger soit vous registrer."
-      tender_line:
-        unauthenticated: "Vous devez soit vous loger soit vous registrer."
-      already_authenticated: "You are already signed in."
+      unauthenticated: "Vous devez soit vous loger soit vous registrer."
+      already_authenticated: "Vous êtes déja logé."
       inactive: "Your account is not activated yet."
       invalid: "Invalid %{authentication_keys} or password."
       locked: "Your account is locked."

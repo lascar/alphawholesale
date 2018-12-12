@@ -25,7 +25,7 @@ RSpec.describe BrokersController, type: :controller do
 
       it "returns a non authenticated message" do
         expect(flash.alert).to match(
-         I18n.t('devise.failure.broker.unauthenticated'))
+         I18n.t('devise.failure.unauthenticated'))
       end
 
       it "does not destroy the broker" do

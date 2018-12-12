@@ -23,7 +23,7 @@ RSpec.describe CustomersController, type: :controller do
 
       it "returns a non authenticated message" do
         expect(flash.alert).to match(
-         I18n.t('devise.failure.customer.unauthenticated'))
+         I18n.t('devise.failure.unauthenticated'))
       end
     end
 

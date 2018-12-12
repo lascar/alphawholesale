@@ -1,4 +1,8 @@
 module Permissions
+  NOT_CUSTOMER_OR_SUPPLIER = -> (current_user, id) do
+    !current_user || current_user.class.name == 'Broker'
+  end
+
   SUPPLIER_OWNER = -> (current_user, id) do
     current_user.class.name == 'Supplier' && current_user.id.to_s == id
   end
@@ -51,7 +55,35 @@ module Permissions
   end
 
   ONLY_CUSTOMER_OWNER_OR_BROKER = -> (controller, current_user, id) do
-    unless (CUSTOMER_OWNER.call(current_user, id) || current_user.class.name == 'Broker')
+    unless (CUSTOMER_OWNER.call(current_user, id) ||
+            current_user.class.name == 'Broker')
+      user_type = current_user.class.name.downcase
+      path = '/' + user_type.pluralize + '/' + current_user.id.to_s
+      alert = I18n.t('devise.errors.messages.not_authorized')
+      controller.redirect_to( path, alert: alert)
+      return
+    end
+  end
+
+  ONLY_SUPPLIER_CUSTOMER_OWNER_OR_BROKER = -> (controller, current_user, id) do
+    unless (SUPPLIER_OWNER.call(current_user, id) ||
+            CUSTOMER_OWNER.call(current_user, id) ||
+            current_user.class.name == 'Broker')
+      if current_user.nil?
+        path = '/'
+        alert = I18n.t('devise.failure.unauthenticated')
+      else
+        user_type = current_user.class.name.downcase
+        path = '/' + user_type.pluralize + '/' + current_user.id.to_s
+        alert = I18n.t('devise.errors.messages.not_authorized')
+      end
+      controller.redirect_to( path, alert: alert)
+      return
+    end
+  end
+
+  ONLY_GUEST_OR_BROKER = -> (controller, current_user, id) do
+    unless NOT_CUSTOMER_OR_SUPPLIER.call(current_user, id)
       user_type = current_user.class.name.downcase
       path = '/' + user_type.pluralize + '/' + current_user.id.to_s
       alert = I18n.t('devise.errors.messages.not_authorized')
@@ -76,6 +108,12 @@ module Permissions
                              destroy: ONLY_BROKER,
                              attach_products: ONLY_SUPPLIER_OWNER_OR_BROKER,
                       attach_products_create: ONLY_SUPPLIER_OWNER_OR_BROKER},
+            registrations:  {new: ONLY_GUEST_OR_BROKER,
+                             edit: ONLY_SUPPLIER_CUSTOMER_OWNER_OR_BROKER,
+                             create: ONLY_GUEST_OR_BROKER,
+                             update: ONLY_SUPPLIER_CUSTOMER_OWNER_OR_BROKER,
+                             destroy: ONLY_BROKER,
+                             cancel: ONLY_BROKER},
                 customers:  {index: ONLY_BROKER,
                              show: ONLY_CUSTOMER_OWNER_OR_BROKER,
                              new: ONLY_BROKER,

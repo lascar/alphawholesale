@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
       opts = {scope: scope}
       warden.authenticate!(opts) if !devise_controller? || opts.delete(:force)
     else
-      redirect_to "/", alert: I18n.t('devise.failure.supplier.unauthenticated')
+      redirect_to "/", alert: I18n.t('devise.failure.unauthenticated')
       return
     end
   end

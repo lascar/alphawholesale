@@ -24,7 +24,7 @@ RSpec.describe OffersController, type: :controller do
       context "when creating" do
         it {is_expected.to redirect_to "http://test.host/"}
         it {is_expected.to set_flash[:alert].to I18n.t(
-         'devise.failure.offer.unauthenticated')}
+         'devise.failure.unauthenticated')}
       end
     end
 

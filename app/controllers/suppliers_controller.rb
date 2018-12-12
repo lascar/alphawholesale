@@ -16,21 +16,6 @@ class SuppliersController < ApplicationController
     @products = @supplier.products
   end
 
-  # GET /suppliers/new
-  def new
-    @currencies = CURRENCIES.map do |currency|
-      [I18n.t('currencies.' + currency + '.currency') +
-       ' (' + I18n.t('currencies.' + currency + '.symbol') + ')',
-       currency]
-    end
-    @unit_types = UNIT_TYPES.map do |unit_type|
-      [I18n.t('unit_types.' + unit_type + '.unit_type') +
-       ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
-       unit_type]
-    end
-    @supplier = Supplier.new
-  end
-
   # GET /suppliers/1/edit
   def edit
     @currencies = CURRENCIES.map do |currency|
@@ -42,18 +27,6 @@ class SuppliersController < ApplicationController
       [I18n.t('unit_types.' + unit_type + '.unit_type') +
        ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
        unit_type]
-    end
-  end
-
-  # POST /suppliers
-  def create
-    @supplier = Supplier.new(supplier_params)
-
-    if @supplier.save
-      redirect_to @supplier,
-       notice: I18n.t('controllers.suppliers.successfully_created')
-    else
-      render :new
     end
   end
 

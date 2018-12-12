@@ -32,7 +32,7 @@ RSpec.describe TenderLinesController, type: :controller do
 
       it "returns a non authorized message" do
         expect(flash.alert).to match(I18n.t(
-         'devise.failure.tender_line.unauthenticated'))
+         'devise.failure.unauthenticated'))
       end
     end
 

@@ -17,31 +17,8 @@ es:
       send_instructions: "You will receive an email with instructions for how to confirm your email address in a few minutes."
       send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes."
     failure:
-      broker:
-        unauthenticated: "Debe logonearse o registrarse."
-      supplier:
-        unauthenticated: "Debe logonearse o registrarse."
-      customer:
-        unauthenticated: "Debe logonearse o registrarse."
-      product:
-        unauthenticated: "Debe logonearse o registrarse."
-      packaging:
-        unauthenticated: "Debe logonearse o registrarse."
-      aspect:
-        unauthenticated: "Debe logonearse o registrarse."
-      size:
-        unauthenticated: "Debe logonearse o registrarse."
-      variety:
-        unauthenticated: "Debe logonearse o registrarse."
-      offer:
-        unauthenticated: "Debe logonearse o registrarse."
-      order:
-        unauthenticated: "Debe logonearse o registrarse."
-      tender:
-        unauthenticated: "Debe logonearse o registrarse."
-      tender_line:
-        unauthenticated: "Debe logonearse o registrarse."
-      already_authenticated: "You are already signed in."
+      unauthenticated: "Debe logonearse o registrarse."
+      already_authenticated: "Ya esta logoneado."
       inactive: "Your account is not activated yet."
       invalid: "Invalid %{authentication_keys} or password."
       locked: "Your account is locked."

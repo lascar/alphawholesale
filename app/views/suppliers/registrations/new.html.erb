@@ -63,6 +63,16 @@
   </div>
 
   <div class="field">
+    <%= f.label :currency %>
+    <%= f.select :currency, @currencies %>
+  </div>
+
+  <div class="field">
+    <%= f.label :unit_type %>
+    <%= f.select :unit_type, @unit_types %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>*
     <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> <%= t("devise.messages.password_minimum_length") %>)</em>
@@ -74,6 +84,13 @@
     <%= f.label :password_confirmation %>*<br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true %>
   </div>
+
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= f.label :approved %>
+      <%= f.check_box :approved %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= f.submit t("devise.action.signup") %>

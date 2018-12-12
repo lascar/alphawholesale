@@ -28,7 +28,7 @@ RSpec.describe SuppliersController, type: :controller do
 
       it "returns a non authorized message" do
         expect(flash.alert).to match(
-         I18n.t('devise.failure.supplier.unauthenticated'))
+         I18n.t('devise.failure.unauthenticated'))
       end
     end
 

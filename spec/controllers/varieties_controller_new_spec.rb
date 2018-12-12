@@ -26,7 +26,7 @@ RSpec.describe VarietiesController, type: :controller do
 
       it "returns a non authorized message" do
         expect(flash.alert).to match(I18n.t(
-         'devise.failure.variety.unauthenticated'))
+         'devise.failure.unauthenticated'))
       end
     end
 
