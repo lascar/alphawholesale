@@ -52,7 +52,10 @@ class Suppliers::RegistrationsController < Devise::RegistrationsController
                        :tin, :street_and_number, :postal_code,
                        :city, :state, :country, :currency, :unit_type,
                        :telephone_number1, :telephone_number2,
-                       :password, :password_confirmation, :approved])
+                       :password, :password_confirmation])
+    if broker_signed_in?
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:approved])
+    end
   end
 
   # If you have extra params to permit, append them to the sanitizer.

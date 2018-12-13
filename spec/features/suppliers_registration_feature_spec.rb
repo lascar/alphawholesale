@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "Suppliers Feature", type: :feature do
-  let!(:customer1) {create(:customer)}
-  let!(:supplier1) {create(:supplier)}
   let(:broker1) {create(:broker)}
+  let(:supplier_hash) {{identifier: "supplier2", email: "supplier2@test.com",
+                       tin: "en", country: "spain", entreprise_name: "star treck",
+                       password: "password", password_confirmation: "password",
+                       approved: true}}
 
   describe "GET #new" do
 
@@ -35,34 +37,6 @@ RSpec.describe "Suppliers Feature", type: :feature do
       end
     end
 
-    # TEST as a customer
-    # TEST when supplier is asked for new
-    # TEST then a message of not authorized is sent
-    # TEST and the customer's page is rendered
-    describe "as a logged customer" do
-
-      it "renders the customer's page with an unauthorized message" do
-        sign_in(customer1)
-        visit new_supplier_registration_url
-        expect(page).to have_content(I18n.t('devise.errors.messages.not_authorized'))
-        expect(page.current_path).to eq('/customers/' + customer1.id.to_s)
-      end
-    end
-
-    # TEST as a supplier
-    # TEST when supplier is asked for new
-    # TEST then a message of not authorized is sent
-    # TEST and the supplier's page is rendered
-    describe "as a logged supplier" do
-
-      it "renders the supplier's page with an unauthorized message" do
-        sign_in(supplier1)
-        visit new_supplier_registration_url
-        expect(page).to have_content(I18n.t('devise.failure.already_authenticated'))
-        expect(page.current_path).to eq('/suppliers/' + supplier1.id.to_s)
-      end
-    end
-
     # TEST as a logged broker
     # TEST when a new supplier is submited
     # TEST then a message of success is sent
@@ -90,6 +64,7 @@ RSpec.describe "Suppliers Feature", type: :feature do
         fill_in('supplier[password_confirmation]', :with => 'password')
         find('[name=commit]').click
         expect(page).to have_content(I18n.t('controllers.suppliers.successfully_created'))
+        expect(Supplier.last.approved).to be(true)
       end
     end
   end

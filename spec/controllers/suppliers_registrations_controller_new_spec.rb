@@ -3,15 +3,13 @@ require 'rails_helper'
 
 RSpec.describe Suppliers::RegistrationsController, type: :controller do
   let!(:supplier1) {create(:supplier)}
-  let!(:supplier2) {create(:supplier, identifier: "supplier2",
-                                      email: "supplier2@test.com")}
-  let(:supplier_hash) {{identifier: "supplier3", email: "supplier3@test.com",
+  let(:supplier_hash) {{identifier: "supplier2", email: "supplier2@test.com",
                        tin: "en", country: "spain", entreprise_name: "star treck",
                        password: "password", password_confirmation: "password"}}
   let(:customer1) {create(:customer)}
   let(:broker1) {create(:broker)}
 
-  describe "POST #create" do
+  describe "GET #new" do
 
     # TEST as a logged customer
     # TEST when a supplier is asked for creating
@@ -21,7 +19,7 @@ RSpec.describe Suppliers::RegistrationsController, type: :controller do
       before :each do
         @request.env["devise.mapping"] = Devise.mappings[:supplier]
         sign_in(customer1)
-        post :create, params: {supplier: supplier_hash}
+        get :new
       end
 
       it "returns the customer's page and returns a non authorized message" do
@@ -40,7 +38,7 @@ RSpec.describe Suppliers::RegistrationsController, type: :controller do
       before :each do
         @request.env["devise.mapping"] = Devise.mappings[:supplier]
         sign_in(supplier1)
-        post :create, params: {supplier: supplier_hash}
+        get :new
       end
 
       it "returns the supplier's page and
