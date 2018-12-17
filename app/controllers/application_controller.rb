@@ -36,8 +36,10 @@ class ApplicationController < ActionController::Base
   end
 
   def verify_permission_user
+    current_user_id = current_user ? current_user.id : nil
+    id = params[:id] || current_user_id
     PERMISSIONS[controller_name.to_sym][action_name.to_sym].
-     call(self, current_user, params[:id])
+     call(self, current_user, id)
   end
 
   def verify_permission

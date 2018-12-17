@@ -1,3 +1,4 @@
+<%# byebug %>
 <%= link_to t("brokers.edit"), edit_broker_path(@broker), class: "btn btn-info btn-sm give-me-some-space" %>
 <div class="card shadow-sm">
   <div class="row">
@@ -147,7 +148,6 @@
           <% @offers_without_approved.each do |offer| %>
             <tr>
               <td><div class="cell-resumen">
-                <%# byebug %>
                 <%= offer.product.name + " " +
                  (offer.variety ? offer.variety.name : "") %>
                 <%= offer.product.name %>

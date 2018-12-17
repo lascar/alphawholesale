@@ -1,11 +1,114 @@
 <h1><%= t("supplier.editing") %></h1>
+<%= form_with(model: @supplier, local: true) do |form| %>
+  <% if @supplier.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@supplier.errors.count, "error") %> <%= t("suppliers.prohibited_supplier_saved") %></h2>
 
-<%# byebug %>
-<% if current_broker %>
-  <%= render 'form_for_broker', supplier: @supplier %>
-<% else %>
-  <%= render 'form', supplier: @supplier %>
+      <ul>
+      <% @supplier.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= form.label :identifier %><br />
+      <%= form.text_field :identifier, autofocus: true, autocomplete: "identifier" %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :email %><br />
+    <%= form.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :entreprise_name %>*
+    <%= form.text_field :entreprise_name, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tin %>*
+    <%= form.text_field :tin, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :street_and_number %>
+    <%= form.text_field :street_and_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :postal_code %>
+    <%= form.text_field :postal_code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :state %>
+    <%= form.text_field :state %>
+  </div>
+
+  <div class="field">
+    <%= form.label :country %>*
+    <%= form.text_field :country, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :telephone_number1 %>
+    <%= form.text_field :telephone_number1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :telephone_number2 %>
+    <%= form.text_field :telephone_number2 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :currency %>
+    <%= form.select :currency, @currencies %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unit_type %>
+    <%= form.select :unit_type, @unit_types %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>*
+    <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> <%= t("devise.messages.password_minimum_length") %>)</em>
+    <% end %><br />
+    <%= form.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation %>*<br />
+    <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <% unless broker_signed_in? %>
+    <div class="field">
+      <%= form.label :current_password %> <i>(<%= t("devise.messages.need_password_confirm_change") %>)</i><br />
+      <%= form.password_field :current_password, autocomplete: "current-password" %>
+    </div>
+  <% end %>
+
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= form.label :approved %>
+      <%= form.check_box :approved %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit t("update") %>
+  </div>
 <% end %>
 
-<%= link_to t("show"), @supplier %> |
 <%= link_to t("back"), :back %>

@@ -16,17 +16,29 @@ class SuppliersController < ApplicationController
     @products = @supplier.products
   end
 
+  # GET /suppliers/new
+  def new
+    @currencies, @unit_types = put_currencies_unit_types
+    @supplier = Supplier.new
+    redirect_to new_supplier_registration_path
+  end
+
   # GET /suppliers/1/edit
   def edit
-    @currencies = CURRENCIES.map do |currency|
-      [I18n.t('currencies.' + currency + '.currency') +
-       ' (' + I18n.t('currencies.' + currency + '.symbol') + ')',
-       currency]
-    end
-    @unit_types = UNIT_TYPES.map do |unit_type|
-      [I18n.t('unit_types.' + unit_type + '.unit_type') +
-       ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
-       unit_type]
+    @currencies, @unit_types = put_currencies_unit_types
+    @minimum_password_length = Supplier.password_length.min
+  end
+
+  # POST /suppliers
+  def create
+    @supplier = Supplier.new(supplier_params)
+
+    if @supplier.save
+      redirect_to @supplier,
+       notice: I18n.t('controllers.suppliers.successfully_created')
+    else
+        @currencies, @unit_types = put_currencies_unit_types
+      render :new
     end
   end
 
@@ -39,6 +51,8 @@ class SuppliersController < ApplicationController
       redirect_to( @supplier,
        notice: I18n.t('controllers.suppliers.successfully_updated')) and return
     else
+      @currencies, @unit_types = put_currencies_unit_types
+      @minimum_password_length = Supplier.password_length.min
       render :edit
     end
   end
@@ -75,29 +89,31 @@ class SuppliersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def supplier_params
+    base = [:email, :tin, :street_and_number, :postal_code, :state, :country,
+            :entreprise_name, :telephone_number1, :telephone_number2,
+            :unit_type, :currency]
     if current_broker
-      params.require(:supplier).permit(:identifier, :email, :approved,
-                                       :tin, :street_and_number, :postal_code,
-                                       :state, :country, :entreprise_name,
-                                       :telephone_number1, :telephone_number2,
-                                       :unit_type, :currency,
-                                       :password, :password_confirmation)
+      base.push(:identifier, :approved, :password, :password_confirmation)
     else
       if !params[:supplier][:current_password].blank? &&
        @supplier.valid_password?(params[:supplier][:current_password])
-        params.require(:supplier).permit(:email,
-                                         :tin, :street_and_number, :postal_code,
-                                         :state, :country, :entreprise_name,
-                                         :telephone_number1, :telephone_number2,
-                                         :unit_type, :currency,
-                                         :password, :password_confirmation)
-      else
-        params.require(:supplier).permit(:email,
-                                         :tin, :street_and_number, :postal_code,
-                                         :state, :country, :entreprise_name,
-                                         :telephone_number1, :telephone_number2,
-                                         :unit_type, :currency)
+        base.push(:password, :password_confirmation)
       end
     end
+    params.require(:supplier).permit(base)
+  end
+
+  def put_currencies_unit_types
+    currencies = CURRENCIES.map do |currency|
+      [I18n.t('currencies.' + currency + '.currency') +
+       ' (' + I18n.t('currencies.' + currency + '.symbol') + ')',
+       currency]
+    end
+    unit_types = UNIT_TYPES.map do |unit_type|
+      [I18n.t('unit_types.' + unit_type + '.unit_type') +
+       ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
+       unit_type]
+    end
+    return [currencies, unit_types]
   end
 end

@@ -1,16 +1,75 @@
 <h2><%= t("edit") %> <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+  <% if !devise_error_messages!.empty? %>
+    <%= devise_error_messages! %>
+  <% end %>
+
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= f.label :identifier %><br />
+      <%= f.text_field :identifier, autofocus: true, autocomplete: "identifier" %>
+    </div>
+  <% end %>
 
   <div class="field">
-    <%= f.label :identifier %><br />
-    <%= f.text_field :identifier, autofocus: true, autocomplete: "identifier" %>
+    <%= f.label :email %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :entreprise_name %>*
+    <%= f.text_field :entreprise_name, required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tin %>*
+    <%= f.text_field :tin, required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :street_and_number %>
+    <%= f.text_field :street_and_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :city %>
+    <%= f.text_field :city %>
+  </div>
+
+  <div class="field">
+    <%= f.label :postal_code %>
+    <%= f.text_field :postal_code %>
+  </div>
+
+  <div class="field">
+    <%= f.label :state %>
+    <%= f.text_field :state %>
+  </div>
+
+  <div class="field">
+    <%= f.label :country %>*
+    <%= f.text_field :country, required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :telephone_number1 %>
+    <%= f.text_field :telephone_number1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :telephone_number2 %>
+    <%= f.text_field :telephone_number2 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :currency %>
+    <%= f.select :currency, @currencies %>
+  </div>
+
+  <div class="field">
+    <%= f.label :unit_type %>
+    <%= f.select :unit_type, @unit_types %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -43,6 +102,7 @@
 
 <h3><%= t("devise.messages.cancel_account") %></h3>
 
+<%= link_to t("back"), :back %>
 <p><%= t("devise.messages.unhappy") %>? <%= button_to t("devise.messages.cancel_account"), registration_path(resource_name), data: { confirm: t("are_you_sure") }, method: :delete %></p>
 
 <%= link_to t("back"), :back %>

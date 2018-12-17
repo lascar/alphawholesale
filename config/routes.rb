@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'welcome#home'
+
   devise_for :suppliers, controllers: {
     registrations: 'suppliers/registrations',
     sessions: 'suppliers/sessions'
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
     registrations: 'customers/registrations',
     sessions: 'customers/sessions'
   }
+
   concern :offertable do
     resources :offers
   end
@@ -47,7 +49,8 @@ Rails.application.routes.draw do
     resources :tenders
     resources :tender_lines
   end
-  resources :suppliers, except: [:new, :create], concerns: [:offertable, :productable] do
+
+  resources :suppliers, concerns: [:offertable, :productable] do
     member do
       get 'attach_products', as: :attach_products
       post 'attach_products_create', as: :attach_products_create

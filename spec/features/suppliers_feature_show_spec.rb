@@ -17,12 +17,10 @@ RSpec.describe 'Suppliers feature show', type: :feature do
       visit supplier_url(supplier1)
     end
 
-    it "has a link edit for the supplier" do
+    it "has a link edit for the supplier and
+     shows the last supplier's offer price" do
       expect(page).to have_link ({href:
-                                  "/suppliers/" + supplier1.id.to_s + "/edit"})
-    end
-
-    it "shows the last supplier's offer price" do
+                                  "/suppliers/edit"})
       expect(page).to have_content (
        supplier1.offers.last.unit_price_supplier.to_s)
     end
@@ -40,16 +38,11 @@ RSpec.describe 'Suppliers feature show', type: :feature do
       visit supplier_url(supplier1)
     end
 
-    it "assigns the supplier" do
+    it "assigns the supplier and has a link edit for the supplier and
+      shows the last supplier's offer price" do
       expect(page).to have_content (supplier1.identifier)
-    end
-
-    it "has a link edit for the supplier" do
       expect(page).to have_link ({href:
                                   "/suppliers/" + supplier1.id.to_s + "/edit"})
-    end
-
-    it "shows the last supplier's offer price" do
       expect(page).to have_content (
        supplier1.offers.last.unit_price_supplier.to_s)
     end

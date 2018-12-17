@@ -3,7 +3,7 @@
 class Suppliers::RegistrationsController < Devise::RegistrationsController
   include Accessible
   skip_before_action :check_user, except: [:new, :create]
-  before_action :verify_permission_user
+  before_action :verify_permission_user, only: [:new, :create]
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
@@ -21,11 +21,13 @@ class Suppliers::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
   def edit
+    @currencies, @unit_types = put_currencies_unit_types
     super
   end
 
   # PUT /resource
   def update
+    @currencies, @unit_types = put_currencies_unit_types
     super
   end
 
@@ -65,22 +67,23 @@ class Suppliers::RegistrationsController < Devise::RegistrationsController
                               :tin, :street_and_number, :postal_code,
                               :city, :state, :country, :currency, :unit_type,
                               :telephone_number1, :telephone_number2,
-                              :password, :password_confirmation, :approved])
+                              :password, :password_confirmation,
+                              :current_password])
   end
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    if broker_signed_in?
-      flash.notice = I18n.t('controllers.suppliers.successfully_created')
-      return
-    else
-      super(resource)
-    end
+    super(resource)
+  end
+
+  def after_update_path_for(resource)
+    supplier_path(resource)
   end
 
   # The path used after sign up for inactive accounts.
   def after_inactive_sign_up_path_for(resource)
     if broker_signed_in?
+      flash.notice = I18n.t('controllers.suppliers.successfully_created')
       return
     else
       super(resource)

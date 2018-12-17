@@ -14,13 +14,13 @@ RSpec.describe SuppliersController, type: :controller do
     # TEST then the root page is returned
     # TEST and a message of unauthenticated is send
     describe "as guest user asking for a supplier's editing page" do
-      it "returns the root page" do
+
+      before :each do
         get :edit, params: {id: supplier1.to_param}
-        expect(response.redirect_url).to eq("http://test.host/")
       end
 
-      it "returns a non authorized message" do
-        get :edit, params: {id: supplier1.to_param}
+      it "returns the root page and returns a non authorized message" do
+        expect(response.redirect_url).to eq("http://test.host/")
         expect(flash.alert).to match(
          I18n.t('devise.failure.unauthenticated'))
       end
@@ -36,12 +36,9 @@ RSpec.describe SuppliersController, type: :controller do
         get :edit, params: {id: supplier1.to_param}
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -58,12 +55,9 @@ RSpec.describe SuppliersController, type: :controller do
         get :edit, params: {id: supplier2.to_param}
       end
 
-      it "returns the supplier's page" do
+      it "returns the supplier's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -71,20 +65,19 @@ RSpec.describe SuppliersController, type: :controller do
 
     # TEST as a logged supplier
     # TEST when a supplier is asked his page for editing
-    # TEST then the supplier is prepared for editing
-    # TEST and it's the supplier's edit page
+    # TEST then the supplier's page is returned
+    # TEST and a message of unauthorized is send
     describe "as a logged supplier asking for his editing page" do
       before :each do
         sign_in(supplier1)
         get :edit, params: {id: supplier1.to_param}
       end
 
-      it "returns the supplier's page" do
-        expect(assigns(:supplier)).to eq(supplier1)
-      end
-
-      it "returns the supplier's edit page" do
-        expect(response).to render_template(:edit)
+      it "returns the supplier's page and returns a non authorized message" do
+        expect(response.redirect_url).to eq(
+         "http://test.host/suppliers/" + supplier1.id.to_s)
+        expect(flash.alert).to match(
+         I18n.t('devise.errors.messages.not_authorized'))
       end
     end
 

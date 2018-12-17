@@ -4,11 +4,11 @@ module Permissions
   end
 
   SUPPLIER_OWNER = -> (current_user, id) do
-    current_user.class.name == 'Supplier' && current_user.id.to_s == id
+    current_user.class.name == 'Supplier' && current_user.id.to_s == id.to_s
   end
 
   CUSTOMER_OWNER = -> (current_user, id) do
-    current_user.class.name == 'Customer' && current_user.id.to_s == id
+    current_user.class.name == 'Customer' && current_user.id.to_s == id.to_s
   end
 
   USER = -> (controller, current_user, id) do
@@ -102,9 +102,9 @@ module Permissions
                 suppliers:  {index: ONLY_BROKER,
                              show: ONLY_SUPPLIER_OWNER_OR_BROKER,
                              new: ONLY_BROKER,
-                             edit: ONLY_SUPPLIER_OWNER_OR_BROKER,
+                             edit: ONLY_BROKER,
                              create: ONLY_BROKER,
-                             update: ONLY_SUPPLIER_OWNER_OR_BROKER,
+                             update: ONLY_BROKER,
                              destroy: ONLY_BROKER,
                              attach_products: ONLY_SUPPLIER_OWNER_OR_BROKER,
                       attach_products_create: ONLY_SUPPLIER_OWNER_OR_BROKER},

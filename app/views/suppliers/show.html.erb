@@ -1,3 +1,4 @@
+<%# byebug %>
 <% if broker_signed_in? %>
   <p>
     <strong><%= Supplier.human_attribute_name("identifier") %></strong>
@@ -12,7 +13,7 @@
     <%= check_box_tag :approved, '', @supplier.approved, disabled: true %>
   </p>
 <% end %>
-<%= link_to t("suppliers.edit"), edit_supplier_path(@supplier), class: "btn btn-danger btn-sm give-me-some-space" %>
+<%= link_to t("suppliers.edit"), path_edit_supplier(@supplier), class: "btn btn-danger btn-sm give-me-some-space" %>
 <div class="row small-font">
   <div class="col-md-9">
     <div class="card">
@@ -99,7 +100,6 @@
       </table>
       <% end %>
       <br>
-      <%# byebug %>
       <%= link_to t("suppliers.attach_products"), attach_products_supplier_path(@supplier.id), class:  "btn btn-primary btn-sm" %>
     </div>
   </div>
