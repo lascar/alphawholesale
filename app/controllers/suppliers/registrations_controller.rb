@@ -2,8 +2,9 @@
 
 class Suppliers::RegistrationsController < Devise::RegistrationsController
   include Accessible
-  skip_before_action :check_user, except: [:new, :create]
-  before_action :verify_permission_user, only: [:new, :create]
+  skip_before_action :check_user, except: [:new, :create, :edit]
+  # before_action :authenticate_user!, except: [:new, :create]
+  before_action :verify_permission_user
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
@@ -46,6 +47,17 @@ class Suppliers::RegistrationsController < Devise::RegistrationsController
   end
 
   protected
+
+  # Authenticates the current scope and gets the current resource from the session.
+  def authenticate_scope!
+    if customer_signed_in?
+      flash.alert = I18n.t('devise.errors.messages.not_authorized')
+      redirect_to '/customers/' + current_customer.id.to_s
+      return
+    end
+    send(:"authenticate_#{resource_name}!", force: true)
+    self.resource = send(:"current_#{resource_name}")
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params

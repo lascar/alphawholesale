@@ -76,4 +76,21 @@ HERE
     end
     message.sub(/, $/, '')
   end
+
+  def helper_devise_error_message(devise_messages)
+    message = ""
+    domain = request.path.gsub(/\//, "").singularize
+    messages = devise_messages.respond_to?('messages') ?
+      devise_messages.messages : []
+    messages.each do |key, array|
+      message += I18n.t('activerecord.attributes.' + domain +
+                        '.' + key.to_s)
+      message += " : "
+      array.inject(message) do |m, v|
+        m += v
+        return m
+      end
+    end
+    return message
+  end
 end

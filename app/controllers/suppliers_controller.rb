@@ -26,7 +26,7 @@ class SuppliersController < ApplicationController
   # GET /suppliers/1/edit
   def edit
     @currencies, @unit_types = put_currencies_unit_types
-    @minimum_password_length = Supplier.password_length.min
+    @minimum_password_length = PASSWORD_LENGTH_MIN
   end
 
   # POST /suppliers
@@ -52,7 +52,7 @@ class SuppliersController < ApplicationController
        notice: I18n.t('controllers.suppliers.successfully_updated')) and return
     else
       @currencies, @unit_types = put_currencies_unit_types
-      @minimum_password_length = Supplier.password_length.min
+      @minimum_password_length = PASSWORD_LENGTH_MIN
       render :edit
     end
   end
