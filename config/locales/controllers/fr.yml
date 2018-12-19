@@ -12,6 +12,8 @@ fr:
       product_attached: "Produit %{product_reference} attaché. "
       product_not_attached: "Produit %{product_reference} NON attaché. "
       product_not_detached: "Produit NON detaché"
+    suppliers_registrations:
+      action_not_allowed_from_here: "Vous devez procéder depuis 'suppliers'"
     brokers:
       successfully_created: "Le Courtier a été créé."
       successfully_updated: "Le Courtier a été modifié."

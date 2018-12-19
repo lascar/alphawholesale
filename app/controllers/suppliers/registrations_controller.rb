@@ -50,6 +50,11 @@ class Suppliers::RegistrationsController < Devise::RegistrationsController
 
   # Authenticates the current scope and gets the current resource from the session.
   def authenticate_scope!
+    if broker_signed_in? and action_name == 'destroy'
+      redirect_to '/suppliers/', alert: I18n.t(
+        'controllers.suppliers_registrations.action_not_allowed_from_here')
+      return
+    end
     if customer_signed_in?
       flash.alert = I18n.t('devise.errors.messages.not_authorized')
       redirect_to '/customers/' + current_customer.id.to_s

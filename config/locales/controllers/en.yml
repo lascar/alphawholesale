@@ -12,6 +12,8 @@ en:
       product_attached: "Product %{product_reference} Attached. "
       product_not_attached: "Product %{product_reference} NOT Attached. "
       product_not_detached: "Product NOT Detached"
+    suppliers_registrations:
+      action_not_allowed_from_here: "You must perform from suppliers"
     brokers:
       successfully_created: "Broker was successfully created."
       successfully_updated: "Broker was successfully updated."

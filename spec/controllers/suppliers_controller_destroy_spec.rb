@@ -19,16 +19,11 @@ RSpec.describe SuppliersController, type: :controller do
         delete :destroy, params: {id: supplier1.to_param}
       end
 
-      it "returns the root page" do
+      it "returns the root page and returns a non authenticated message
+      and does not destroy the supplier" do
         expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authenticated message" do
         expect(flash.alert).to match(
          I18n.t('devise.failure.unauthenticated'))
-      end
-
-      it "does not destroy the supplier" do
         expect(Supplier.find_by_id(supplier1.id)).to eq(supplier1)
       end
     end
@@ -44,17 +39,12 @@ RSpec.describe SuppliersController, type: :controller do
         delete :destroy, params: {id: supplier1.to_param}
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message
+      and does not destroy the supplier" do
         expect(response.redirect_url).to eq(
          "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
-      end
-
-      it "does not destroy the supplier" do
         expect(Supplier.find_by_id(supplier1.id)).to eq(supplier1)
       end
     end
@@ -70,17 +60,12 @@ RSpec.describe SuppliersController, type: :controller do
         delete :destroy, params: {id: supplier2.to_param}
       end
 
-      it "returns the supplier's page" do
+      it "returns the supplier's page and returns a non authorized message
+      and does not destroy the supplier" do
         expect(response.redirect_url).to eq(
          "http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
-      end
-
-      it "does not destroy the supplier" do
         expect(Supplier.find_by_id(supplier2.id)).to eq(supplier2)
       end
     end
@@ -96,17 +81,12 @@ RSpec.describe SuppliersController, type: :controller do
         delete :destroy, params: {id: supplier1.to_param}
       end
 
-      it "returns the supplier's page" do
+      it "returns a non authorized message and returns the supplier's page
+      and does not destroy the supplier" do
         expect(response.redirect_url).to eq(
          "http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
-      end
-
-      it "does not destroy the supplier" do
         expect(Supplier.find_by_id(supplier1.id)).to eq(supplier1)
       end
     end
@@ -122,16 +102,11 @@ RSpec.describe SuppliersController, type: :controller do
         delete :destroy, params: {id: supplier1.to_param}
       end
 
-      it "returns the list of suppliers" do
+      it "returns the list of suppliers and returns the list of suppliers
+      and returns the list of suppliers" do
         expect(response.redirect_url).to eq("http://test.host/suppliers")
-      end
-
-      it "returns the list of suppliers" do
         expect(flash.notice).to match(
          I18n.t('controllers.suppliers.successfully_destroyed'))
-      end
-
-      it "returns the list of suppliers" do
         expect(Supplier.find_by_id(supplier1.id)).to be(nil)
       end
     end
