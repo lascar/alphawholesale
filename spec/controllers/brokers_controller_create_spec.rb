@@ -22,11 +22,8 @@ RSpec.describe BrokersController, type: :controller do
         post :create, params: {broker: broker_hash}
       end
 
-      it "returns the root page" do
+      it "returns the root page and returns a non authorized message" do
         expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.failure.unauthenticated'))
       end
@@ -42,12 +39,9 @@ RSpec.describe BrokersController, type: :controller do
         post :create, params: {broker: broker_hash}
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -64,12 +58,9 @@ RSpec.describe BrokersController, type: :controller do
         post :create, params: {broker: broker_hash}
       end
 
-      it "returns the supplier's page" do
+      it "returns the supplier's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end

@@ -18,11 +18,8 @@ RSpec.describe BrokersController, type: :controller do
         get :edit, params: {id: broker1.to_param}
       end
 
-      it "returns the root page" do
+      it "returns the root page and returns a non authorized message" do
         expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.failure.unauthenticated'))
       end
@@ -38,12 +35,9 @@ RSpec.describe BrokersController, type: :controller do
         get :edit, params: {id: broker1.to_param}
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -60,12 +54,9 @@ RSpec.describe BrokersController, type: :controller do
         get :edit, params: {id: broker1.to_param}
       end
 
-      it "returns the supplier's page" do
+      it "returns the supplier's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         get :edit, params: {id: broker1.to_param}
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
@@ -82,11 +73,8 @@ RSpec.describe BrokersController, type: :controller do
         get :edit, params: {id: broker1.to_param}
       end
 
-      it "assigns the broker" do
+      it "assigns the broker and renders the edit template" do
         expect(assigns(:broker)).to eq(broker1)
-      end
-
-      it "renders the edit template" do
         expect(response).to render_template(:edit)
       end
     end
@@ -101,11 +89,8 @@ RSpec.describe BrokersController, type: :controller do
         get :edit, params: {id: broker2.to_param}
       end
 
-      it "returns the broker's page" do
+      it "returns the broker's page and renders the edit template" do
         expect(assigns(:broker)).to eq(broker2)
-      end
-
-      it "renders the edit template" do
         expect(response).to render_template(:edit)
       end
     end

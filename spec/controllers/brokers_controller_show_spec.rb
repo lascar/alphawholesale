@@ -19,11 +19,8 @@ RSpec.describe BrokersController, type: :controller do
         get :show, params: {id: broker1.to_param}
       end
 
-      it "returns the root page" do
+      it "returns the root page and returns a non authorized message" do
         expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.failure.unauthenticated'))
       end
@@ -39,12 +36,9 @@ RSpec.describe BrokersController, type: :controller do
         get :show, params: {id: broker1.to_param}
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -60,12 +54,9 @@ RSpec.describe BrokersController, type: :controller do
         get :show, params: {id: broker1.to_param}
       end
 
-      it "returns the supplier's page" do
+      it "returns the supplier's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -87,35 +78,19 @@ RSpec.describe BrokersController, type: :controller do
         get :show, params: {id: broker1.to_param}
       end
 
-      it "assigns the broker" do
+      it "assigns the broker and assigns the suppliers_without_approved and
+       assigns the customers_without_approved and
+       assigns the products_without_approved and
+       assigns the offers_without_approved and
+       assigns the tenders_without_approved and
+       assigns the orders_without_approved and renders the show template" do
         expect(assigns(:broker)).to eq(broker1)
-      end
-
-      it "assigns the suppliers_without_approved" do
         expect(assigns(:suppliers_without_approved)).to eq(Supplier.with_approved(false))
-      end
-
-      it "assigns the customers_without_approved" do
         expect(assigns(:customers_without_approved)).to eq(Customer.with_approved(false))
-      end
-
-      it "assigns the products_without_approved" do
         expect(assigns(:products_without_approved)).to eq(Product.with_approved(false))
-      end
-
-      it "assigns the offers_without_approved" do
         expect(assigns(:offers_without_approved)).to eq(Offer.with_approved(false))
-      end
-
-      it "assigns the tenders_without_approved" do
         expect(assigns(:tenders_without_approved)).to eq(Tender.with_approved(false))
-      end
-
-      it "assigns the orders_without_approved" do
         expect(assigns(:orders_without_approved)).to eq(Order.with_approved(false))
-      end
-
-      it "renders the show template" do
         expect(response).to render_template(:show)
       end
     end
@@ -130,11 +105,8 @@ RSpec.describe BrokersController, type: :controller do
         get :show, params: {id: broker2.to_param}
       end
 
-      it "assigns the broker asked for" do
+      it "assigns the broker asked for and renders the show template" do
         expect(assigns(:broker)).to eq(broker2)
-      end
-
-      it "renders the show template" do
         expect(response).to render_template(:show)
       end
     end

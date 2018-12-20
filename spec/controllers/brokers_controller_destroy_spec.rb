@@ -19,16 +19,11 @@ RSpec.describe BrokersController, type: :controller do
         delete :destroy, params: {id: broker1.to_param}
       end
 
-      it "returns the root page" do
+      it "returns the root page and returns a non authenticated message and
+       does not destroy the broker" do
         expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authenticated message" do
         expect(flash.alert).to match(
          I18n.t('devise.failure.unauthenticated'))
-      end
-
-      it "does not destroy the broker" do
         expect(Broker.find_by_id(broker1.id)).to eq(broker1)
       end
     end
@@ -44,17 +39,12 @@ RSpec.describe BrokersController, type: :controller do
         delete :destroy, params: {id: broker1.to_param}
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message and
+       does not destroy the broker" do
         expect(response.redirect_url).to eq(
          "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
-      end
-
-      it "does not destroy the broker" do
         expect(Broker.find_by_id(broker1.id)).to eq(broker1)
       end
     end
@@ -70,17 +60,12 @@ RSpec.describe BrokersController, type: :controller do
         delete :destroy, params: {id: broker1.to_param}
       end
 
-      it "returns the supplier's page" do
+      it "returns the supplier's page and returns a non authorized message and
+       does not destroy the broker" do
         expect(response.redirect_url).to eq(
          "http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
-      end
-
-      it "does not destroy the broker" do
         expect(Broker.find_by_id(broker1.id)).to eq(broker1)
       end
     end
@@ -96,16 +81,11 @@ RSpec.describe BrokersController, type: :controller do
         delete :destroy, params: {id: broker2.to_param}
       end
 
-      it "returns the list of brokers" do
+      it "returns the list of brokers and returns the list of brokers and
+       destroys the broker" do
         expect(response.redirect_url).to eq("http://test.host/brokers")
-      end
-
-      it "returns the list of brokers" do
         expect(flash.notice).to match(
          I18n.t('controllers.brokers.successfully_destroyed'))
-      end
-
-      it "destroys the broker" do
         expect(Broker.find_by_id(broker2.id)).to be(nil)
       end
     end

@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     sessions: 'suppliers/sessions'
   }
   devise_for :brokers, controllers: {
-    registrations: 'brokers/registrations',
     sessions: 'brokers/sessions'
   }
   devise_for :customers, controllers: {
