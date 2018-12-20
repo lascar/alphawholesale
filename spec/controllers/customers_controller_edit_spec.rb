@@ -14,13 +14,9 @@ RSpec.describe CustomersController, type: :controller do
     # TEST then the root page is returned
     # TEST and a message of unauthenticated is send
     describe "as guest user asking for a customer's editing page" do
-      it "returns the root page" do
+      it "returns the root page and returns a non authorized message" do
         get :edit, params: {id: customer1.to_param}
         expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authorized message" do
-        get :edit, params: {id: customer1.to_param}
         expect(flash.alert).to match(
          I18n.t('devise.failure.unauthenticated'))
       end
@@ -36,12 +32,9 @@ RSpec.describe CustomersController, type: :controller do
         get :edit, params: {id: customer1.to_param}
       end
 
-      it "returns the supplier's page" do
+      it "returns the supplier's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -58,12 +51,9 @@ RSpec.describe CustomersController, type: :controller do
         get :edit, params: {id: customer2.to_param}
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -71,20 +61,19 @@ RSpec.describe CustomersController, type: :controller do
 
     # TEST as a logged customer
     # TEST when a customer is asked his page for editing
-    # TEST then the customer is prepared for editing
-    # TEST and it's the customer's edit page
+    # TEST then the customer's page is returned
+    # TEST and a message of unauthorized is send
     describe "as a logged customer asking for his editing page" do
       before :each do
         sign_in(customer1)
         get :edit, params: {id: customer1.to_param}
       end
 
-      it "returns the customer's page" do
-        expect(assigns(:customer)).to eq(customer1)
-      end
-
-      it "returns the customer's edit page" do
-        expect(response).to render_template(:edit)
+      it "returns the customer's page and returns a non authorized message" do
+        expect(response.redirect_url).to eq(
+         "http://test.host/customers/" + customer1.id.to_s)
+        expect(flash.alert).to match(
+         I18n.t('devise.errors.messages.not_authorized'))
       end
     end
 

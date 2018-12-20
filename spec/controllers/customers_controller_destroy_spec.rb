@@ -19,11 +19,8 @@ RSpec.describe CustomersController, type: :controller do
         delete :destroy, params: {id: customer1.to_param}
       end
 
-      it "returns the root page" do
+      it "returns the root page and returns a non authenticated message" do
         expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authenticated message" do
         expect(flash.alert).to match(
          I18n.t('devise.failure.unauthenticated'))
       end
@@ -44,17 +41,12 @@ RSpec.describe CustomersController, type: :controller do
         delete :destroy, params: {id: customer1.to_param}
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message and
+       does not destroy the customer" do
         expect(response.redirect_url).to eq(
          "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
-      end
-
-      it "does not destroy the customer" do
         expect(Customer.find_by_id(customer1.id)).to eq(customer1)
       end
     end
@@ -70,17 +62,12 @@ RSpec.describe CustomersController, type: :controller do
         delete :destroy, params: {id: customer2.to_param}
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message
+       and does not destroy the customer" do
         expect(response.redirect_url).to eq(
          "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
-      end
-
-      it "does not destroy the customer" do
         expect(Customer.find_by_id(customer2.id)).to eq(customer2)
       end
     end
@@ -96,17 +83,12 @@ RSpec.describe CustomersController, type: :controller do
         delete :destroy, params: {id: customer1.to_param}
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message and
+       does not destroy the customer" do
         expect(response.redirect_url).to eq(
          "http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
-      end
-
-      it "does not destroy the customer" do
         expect(Customer.find_by_id(customer1.id)).to eq(customer1)
       end
     end
@@ -122,16 +104,11 @@ RSpec.describe CustomersController, type: :controller do
         delete :destroy, params: {id: customer1.to_param}
       end
 
-      it "returns the list of customers" do
+      it "returns the list of customers and returns the list of customers and
+       returns the list of customers" do
         expect(response.redirect_url).to eq("http://test.host/customers")
-      end
-
-      it "returns the list of customers" do
         expect(flash.notice).to match(
          I18n.t('controllers.customers.successfully_destroyed'))
-      end
-
-      it "returns the list of customers" do
         expect(Customer.find_by_id(customer1.id)).to be(nil)
       end
     end

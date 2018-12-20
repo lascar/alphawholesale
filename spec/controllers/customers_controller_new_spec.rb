@@ -17,11 +17,8 @@ RSpec.describe CustomersController, type: :controller do
         get :new
       end
 
-      it "returns the root page" do
+      it "returns the root page and returns a non authenticated message" do
         expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authenticated message" do
         expect(flash.alert).to match(
          I18n.t('devise.failure.unauthenticated'))
       end
@@ -37,12 +34,9 @@ RSpec.describe CustomersController, type: :controller do
         get :new
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -58,28 +52,11 @@ RSpec.describe CustomersController, type: :controller do
         get :new
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
-      end
-    end
-
-    # TEST as a logged broker
-    # TEST when customer is asked for new
-    # TEST then a new customer is assigned
-    describe "as a logged broker" do
-      before :each do
-        sign_in(broker1)
-        get :new
-      end
-
-      it "assigns a new customer" do
-        expect(assigns(:customer).persisted?).to be(false)
       end
     end
   end

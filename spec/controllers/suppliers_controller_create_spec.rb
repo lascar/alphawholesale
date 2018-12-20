@@ -49,7 +49,8 @@ RSpec.describe SuppliersController, type: :controller do
     # TEST when the supplier is asked for creating
     # TEST then the supplier's page is returned
     # TEST and a message of unauthorized is sent
-    describe "as a logged supplier asking for creating his identifier and email" do
+    describe "as a logged supplier asking for creating
+     his identifier and email" do
       before :each do
         sign_in(supplier1)
         post :create, params: {supplier: supplier_hash}

@@ -4,20 +4,24 @@
     <%= @customer.identifier %>
   </p>
   <p>
-    <strong><%= Customer.human_attribute_name("email") %></strong>
-    <%= @customer.email %>
-  </p>
-  <p>
     <strong><%= Customer.human_attribute_name("approved") %></strong>
     <%= check_box_tag :approved, '', @customer.approved, disabled: true %>
   </p>
 <% end %>
-<%= link_to t("customers.edit"), edit_customer_path(@customer), class: "btn btn-info btn-sm give-me-some-space" %>
+<p>
+  <strong><%= Customer.human_attribute_name("email") %></strong>
+  <%= @customer.email %>
+</p>
+<%= link_to t("customers.edit"), edit_customer_path(@customer),
+  class: "btn btn-info btn-sm give-me-some-space" %>
 <div class="row small-font">
   <div class="col-md-9">
     <div class="card">
       <div class="card-header text-center text-uppercase">
-        <b><%= Offer.model_name.human(count: @offers.count) %> : <%= @offers.count %></b>
+        <b>
+          <%= Offer.model_name.human(count: @offers.count) %> : 
+          <%= @offers.count %>
+        </b>
       </div>
       <% if @offers.count > 0 %>
       <table class="table table-responsive table-hover table-all">
@@ -32,8 +36,8 @@
               <%= Offer.human_attribute_name("quantity") %>
             </th>
             <th scope="col" class="text-truncate"
-              title="<%= Offer.human_attribute_name("unit_price") %>">
-              <%= Offer.human_attribute_name("unit_price") %>
+              title="<%= Offer.human_attribute_name("unit_price_broker") %>">
+              <%= Offer.human_attribute_name("unit_price_broker") %>
             </th>
             <th scope="col" colspan="1"></th>
           </tr>

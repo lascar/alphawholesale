@@ -22,11 +22,8 @@ RSpec.describe SuppliersController, type: :controller do
          params: {id: supplier1.id, products: [product1.id, product2.id]}
       end
 
-      it "returns the root page" do
+      it "returns the root page and returns a non authorized message" do
         expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.failure.unauthenticated'))
       end
@@ -43,33 +40,30 @@ RSpec.describe SuppliersController, type: :controller do
          params: {id: supplier1.id, products: [product1.id, product2.id]}
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
     end
 
     # TEST as a logged supplier
-    # TEST when a supplier is asked for creating an attach products to an other supplier
+    # TEST when a supplier is asked for creating
+    # TEST an attach products to an other supplier
     # TEST then the supplier's page is returned
     # TEST and a message of unauthorized is send
-    describe "as a logged supplier asking for creating attach product to an other supplier" do
+    describe "as a logged supplier asking for creating attach product
+     to an other supplier" do
       before :each do
         sign_in(supplier1)
         post :attach_products_create,
          params: {id: supplier2.id, products: [product1.id, product2.id]}
       end
 
-      it "returns the supplier's page" do
-        expect(response.redirect_url).to eq("http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
+      it "returns the supplier's page and returns a non authorized message" do
+        expect(response.redirect_url).to eq(
+         "http://test.host/suppliers/" + supplier1.id.to_s)
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -88,11 +82,8 @@ RSpec.describe SuppliersController, type: :controller do
          params: {id: supplier1.id, products: [product1.id, product2.id]}
       end
 
-      it "returns the supplier's page" do
+      it "returns the supplier's page and attaches the producs to the suppliers" do
         expect(response.redirect_url).to eq("http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "attaches the producs to the suppliers" do
         expect(Supplier.find(supplier1.id).products.sort).to eq(
          [product1, product2].sort)
       end
@@ -111,11 +102,10 @@ RSpec.describe SuppliersController, type: :controller do
          params: {id: supplier1.id, products: [product1.id, product2.id]}
       end
 
-      it "returns the supplier's page" do
-        expect(response.redirect_url).to eq("http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "attaches the producs to the suppliers" do
+      it "returns the supplier's page
+       and attaches the producs to the suppliers" do
+        expect(response.redirect_url).to eq(
+         "http://test.host/suppliers/" + supplier1.id.to_s)
         expect(Supplier.find(supplier1.id).products.sort).to eq(
          [product1, product2].sort)
       end

@@ -24,11 +24,8 @@ RSpec.describe SuppliersController, type: :controller do
         get 'attach_products', params: {id: supplier1.to_param}
       end
 
-      it "returns the root page" do
+      it "returns the root page and returns a non authorized message" do
         expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(I18n.t(
          'devise.failure.unauthenticated'))
       end
@@ -44,12 +41,9 @@ RSpec.describe SuppliersController, type: :controller do
         get 'attach_products', params: {id: supplier1.to_param}
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -66,12 +60,9 @@ RSpec.describe SuppliersController, type: :controller do
         get 'attach_products', params: {id: supplier2.to_param}
       end
 
-      it "returns the supplier's page" do
+      it "returns the supplier's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -94,15 +85,11 @@ RSpec.describe SuppliersController, type: :controller do
         get 'attach_products', params: {id: supplier1.to_param}
       end
 
-      it "assigns the supplier" do
+        it "assigns the supplier and
+         assigns all the supplier's attached products and
+         returns the supplier's attach products page" do
         expect(assigns(:supplier)).to eq(supplier1)
-      end
-
-      it "assigns all the supplier's attached products" do
         expect(assigns(:products).sort).to eq([product1, product2].sort)
-      end
-
-      it "returns the supplier's attach products page" do
         expect(response).to render_template(:attach_products)
       end
     end
@@ -122,15 +109,10 @@ RSpec.describe SuppliersController, type: :controller do
         get 'attach_products', params: {id: supplier1.to_param}
       end
 
-      it "assigns the supplier" do
+      it "assigns the supplier and assigns all the supplier's offers and
+       returns the supplier's attach products page" do
         expect(assigns(:supplier)).to eq(supplier1)
-      end
-
-      it "assigns all the supplier's offers" do
         expect(assigns(:products).sort).to eq([product1, product2].sort)
-      end
-
-      it "returns the supplier's attach products page" do
         expect(response).to render_template(:attach_products)
       end
     end

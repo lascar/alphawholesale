@@ -17,7 +17,7 @@ RSpec.describe 'Suppliers Feature new', type: :feature do
   describe 'GET #new' do
 
     # TEST as a broker
-    # TEST when a new supplier iis submited
+    # TEST when a new supplier is submited
     # TEST then a message of success is sent
     describe 'as a broker' do
       before :each do

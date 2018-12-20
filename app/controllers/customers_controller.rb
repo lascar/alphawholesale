@@ -18,39 +18,24 @@ class CustomersController < ApplicationController
 
   # GET /customers/new
   def new
-    @customer = Customer.new
-    @currencies = CURRENCIES.map do |currency|
-      [I18n.t('currencies.' + currency + '.currency') +
-       ' (' + I18n.t('currencies.' + currency + '.symbol') + ')',
-       currency]
-    end
-    @unit_types = UNIT_TYPES.map do |unit_type|
-      [I18n.t('unit_types.' + unit_type + '.unit_type') +
-       ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
-       unit_type]
-    end
+    @currencies, @unit_types = put_currencies_unit_types
+    redirect_to new_customer_registration_path
   end
 
   # GET /customers/1/edit
   def edit
-    @currencies = CURRENCIES.map do |currency|
-      [I18n.t('currencies.' + currency + '.currency') +
-       ' (' + I18n.t('currencies.' + currency + '.symbol') + ')',
-       currency]
-    end
-    @unit_types = UNIT_TYPES.map do |unit_type|
-      [I18n.t('unit_types.' + unit_type + '.unit_type') +
-       ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
-       unit_type]
-    end
+    @currencies, @unit_types = put_currencies_unit_types
+    @minimum_password_length = PASSWORD_LENGTH_MIN
   end
 
   # POST /customers
   def create
     @customer = Customer.new(customer_params)
     if @customer.save
-      redirect_to @customer, notice: I18n.t('controllers.customers.successfully_created')
+      redirect_to @customer,
+       notice: I18n.t('controllers.customers.successfully_created')
     else
+      @currencies, @unit_types = put_currencies_unit_types
       render :new
     end
   end
@@ -58,9 +43,14 @@ class CustomersController < ApplicationController
   # PATCH/PUT /customers/1
   def update
     if @customer.update(customer_params)
+      if customer_params[:approved]
+        SupplierMailer.with(user: @customer).welcome_email.deliver_later
+      end
       redirect_to @customer,
-       notice: I18n.t('controllers.customers.successfully_updated')
+       notice: I18n.t('controllers.customers.successfully_updated') and return
     else
+      @currencies, @unit_types = put_currencies_unit_types
+      @minimum_password_length = PASSWORD_LENGTH_MIN
       render :edit
     end
   end
@@ -98,29 +88,31 @@ class CustomersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def customer_params
+    base = [:email, :tin, :street_and_number, :postal_code, :state, :country,
+            :entreprise_name, :telephone_number1, :telephone_number2,
+            :unit_type, :currency]
     if current_broker
-      params.require(:customer).permit(:identifier, :email, :approved,
-                                       :tin, :street_and_number, :postal_code,
-                                       :state, :country, :entreprise_name,
-                                       :telephone_number1, :telephone_number2,
-                                       :unit_type, :currency,
-                                       :password, :password_confirmation)
+      base.push(:identifier, :approved, :password, :password_confirmation)
     else
       if !params[:customer][:current_password].blank? &&
        @customer.valid_password?(params[:customer][:current_password])
-        params.require(:customer).permit(:email,
-                                         :tin, :street_and_number, :postal_code,
-                                         :state, :country, :entreprise_name,
-                                         :telephone_number1, :telephone_number2,
-                                         :unit_type, :currency,
-                                         :password, :password_confirmation)
-      else
-        params.require(:customer).permit(:email,
-                                         :tin, :street_and_number, :postal_code,
-                                         :state, :country, :entreprise_name,
-                                         :telephone_number1, :telephone_number2,
-                                         :unit_type, :currency)
+        base.push(:password, :password_confirmation)
       end
     end
+    params.require(:customer).permit(base)
+  end
+
+  def put_currencies_unit_types
+    currencies = CURRENCIES.map do |currency|
+      [I18n.t('currencies.' + currency + '.currency') +
+       ' (' + I18n.t('currencies.' + currency + '.symbol') + ')',
+       currency]
+    end
+    unit_types = UNIT_TYPES.map do |unit_type|
+      [I18n.t('unit_types.' + unit_type + '.unit_type') +
+       ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
+       unit_type]
+    end
+    return [currencies, unit_types]
   end
 end

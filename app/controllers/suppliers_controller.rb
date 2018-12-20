@@ -37,7 +37,7 @@ class SuppliersController < ApplicationController
       redirect_to @supplier,
        notice: I18n.t('controllers.suppliers.successfully_created')
     else
-        @currencies, @unit_types = put_currencies_unit_types
+      @currencies, @unit_types = put_currencies_unit_types
       render :new
     end
   end

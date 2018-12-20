@@ -1,6 +1,4 @@
 require 'rails_helper'
-# ONLY_SUPPLIER_CUSTOMER_OWNER_OR_BROKER
-#
 # `rails-controller-testing` gem.
 
 RSpec.describe Suppliers::RegistrationsController, type: :controller do
@@ -14,35 +12,37 @@ RSpec.describe Suppliers::RegistrationsController, type: :controller do
   let(:customer1) {create(:customer)}
   let(:broker1) {create(:broker)}
 
-  describe 'PUT #update' do
+  describe 'POST #create' do
 
     # TEST as a guest user
-    # TEST when a supplier is asked for updating
-    # TEST then the supplier sign_in page is returned
-    # TEST and a message of not signed is sent
+    # TEST when a supplier is asked for creating with approved to true
+    # TEST then the root page is returned
+    # TEST and a message of signed_up_but_not_approved is sent
+    # TEST and the newly created supplier is not approved
     describe 'as a guest user asking for creating a supplier' do
       before :each do
         @request.env['devise.mapping'] = Devise.mappings[:supplier]
-        put :update, params: {id: supplier2.id, supplier: supplier_hash}
+        post :create, params: {supplier: supplier_hash}
       end
 
-      it 'returns the root page and returns a not signed message' do
+      it 'returns the root page and returns a signed_up_but_not_approved message' do
         expect(response.redirect_url).to eq(
-         'http://test.host/suppliers/sign_in')
-        expect(flash.alert).to match(
-                I18n.t('devise.failure.unauthenticated'))
+         'http://test.host/')
+        expect(flash.notice).to match(
+         I18n.t('devise.registrations.signed_up_but_not_approved'))
+        expect(Supplier.last.approved).to be(false)
       end
     end
 
     # TEST as a logged customer
-    # TEST when a supplier is asked for updating
+    # TEST when a supplier is asked for creating
     # TEST then the customer's page is returned
     # TEST and a message of unauthorized is send
     describe 'as a logged customer asking for creating a supplier' do
       before :each do
-        @request.env['devise.mapping'] = Devise.mappings[:customer]
+        @request.env['devise.mapping'] = Devise.mappings[:supplier]
         sign_in(customer1)
-        put :update, params: {id: supplier2.id, supplier: supplier_hash}
+        post :create, params: {supplier: supplier_hash}
       end
 
       it "returns the customer's page and returns a non authorized message" do
@@ -54,15 +54,14 @@ RSpec.describe Suppliers::RegistrationsController, type: :controller do
     end
 
     # TEST as a logged supplier
-    # TEST when the supplier is asked for updating other supplier's registration
+    # TEST when the supplier is asked for creating
     # TEST then the supplier's page is returned
     # TEST and a message of unauthorized is send
-    describe "as a logged supplier asking for
-     updating an other supplier's registration" do
+    describe 'as a logged supplier asking for creating his identifier and email' do
       before :each do
         @request.env['devise.mapping'] = Devise.mappings[:supplier]
         sign_in(supplier1)
-        put :update, params: {id: supplier2.id, supplier: supplier_hash}
+        post :create, params: {supplier: supplier_hash}
       end
 
       it "returns the supplier's page and
@@ -70,7 +69,7 @@ RSpec.describe Suppliers::RegistrationsController, type: :controller do
         expect(response.redirect_url).to eq(
           'http://test.host/suppliers/' + supplier1.id.to_s)
         expect(flash.alert).to match(
-         I18n.t('devise.errors.messages.not_authorized'))
+         I18n.t('devise.failure.already_authenticated'))
       end
     end
   end

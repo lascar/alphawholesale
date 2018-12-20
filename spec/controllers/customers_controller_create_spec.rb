@@ -23,11 +23,8 @@ RSpec.describe CustomersController, type: :controller do
         post :create, params: {customer: customer_hash}
       end
 
-      it "returns the root page" do
+      it "returns the root page and returns a non authorized message" do
         expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.failure.unauthenticated'))
       end
@@ -43,12 +40,9 @@ RSpec.describe CustomersController, type: :controller do
         post :create, params: {customer: customer_hash}
       end
 
-      it "returns the customer's page" do
+      it "returns the customer's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -64,11 +58,9 @@ RSpec.describe CustomersController, type: :controller do
         post :create, params: {customer: customer_hash}
       end
 
-      it "returns the customer's page" do
-        expect(response.redirect_url).to eq("http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
+      it "returns the customer's page and returns a non authorized message" do
+        expect(response.redirect_url).to eq("http://test.host/customers/" +
+                                            customer1.id.to_s)
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -84,13 +76,11 @@ RSpec.describe CustomersController, type: :controller do
         post :create, params: {customer: customer_hash}
       end
 
-      it "returns the new created customer page" do
+      it "returns the new created customer page and
+       returns the customer's page" do
         new_customer = Customer.find_by_identifier("customer3")
         expect(response.redirect_url).to match("/customers/" +
                                                new_customer.id.to_s)
-      end
-
-      it "returns the customer's page" do
         expect(flash.notice).to eq(
          I18n.t('controllers.customers.successfully_created'))
       end

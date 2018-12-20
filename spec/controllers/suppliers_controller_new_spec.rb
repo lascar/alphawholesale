@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe SuppliersController, type: :controller do
   let!(:supplier1) {create(:supplier)}
-  let!(:supplier2) {create(:supplier, identifier: "supplier2", email: "supplier2@test.com")}
+  let!(:supplier2) {create(:supplier, identifier: "supplier2",
+                                      email: "supplier2@test.com")}
   let(:customer1) {create(:customer)}
   let(:broker1) {create(:broker)}
 

@@ -5,20 +5,24 @@
     <%= @supplier.identifier %>
   </p>
   <p>
-    <strong><%= Supplier.human_attribute_name("email") %></strong>
-    <%= @supplier.email %>
-  </p>
-  <p>
     <strong><%= Supplier.human_attribute_name("approved") %></strong>
     <%= check_box_tag :approved, '', @supplier.approved, disabled: true %>
   </p>
 <% end %>
-<%= link_to t("suppliers.edit"), path_edit_supplier(@supplier), class: "btn btn-danger btn-sm give-me-some-space" %>
+<p>
+  <strong><%= Supplier.human_attribute_name("email") %></strong>
+  <%= @supplier.email %>
+</p>
+<%= link_to t("suppliers.edit"), path_edit_supplier(@supplier),
+  class: "btn btn-danger btn-sm give-me-some-space" %>
 <div class="row small-font">
   <div class="col-md-9">
     <div class="card">
       <div class="card-header text-center text-uppercase">
-        <b><%= Offer.model_name.human(count: @offers.count) %> : <%= @offers.count %></b>
+        <b>
+          <%= Offer.model_name.human(count: @offers.count) %> : 
+          <%= @offers.count %>
+        </b>
       </div>
       <% if @offers.count > 0 %>
       <table class="table table-responsive table-hover table-all">

@@ -1,19 +1,21 @@
+<%# byebug %>
 <h2><%= t("devise.action.signup") %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <% devise_error_messages!.each do |key, value| %>
-    <div class="flash <%= key %>"><%= key %> <%= value %></div>
-  <% end %>
+  <%= helper_devise_error_message(devise_error_messages!) if devise_error_messages! %>
+  <br>
 
   <%= t("required_fields") %>
   <div class="field">
     <%= f.label :identifier %>*<br />
-    <%= f.text_field :identifier, autofocus: true, autocomplete: "identifier" %>
+    <%= f.text_field :identifier, autofocus: true, autocomplete: "identifier",
+        required: true %>
   </div>
 
   <div class="field">
     <%= f.label :email %>*<br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",
+        required: true %>
   </div>
 
   <div class="field">
@@ -23,7 +25,7 @@
 
   <div class="field">
     <%= f.label :tin %>*
-    <%= f.text_field :tin %>
+    <%= f.text_field :tin, required: true %>
   </div>
 
   <div class="field">
@@ -48,7 +50,7 @@
 
   <div class="field">
     <%= f.label :country %>*
-    <%= f.text_field :country %>
+    <%= f.text_field :country, required: true %>
   </div>
 
   <div class="field">
@@ -62,17 +64,34 @@
   </div>
 
   <div class="field">
+    <%= f.label :currency %>
+    <%= f.select :currency, @currencies %>
+  </div>
+
+  <div class="field">
+    <%= f.label :unit_type %>
+    <%= f.select :unit_type, @unit_types %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>*
     <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> <%= t("devise.messages.password_minimum_length") %>)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "new-password", required: true %>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation %>*<br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true %>
   </div>
+
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= f.label :approved %>
+      <%= f.check_box :approved %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= f.submit t("devise.action.signup") %>

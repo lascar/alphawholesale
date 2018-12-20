@@ -113,7 +113,8 @@
                 <%= supplier.email %>
               </div></td>
               <td><%= link_to icon('fas', 'eye'), supplier, title: t("show") %></td>
-              <td><%= link_to icon('fas', 'edit'), edit_supplier_path(supplier), title: t("edit") %></td>
+              <td><%= link_to icon('fas', 'edit'),
+                edit_supplier_path( supplier), title: t("edit") %></td>
               <td><%= link_to icon('fas', 'trash'), supplier,
                 title: t("destroy"), method: :delete,
                 data: { confirm: t(:are_you_sure) } %></td>
@@ -209,18 +210,12 @@
               <td><div class="cell-resumen">
                 <%= customer.email %>
               </div></td>
-              <td>
-                <%= link_to icon('fas', 'eye'), customer, title: t("show") %>
-              </td>
-              <td>
-                <%= link_to icon('fas', 'edit'),
-                 edit_customer_path(customer), title: t("edit") %>
-              </td>
-              <td>
-                <%= link_to icon('fas', 'trash'), customer,
-                 title: t("destroy"), method: :delete,
-                 data: { confirm: t(:are_you_sure) } %>
-              </td>
+              <td><%= link_to icon('fas', 'eye'), customer, title: t("show") %></td>
+              <td><%= link_to icon('fas', 'edit'),
+                edit_customer_path( customer), title: t("edit") %></td>
+              <td><%= link_to icon('fas', 'trash'), customer,
+                title: t("destroy"), method: :delete,
+                data: { confirm: t(:are_you_sure) } %></td>
             </tr>
           <% end %>
         </tbody>
