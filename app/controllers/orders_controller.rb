@@ -7,9 +7,13 @@ class OrdersController < ApplicationController
   def index
     if current_broker
       @orders = Order.with_approved(true)
-     else
+    elsif customer_signed_in?
       @customer_id = current_customer.id
       @orders = Order.where(customer_id: current_customer.id)
+    elsif supplier_signed_in?
+      @supplier_id = current_supplier.id
+      @orders = Order.joins(:offer).where('offers.supplier_id = ?', @supplier_id).
+        with_approved(true)
     end
   end
 

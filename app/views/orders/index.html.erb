@@ -13,7 +13,10 @@
     <% @orders.each do |order| %>
       <tr>
         <td><%= order.offer.product.name %></td>
-        <td><%= order.quantity %></td>
+        <td>
+          <%= order.quantity.to_s + " " +
+              t("unit_types." + order.offer.supplier.unit_type + ".symbol") %>
+        </td>
         <td><%= link_to t("show"), order_show_path(@customer_id, order) %></td>
         <td><%= link_to t("edit"), order_edit_path(@customer_id, order) %></td>
         <td><%= link_to t("destroy"), order_show_path(@customer_id, order), method: :delete, data: { confirm: t(:are_you_sure) } %></td>
@@ -25,6 +28,10 @@
 <br>
 
 <%= link_to t("orders.new"), order_new_path(@customer_id) %>
+<% if @supplier_id %>
+  <br>
+  <%= link_to t("supplier.page"), supplier_path(@supplier_id) %>
+<% end %>
 <% if @customer_id %>
   <br>
   <%= link_to t("customer.page"), customer_path(@customer_id) %>

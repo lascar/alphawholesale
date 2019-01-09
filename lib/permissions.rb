@@ -12,6 +12,12 @@ module Permissions
   end
 
   USER = -> (controller, current_user, id) do
+    current_user.class.name == 'Customer' ||
+    current_user.class.name == 'Supplier' ||
+    current_user.class.name == 'Broker'
+  end
+
+  ANYONE = -> (controller, current_user, id) do
   end
 
   ONLY_BROKER = -> (controller, current_user, id) do
@@ -123,7 +129,7 @@ module Permissions
                              destroy: ONLY_BROKER,
                              attach_products: ONLY_CUSTOMER_OWNER_OR_BROKER,
                       attach_products_create: ONLY_CUSTOMER_OWNER_OR_BROKER},
-                 products:   {index: USER,
+                 products:   {index: ANYONE,
                               new: ONLY_SUPPLIER_OR_BROKER,
                               show: ONLY_SUPPLIER_OR_BROKER,
                               get_names: ONLY_SUPPLIER_OR_BROKER,
@@ -131,21 +137,21 @@ module Permissions
                               create: ONLY_SUPPLIER_OR_BROKER,
                               update: ONLY_SUPPLIER_OWNER_OR_BROKER,
                               destroy: ONLY_BROKER},
-       variants_for_product: {index: USER,
-                              show: USER,
+       variants_for_product: {index: ANYONE,
+                              show: ANYONE,
                               new: ONLY_SUPPLIER_OR_BROKER,
                               edit: ONLY_SUPPLIER_OWNER_OR_BROKER,
                               create: ONLY_SUPPLIER_OR_BROKER,
                               update: ONLY_SUPPLIER_OWNER_OR_BROKER,
                               destroy: ONLY_BROKER},
-                 offers:     {index: USER,
-                              show: USER,
+                 offers:     {index: ANYONE,
+                              show: ANYONE,
                               new: ONLY_SUPPLIER_OR_BROKER,
                               edit: ONLY_SUPPLIER_OWNER_OR_BROKER,
                               create: ONLY_SUPPLIER_OR_BROKER,
                               update: ONLY_SUPPLIER_OWNER_OR_BROKER,
                               destroy: ONLY_SUPPLIER_OWNER_OR_BROKER},
-                 orders:     {index: ONLY_CUSTOMER_OR_BROKER,
+                 orders:     {index: USER,
                               show: ONLY_CUSTOMER_OWNER_OR_BROKER,
                               new: ONLY_CUSTOMER_OR_BROKER,
                               edit: ONLY_CUSTOMER_OWNER_OR_BROKER,
