@@ -1,5 +1,5 @@
 <h1><%= t("offer.editing") %></h1>
 
 <%= render 'form', offer: @offer %>
-<%= link_to t("show"), offer_show_path(@supplier_id, @offer) %> |
+<%= link_to t("show"), offer_show_path(@offer) %> |
 <%= link_to t("back"), :back %>

@@ -17,9 +17,12 @@
           <%= order.quantity.to_s + " " +
               t("unit_types." + order.offer.supplier.unit_type + ".symbol") %>
         </td>
-        <td><%= link_to t("show"), order_show_path(@customer_id, order) %></td>
-        <td><%= link_to t("edit"), order_edit_path(@customer_id, order) %></td>
-        <td><%= link_to t("destroy"), order_show_path(@customer_id, order), method: :delete, data: { confirm: t(:are_you_sure) } %></td>
+        <td><%= link_to t("show"), order_show_path(order) %></td>
+        <td><%= link_to t("edit"), order_edit_path(order) %></td>
+        <td>
+          <%= link_to t("destroy"), order_show_path(order), method: :delete,
+               data: { confirm: t(:are_you_sure) } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -27,7 +30,7 @@
 
 <br>
 
-<%= link_to t("orders.new"), order_new_path(@customer_id) %>
+<%= link_to t("orders.new"), order_new_path %>
 <% if @supplier_id %>
   <br>
   <%= link_to t("supplier.page"), supplier_path(@supplier_id) %>

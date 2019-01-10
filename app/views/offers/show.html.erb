@@ -97,6 +97,6 @@
 <% if customer_signed_in? %>
   <%= button_to t("orders.new"), new_customer_order_path(current_customer.id), params: {offer_id: @offer.id}, method: :get %> |
 <% else %>
-<%= link_to t("edit"), offer_edit_path(@supplier_id, @offer) %> |
+<%= link_to t("edit"), offer_edit_path(@offer) %> |
 <% end %>
 <%= link_to t("back"), :back %>

@@ -161,15 +161,15 @@
               </div></td>
               <td>
                 <%= link_to icon('fas', 'eye'),
-                 offer_show_path(@supplier_id, offer), title: t("show") %>
+                 offer_show_path(offer), title: t("show") %>
               </td>
               <td>
                 <%= link_to icon('fas', 'edit'),
-                 offer_edit_path(@supplier_id, offer), title: t("edit") %>
+                 offer_edit_path(offer), title: t("edit") %>
               </td>
               <td>
                 <%= link_to icon('fas', 'trash'),
-                 offer_show_path(@supplier_id, offer), title: t("destroy"),
+                 offer_show_path(offer), title: t("destroy"),
                  method: :delete, data: { confirm: t(:are_you_sure) } %>
               </td>
             </tr>

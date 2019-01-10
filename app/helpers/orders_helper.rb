@@ -1,31 +1,23 @@
 module OrdersHelper
-  def orders_index_path(customer_id)
+  def order_show_path(order)
     if customer_signed_in?
-      customer_orders_path(customer_id)
-    else
-      orders_path
-    end
-  end
-
-  def order_show_path(customer_id, order)
-    if customer_signed_in?
-      customer_order_path(customer_id, order)
+      customer_order_path(current_customer.id, order)
     else
       order_path(order)
     end
   end
 
-  def order_edit_path(customer_id, order)
+  def order_edit_path(order)
     if customer_signed_in?
-      edit_customer_order_path(customer_id, order)
+      edit_customer_order_path(current_customer.id, order)
     else
       edit_order_path(order)
     end
   end
 
-  def order_new_path(customer_id)
+  def order_new_path
     if customer_signed_in?
-      new_customer_order_path(customer_id)
+      new_customer_order_path(current_customer.id)
     else
       new_order_path
     end
