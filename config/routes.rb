@@ -49,7 +49,7 @@ Rails.application.routes.draw do
     resources :tender_lines
   end
 
-  resources :suppliers, concerns: [:offertable, :productable] do
+  resources :suppliers, concerns: [:offertable, :orderable, :productable] do
     member do
       get 'attach_products', as: :attach_products
       post 'attach_products_create', as: :attach_products_create
