@@ -23,11 +23,8 @@ RSpec.describe OrdersController, type: :controller do
         post :create, params: {order: order_hash}
       end
 
-      it "returns the root page" do
+      it "returns the root page and returns a non authorized message" do
         expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(I18n.t(
          'devise.failure.unauthenticated'))
       end
@@ -43,22 +40,20 @@ RSpec.describe OrdersController, type: :controller do
         post :create, params: {order: order_hash}
       end
 
-      it "returns the supplier's page" do
+      it "returns the supplier's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
     end
 
     # TEST as a logged customer
-    # TEST when order is asked for creating
+    # TEST when order is asked for creating with approved
     # TEST then a new order is assigned
     # TEST and the order's attributes are initialized correctly
     # TEST and it's redirected to the order
+    # TEST and the newly created order is not approved
     describe "as a logged customer" do
       before :each do
         sign_in(customer1)
@@ -66,18 +61,15 @@ RSpec.describe OrdersController, type: :controller do
         post :create, params: {order: order_hash}
       end
 
-      it "assigns the updated order" do
+      it "assigns the updated order and updated the attributes and
+          redirect to the updated order and
+          creates the new order but not as approved" do
         expect(assigns(:order).persisted?).to be(true)
-      end
-
-      it "updated the attributes" do
         expect(assigns(:order).quantity).to eq(order_hash[:quantity])
-      end
-
-      it "redirect to the updated order" do
         expect(response.redirect_url).to eq(
           "http://test.host/customers/" + customer1.id.to_s +
           "/orders/" + Order.last.id.to_s)
+        expect(Order.last.approved).to be(false)
       end
     end
 
@@ -92,38 +84,12 @@ RSpec.describe OrdersController, type: :controller do
         post :create, params: {order: order_hash}
       end
 
-      it "does not change the attributes" do
+      it "does not change the attributes and renders the edit template" do
         expect(assigns(:order).persisted?).to be(false)
-      end
-
-      it "renders the edit template" do
         expect(response.redirect_url).to eq(
          "http://test.host/orders/new?offer_id=" + offer1.id.to_s)
       end
     end
 
-    # TEST as a logged broker
-    # TEST when order is asked for creating with supplier
-    # TEST then the attributes are initalized correctly
-    # TEST and it's redirected to the order
-    describe "as a logged broker" do
-      before :each do
-        sign_in(broker1)
-        post :create, params: {order: order_hash}
-      end
-
-      it "assigns the updated order" do
-        expect(assigns(:order).persisted?).to be(true)
-      end
-
-      it "initializes the attributes" do
-        expect(assigns(:order).quantity).to eq(order_hash[:quantity])
-      end
-
-      it "redirect to the newly updated order" do
-        expect(response.redirect_url).to eq(
-          "http://test.host/orders/" + Order.last.id.to_s)
-      end
-    end
   end
 end

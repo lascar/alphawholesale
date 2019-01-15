@@ -2,6 +2,8 @@ module OrdersHelper
   def order_show_path(order)
     if customer_signed_in?
       customer_order_path(current_customer.id, order)
+    elsif supplier_signed_in?
+      supplier_order_path(current_supplier.id, order)
     else
       order_path(order)
     end
@@ -15,11 +17,11 @@ module OrdersHelper
     end
   end
 
-  def order_new_path
+  def order_new_path(offer_id)
     if customer_signed_in?
-      new_customer_order_path(current_customer.id)
+      new_customer_order_path(current_customer.id, {offer_id: offer_id})
     else
-      new_order_path
+      new_order_path({offer_id: offer_id})
     end
   end
 

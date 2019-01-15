@@ -14,7 +14,7 @@ en:
         create: "New Offer"
         update: "Update Offer"
       order:
-        create: "New Order"
+        create: "Place Order"
         update: "Update Order"
       tender:
         create: "New Tender"

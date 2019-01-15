@@ -20,11 +20,8 @@ RSpec.describe OrdersController, type: :controller do
         get :new, params: {offer_id: offer1}
       end
 
-      it "returns the root page" do
+      it "returns the root page and returns a non authorized message" do
         expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(I18n.t(
          'devise.failure.unauthenticated'))
       end
@@ -40,12 +37,9 @@ RSpec.describe OrdersController, type: :controller do
         get :new, params: {offer_id: offer1}
       end
 
-      it "returns the supplier's page" do
+      it "returns the supplier's page and returns a non authorized message" do
         expect(response.redirect_url).to eq(
          "http://test.host/suppliers/" + supplier1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
       end
@@ -62,46 +56,14 @@ RSpec.describe OrdersController, type: :controller do
         get :new, params: {offer_id: offer1}
       end
 
-      it "assigns a order new" do
+      it "assigns a order new and puts the customer as the new order's customer and
+          does not assign customers and render the new template" do
         expect(assigns(:order).persisted?).to be(false)
-      end
-
-      it "puts the customer as the new order's customer" do
         expect(assigns(:order).customer_id).to be(customer1.id)
-      end
-
-      it "does not assign customers" do
         expect(assigns(:customers)).to be(nil)
-      end
-
-      it "render the new template" do
         expect(response).to render_template(:new)
       end
     end
 
-    # TEST as a logged broker
-    # TEST when order is asked for new
-    # TEST then a new order is assigned
-    # TEST and customers is assigned
-    # TEST and the order's new page is rendered
-    describe "as a logged broker" do
-      before :each do
-        sign_in(broker1)
-        get :new, params: {offer_id: offer1}
-      end
-
-      it "assigns a order new" do
-        expect(assigns(:order).persisted?).to be(false)
-      end
-
-      it "assigns customers" do
-        expect(assigns(:customers).sort).to eq(
-         Customer.all.pluck(:identifier, :id).sort)
-      end
-
-      it "render the new template" do
-        expect(response).to render_template(:new)
-      end
-    end
   end
 end

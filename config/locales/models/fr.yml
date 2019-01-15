@@ -1,58 +1,63 @@
 fr:
   activerecord:
     models:
-      broker: "Courtier"
       broker:
+        name: "Courtier"
         zero: "Pas de Courtier"
         one: "Courtier"
         other: "Courtiers"
-      supplier: "Fournisseur"
       supplier:
+        name: "Fournisseur"
         zero: "Pas de Fournisseur"
         one: "Fournisseur"
         other: "Fournisseurs"
-      customer: "Client"
       customer:
+        name: "Client"
         zero: "Pas de Client"
         one: "Client"
         other: "Clients"
       product:
+        name: "Produit"
         zero: "Pas de Produit"
         one: "Produit"
         other: "Produits"
       packaging:
+        name: "Conditionnement"
         zero: "Pas de Conditionnement"
         one: "Conditionnement"
         other: "Conditionnements"
       aspect:
+        name: "Aspect"
         zero: "Pas d'Aspect"
         one: "Aspect"
         other: "Aspects"
       size:
+        name: "Calibre"
         zero: "Pas de Calibre"
         one: "Calibre"
         other: "Calibres"
       offer:
+        name: "Offre"
         zero: "Pas d'offre"
         one: "Offre"
         other: "Offres"
-      order: "Commande"
       order:
+        name: "Commande"
         zero: "Aucune Commande"
         one: "Commande"
         other: "Commandes"
-      order_line: "Ligne de Commande"
       order_line:
+        name: "Ligne de Commande"
         zero: "No Ligne de Commande"
         one: "Ligne de Commande"
         other: "Lignes de Commande"
-      tender: "Appel d'Offre"
       tender:
+        name: "Appel d'Offre"
         zero: "Aucune Appel d'Offre"
         one: "Appel d'Offre"
         other: "Appels d'Offre"
-      tender_line: "Ligne d'Appel d'Offre"
       tender_line:
+        name: "Ligne d'Appel d'Offre"
         zero: "No Ligne d'Appel d'Offre"
         one: "Ligne d'Appel d'Offre"
         other: "Lignes d'Appel d'Offre"

@@ -1,6 +1,9 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :verify_permission
+  before_action :verify_permission, except: [:show]
+  before_action only: [:show] do
+    verify_permission_nested("offer", "customer")
+  end
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
@@ -50,24 +53,24 @@ class OrdersController < ApplicationController
     @customer_id = customer_signed_in? ? current_customer.id : order_params['customer_id']
     @order.customer_id = @customer_id
     if @order.save
+      flash[:notice] = I18n.t('controllers.orders.successfully_created')
       if customer_signed_in?
-        redirect_to customer_order_path(id: @order.id, customer_id: @customer_id), notice: I18n.t('controllers.orders.successfully_created')
+        redirect_to customer_order_path(id: @order.id, customer_id: @customer_id)
       else
         redirect_to order_path(@order)
       end
     else
       message = ''
-      @order.errors.messages.each do |k,v| 
+      @order.errors.messages.each do |k,v|
         message += I18n.t('activerecord.attributes.order.' + k.to_s) +
          ' : ' + v.inject(''){|s, m| s += m + " "}
       end
+      flash[:alert] = message
       if customer_signed_in?
         redirect_to new_customer_order_path(current_customer.id,
-                                            offer_id: order_params[:offer_id]),
-        alert: message
+                                            offer_id: order_params[:offer_id])
       else
-        redirect_to new_order_path(offer_id: order_params[:offer_id]),
-        alert: message
+        redirect_to new_order_path(offer_id: order_params[:offer_id])
       end
     end
   end

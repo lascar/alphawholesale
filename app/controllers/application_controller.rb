@@ -27,10 +27,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def user_type
-    determine_user_type
-  end
-
   def current_user
     current_user_type(user_type)
   end
@@ -61,19 +57,18 @@ class ApplicationController < ActionController::Base
      call(self, current_user, id)
   end
 
-  def verify_permission_nested(attribute)
+  def verify_permission_nested(attribute, except=nil)
     object = controller_name.singularize.capitalize.
      gsub(/_(.)/){|l| + l.upcase}.gsub(/_/, '').
      constantize.find_by_id params[:id]
     nested_object = object ? object.send(attribute) : nil
-    id = case user_type
-         when 'supplier'
-           then
-           nested_object && nested_object.has_attribute?('supplier_id') ?
-            nested_object.supplier_id : nil
-         when 'customer'
-           nested_object && nested_object.has_attribute?('customer_id') ?
-            nested_object.customer_id : nil
+    user_type_id = user_type + '_id'
+    id = if user_type != except
+           nested_object && nested_object.has_attribute?(user_type_id) ?
+             nested_object.send(user_type_id) : nil
+         else
+           object && object.has_attribute?(user_type_id) ?
+             object.send(user_type_id) : nil
          end.to_s
     PERMISSIONS[controller_name.to_sym][action_name.to_sym].
      call(self, current_user, id)

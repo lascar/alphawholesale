@@ -32,6 +32,10 @@
 
     <% if !customer_signed_in? %>
       <div class="col-3">
+        <strong><%= t("activerecord.models.customer.name") %>:</strong>
+        <%= @order.customer.identifier %>
+      </div>
+      <div class="col-3">
         <strong><%= Offer.human_attribute_name("unit_price_supplier") %>:</strong>
         <%= @offer.unit_price_supplier.to_s + " " +
           t("currencies." + @offer.supplier.currency + ".symbol") %>

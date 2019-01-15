@@ -1,63 +1,63 @@
 en:
   activerecord:
     models:
-      broker: "Broker"
       broker:
+        name: "Broker"
         zero: "No Broker"
         one: "Broker"
         other: "Brokers"
-      supplier: "Supplier"
       supplier:
+        name: "Supplier"
         zero: "No Supplier"
         one: "Supplier"
         other: "Suppliers"
-      customer: "Customer"
       customer:
+        name: "Customer"
         zero: "No Customer"
         one: "Customer"
         other: "Customers"
-      product: "Product"
       product:
+        name: "Product"
         zero: "No Product"
         one: "Product"
         other: "Products"
-      packaging: "Packaging"
       packaging:
+        name: "Packaging"
         zero: "No Packaging"
         one: "Packaging"
         other: "Packaging"
-      aspect: "Aspect"
       aspect:
+        name: "Aspect"
         zero: "No Aspect"
         one: "Aspect"
         other: "Aspect"
-      size: "Size"
       size:
+        name: "Size"
         zero: "No Size"
         one: "Size"
         other: "Size"
-      offer: "Offer"
       offer:
+        name: "Offer"
         zero: "No Offer"
         one: "Offer"
         other: "Offers"
-      order: "Order"
       order:
+        name: "Order"
         zero: "No Order"
         one: "Order"
         other: "Orders"
-      order_line: "Order Line"
       order_line:
+        name: "Order Line"
         zero: "No Order Line"
         one: "Order Line"
         other: "Order Lines"
-      tender: "Tender"
       tender:
+        name: "Tender"
         zero: "No Tender"
         one: "Tender"
         other: "Tenders"
-      tender_line: "Tender Line"
       tender_line:
+        name: "Tender Line"
         zero: "No Tender Line"
         one: "Tender Line"
         other: "Tender Lines"

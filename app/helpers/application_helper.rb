@@ -35,7 +35,7 @@ module ApplicationHelper
     (user_type == 'customer' && current_customer)
   end
 
-  def determine_user_type
+  def user_type
     (broker_signed_in? && 'broker') ||
       (supplier_signed_in? && 'supplier') ||
       (customer_signed_in? && 'customer') ||

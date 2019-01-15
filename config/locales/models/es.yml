@@ -1,58 +1,63 @@
 es:
   activerecord:
     models:
-      broker: "Corredor"
       broker:
+        name: "Corredor"
         zero: "No Corredor"
         one: "Corredor"
         other: "Corredores"
-      supplier: "Proveedor"
       supplier:
+        name: "Proveedor"
         zero: "No Proveedor"
         one: "Proveedor"
         other: "Proveedores"
-      customer: "Cliente"
       customer:
+        name: "Cliente"
         zero: "No Cliente"
         one: "Cliente"
         other: "Clientes"
       product:
+        name: "Producto"
         zero: "No Producto"
         one: "Producto"
         other: "Productos"
       packaging:
+        name: "Almacenamiento"
         zero: "No Almacenamiento"
         one: "Almacenamiento"
         other: "Almacenamientos"
       aspect:
+        name: "Aspecto"
         zero: "No Aspecto"
         one: "Aspecto"
         other: "'Aspectos y Calibres'"
       size:
+        name: "Calibre"
         zero: "No Calibre"
         one: "Calibre"
         other: "'Aspectos y Calibres'"
       offer:
+        name: "Oferta"
         zero: "No Oferta"
         one: "Oferta"
         other: "Ofertas"
-      order: "Pedido"
       order:
+        name: "Pedido"
         zero: "No Pedido"
         one: "Pedido"
         other: "Pedidos"
-      order_line: "Linea de Pedido"
       order_line:
+        name: "Linea de Pedido"
         zero: "No Linea de Pedido"
         one: "Linea de Pedido"
         other: "Lineas de Pedido"
-      tender: "Licitación"
       tender:
+        name: "Licitación"
         zero: "No Licitación"
         one: "Licitación"
         other: "Licitaciones"
-      tender_line: "Linea de Licitación"
       tender_line:
+        name: "Linea de Licitación"
         zero: "No Linea de Licitación"
         one: "Linea de Licitación"
         other: "Lineas de Licitación"

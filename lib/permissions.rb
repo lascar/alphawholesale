@@ -1,6 +1,24 @@
 module Permissions
-  NOT_CUSTOMER_OR_SUPPLIER = -> (current_user, id) do
-    !current_user || current_user.class.name == 'Broker'
+  ANYONE = -> (controller, current_user, id) do
+  end
+
+  USER = -> (controller, current_user, id) do
+    !!current_user
+  end
+
+  ONLY_BROKER = -> (controller, current_user, id) do
+    unless controller.broker_signed_in?
+      if current_user
+        user_type = current_user.class.name.downcase
+        path = '/' + user_type.pluralize + '/' + current_user.id.to_s
+        alert = I18n.t('devise.errors.messages.not_authorized')
+      else
+        path = '/'
+        alert = I18n.t('devise.failure.unauthenticated')
+      end
+      controller.redirect_to( path, alert: alert)
+      return
+    end
   end
 
   SUPPLIER_OWNER = -> (current_user, id) do
@@ -9,25 +27,6 @@ module Permissions
 
   CUSTOMER_OWNER = -> (current_user, id) do
     current_user.class.name == 'Customer' && current_user.id.to_s == id.to_s
-  end
-
-  USER = -> (controller, current_user, id) do
-    current_user.class.name == 'Customer' ||
-    current_user.class.name == 'Supplier' ||
-    current_user.class.name == 'Broker'
-  end
-
-  ANYONE = -> (controller, current_user, id) do
-  end
-
-  ONLY_BROKER = -> (controller, current_user, id) do
-    unless controller.broker_signed_in?
-      user_type = current_user.class.name.downcase
-      path = '/' + user_type.pluralize + '/' + current_user.id.to_s
-      alert = I18n.t('devise.errors.messages.not_authorized')
-      controller.redirect_to( path, alert: alert)
-      return
-    end
   end
 
   ONLY_SUPPLIER_OR_BROKER = -> (controller, current_user, id) do
@@ -86,6 +85,10 @@ module Permissions
       controller.redirect_to( path, alert: alert)
       return
     end
+  end
+
+  NOT_CUSTOMER_OR_SUPPLIER = -> (current_user, id) do
+    !current_user || current_user.class.name == 'Broker'
   end
 
   ONLY_GUEST_OR_BROKER = -> (controller, current_user, id) do
@@ -152,7 +155,7 @@ module Permissions
                               update: ONLY_SUPPLIER_OWNER_OR_BROKER,
                               destroy: ONLY_SUPPLIER_OWNER_OR_BROKER},
                  orders:     {index: USER,
-                              show: ONLY_CUSTOMER_OWNER_OR_BROKER,
+                              show: ONLY_SUPPLIER_CUSTOMER_OWNER_OR_BROKER,
                               new: ONLY_CUSTOMER_OR_BROKER,
                               edit: ONLY_CUSTOMER_OWNER_OR_BROKER,
                               create: ONLY_CUSTOMER_OR_BROKER,

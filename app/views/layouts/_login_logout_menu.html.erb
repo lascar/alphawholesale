@@ -1,8 +1,7 @@
 <%# byebug %>
-<% user_type = determine_user_type %>
 <ul class="nav nav-pills pull-right">
   <%= user_logged(user_type) %>
-  <% case determine_user_type %>
+  <% case user_type %>
   <% when "broker" %>
     <li><%= link_to t("devise.action.signout"), destroy_broker_session_path, method: :delete, class: "btn btn-danger btn-sm" %></li>
   <% when "supplier" %>

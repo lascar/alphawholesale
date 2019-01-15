@@ -102,13 +102,12 @@
 
       <% if !supplier_signed_in? %>
         <div class="col-3">
-            <div class="field">
-              <strong><%= Offer.human_attribute_name("localisation_broker") %>:</strong>
-              <%= @offer.localisation_broker %>
-            </div>
+          <div class="field">
+            <strong><%= Offer.human_attribute_name("localisation_broker") %>:</strong>
+            <%= @offer.localisation_broker %>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 
