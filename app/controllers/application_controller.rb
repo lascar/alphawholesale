@@ -65,9 +65,9 @@ class ApplicationController < ActionController::Base
     object = controller_name.singularize.capitalize.
      gsub(/_(.)/){|l| + l.upcase}.gsub(/_/, '').
      constantize.find_by_id params[:id]
-    nested_object = object ? object.send(attribute) : nil
     user_type_id = user_type + '_id'
     id = if user_type != except
+           nested_object = object ? object.send(attribute) : nil
            nested_object && nested_object.has_attribute?(user_type_id) ?
              nested_object.send(user_type_id) : nil
          else
