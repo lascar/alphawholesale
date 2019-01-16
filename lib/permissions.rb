@@ -8,16 +8,7 @@ module Permissions
 
   ONLY_BROKER = -> (controller, current_user, id) do
     unless controller.broker_signed_in?
-      if current_user
-        user_type = current_user.class.name.downcase
-        path = '/' + user_type.pluralize + '/' + current_user.id.to_s
-        alert = I18n.t('devise.errors.messages.not_authorized')
-      else
-        path = '/'
-        alert = I18n.t('devise.failure.unauthenticated')
-      end
-      controller.redirect_to( path, alert: alert)
-      return
+      unauthorized(controller, current_user)
     end
   end
 
@@ -31,42 +22,26 @@ module Permissions
 
   ONLY_SUPPLIER_OR_BROKER = -> (controller, current_user, id) do
     unless current_user.class.name == 'Supplier' || current_user.class.name == 'Broker'
-      user_type = current_user.class.name.downcase
-      path = '/' + user_type.pluralize + '/' + current_user.id.to_s
-      alert = I18n.t('devise.errors.messages.not_authorized')
-      controller.redirect_to( path, alert: alert)
-      return
+      unauthorized(controller, current_user)
     end
   end
 
   ONLY_CUSTOMER_OR_BROKER = -> (controller, current_user, id) do
     unless current_user.class.name == 'Customer' || current_user.class.name == 'Broker'
-      user_type = current_user.class.name.downcase
-      path = '/' + user_type.pluralize + '/' + current_user.id.to_s
-      alert = I18n.t('devise.errors.messages.not_authorized')
-      controller.redirect_to( path, alert: alert)
-      return
+      unauthorized(controller, current_user)
     end
   end
 
   ONLY_SUPPLIER_OWNER_OR_BROKER = -> (controller, current_user, id) do
     unless (SUPPLIER_OWNER.call(current_user, id) || current_user.class.name == 'Broker')
-      user_type = current_user.class.name.downcase
-      path = '/' + user_type.pluralize + '/' + current_user.id.to_s
-      alert = I18n.t('devise.errors.messages.not_authorized')
-      controller.redirect_to( path, alert: alert)
-      return
+      unauthorized(controller, current_user)
     end
   end
 
   ONLY_CUSTOMER_OWNER_OR_BROKER = -> (controller, current_user, id) do
     unless (CUSTOMER_OWNER.call(current_user, id) ||
             current_user.class.name == 'Broker')
-      user_type = current_user.class.name.downcase
-      path = '/' + user_type.pluralize + '/' + current_user.id.to_s
-      alert = I18n.t('devise.errors.messages.not_authorized')
-      controller.redirect_to( path, alert: alert)
-      return
+      unauthorized(controller, current_user)
     end
   end
 
@@ -74,16 +49,7 @@ module Permissions
     unless (SUPPLIER_OWNER.call(current_user, id) ||
             CUSTOMER_OWNER.call(current_user, id) ||
             current_user.class.name == 'Broker')
-      if current_user.nil?
-        path = '/'
-        alert = I18n.t('devise.failure.unauthenticated')
-      else
-        user_type = current_user.class.name.downcase
-        path = '/' + user_type.pluralize + '/' + current_user.id.to_s
-        alert = I18n.t('devise.errors.messages.not_authorized')
-      end
-      controller.redirect_to( path, alert: alert)
-      return
+      unauthorized(controller, current_user)
     end
   end
 
@@ -93,11 +59,7 @@ module Permissions
 
   ONLY_GUEST_OR_BROKER = -> (controller, current_user, id) do
     unless NOT_CUSTOMER_OR_SUPPLIER.call(current_user, id)
-      user_type = current_user.class.name.downcase
-      path = '/' + user_type.pluralize + '/' + current_user.id.to_s
-      alert = I18n.t('devise.errors.messages.not_authorized')
-      controller.redirect_to( path, alert: alert)
-      return
+      unauthorized(controller, current_user)
     end
   end
 
@@ -176,4 +138,17 @@ module Permissions
                               update: ONLY_CUSTOMER_OWNER_OR_BROKER,
                               destroy: ONLY_CUSTOMER_OWNER_OR_BROKER}
                 }
+
+  def self.unauthorized(controller, current_user)
+    if current_user
+      user_type = current_user.class.name.downcase
+      path = '/' + user_type.pluralize + '/' + current_user.id.to_s
+      alert = I18n.t('devise.errors.messages.not_authorized')
+    else
+      path = '/'
+      alert = I18n.t('devise.failure.unauthenticated')
+    end
+    controller.redirect_to( path, alert: alert)
+    return
+  end
 end
