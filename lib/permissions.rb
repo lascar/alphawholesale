@@ -53,12 +53,8 @@ module Permissions
     end
   end
 
-  NOT_CUSTOMER_OR_SUPPLIER = -> (current_user, id) do
-    !current_user || current_user.class.name == 'Broker'
-  end
-
   ONLY_GUEST_OR_BROKER = -> (controller, current_user, id) do
-    unless NOT_CUSTOMER_OR_SUPPLIER.call(current_user, id)
+    unless !current_user || current_user.class.name == 'Broker'
       unauthorized(controller, current_user)
     end
   end
