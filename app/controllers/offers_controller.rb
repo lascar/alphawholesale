@@ -7,14 +7,14 @@ class OffersController < ApplicationController
   def index
     if current_customer
       products = current_customer.products
-      @offers = Offer.with_approved(true).select do |offer|
+      @offers = Offer.with_approved(true).not_expired.select do |offer|
         products.include? offer.product
       end
     elsif current_broker
-      @offers = Offer.with_approved(true)
+      @offers = Offer.with_approved(true).not_expired
      else
       @supplier_id = current_supplier.id
-      @offers = Offer.by_supplier(current_supplier.id)
+      @offers = Offer.by_supplier(current_supplier.id).not_expired
     end
   end
 

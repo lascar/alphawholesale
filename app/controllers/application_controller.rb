@@ -57,6 +57,10 @@ class ApplicationController < ActionController::Base
      call(self, current_user, id)
   end
 
+  # Carrefull! the param except is to pass an class of user to downgrade
+  # to 'verify_permition' as use in orders#show that has a strategy of
+  # 'verify_permission_nested' when the user is 'supplier' but
+  # 'verify_permission' when the user is 'customer'
   def verify_permission_nested(attribute, except=nil)
     object = controller_name.singularize.capitalize.
      gsub(/_(.)/){|l| + l.upcase}.gsub(/_/, '').

@@ -15,4 +15,8 @@ class Offer < ApplicationRecord
   def self.with_approved(approved)
     where(approved: approved)
   end
+
+  def self.not_expired
+    where('date_end >= ?', Time.now)
+  end
 end
