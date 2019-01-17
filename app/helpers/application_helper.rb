@@ -108,7 +108,7 @@ HERE
     path[user_type]
   end
 
-  def registration_path(user_type)
+  def no_session_registration_path(user_type)
     path = {broker: destroy_broker_session_path,
             supplier: destroy_supplier_session_path,
             customer: destroy_customer_session_path}

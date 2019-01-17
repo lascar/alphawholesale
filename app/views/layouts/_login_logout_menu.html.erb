@@ -20,7 +20,7 @@
       <li>
         <%= link_to icon('fas', 'user-plus') + " " +
             t("activerecord.models." + type + ".name"),
-            registration_path(type.to_sym),
+            no_session_registration_path(type.to_sym),
             title: t("devise.action." + type + ".signup"),
             class: "btn btn-gris btn-sm" %>
       </li>
