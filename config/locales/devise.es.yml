@@ -8,10 +8,10 @@ es:
       signup: "Enregistrarse"
       supplier:
         signup: "Enregistrarse como proveedor"
-        signup: "Entrar como proveedor"
+        signin: "Entrar como proveedor"
       customer:
         signup: "Enregistrarse como cliente"
-        signup: "Entrar como cliente"
+        signin: "Entrar como cliente"
     confirmations:
       confirmed: "Your email address has been successfully confirmed."
       send_instructions: "You will receive an email with instructions for how to confirm your email address in a few minutes."

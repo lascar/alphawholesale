@@ -1,17 +1,29 @@
 <%# byebug %>
 <ul class="nav nav-pills pull-right">
   <%= user_logged(user_type) %>
-  <% case user_type %>
-  <% when "broker" %>
-    <li><%= link_to t("devise.action.signout"), destroy_broker_session_path, method: :delete, class: "btn btn-danger btn-sm" %></li>
-  <% when "supplier" %>
-    <li><%= link_to t("devise.action.signout"), destroy_supplier_session_path, method: :delete, class: "btn btn-danger btn-sm" %></li>
-  <% when "customer" %>
-    <li><%= link_to t("devise.action.signout"), destroy_customer_session_path, method: :delete, class: "btn btn-danger btn-sm" %></li>
+  <% if !user_type.empty? %>
+    <li>
+      <%= link_to icon('fas', 'sign-out-alt', class: "icon-white") + " " +
+          t("activerecord.models." + user_type + ".name"), session_destroy_path(user_type.to_sym),
+          method: :delete, title: t("devise.action.signout"),
+          class: "btn btn-danger btn-sm" %>
+    </li>
   <% else %>
-    <li><%= link_to t("devise.action.supplier.signin"), new_supplier_session_path, class: "btn btn-gris btn-sm" %></li>
-    <li><%= link_to t("devise.action.customer.signin"), new_customer_session_path, class: "btn btn-gris btn-sm" %></li>
-    <li><%= link_to t("devise.action.supplier.signup"), new_supplier_registration_path, class: "btn btn-info btn-sm" %></li>
-    <li><%= link_to t("devise.action.customer.signup"), new_customer_registration_path, class: "btn btn-info btn-sm" %></li>
+    <% ["supplier", "customer"].each do |type| %>
+      <li>
+        <%= link_to icon('fas', 'sign-in-alt', class: "icon-white") + " " +
+            t("activerecord.models." + type + ".name"),
+            session_new_path(type.to_sym),
+            title: t("devise.action." + type + ".signin"),
+            class: "btn btn-blue btn-sm" %>
+      </li>
+      <li>
+        <%= link_to icon('fas', 'user-plus') + " " +
+            t("activerecord.models." + type + ".name"),
+            registration_path(type.to_sym),
+            title: t("devise.action." + type + ".signup"),
+            class: "btn btn-gris btn-sm" %>
+      </li>
+    <% end %>
   <% end %>
 </ul>

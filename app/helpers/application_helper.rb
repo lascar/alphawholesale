@@ -93,4 +93,25 @@ HERE
     end
     return message
   end
+
+  def session_destroy_path(user_type)
+    path = {broker: destroy_broker_session_path,
+            supplier: destroy_supplier_session_path,
+            customer: destroy_customer_session_path}
+    path[user_type]
+  end
+
+  def session_new_path(user_type)
+    path = {broker: new_broker_session_path,
+            supplier: new_supplier_session_path,
+            customer: new_customer_session_path}
+    path[user_type]
+  end
+
+  def registration_path(user_type)
+    path = {broker: destroy_broker_session_path,
+            supplier: destroy_supplier_session_path,
+            customer: destroy_customer_session_path}
+    path[user_type]
+  end
 end

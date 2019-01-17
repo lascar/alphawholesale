@@ -8,6 +8,10 @@ a:visited{
 .btn-primary, .btn-info, .btn-danger{
   color: white !important;
 }
+.btn-blue {
+  color: white !important;
+  background-color: $link-color !important;
+}
 .btn-gris {
   color: white !important;
   background-color: $color-second !important;
