@@ -12,13 +12,12 @@
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= order.offer.product.name %></td>
+        <td><%= order[:product_name] %></td>
         <td>
-          <%= order.quantity.to_s + " " +
-              t("unit_types." + order.offer.supplier.unit_type + ".symbol") %>
+          <%= order[:quantity] %>
         </td>
-        <td><%= link_to t("show"), order_show_path(order) %></td>
-        <td><%= link_to t("edit"), order_edit_path(order) %></td>
+        <td><%= link_to t("show"), order_show_path(order[:id]) %></td>
+        <td><%= link_to t("edit"), order_edit_path(order[:id]) %></td>
         <td>
           <%= link_to t("destroy"), order_show_path(order), method: :delete,
                data: { confirm: t(:are_you_sure) } %>

@@ -9,15 +9,16 @@ class OrdersController < ApplicationController
   # GET /orders
   def index
     if current_broker
-      @orders = Order.with_approved(true)
+      orders = Order.with_approved(true).includes(:offer)
     elsif customer_signed_in?
       @customer_id = current_customer.id
-      @orders = Order.where(customer_id: current_customer.id)
+      orders = Order.where(customer_id: current_customer.id).includes(:offer)
     elsif supplier_signed_in?
       @supplier_id = current_supplier.id
-      @orders = Order.joins(:offer).where('offers.supplier_id = ?', @supplier_id).
-        with_approved(true)
+      orders = Order.joins(:offer).where('offers.supplier_id = ?', @supplier_id).
+        with_approved(true).includes(:offer)
     end
+    @orders = map_orders_for_index(orders)
   end
 
   # GET /orders/1
@@ -106,18 +107,27 @@ class OrdersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_order
+    @order = Order.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def order_params
-      if broker_signed_in?
-        params.require(:order).permit(:customer_id, :offer_id, :quantity,
-                                    :customer_observation, :approved)
-      else
-        params.require(:order).permit(:quantity, :offer_id, :customer_observation)
-      end
+  # Only allow a trusted parameter "white list" through.
+  def order_params
+    if broker_signed_in?
+      params.require(:order).permit(:customer_id, :offer_id, :quantity,
+                                  :customer_observation, :approved)
+    else
+      params.require(:order).permit(:quantity, :offer_id, :customer_observation)
     end
+  end
+
+  def map_orders_for_index(orders)
+    orders.map do |order|
+      {id: order.id, product_name: order.offer.product.name,
+       quantity: order.quantity.to_s + ' ' +
+       I18n.t('unit_types.' + order.offer.supplier.unit_type + '.symbol')}
+    end
+  end
+
 end

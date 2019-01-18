@@ -12,7 +12,7 @@ class SuppliersController < ApplicationController
 
   # GET /suppliers/1
   def show
-    @offers = @supplier.offers
+    @offers = @supplier.offers.includes(:product)
     @products = @supplier.products
   end
 

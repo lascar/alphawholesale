@@ -7,15 +7,16 @@ class OffersController < ApplicationController
   def index
     if current_customer
       products = current_customer.products
-      @offers = Offer.with_approved(true).not_expired.select do |offer|
+      offers = Offer.with_approved(true).not_expired.includes(:product).includes(:variety).select do |offer|
         products.include? offer.product
       end
     elsif current_broker
-      @offers = Offer.with_approved(true).not_expired
+      offers = Offer.with_approved(true).not_expired.includes(:product).includes(:variety)
      else
       @supplier_id = current_supplier.id
-      @offers = Offer.by_supplier(current_supplier.id).not_expired
+      offers = Offer.by_supplier(current_supplier.id).not_expired.includes(:product).includes(:variety)
     end
+    @offers = map_offers_for_index(offers)
   end
 
   # GET /offers/1
@@ -32,10 +33,12 @@ class OffersController < ApplicationController
     @offer = Offer.new
     if broker_signed_in?
       @suppliers = Supplier.all.pluck(:identifier, :id)
-      products = Product.all
+      products = Product.includes(:varieties).includes(:aspects).
+        includes(:sizes).includes(:packagings).all
       @supplier_id = params[:supplier_id]
     else
-      products = current_supplier.products
+      products = current_supplier.products.includes(:varieties).
+        includes(:aspects).includes(:sizes).includes(:packagings)
       @supplier_id = @offer.supplier_id = current_supplier.id
     end
     product_names = products.map do |product|
@@ -92,7 +95,8 @@ class OffersController < ApplicationController
     end
     if @offer.save
       if supplier_signed_in?
-        redirect_to supplier_offer_path(id: @offer.id, supplier_id: @offer.supplier_id), notice: I18n.t('controllers.offers.successfully_created')
+        redirect_to supplier_offer_path(id: @offer.id, supplier_id: @offer.supplier_id),
+          notice: I18n.t('controllers.offers.successfully_created')
       else
         redirect_to offer_path(@offer)
       end
@@ -113,7 +117,8 @@ class OffersController < ApplicationController
     @incoterms = INCOTERMS
     if @offer.update(offer_params)
       if supplier_signed_in?
-        redirect_to supplier_offer_path(@offer.supplier_id, @offer), notice: I18n.t('controllers.offers.successfully_updated')
+        redirect_to supplier_offer_path(@offer.supplier_id, @offer),
+          notice: I18n.t('controllers.offers.successfully_updated')
       else
         redirect_to offer_path(@offer), notice: I18n.t('controllers.offers.successfully_updated')
       end
@@ -168,4 +173,26 @@ class OffersController < ApplicationController
                                     :size_id, :packaging_id)
 		end
 	end
+
+  def map_offers_for_index(offers)
+    offers.map do |offer|
+      {id: offer.id,
+       product_name: offer.product.name + " " +
+         (offer.variety ? offer.variety.name : ""),
+       quantity: offer.quantity.to_s + ' ' +
+         I18n.t('unit_types.' + offer.supplier.unit_type + '.symbol'),
+       supplier_price: (offer.unit_price_supplier &&
+               offer.supplier.currency ?
+                (offer.unit_price_supplier.to_s + " " +
+                 t("currencies." + offer.supplier.currency + ".symbol")) :
+                 "-"),
+       broker_price: (offer.unit_price_broker &&
+               offer.supplier.currency ?
+                (offer.unit_price_broker.to_s + " " +
+                 t("currencies." + offer.supplier.currency + ".symbol")) :
+                 "-")
+      }
+    end
+  end
+
 end
