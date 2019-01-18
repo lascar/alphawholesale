@@ -1,5 +1,5 @@
 FactoryBot.define do
-  sequence :size do |n|
-    "size#{n}"
+  factory :size do
+    sequence(:name) {|n| "Size #{n}"}
   end
 end

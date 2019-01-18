@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :broker do
-    identifier { generate :identifier }
-    email { "broker1@test.com" }
+    sequence(:identifier) {|n| "Broker #{n}"}
+    sequence(:email) {|n| "broker#{n}@example.com"}
     password {"password"}
 
   end

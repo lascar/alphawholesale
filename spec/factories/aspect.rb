@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :aspect do
-    name { "MyString" }
-    product { nil }
+    sequence(:name) {|n| "Aspect #{n}"}
   end
 end

@@ -67,7 +67,7 @@
 <br>
 
 <% if !customer_signed_in? %>
-  <%= link_to t("offers.new"), offer_new_path %>
+  <%= link_to t("offers.new"), offer_new_path, {title: t("offers.new")} %>
 <% end %>
 <% if @supplier_id %>
   <br>

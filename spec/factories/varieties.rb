@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :variety do
-    name { generate :name }
-    product { nil }
+    sequence(:name) {|n| "Variety #{n}"}
   end
 end

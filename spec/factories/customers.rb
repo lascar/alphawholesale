@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :customer do
-    identifier { generate :identifier }
-    email { generate :email }
+    sequence(:identifier) {|n| "Customer #{n}"}
+    sequence(:email) {|n| "customer#{n}@example.com"}
     password {"password"}
     approved { true }
     tin { "heoduo" }

@@ -67,6 +67,7 @@ group :test do
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'shoulda'
   gem 'rails-controller-testing'
+  gem 'bullet'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

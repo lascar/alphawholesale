@@ -37,8 +37,9 @@ RSpec.describe "Orders Feature", type: :feature do
         click_link(I18n.t("orders.new"))
         expect(page).to have_xpath("//form[@action='/orders'
                                    and @method='post']")
-        expect(find('select[name="order[customer_id]"]').text.split.sort).to eq(
-          [customer1.identifier, customer2.identifier].sort)
+        select_customer = find('select[name="order[customer_id]"]')
+        expect(select_customer.find("option[value='" + customer1.id.to_s + "']").
+          text).to eq(customer1.identifier)
         select(customer2.identifier, :from => 'order[customer_id]')
         check('order[approved]')
         fill_in('order_quantity', with: '5')
