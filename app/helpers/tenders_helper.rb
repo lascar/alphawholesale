@@ -1,15 +1,15 @@
 module TendersHelper
-  def tenders_index_path(customer_id)
+  def tenders_index_path
     if customer_signed_in?
-      customer_tenders_path(customer_id)
+      customer_tenders_path(current_customer.id)
     else
       tenders_path
     end
   end
 
-  def tender_show_path(customer_id, tender)
+  def tender_show_path(tender)
     if customer_signed_in?
-      customer_tender_path(customer_id, tender)
+      customer_tender_path(current_customer.id, tender)
     else
       tender_path(tender)
     end

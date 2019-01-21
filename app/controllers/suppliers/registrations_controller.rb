@@ -2,6 +2,7 @@
 
 class Suppliers::RegistrationsController < Devise::RegistrationsController
   include Accessible
+  include Utilities
   skip_before_action :check_user, except: [:new, :create, :edit]
   before_action :verify_permission_user
   before_action :configure_sign_up_params, only: [:create]
@@ -106,17 +107,4 @@ class Suppliers::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def put_currencies_unit_types
-    currencies = CURRENCIES.map do |currency|
-      [I18n.t('currencies.' + currency + '.currency') +
-       ' (' + I18n.t('currencies.' + currency + '.symbol') + ')',
-       currency]
-    end
-    unit_types = UNIT_TYPES.map do |unit_type|
-      [I18n.t('unit_types.' + unit_type + '.unit_type') +
-       ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
-       unit_type]
-    end
-    return [currencies, unit_types]
-  end
 end

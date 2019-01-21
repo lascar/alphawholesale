@@ -1,4 +1,5 @@
 class SizesController < ApplicationController
+  include SizesHelper
   before_action :authenticate_user!
   before_action :verify_permission
   before_action :set_size, only: [:show, :edit, :update, :destroy]
@@ -38,21 +39,11 @@ class SizesController < ApplicationController
     end
     if @size.save
        message = I18n.t('controllers.sizes.successfully_created')
-       if supplier_signed_in?
-         redirect_to supplier_size_path(
-                                              @size.id.to_s,
-                                              supplier_id: current_supplier.id,
-                                              ), notice: message
-       else
-         redirect_to @size, notice: message
-       end
+       redirect_to size_show_path(@size), notice: message
     else
       message = helper_activerecord_error_message('size',
                                                   @size.errors.messages)
-      path = supplier_signed_in? ?
-       new_supplier_size_path(current_supplier) :
-        new_size_path
-      redirect_to path, alert: message
+      redirect_to size_new_path, alert: message
     end
   end
 

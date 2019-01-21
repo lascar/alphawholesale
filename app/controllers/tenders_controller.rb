@@ -1,4 +1,5 @@
 class TendersController < ApplicationController
+  include TendersHelper
   before_action :authenticate_user!
   before_action :verify_permission
   before_action :set_tender, only: [:show, :edit, :update, :destroy]
@@ -9,7 +10,7 @@ class TendersController < ApplicationController
       @tenders = Tender.with_approved(true)
      else
       @customer_id = current_customer.id
-      @tenders = Tender.where(customer_id: current_customer.id)
+      @tenders = Tender.where(customer_id: @customer_id)
     end
   end
 
@@ -57,14 +58,9 @@ class TendersController < ApplicationController
   # PATCH/PUT /tenders/1
   def update
     if @tender.update(tender_params)
-      if customer_signed_in?
-        redirect_to customer_tender_path(@tender.customer_id, @tender), notice: I18n.t('controllers.tenders.successfully_updated')
-      else
-        redirect_to tender_path(@tender), notice: I18n.t('controllers.tenders.successfully_updated')
-      end
+      redirect_to tender_show_path(@tender), notice: I18n.t('controllers.tenders.successfully_updated')
     else
       @tender = Tender.find(params[:id])
-      @customer_id = @tender.customer_id
       if broker_signed_in?
         @customers = Customer.all.pluck(:identifier, :id)
       end
@@ -75,13 +71,8 @@ class TendersController < ApplicationController
   # DELETE /tenders/1
   def destroy
     @tender.destroy
-    if customer_signed_in?
-      redirect_to customer_tenders_url(customer_id: current_customer.id),
-        notice: I18n.t('controllers.tenders.successfully_destroyed')
-    else
-      redirect_to tenders_url,
-        notice: I18n.t('controllers.tenders.successfully_destroyed')
-    end
+    redirect_to tenders_index_path,
+      notice: I18n.t('controllers.tenders.successfully_destroyed')
   end
 
   private

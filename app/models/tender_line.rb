@@ -18,7 +18,7 @@ class TenderLine < ApplicationRecord
 
   def self.by_approved(approved)
     tenders = Tender.with_approved(approved)
-    tenders.reduce([]) do |tender_lines, tender|
+    return tenders.reduce([]) do |tender_lines, tender|
       tender_lines << tender.tender_lines
       return tender_lines
     end

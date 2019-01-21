@@ -27,22 +27,29 @@ class TenderLinesController < ApplicationController
     @customer_id = @tender_line.tender.customer_id
   end
 
+  def products_for_new
+    if customer_signed_in?
+      current_customer.products.map{|p| [I18n.t('products.name.' + p.name), p.id]}
+    else
+      Product.all.pluck(:name, :id)
+    end
+  end
+
+  def tenders_for_new
+    if customer_signed_in?
+      current_customer.tenders
+    else
+      Tender.all
+    end
+  end
+
   # GET /tender_lines/new
   def new
-    t = Tender.find_by_id tender_line_params[:tender_id]
-    if customer_signed_in?
-      @products = current_customer.products.
-       map{|p| [I18n.t('products.name.' + p.name), p.id]}
-      @tenders = current_customer.tenders
-      tender = (t && t.customer_id == current_customer.id) ? t : nil
-    else
-      customer = Customer.find_by_id params['customer_id']
-      @products = Product.all.pluck(:name, :id)
-      @customers = Customer.all.pluck(:identifier, :id)
-      @tenders = Tender.all
-      tender = t
-    end
-    @tender_line = TenderLine.new(tender_id: (tender ? tender.id : nil))
+    tender = Tender.find_by_id tender_line_params[:tender_id]
+    @products = products_for_new
+    @tenders = tenders_for_new
+    @customers = Customer.all.pluck(:identifier, :id) if broker_signed_in?
+    @tender_line = TenderLine.new(tender_id: tender.id)
   end
 
   # GET /tender_lines/1/edit

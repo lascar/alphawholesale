@@ -1,4 +1,5 @@
 class SuppliersController < ApplicationController
+  include Utilities
   before_action :authenticate_user!
   before_action :verify_permission_user
   before_action :set_supplier,
@@ -92,28 +93,13 @@ class SuppliersController < ApplicationController
     base = [:email, :tin, :street_and_number, :postal_code, :state, :country,
             :entreprise_name, :telephone_number1, :telephone_number2,
             :unit_type, :currency]
+    current_password = params[:supplier][:current_password]
     if current_broker
       base.push(:identifier, :approved, :password, :password_confirmation)
-    else
-      if !params[:supplier][:current_password].blank? &&
-       @supplier.valid_password?(params[:supplier][:current_password])
-        base.push(:password, :password_confirmation)
-      end
+    elsif !current_password.blank? && @supplier.valid_password?(current_password)
+      base.push(:password, :password_confirmation)
     end
     params.require(:supplier).permit(base)
   end
 
-  def put_currencies_unit_types
-    currencies = CURRENCIES.map do |currency|
-      [I18n.t('currencies.' + currency + '.currency') +
-       ' (' + I18n.t('currencies.' + currency + '.symbol') + ')',
-       currency]
-    end
-    unit_types = UNIT_TYPES.map do |unit_type|
-      [I18n.t('unit_types.' + unit_type + '.unit_type') +
-       ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
-       unit_type]
-    end
-    return [currencies, unit_types]
-  end
 end

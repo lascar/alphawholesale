@@ -33,24 +33,14 @@ class VarietiesController < ApplicationController
   # POST /varieties
   def create
     @variety = Variety.new(variety_params)
-    if supplier_signed_in?
-      @variety.supplier_id =  current_supplier.id
-    end
-    I18n.locale = :fr
+    @variety.supplier_id = supplier_signed_in? ? current_supplier.id :
+      params[:supplier_id]
     if @variety.save
-       message = I18n.t('controllers.varieties.successfully_created')
-       if supplier_signed_in?
-         redirect_to supplier_variety_path(
-                                              @variety.id.to_s,
-                                              supplier_id: current_supplier.id,
-                                              ), notice: message
-       else
-         redirect_to @variety, notice: message
-       end
+       redirect_to helper_show_variety_path, notice:
+         I18n.t('controllers.varieties.successfully_created')
     else
-      message = helper_activerecord_error_message('variety',
-                                                  @variety.errors.messages)
-      redirect_to helper_new_variety_path, alert: message
+      redirect_to helper_new_variety_path, alert:
+        helper_activerecord_error_message('variety', @variety.errors.messages)
     end
   end
 
@@ -74,14 +64,15 @@ class VarietiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_variety
-      @variety = Variety.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_variety
+    @variety = Variety.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def variety_params
-      params.require(:variety).permit(:id, :name,
-                                        :approved, :product_id)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def variety_params
+    base = [:id, :name, :product_id]
+    base.push(:approved) if broker_signed_in?
+    params.require(:variety).permit(base)
+  end
 end

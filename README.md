@@ -62,3 +62,11 @@ not enough permission, failed parameter)
 * the positive situations are explored with feature test (behaviour likewise with
 
 capybara syntax, highly simplified thanks to the 'resilient' nature of the application).
+
+## REFACTORING
+
+It is too a wip.
+
+I use reek allthrough i am not so strict.
+
+And bullet to try to get ride of misuse of activerecord.

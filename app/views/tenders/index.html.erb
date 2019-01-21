@@ -16,9 +16,9 @@
         <td><%= tender.date_start %></td>
         <td><%= tender.date_end %></td>
         <td><%= tender.total %></td>
-        <td><%= link_to t("show"), tender_show_path(@customer_id, tender) %></td>
+        <td><%= link_to t("show"), tender_show_path(tender) %></td>
         <td><%= link_to t("edit"), tender_edit_path(@customer_id, tender) %></td>
-        <td><%= link_to t("destroy"), tender_show_path(@customer_id, tender), method: :delete, data: { confirm: t(:are_you_sure) } %></td>
+        <td><%= link_to t("destroy"), tender_show_path(tender), method: :delete, data: { confirm: t(:are_you_sure) } %></td>
       </tr>
     <% end %>
   </tbody>

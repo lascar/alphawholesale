@@ -49,6 +49,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
   # gem 'i18n-debug'
+  gem 'reek'
 end
 
 group :development do

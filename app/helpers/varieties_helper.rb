@@ -7,6 +7,14 @@ module VarietiesHelper
     end
   end
 
+  def helper_show_variety_path
+    if supplier_signed_in?
+      supplier_variety_path(@variety, supplier_id: current_supplier.id)
+    else
+      variety_path(@variety)
+    end
+  end
+
   def helper_new_variety_path
     if supplier_signed_in?
       new_supplier_variety_path(current_supplier)
