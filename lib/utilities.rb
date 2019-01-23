@@ -15,4 +15,18 @@ module Utilities
     end
     return [currencies, unit_types]
   end
+
+  def map_orders_for_index(orders)
+    orders.map do |order|
+      {id: order.id, product_name: order.offer.product.name,
+       quantity: order.quantity.to_s + ' ' +
+       I18n.t('unit_types.' + order.offer.supplier.unit_type + '.symbol')}
+    end
+  end
+
+  def make_offer_nested(offer)
+    {product_name: offer.product_name, variety_name: offer.variety_name,
+     aspect_name: offer.aspect_name, packaging_name: offer.packaging_name,
+    supplier_currency: offer.supplier_currency}
+  end
 end

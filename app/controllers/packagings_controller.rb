@@ -1,4 +1,5 @@
 class PackagingsController < ApplicationController
+  include PackagingsHelper
   before_action :authenticate_user!
   before_action :verify_permission
   before_action :set_packaging, only: [:show, :edit, :update, :destroy]
@@ -37,22 +38,12 @@ class PackagingsController < ApplicationController
       @packaging.supplier_id =  current_supplier.id
     end
     if @packaging.save
-       message = I18n.t('controllers.packagings.successfully_created')
-       if supplier_signed_in?
-         redirect_to supplier_packaging_path(
-                                              @packaging.id.to_s,
-                                              supplier_id: current_supplier.id,
-                                              ), notice: message
-       else
-         redirect_to @packaging, notice: message
-       end
+       flash[:notice] = I18n.t('controllers.packagings.successfully_created')
+       redirect_to packaging_show_path
     else
-      message = helper_activerecord_error_message('packaging',
+      flash[:alert] = helper_activerecord_error_message('packaging',
                                                   @packaging.errors.messages)
-      path = supplier_signed_in? ?
-       new_supplier_packaging_path(current_supplier) :
-        new_packaging_path
-      redirect_to path, alert: message
+      redirect_to packaging_new_path
     end
   end
 

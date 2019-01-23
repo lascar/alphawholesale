@@ -8,6 +8,26 @@ class Offer < ApplicationRecord
   validates :supplier, presence: true
   validates :product, presence: true
 
+  def product_name
+    product ? product.name : nil
+  end
+
+  def variety_name
+    variety ? variety_name : nil
+  end
+
+  def aspect_name
+    aspect ?  aspect.name : nil
+  end
+
+  def packaging_name
+    packaging ? packaging.name : nil
+  end
+
+  def supplier_currency
+    supplier ? supplier.currency : nil
+  end
+
   def self.by_supplier(supplier_id)
     where(supplier_id: supplier_id)
   end

@@ -114,11 +114,12 @@ RSpec.describe OrdersController, type: :controller do
       end
 
       it "does not change the attributes" do
-        expect(assigns(:order).quantity).to eq(order1.quantity)
+        expect(Order.find(order1.id).quantity).to eq(order1.quantity)
       end
 
-      it "renders the edit template" do
-        expect(response).to render_template(:edit)
+      it "redirect to edit" do
+        expect(response.redirect_url).to eq(
+          'http://test.host/orders/' + order1.id.to_s + '/edit')
       end
     end
 

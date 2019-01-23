@@ -1,5 +1,16 @@
 module OrdersHelper
-  def order_show_path(order)
+  def order_index_path
+    if customer_signed_in?
+      '/customers/' + current_customer.id.to_s + '/orders'
+    elsif supplier_signed_in?
+      '/suppliers/' + current_supplier.id.to_s + '/orders'
+    else
+      '/orders'
+    end
+  end
+
+  def order_show_path(order=nil)
+    order = @order if order.nil?
     if customer_signed_in?
       customer_order_path(current_customer.id, order)
     elsif supplier_signed_in?
@@ -9,7 +20,8 @@ module OrdersHelper
     end
   end
 
-  def order_edit_path(order)
+  def order_edit_path(order=nil)
+    order = @order if order.nil?
     if customer_signed_in?
       edit_customer_order_path(current_customer.id, order)
     else
@@ -17,7 +29,8 @@ module OrdersHelper
     end
   end
 
-  def order_new_path(offer_id)
+  def order_new_path(offer_id = nil)
+    offer_id = @offer.id if offer_id.nil?
     if customer_signed_in?
       new_customer_order_path(current_customer.id, {offer_id: offer_id})
     else
