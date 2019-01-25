@@ -21,6 +21,16 @@ rails 5.2.1
 * Database
 postgresql
 
+## INSTALATION
+
+* Fill your config/database.yml to insure that you have a postgres user with
+  read/write/create
+* <code>bundle exec rake db:drop &&  bundle exec rake db:create &&  bundle exec rake db:migrate &&  bundle exec rake db:seed &&  bundle exec rake nb:make_products</code>
+
+You will obtain 3 users (broker1, supplier1, customer1) and a list of fake products
+
+based on 'config/locales/products/fr.yml'
+
 ## RESILIENT NATURE
 
 No inference are made (we try...) upon the media employed by the user (screen or not, size
