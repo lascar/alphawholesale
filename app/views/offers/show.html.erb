@@ -93,7 +93,7 @@
     </div>
   </div>
 </div>
-<%# byebug %>
+<%# binding.pry %>
 <% if broker_signed_in? || customer_signed_in? %>
   <%= link_to t("orders.new"), order_new_path(@offer.id), method: :get %> |
 <% end %>

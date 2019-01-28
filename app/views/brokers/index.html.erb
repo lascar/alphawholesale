@@ -12,7 +12,7 @@
   <tbody>
     <% @brokers.each do |broker| %>
       <tr>
-        <%# byebug %>
+        <%# binding.pry %>
         <td><%= broker.identifier %></td>
         <td><%= broker.email %></td>
         <td><%= link_to t("show"), broker %></td>

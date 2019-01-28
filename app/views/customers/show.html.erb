@@ -55,7 +55,7 @@
               <td class="text-truncate" title="<%= offer.unit_price_broker %>">
                   <%= offer.unit_price_broker.to_s  + " " + offer.supplier.currency %>
               </td>
-              <%# byebug %>
+              <%# binding.pry %>
               <td><%= link_to icon('fas', 'eye'),
                        customer_offer_path(@customer, offer),
                        title: t("show") %></td>

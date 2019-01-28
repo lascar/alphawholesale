@@ -23,6 +23,6 @@
   <%= @tender_line.unit_price %>
 </p>
 
-<%# byebug %>
+<%# binding.pry %>
 <%= link_to t("edit"), tender_line_edit_path(@customer_id, @tender_line) %> |
 <%= link_to t("back"), :back %>

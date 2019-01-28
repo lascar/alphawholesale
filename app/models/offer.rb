@@ -13,7 +13,7 @@ class Offer < ApplicationRecord
   end
 
   def variety_name
-    variety ? variety_name : nil
+    variety ? variety.name : nil
   end
 
   def aspect_name

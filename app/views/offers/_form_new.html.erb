@@ -41,7 +41,7 @@
                 <% variety_name = variety.first %>
                 <tr>
                   <td><%= t("product.variety." + product_name +  "." + variety_name) %></td>
-      <%# byebug %>
+      <%# binding.pry %>
                   <td>
                     <%= form.radio_button :variety_id, variety.last,
                      id: "variety_" + variety.last.to_s,

@@ -33,7 +33,7 @@
                   <td><%= t("product.aspect." + @product.name + "." + aspect.name) %></td>
                   <td>
                     <% if broker_signed_in? %>
-                      <%# byebug %>
+                      <%# binding.pry %>
                       <%= link_to icon('fas', 'trash'), aspect_path(aspect.id), title: t("destroy"),
                        method: :delete, data: { confirm: t(:are_you_sure) } %>
                     <% end %>
@@ -67,7 +67,7 @@
                   <td><%= t("product.size." + @product.name + "." + size.name) %></td>
                   <td>
                     <% if broker_signed_in? %>
-                      <%# byebug %>
+                      <%# binding.pry %>
                       <%= link_to icon('fas', 'trash'), size_path(size.id), title: t("destroy"),
                        method: :delete, data: { confirm: t(:are_you_sure) } %>
                     <% end %>
@@ -101,7 +101,7 @@
                   <td><%= t("product.packaging." + @product.name + "." + packaging.name) %></td>
                   <td>
                     <% if broker_signed_in? %>
-                      <%# byebug %>
+                      <%# binding.pry %>
                       <%= link_to icon('fas', 'trash'), packaging_path(packaging.id), title: t("destroy"),
                        method: :delete, data: { confirm: t(:are_you_sure) } %>
                     <% end %>

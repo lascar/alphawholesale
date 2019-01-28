@@ -19,7 +19,7 @@
     <tbody>
       <% @offers.each do |offer| %>
         <tr>
-          <%# byebug %>
+          <%# binding.pry %>
           <td><%= offer[:product_name] %></td>
           <td><%= offer[:quantity] %></td>
           <% if !customer_signed_in? %>

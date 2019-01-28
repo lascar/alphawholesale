@@ -54,9 +54,10 @@ class OrdersController < ApplicationController
 
   # POST /orders
   def create
-    params['customer_id'] = customer_signed_in? ? current_customer.id :
-      params['customer_id']
     @order = Order.new(order_params)
+    @order.customer_id = customer_signed_in? ? current_customer.id :
+      params['customer_id']
+    # binding.pry
     if @order.save
       flash[:notice] = I18n.t('controllers.orders.successfully_created')
       redirect_to order_show_path(@order)

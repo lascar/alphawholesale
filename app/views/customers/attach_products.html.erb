@@ -1,5 +1,5 @@
 <h1><%= t("customer.attach_products") %></h1>
-<%# byebug %>
+<%# binding.pry %>
 <%= form_tag(attach_products_create_customer_path(@customer.id), authenticity_token: true) do -%>
   <%= label_tag :product %>
   <div class="row">
