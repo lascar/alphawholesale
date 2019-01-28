@@ -31,6 +31,12 @@ You will obtain 3 users (broker1, supplier1, customer1, password 'milu2000') and
 
 based on 'config/locales/products/fr.yml'
 
+So you can login as customer or supplier, do not forget to attach product before
+
+doing an offer or order.
+
+You can login as broker at /brokers/sign_in and approve the offer or the order
+
 ## DEBUG
 
 With pry-debug, so for a breakpoint you need to put 'binding-pry' in your code
