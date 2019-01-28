@@ -27,9 +27,15 @@ postgresql
   read/write/create
 * <code>bundle exec rake db:drop &&  bundle exec rake db:create &&  bundle exec rake db:migrate &&  bundle exec rake db:seed &&  bundle exec rake nb:make_products</code>
 
-You will obtain 3 users (broker1, supplier1, customer1) and a list of fake products
+You will obtain 3 users (broker1, supplier1, customer1, password 'milu2000') and a list of fake products
 
 based on 'config/locales/products/fr.yml'
+
+## DEBUG
+
+With pry-debug, so for a breakpoint you need to put 'binding-pry' in your code
+
+and write 'next' to jump to the next line
 
 ## RESILIENT NATURE
 
