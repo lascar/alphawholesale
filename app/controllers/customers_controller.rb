@@ -1,4 +1,5 @@
 class CustomersController < ApplicationController
+  include Utilities
   before_action :authenticate_user!
   before_action :verify_permission_user
   before_action :set_customer, only: [:show, :edit, :update, :destroy,
@@ -91,28 +92,13 @@ class CustomersController < ApplicationController
     base = [:email, :tin, :street_and_number, :postal_code, :state, :country,
             :entreprise_name, :telephone_number1, :telephone_number2,
             :unit_type, :currency]
+    current_password = params[:customer][:current_password]
     if current_broker
       base.push(:identifier, :approved, :password, :password_confirmation)
-    else
-      if !params[:customer][:current_password].blank? &&
-       @customer.valid_password?(params[:customer][:current_password])
-        base.push(:password, :password_confirmation)
-      end
+    elsif !current_password.blank? && @customer.valid_password?(current_password)
+      base.push(:password, :password_confirmation)
     end
     params.require(:customer).permit(base)
   end
 
-  def put_currencies_unit_types
-    currencies = CURRENCIES.map do |currency|
-      [I18n.t('currencies.' + currency + '.currency') +
-       ' (' + I18n.t('currencies.' + currency + '.symbol') + ')',
-       currency]
-    end
-    unit_types = UNIT_TYPES.map do |unit_type|
-      [I18n.t('unit_types.' + unit_type + '.unit_type') +
-       ' (' + I18n.t('unit_types.' + unit_type + '.symbol') + ')',
-       unit_type]
-    end
-    return [currencies, unit_types]
-  end
 end
