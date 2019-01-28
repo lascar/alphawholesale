@@ -73,7 +73,7 @@ It is a work in progress, because it serves me for exploring.
 
 I try this :
 
-* all the 'routes' are covered with each of the user nature (anonymous, customer,
+* all the 'routes' are covered with each of the user natures (anonymous, customer,
 
 supplier, broker).
 
