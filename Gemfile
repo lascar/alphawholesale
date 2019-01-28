@@ -49,6 +49,7 @@ group :development, :test do
   # gem 'i18n-debug'
   gem 'reek'
   gem 'pry-rails'
+  gem 'pry-byebug'
 end
 
 group :development do
