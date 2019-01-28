@@ -56,7 +56,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.customer_id = customer_signed_in? ? current_customer.id :
-      params['customer_id']
+      order_params['customer_id']
     if @order.save
       flash[:notice] = I18n.t('controllers.orders.successfully_created')
       redirect_to order_show_path(@order)
