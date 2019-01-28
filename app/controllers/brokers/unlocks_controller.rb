@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Brokers::UnlocksController < Devise::UnlocksController
-  include Accessible
   # GET /resource/unlock/new
   # def new
   #   super

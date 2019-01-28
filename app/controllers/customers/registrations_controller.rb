@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class Customers::RegistrationsController < Devise::RegistrationsController
-  include Accessible
   include Utilities
-  skip_before_action :check_user, except: [:new, :create]
   before_action :verify_permission_user
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
