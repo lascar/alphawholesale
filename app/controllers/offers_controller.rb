@@ -1,31 +1,29 @@
 class OffersController < ApplicationController
+  include OffersHelper
+  include Utilities
   before_action :authenticate_user!
   before_action :verify_permission
   before_action :set_offer, only: [:show, :edit, :update, :destroy]
 
   # GET /offers
   def index
+    offers_raw = Offer.not_expired.includes(:product).includes(:variety)
+    offers_raw_with_approved = offers_raw.with_approved(true)
     if current_customer
-      products = current_customer.products
-      offers = Offer.with_approved(true).not_expired.includes(:product).includes(:variety).select do |offer|
-        products.include? offer.product
+      offers = offers_raw_with_approved.select do |offer|
+        current_customer.products.include? offer.product
       end
     elsif current_broker
-      offers = Offer.with_approved(true).not_expired.includes(:product).includes(:variety)
-     else
+      offers = offers_raw_with_approved
+    else
       @supplier_id = current_supplier.id
-      offers = Offer.by_supplier(current_supplier.id).not_expired.includes(:product).includes(:variety)
+      offers = offers_raw.by_supplier(@supplier_id)
     end
     @offers = map_offers_for_index(offers)
   end
 
   # GET /offers/1
   def show
-    if supplier_signed_in? && current_supplier.id != @offer.supplier_id
-      redirect_to "/suppliers/" + current_supplier.id.to_s,
-       alert: I18n.t('devise.errors.messages.not_authorized')
-    end
-    @supplier_id = customer_signed_in? ? current_customer.id : params[:supplier_id]
   end
 
   # GET /offers/new
@@ -41,34 +39,7 @@ class OffersController < ApplicationController
         includes(:aspects).includes(:sizes).includes(:packagings)
       @supplier_id = @offer.supplier_id = current_supplier.id
     end
-    product_names = products.map do |product|
-      [product.name, product.id]
-    end.uniq
-    @products = product_names.inject({}) do |products_hash, product_array|
-      product_name = product_array.first
-      product_id = product_array.last
-      product =
-      {"product_id" => product_id,
-      "variety" =>
-       products.select{|p| p.name == product_name}.first.varieties.map do |variety|
-         [variety.name, variety.id]
-       end,
-      "aspects" =>
-       products.select{|p| p.name == product_name}.first.aspects.map do |aspect|
-        [aspect.name, aspect.id]
-      end,
-      "sizes" =>
-       products.select{|p| p.name == product_name}.first.sizes.map do |size|
-        [size.name, size.id]
-      end,
-      "packagings" =>
-       products.select{|p| p.name == product_name}.first.packagings.map do |packaging|
-        [packaging.name, packaging.id]
-      end
-      }
-      products_hash[product_name] = product
-      products_hash
-    end
+    @products = make_offers_new_products(products)
     @incoterms = INCOTERMS
   end
 
@@ -94,19 +65,12 @@ class OffersController < ApplicationController
       @offer.supplier_id = current_supplier.id
     end
     if @offer.save
-      if supplier_signed_in?
-        redirect_to supplier_offer_path(id: @offer.id, supplier_id: @offer.supplier_id),
-          notice: I18n.t('controllers.offers.successfully_created')
-      else
-        redirect_to offer_path(@offer)
-      end
+      flash[:notice] = I18n.t('controllers.offers.successfully_created')
+      redirect_to offer_show_path(@offer)
     else
-      message = helper_activerecord_error_message('offer',
+      flash[:alert] = helper_activerecord_error_message('offer',
                                                   @offer.errors.messages)
-      path = supplier_signed_in? ?
-       new_supplier_offer_path(current_supplier) :
-        new_offer_path
-      redirect_to path, alert: message
+      redirect_to offer_new_path
     end
   end
 
@@ -116,33 +80,21 @@ class OffersController < ApplicationController
      offer_params[:supplier_id]
     @incoterms = INCOTERMS
     if @offer.update(offer_params)
-      if supplier_signed_in?
-        redirect_to supplier_offer_path(@offer.supplier_id, @offer),
-          notice: I18n.t('controllers.offers.successfully_updated')
-      else
-        redirect_to offer_path(@offer), notice: I18n.t('controllers.offers.successfully_updated')
-      end
+      flash[:notice] = I18n.t('controllers.offers.successfully_updated')
+      redirect_to offer_show_path(@offer)
     else
       @offer = Offer.find(params[:id])
-      message = helper_activerecord_error_message('offer',
+      flash[:alert] = helper_activerecord_error_message('offer',
                                                   @offer.errors.messages)
-      path = supplier_signed_in? ?
-       new_supplier_offer_path(current_supplier) :
-        new_offer_path
-      redirect_to path, alert: message
+      redirect_to offer_new_path
     end
   end
 
   # DELETE /offers/1
   def destroy
     @offer.destroy
-    if supplier_signed_in?
-      redirect_to supplier_offers_url(supplier_id: current_supplier.id),
-        notice: I18n.t('controllers.offers.successfully_destroyed')
-    else
-      redirect_to offers_url,
-        notice: I18n.t('controllers.offers.successfully_destroyed')
-    end
+    flash[:notice] = I18n.t('controllers.offers.successfully_destroyed')
+    redirect_to offers_index_path
   end
 
   private
@@ -154,45 +106,14 @@ class OffersController < ApplicationController
 
 	# Only allow a trusted parameter "white list" through.
 	def offer_params
+    base = [:supplier_id, :date_start, :date_end, :quantity,
+                   :unit_price_supplier, :localisation_supplier, :observation,
+                   :incoterm, :product_id, :variety_id, :aspect_id, :size_id,
+                   :packaging_id]
 		if broker_signed_in?
-			params.require(:offer).permit(:supplier_id,
-                                    :date_start, :date_end, :quantity,
-																		:unit_price_supplier, :unit_price_broker,
-                                    :localisation_supplier,
-                                    :localisation_broker,
-                                    :observation, :incoterm, :approved,
-																		:product_id, :variety_id, :aspect_id,
-                                    :size_id, :packaging_id)
-		else
-			params.require(:offer).permit(:supplier_id,
-                                    :date_start, :date_end,
-                                    :quantity, :unit_price_supplier,
-                                    :localisation_supplier,
-                                    :observation, :incoterm,
-																		:product_id, :variety_id, :aspect_id,
-                                    :size_id, :packaging_id)
+      base.push(:unit_price_broker, :localisation_supplier, :approved)
 		end
+		params.require(:offer).permit(base)
 	end
-
-  def map_offers_for_index(offers)
-    offers.map do |offer|
-      {id: offer.id,
-       product_name: offer.product.name + " " +
-         (offer.variety ? offer.variety.name : ""),
-       quantity: offer.quantity.to_s + ' ' +
-         I18n.t('unit_types.' + offer.supplier.unit_type + '.symbol'),
-       supplier_price: (offer.unit_price_supplier &&
-               offer.supplier.currency ?
-                (offer.unit_price_supplier.to_s + " " +
-                 t("currencies." + offer.supplier.currency + ".symbol")) :
-                 "-"),
-       broker_price: (offer.unit_price_broker &&
-               offer.supplier.currency ?
-                (offer.unit_price_broker.to_s + " " +
-                 t("currencies." + offer.supplier.currency + ".symbol")) :
-                 "-")
-      }
-    end
-  end
 
 end

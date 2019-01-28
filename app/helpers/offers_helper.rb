@@ -1,5 +1,13 @@
 module OffersHelper
 
+  def offers_index_path
+    if supplier_signed_in?
+      supplier_offers_path(current_supplier.id)
+    else
+      offers_path
+    end
+  end
+
   def offer_show_path(offer)
     if supplier_signed_in?
       supplier_offer_path(current_supplier.id, offer)

@@ -66,6 +66,14 @@ module Permissions
     end
   end
 
+  ONLY_CUSTOMER_ALL_SUPPLIER_OWNER_OR_BROKER = -> (controller, current_user, id) do
+    unless (SUPPLIER_OWNER.call(current_user, id) ||
+            current_user.class.name == 'Customer' ||
+            current_user.class.name == 'Broker')
+      UNAUTH.call(controller, current_user)
+    end
+  end
+
   ONLY_GUEST_OR_BROKER = -> (controller, current_user, id) do
     unless !current_user || current_user.class.name == 'Broker'
       UNAUTH.call(controller, current_user)
@@ -119,7 +127,7 @@ module Permissions
                               update: ONLY_SUPPLIER_OWNER_OR_BROKER,
                               destroy: ONLY_BROKER},
                  offers:     {index: ANYONE,
-                              show: ANYONE,
+                              show: ONLY_CUSTOMER_ALL_SUPPLIER_OWNER_OR_BROKER,
                               new: ONLY_SUPPLIER_OR_BROKER,
                               edit: ONLY_SUPPLIER_OWNER_OR_BROKER,
                               create: ONLY_SUPPLIER_OR_BROKER,
