@@ -91,7 +91,8 @@ RSpec.describe AspectsController, type: :controller do
       end
 
       it "redirect to the newly updated aspect" do
-        expect(response.redirect_url).to eq("http://test.host/aspects/" +
+        expect(response.redirect_url).to eq("http://test.host/suppliers/" +
+                                            supplier1.id.to_s + "/aspects/" +
                                             aspect1.id.to_s)
       end
     end

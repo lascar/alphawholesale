@@ -1,4 +1,5 @@
 class AspectsController < ApplicationController
+  include AspectsHelper
   before_action :authenticate_user!
   before_action :verify_permission
   before_action :set_aspect, only: [:show, :edit, :update, :destroy]
@@ -37,37 +38,24 @@ class AspectsController < ApplicationController
       @aspect.supplier_id =  current_supplier.id
     end
     if @aspect.save
-       message = I18n.t('controllers.aspects.successfully_created')
-       if supplier_signed_in?
-         redirect_to supplier_aspect_path(
-                                              @aspect.id.to_s,
-                                              supplier_id: current_supplier.id,
-                                              ), notice: message
-       else
-         redirect_to @aspect, notice: message
-       end
+      flash[:notice] = I18n.t('controllers.aspects.successfully_created')
+      redirect_to aspect_show_path
     else
-      message = helper_activerecord_error_message('aspect',
+      flash[:alert] = helper_activerecord_error_message('aspect',
                                                   @aspect.errors.messages)
-      path = supplier_signed_in? ?
-       new_supplier_aspect_path(current_supplier) :
-        new_aspect_path
-      redirect_to path, alert: message
+      redirect_to aspect_new_path
     end
   end
 
   # PATCH/PUT /aspects/1
   def update
     if @aspect.update(aspect_params)
-      redirect_to @aspect, notice:
-       I18n.t('controllers.aspects.successfully_updated')
+      flash[:notice] = I18n.t('controllers.aspects.successfully_updated')
+      redirect_to aspect_show_path
     else
-      message = helper_activerecord_error_message('aspect',
+      flash[:alert] = helper_activerecord_error_message('aspect',
                                                   @aspect.errors.messages)
-      path = supplier_signed_in? ?
-       edit_supplier_aspect_path(current_supplier) :
-        edit_aspect_path
-      redirect_to path, alert: message
+      redirect_to aspect_edit_path
     end
   end
 

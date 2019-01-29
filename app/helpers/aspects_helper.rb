@@ -7,7 +7,7 @@ module AspectsHelper
     end
   end
 
-  def helper_show_aspect_path
+  def aspect_show_path
     if supplier_signed_in?
       supplier_aspect_path(@aspect, supplier_id: current_supplier.id)
     else
@@ -15,7 +15,7 @@ module AspectsHelper
     end
   end
 
-  def helper_new_aspect_path
+  def aspect_new_path
     if supplier_signed_in?
       new_supplier_aspect_path(current_supplier)
     else
@@ -23,7 +23,7 @@ module AspectsHelper
     end
   end
 
-  def helper_edit_aspect_path
+  def aspect_edit_path
     if supplier_signed_in?
       edit_supplier_aspect_path(current_supplier)
     else
