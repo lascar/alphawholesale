@@ -39,7 +39,7 @@ You can login as broker at /brokers/sign_in and approve the offer or the order
 
 ## DEBUG
 
-With pry-debug, so for a breakpoint you need to put 'binding-pry' in your code
+With pry-byebug, so for a breakpoint you need to put 'binding-pry' in your code
 
 and write 'next' to jump to the next line
 
