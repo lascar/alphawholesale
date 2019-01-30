@@ -50,6 +50,8 @@ group :development, :test do
   gem 'reek'
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
 end
 
 group :development do

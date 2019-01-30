@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :tender_line do
-    tender { :tender }
-    product { :product }
+    tender
+    product
     unit { 1 }
     observation { "MyText" }
   end

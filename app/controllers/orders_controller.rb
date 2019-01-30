@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :verify_permission, except: [:show]
   before_action only: [:show] do
-    verify_permission_nested("offer", "customer")
+    verify_permission_nested_except_customer("offer")
   end
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 

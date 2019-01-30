@@ -2,39 +2,39 @@ require 'rails_helper'
 
 RSpec.describe "Tenders Feature", type: :feature do
 
-  let(:customer1) {create(:customer)}
-  let(:customer2) {create(:customer)}
-  let(:supplier1) {create(:supplier)}
-  let(:broker1) {create(:broker)}
-  let(:product1) {create(:product)}
-  let(:product2) {create(:product)}
+  let!(:customer1) {create(:customer)}
+  let!(:customer2) {create(:customer)}
+  let!(:supplier1) {create(:supplier)}
+  let!(:broker1) {create(:broker)}
+  let!(:product1) {create(:product)}
+  let!(:product2) {create(:product)}
   # tender1 is approved and have 2 lines of product1 and 1 line of product2
   # tender1 is owned by customer1
   let!(:tender1) {create(:tender, approved: true, customer_id: customer1.id)}
-  let!(:tender_line1) {create(:tender_line, tender_id: tender1,
-                                            product_id: product1}
-  let!(:tender_line2) {create(:tender_line, tender_id: tender1,
-                                            product_id: product1}
-  let!(:tender_line3) {create(:tender_line, tender_id: tender1,
-                                            product_id: product2}
+  let!(:tender_line1) {create(:tender_line, tender_id: tender1.id,
+                              product_id: product1.id)}
+  let!(:tender_line2) {create(:tender_line, tender_id: tender1.id,
+                              product_id: product1.id)}
+  let!(:tender_line3) {create(:tender_line, tender_id: tender1.id,
+                              product_id: product2.id)}
   # tender2 is approved and have 2 lines of product1 and 1 line of product2
   # tender2 is owned by customer2
   let!(:tender2) {create(:tender, approved: true, customer_id: customer2.id)}
-  let!(:tender_liner4) {create(:tender_line, tender_id: tender2,
-                                            product_id: product1}
-  let!(:tender_line5) {create(:tender_line, tender_id: tender2,
-                                            product_id: product1}
-  let!(:tender_line6) {create(:tender_line, tender_id: tender2,
-                                            product_id: product2}
+  let!(:tender_line4) {create(:tender_line, tender_id: tender2.id,
+                               product_id: product1.id)}
+  let!(:tender_line5) {create(:tender_line, tender_id: tender2.id,
+                              product_id: product1.id)}
+  let!(:tender_line6) {create(:tender_line, tender_id: tender2.id,
+                              product_id: product2.id)}
   # tender3 is not approved and have 2 lines of product1 and 1 line of product2
   # tender2 is owned by customer1
   let!(:tender3) {create(:tender, approved: false, customer_id: customer1.id)}
-  let!(:tender_line7) {create(:tender_line, tender_id: tender3,
-                                            product_id: product1}
-  let!(:tender_line8) {create(:tender_line, tender_id: tender3,
-                                            product_id: product1}
-  let!(:tender_line9) {create(:tender_line, tender_id: tender3,
-                                            product_id: product2}
+  let!(:tender_line7) {create(:tender_line, tender_id: tender3.id,
+                              product_id: product1.id)}
+  let!(:tender_line8) {create(:tender_line, tender_id: tender3.id,
+                              product_id: product1.id)}
+  let!(:tender_line9) {create(:tender_line, tender_id: tender3.id,
+                              product_id: product2.id)}
 
   describe "GET #index" do
     # TEST as a supplier
@@ -46,13 +46,13 @@ RSpec.describe "Tenders Feature", type: :feature do
       before :each do
         supplier1.products = [product1]
         sign_in(supplier1)
-        visit tenders_url
+        visit supplier_tenders_path(supplier1)
       end
 
       it "presentes only approved tenders that are product attached to the supplier" do
         total_product1 = tender_line1.unit + tender_line2.unit +
                          tender_line4.unit + tender_line5.unit
-        expect(page).to have_content(i18n.t('activerecord.models.attributes.
+        expect(page).to have_content(I18n.t('activerecord.models.attributes.
                                              product.name') + ' : ' +
                                     total_product1.to_s + tender1.currency)
       end
