@@ -41,7 +41,9 @@ You can login as broker at /brokers/sign_in and approve the offer or the order
 
 With pry-byebug, so for a breakpoint you need to put 'binding-pry' in your code
 
-and write 'next' to jump to the next line
+and write 'next' to jump to the next line.
+
+And pry-rescue to open pry on exception (come handy with rspec)
 
 ## RESILIENT NATURE
 
