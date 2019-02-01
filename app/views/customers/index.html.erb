@@ -15,10 +15,10 @@
       <tr>
         <td><%= customer.identifier %></td>
         <td><%= customer.email %></td>
-        <td><%= link_to icon('fas', 'eye'), customer, title: t("show") %></td>
-        <td><%= link_to icon('fas', 'edit'), edit_customer_path(customer),
+        <td><%= link_to icon('fas', 'fa-eye'), customer, title: t("show") %></td>
+        <td><%= link_to icon('fas', 'fa-edit'), edit_customer_path(customer),
           title: t("edit") %></td>
-        <td><%= link_to icon('fas', 'trash'), customer,
+        <td><%= link_to icon('fas', 'fa-trash'), customer,
          title: t("destroy"), method: :delete,
          data: { confirm: t(:are_you_sure) } %></td>
       </tr>

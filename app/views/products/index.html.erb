@@ -13,14 +13,14 @@
       <tr>
         <td><%= product.name %></td>
         <td>
-          <%= link_to icon('fas', 'eye'), product, title: t("show") %>
+          <%= link_to icon('fas', 'fa-eye'), product, title: t("show") %>
         </td>
         <td>
-          <%= link_to icon('fas', 'edit'), edit_product_path(product),
+          <%= link_to icon('fas', 'fa-edit'), edit_product_path(product),
            title: t("edit") %>
         </td>
         <td>
-          <%= link_to icon('fas', 'trash'), product, title: t("destroy"),
+          <%= link_to icon('fas', 'fa-trash'), product, title: t("destroy"),
            method: :delete, data: { confirm: t(:are_you_sure) } %>
         </td>
       </tr>

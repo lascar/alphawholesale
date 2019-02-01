@@ -57,13 +57,13 @@
                 <%= offer.unit_price_supplier.to_s  + " " + offer.supplier.
                   currency.to_s %>
               </td>
-              <td><%= link_to icon('fas', 'eye'),
+              <td><%= link_to icon('fas', 'fa-eye'),
                        supplier_offer_path(@supplier, offer),
                        title: t("show") %></td>
-              <td><%= link_to icon('fas', 'edit'),
+              <td><%= link_to icon('fas', 'fa-edit'),
                        edit_supplier_offer_path(@supplier, offer),
                        title: t("edit") %></td>
-              <td><%= link_to icon('fas', 'trash'),
+              <td><%= link_to icon('fas', 'fa-trash'),
                        supplier_offer_path(@supplier, offer),
                        title: t("destroy"), method: :delete,
                        data: { confirm: t(:are_you_sure) } %></td>

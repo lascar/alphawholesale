@@ -15,14 +15,14 @@
         <td><%= size.name %></td>
         <td><%= size.product.name %></td>
         <td>
-          <%= link_to icon('fas', 'eye'), size, title: t("show") %>
+          <%= link_to icon('fas', 'fa-eye'), size, title: t("show") %>
         </td>
         <td>
-          <%= link_to icon('fas', 'edit'), edit_size_path(size),
+          <%= link_to icon('fas', 'fa-edit'), edit_size_path(size),
            title: t("edit") %>
         </td>
         <td>
-          <%= link_to icon('fas', 'trash'), size, title: t("destroy"),
+          <%= link_to icon('fas', 'fa-trash'), size, title: t("destroy"),
            method: :delete, data: { confirm: t(:are_you_sure) } %>
         </td>
       </tr>

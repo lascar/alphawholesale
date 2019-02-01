@@ -15,10 +15,10 @@
       <tr>
         <td><%= supplier.identifier %></td>
         <td><%= supplier.email %></td>
-        <td><%= link_to icon('fas', 'eye'), supplier, title: t("show") %></td>
-        <td><%= link_to icon('fas', 'edit'), edit_supplier_path(supplier),
+        <td><%= link_to icon('fas', 'fa-eye'), supplier, title: t("show") %></td>
+        <td><%= link_to icon('fas', 'fa-edit'), edit_supplier_path(supplier),
           title: t("edit") %></td>
-        <td><%= link_to icon('fas', 'trash'), supplier,
+        <td><%= link_to icon('fas', 'fa-trash'), supplier,
          title: t("destroy"), method: :delete,
          data: { confirm: t(:are_you_sure) } %></td>
       </tr>

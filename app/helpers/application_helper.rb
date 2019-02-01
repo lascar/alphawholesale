@@ -1,6 +1,15 @@
 module ApplicationHelper
   include VarietiesHelper
   # http://www.socialmemorycomplex.net/2007/09/16/text_field-and-currency-values/
+  def flag_icon(country_sym)
+      "<span class=\"flag-icon flag-icon-#{country_sym.to_s}\"></span>".html_safe
+  end
+
+  def icon(class1, class2, *classes)
+    clases = "#{class1} #{class2} " + classes.join(' ')
+    "<i class=\"#{clases}\"></i>".html_safe
+  end
+    
 	def monetary_field(objname, method, value)
 		text_field "#{objname}", "#{method}", value: ('%0.2f' % value), size: 6,
      class: 'monetary_field', autocomplete: :off

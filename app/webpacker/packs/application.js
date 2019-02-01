@@ -12,6 +12,7 @@
 //= require turbolinks
 //= require jquery3
 //= require popper
+import {} from 'jquery-ujs'
 import './src/js/alphawholesale.js'
 import './src/js/brokers.js'
 import './src/js/offers.js'
@@ -19,7 +20,16 @@ import './src/js/products.js'
 import './src/js/suppliers.js'
 import './src/js/welcome.js'
 
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
 import 'bootstrap/dist/js/bootstrap';
 import Turbolinks from 'turbolinks';
 
 Turbolinks.start();
+import { library, dom } from "@fortawesome/fontawesome-svg-core";
+import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
+
+library.add(faCheck);
+dom.watch();

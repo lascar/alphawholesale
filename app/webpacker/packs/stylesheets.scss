@@ -14,8 +14,9 @@
  *= require_self
  *= require flag-icon
  */
-@import 'theme';
-@import 'bootstrap-custom';
-@import 'mobile';
-@import "font-awesome-sprockets";
-@import "font-awesome";
+@import './src/stylesheets/theme';
+@import './src/stylesheets/bootstrap-custom';
+@import './src/stylesheets/mobile';
+// @import '~flag-icon-css/css/flag-icon';
+// @import "font-awesome-sprockets";
+// @import "font-awesome";

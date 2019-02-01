@@ -34,7 +34,7 @@
                   <td>
                     <% if broker_signed_in? %>
                       <%# binding.pry %>
-                      <%= link_to icon('fas', 'trash'), aspect_path(aspect.id), title: t("destroy"),
+                      <%= link_to icon('fas', 'fa-trash'), aspect_path(aspect.id), title: t("destroy"),
                        method: :delete, data: { confirm: t(:are_you_sure) } %>
                     <% end %>
                   </td>
@@ -68,7 +68,7 @@
                   <td>
                     <% if broker_signed_in? %>
                       <%# binding.pry %>
-                      <%= link_to icon('fas', 'trash'), size_path(size.id), title: t("destroy"),
+                      <%= link_to icon('fas', 'fa-trash'), size_path(size.id), title: t("destroy"),
                        method: :delete, data: { confirm: t(:are_you_sure) } %>
                     <% end %>
                   </td>
@@ -102,7 +102,7 @@
                   <td>
                     <% if broker_signed_in? %>
                       <%# binding.pry %>
-                      <%= link_to icon('fas', 'trash'), packaging_path(packaging.id), title: t("destroy"),
+                      <%= link_to icon('fas', 'fa-trash'), packaging_path(packaging.id), title: t("destroy"),
                        method: :delete, data: { confirm: t(:are_you_sure) } %>
                     <% end %>
                   </td>
