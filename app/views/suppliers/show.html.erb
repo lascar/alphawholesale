@@ -13,7 +13,7 @@
   <strong><%= Supplier.human_attribute_name("email") %></strong>
   <%= @supplier.email %>
 </p>
-<%= link_to t("suppliers.edit"), path_edit_supplier(@supplier),
+<%= link_to t("suppliers.edit"), supplier_edit_path(@supplier),
   class: "btn btn-danger btn-sm give-me-some-space" %>
 <div class="row small-font">
   <div class="col-md-9">

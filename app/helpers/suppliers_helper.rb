@@ -1,9 +1,23 @@
 module SuppliersHelper
-  def path_edit_supplier(supplier=nil)
+
+  def suppliers_index_path
+    suppliers_path
+  end
+
+  def supplier_show_path(supplier)
     if supplier_signed_in?
-      edit_supplier_registration_path
+      supplier_path(current_supplier)
     else
-      edit_supplier_path(supplier)
+      supplier_path(supplier)
     end
   end
+
+  def supplier_edit_path(supplier)
+    edit_supplier_path(supplier)
+  end
+
+  def supplier_new_path
+    new_supplier_path
+  end
+
 end

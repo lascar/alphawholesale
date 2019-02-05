@@ -1,5 +1,6 @@
 class CustomersController < ApplicationController
   include Utilities
+  include SuppliersHelper
   before_action :authenticate_user!
   before_action :verify_permission_user
   before_action :set_customer, only: [:show, :edit, :update, :destroy,
@@ -36,8 +37,9 @@ class CustomersController < ApplicationController
       redirect_to @customer,
        notice: I18n.t('controllers.customers.successfully_created')
     else
-      @currencies, @unit_types = put_currencies_unit_types
-      render :new
+      flash[:alert] = helper_activerecord_error_message('customer',
+                                                  @customer.errors.messages)
+      redirect_to customer_new_path
     end
   end
 
@@ -50,9 +52,9 @@ class CustomersController < ApplicationController
       redirect_to @customer,
        notice: I18n.t('controllers.customers.successfully_updated') and return
     else
-      @currencies, @unit_types = put_currencies_unit_types
-      @minimum_password_length = PASSWORD_LENGTH_MIN
-      render :edit
+      flash[:alert] = helper_activerecord_error_message('customer',
+                                                  @customer.errors.messages)
+      redirect_to customer_edit_path
     end
   end
 

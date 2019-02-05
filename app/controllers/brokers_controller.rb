@@ -1,4 +1,5 @@
 class BrokersController < ApplicationController
+  include BrokersHelper
   before_action :authenticate_user!
   before_action :verify_permission_user
   before_action :set_broker, only: [:show, :edit, :update, :destroy]
@@ -35,7 +36,9 @@ class BrokersController < ApplicationController
     if @broker.save
       redirect_to @broker, notice: I18n.t('controllers.brokers.successfully_created')
     else
-      render :new
+      flash[:alert] = helper_activerecord_error_message('broker',
+                                                  @broker.errors.messages)
+      redirect_to broker_new_path
     end
   end
 
@@ -44,7 +47,9 @@ class BrokersController < ApplicationController
     if @broker.update(broker_params)
       redirect_to @broker, notice: I18n.t('controllers.brokers.successfully_updated')
     else
-      render :edit
+      flash[:alert] = helper_activerecord_error_message('broker',
+                                                  @broker.errors.messages)
+      redirect_to broker_edit_path
     end
   end
 

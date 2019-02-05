@@ -46,10 +46,6 @@ div {
   }
 }
 
-#notice {
-  color: green;
-}
-
 .field_with_errors {
   padding: 0.167em;
   background-color: red;
@@ -134,4 +130,29 @@ footer {
 }
 .icon-white {
   color: white !important;
+}
+caption{
+  caption-side: top !important;
+}
+a:visited{
+  color: $color-first;
+}
+.btn-primary, .btn-info, .btn-secondary{
+  color: white !important;
+}
+.fas{
+  color: $color-first;
+}
+.card{
+  padding: 0.8rem !important;
+}
+#notice, .alert, .notice {
+  color: $color-second;
+}
+#error_explanation {
+  border: 0.167em solid $color-second;
+  h2 {
+    background-color: $color-second;
+    border: $color-second;
+  }
 }

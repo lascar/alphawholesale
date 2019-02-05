@@ -38,8 +38,9 @@ class SuppliersController < ApplicationController
       redirect_to @supplier,
        notice: I18n.t('controllers.suppliers.successfully_created')
     else
-      @currencies, @unit_types = put_currencies_unit_types
-      render :new
+      flash[:alert] = helper_activerecord_error_message('supplier',
+                                                  @supplier.errors.messages)
+      redirect_to supplier_new_path
     end
   end
 
@@ -52,9 +53,9 @@ class SuppliersController < ApplicationController
       redirect_to( @supplier,
        notice: I18n.t('controllers.suppliers.successfully_updated')) and return
     else
-      @currencies, @unit_types = put_currencies_unit_types
-      @minimum_password_length = PASSWORD_LENGTH_MIN
-      render :edit
+      flash[:alert] = helper_activerecord_error_message('supplier',
+                                                  @supplier.errors.messages)
+      redirect_to supplier_edit_path
     end
   end
 
