@@ -27,6 +27,8 @@ postgresql
   read/write/create
 * <code>bundle exec rake db:drop &&  bundle exec rake db:create &&  bundle exec rake db:migrate &&  bundle exec rake db:seed &&  bundle exec rake nb:make_products</code>
 
+For use of the webpack server in dev you have to run in a console apart <code>./bin/webpack-dev-server</code>.
+
 You will obtain 3 users (broker1, supplier1, customer1, password 'milu2000') and a list of fake products
 
 based on 'config/locales/products/fr.yml'
@@ -94,3 +96,13 @@ It is too a wip.
 I use reek allthrough i am not so strict.
 
 And bullet to try to get ride of misuse of activerecord.
+
+## FRONT END WITH WEBPACK
+
+It uses webpack instead of sproket (the migration is reflected in the git log).
+
+The stylesheets need a refactorization before to go one with front end; a wip too ;)
+
+For the use of icon-flag-css, the directory app/webpack/flags has been copied from node_modules/flag-icon-css/flags/;
+
+webpack is not good to look for relative path. If somebody has a better solution, please email me!

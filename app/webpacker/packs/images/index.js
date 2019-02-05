@@ -1,1 +1,1 @@
-import './logoNB.svg
+import './logoNB.svg'
