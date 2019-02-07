@@ -21,17 +21,17 @@ rails 5.2.1
 * Database
 postgresql
 
-## INSTALATION
+## INSTALATIONa IN DEVELOPMENT
 
 * Fill your config/database.yml to insure that you have a postgres user with
   read/write/create
-* <code>bundle exec rake db:drop &&  bundle exec rake db:create &&  bundle exec rake db:migrate &&  bundle exec rake db:seed &&  bundle exec rake nb:make_products</code>
+* <code>bundle exec rake db:drop &&  bundle exec rake db:create &&  bundle exec rake db:migrate && bundle exec rake db:seed &&  bundle exec rake nb:make_products && bundle exec rake db:seed</code>
 
-For use of the webpack server in dev you have to run in a console apart <code>./bin/webpack-dev-server</code>.
+* For use of the webpack server in dev you have to run in a console apart <code>./bin/webpack-dev-server</code>.
 
-You will obtain 3 users (broker1, supplier1, customer1, password 'milu2000') and a list of fake products
+You will obtain 3 users (broker1, supplier1, customer1, password 'milu2000') and a list of fake products and 3 offers (the second time seed is run)
 
-based on 'config/locales/products/fr.yml'
+The products are based on 'config/locales/products/fr.yml' (<code>rake nb:make_products</code>).
 
 So you can login as customer or supplier, do not forget to attach product before
 
