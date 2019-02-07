@@ -39,8 +39,7 @@ class ApplicationController < ActionController::Base
   end
 
   def verify_permission
-    object = controller_name.singularize.capitalize.
-     gsub(/_(.)/){|l| + l.upcase}.gsub(/_/, '').
+    object = controller_name.classify.
      constantize.find_by_id params[:id]
     id = case user_type
          when 'supplier'
@@ -66,8 +65,7 @@ class ApplicationController < ActionController::Base
   end
 
   def verify_permission_nested(attribute)
-    object = controller_name.singularize.capitalize.
-     gsub(/_(.)/){|l| + l.upcase}.gsub(/_/, '').
+    object = controller_name.classify.
      constantize.find_by_id params[:id]
     user_type_id = user_type + '_id'
     nested_object = object ? object.send(attribute) : nil
