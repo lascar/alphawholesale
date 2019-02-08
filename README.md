@@ -85,42 +85,7 @@ WEBPACKER_DEV_SERVER_HOST=127.0.0.1
 DEVICE_SECRET_KEY=<very long hash>
 DEVICE_MAIL_SENDER=<the mail sender>
 DEVICE_PEPPER=<very long hash>
-
-## TESTING
-
-It is a work in progress, because it serves me for exploring.
-
-I try this :
-
-* all the 'routes' are covered with each of the user natures (anonymous, customer,
-
-supplier, broker).
-
-* the negative situations are explored with controller test (not authentificated,
-
-not enough permission, failed parameter)
-
-* the positive situations are explored with feature test (behaviour likewise with
-
-capybara syntax, highly simplified thanks to the 'resilient' nature of the application).
-
-## REFACTORING
-
-It is too a wip.
-
-I use reek allthrough i am not so strict.
-
-And bullet to try to get ride of misuse of activerecord.
-
-## FRONT END WITH WEBPACK
-
-It uses webpack instead of sproket (the migration is reflected in the git log).
-
-The stylesheets need a refactorization before to go one with front end; a wip too ;)
-
-For the use of icon-flag-css, the directory app/webpack/flags has been copied from node_modules/flag-icon-css/flags/;
-
-webpack is not good to look for relative path. If somebody has a better solution, please email me!
+</code>
 
 ## TESTING
 
