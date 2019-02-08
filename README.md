@@ -29,7 +29,9 @@ postgresql
 
 * For use of the webpack server in dev you have to run in a console apart <code>./bin/webpack-dev-server</code>.
 
-You will obtain 3 users (broker1, supplier1, customer1, password 'milu2000') and a list of fake products and 3 offers (the second time seed is run)
+You will obtain 3 users (broker1, supplier1, customer1, password 'milu2000')
+
+and a list of fake products and 3 offers the second time seed is run.
 
 The products are based on 'config/locales/products/fr.yml' (<code>rake nb:make_products</code>).
 
