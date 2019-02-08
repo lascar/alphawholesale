@@ -21,7 +21,7 @@ rails 5.2.1
 * Database
 postgresql
 
-## INSTALATIONa IN DEVELOPMENT
+## INSTALATION IN DEVELOPMENT
 
 * Fill your config/database.yml to insure that you have a postgres user with
   read/write/create
