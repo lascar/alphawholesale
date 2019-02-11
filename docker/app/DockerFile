@@ -93,6 +93,8 @@ CMD bundle exec rake db:migrate
 CMD bundle exec rake db:seed
 CMD bundle exec rake nb:make_products
 CMD bundle exec rake db:seed
+CMD ['rm', '-rf', "$RAILS_ROOT/public/packs/*"]
+CMD bundle exec rake assets:precompile
 EXPOSE 3000
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
 # CMD bundle exec rails c
