@@ -20,7 +20,7 @@ COPY public public/
 COPY docker/web/nginx.conf /tmp/docker.nginx
 
 # we want to access the log
-VOLUME ./log
+VOLUME $RAILS_ROOT/log
 # substitute variable references in the Nginx config template for real values from the environment 
 # put the final config in its place
 

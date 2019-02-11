@@ -36,7 +36,9 @@ module Alphawholesale
       g.fixture_replacement :factory_bot, dir: "spec/factories"
     end
     config.models_auth = ['Broker', 'Supplier', 'Customer']
-    config.autoload_paths += %W(#{config.root}/helpers)
+    config.autoload_paths += %W(#{config.root}/app/helpers)
+    config.autoload_paths += %W(#{config.root}/app/services)
     config.autoload_paths += %W(#{config.root}/lib)
+    config.active_job.queue_adapter = :delayed_job
   end
 end

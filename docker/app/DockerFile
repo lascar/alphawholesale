@@ -73,7 +73,13 @@ ENV PATH $GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH
 # adjust permissions of a few directories for running "gem install" as an arbitrary user
 RUN mkdir -p "$GEM_HOME" && chmod 777 "$GEM_HOME"
 # (BUNDLE_PATH = GEM_HOME, no need to mkdir/chown both)
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev curl
+RUN curl -sL https://deb.nodesource.com/setup_11.x  | bash -
+RUN apt-get -y install nodejs
+RUN npm install
+RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update && apt-get install yarn
 ENV RAILS_ROOT /var/www/alphawholesale
 RUN mkdir -p $RAILS_ROOT
 WORKDIR $RAILS_ROOT
@@ -83,10 +89,10 @@ COPY Gemfile $RAILS_ROOT/Gemfile
 COPY Gemfile.lock $RAILS_ROOT/Gemfile.lock
 RUN bundle install --jobs 20 --retry 5 --without development test
 COPY . $RAILS_ROOT
-RUN bundle exec rake assets:precompile
 CMD bundle exec rake db:migrate
 CMD bundle exec rake db:seed
 CMD bundle exec rake nb:make_products
+CMD bundle exec rake db:seed
 EXPOSE 3000
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
 # CMD bundle exec rails c

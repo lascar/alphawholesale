@@ -23,9 +23,9 @@ postgresql
 
 ## INSTALATION IN DEVELOPMENT
 
-* Fill your config/database.yml to insure that you have a postgres user with
-  read/write/create
-* <code>bundle exec rake db:drop &&  bundle exec rake db:create &&  bundle exec rake db:migrate && bundle exec rake db:seed &&  bundle exec rake nb:make_products && bundle exec rake db:seed</code>
+* For your config/database.yml the db user, password and database must be informed in secret.yml.enc
+
+* <code> bundle exec rake db:create &&  bundle exec rake db:migrate && bundle exec rake db:seed &&  bundle exec rake nb:make_products && bundle exec rake db:seed</code>
 
 * For use of the webpack server in dev you have to run in a console apart <code>./bin/webpack-dev-server</code>.
 
@@ -76,8 +76,8 @@ There is 3 containers :
 But you need an .env file (or better parameter in the command line) to inform
 
 <code>RAILS_MASTER_KEY=<long-hash>
-POSTGRES_PASSWORD=<string same as in database.yml>
-POSTGRES_DB=<string same as in database.yml>
+POSTGRES_PASSWORD=<string>
+POSTGRES_DB=<string>
 RAILS_ENV=<development or production>
 RACK_ENV=<development or production>
 NODE_ENV=<development or production>
