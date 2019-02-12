@@ -47,7 +47,7 @@ class SuppliersController < ApplicationController
   # PATCH/PUT /suppliers/1
   def update
     if @supplier.update(supplier_params)
-      if supplier_params[:approved]
+      if !supplier_params[:approved].to_i.zero?
         SupplierMailer.with(user: @supplier).welcome_email.deliver_later
       end
       redirect_to( @supplier,
@@ -96,7 +96,11 @@ class SuppliersController < ApplicationController
             :unit_type, :currency]
     current_password = params[:supplier][:current_password]
     if current_broker
-      base.push(:identifier, :approved, :password, :password_confirmation)
+      if params[:password].blank?
+        base.push(:identifier, :approved)
+      else
+        base.push(:identifier, :approved, :password, :password_confirmation)
+      end
     elsif !current_password.blank? && @supplier.valid_password?(current_password)
       base.push(:password, :password_confirmation)
     end
