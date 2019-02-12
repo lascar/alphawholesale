@@ -48,6 +48,7 @@ class SuppliersController < ApplicationController
   def update
     if @supplier.update(supplier_params)
       if !supplier_params[:approved].to_i.zero?
+        binding.pry
         SupplierMailer.with(user: @supplier).welcome_email.deliver_later
       end
       redirect_to( @supplier,
@@ -91,7 +92,7 @@ class SuppliersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def supplier_params
-    base = [:email, :tin, :street_and_number, :postal_code, :state, :country,
+    base = [:email, :tin, :street_and_number, :postal_code, :city, :state, :country,
             :entreprise_name, :telephone_number1, :telephone_number2,
             :unit_type, :currency]
     current_password = params[:supplier][:current_password]
