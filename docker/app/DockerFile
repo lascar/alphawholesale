@@ -93,8 +93,6 @@ CMD RAILS_ENV=production bundle exec rake db:migrate
 CMD RAILS_ENV=production bundle exec rake db:seed
 CMD RAILS_ENV=production bundle exec rake nb:make_products
 CMD RAILS_ENV=production bundle exec rake db:seed
-CMD ['rm', '-rf', "$RAILS_ROOT/public/packs/*"]
-CMD RAILS_ENV=production bundle exec rake assets:precompile
 EXPOSE 3000
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
 # CMD bundle exec rails c
