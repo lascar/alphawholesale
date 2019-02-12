@@ -47,8 +47,7 @@ class SuppliersController < ApplicationController
   # PATCH/PUT /suppliers/1
   def update
     if @supplier.update(supplier_params)
-      if !supplier_params[:approved].to_i.zero?
-        binding.pry
+      if @supplier.previous_changes["approved"] == [false, true]
         SupplierMailer.with(user: @supplier).welcome_email.deliver_later
       end
       redirect_to( @supplier,
