@@ -27,7 +27,7 @@ RUN set -ex \
   && apt-get install -y --no-install-recommends $buildDeps \
   && rm -rf /var/lib/apt/lists/* \
   \
-  && wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/${RUBY_MAJOR%-rc}/ruby-$RUBY_VERSION.tar.xz" \
+  && wget -O ruby.tar.xz 'https://cache.ruby-lang.org/pub/ruby/${RUBY_MAJOR%-rc}/ruby-$RUBY_VERSION.tar.xz' \
   && echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c - \
   \
   && mkdir -p /usr/src/ruby \
@@ -36,7 +36,7 @@ RUN set -ex \
   \
   && cd /usr/src/ruby \
   \
-# hack in "ENABLE_PATH_CHECK" disabling to suppress:
+# hack in 'ENABLE_PATH_CHECK' disabling to suppress:
 #   warning: Insecure world writable dir
   && { \
     echo '#define ENABLE_PATH_CHECK 0'; \
@@ -63,14 +63,14 @@ RUN set -ex \
   && rm -r /root/.gem/
 
 # install things globally, for great justice
-# and don't create ".bundle" in all our apps
+# and don't create '.bundle' in all our apps
 ENV GEM_HOME /usr/local/bundle
 ENV BUNDLE_PATH="$GEM_HOME" \
   BUNDLE_SILENCE_ROOT_WARNING=1 \
   BUNDLE_APP_CONFIG="$GEM_HOME"
 # path recommendation: https://github.com/bundler/bundler/pull/6469#issuecomment-383235438
 ENV PATH $GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH
-# adjust permissions of a few directories for running "gem install" as an arbitrary user
+# adjust permissions of a few directories for running 'gem install' as an arbitrary user
 RUN mkdir -p "$GEM_HOME" && chmod 777 "$GEM_HOME"
 # (BUNDLE_PATH = GEM_HOME, no need to mkdir/chown both)
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev curl
@@ -78,7 +78,7 @@ RUN curl -sL https://deb.nodesource.com/setup_11.x  | bash -
 RUN apt-get -y install nodejs
 RUN npm install
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN echo 'deb https://dl.yarnpkg.com/debian/ stable main' | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install yarn
 ENV RAILS_ROOT /var/www/alphawholesale
 RUN mkdir -p $RAILS_ROOT
@@ -94,5 +94,6 @@ CMD RAILS_ENV=production bundle exec rake db:seed
 CMD RAILS_ENV=production bundle exec rake nb:make_products
 CMD RAILS_ENV=production bundle exec rake db:seed
 EXPOSE 3000
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+CMD ['bundle', 'exec', 'puma', '-C', 'config/puma.rb']
+CMD ['delayed_job', 'start']
 # CMD bundle exec rails c

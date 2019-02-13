@@ -85,11 +85,12 @@ RSpec.describe SuppliersController, type: :controller do
         put :update,
          params: {id: supplier1.to_param,
                   supplier: (attributes_for(:supplier,
-                                            identifier: "supplier3",
+                                            identifier: "supplier3", approved: true,
                                             email: "supplier3@test.com"))}
       end
 
       it "changes the supplier's identifier and changes the supplier's email" do
+        binding.pry
         expect(Supplier.find(supplier1.id).identifier).to eq("supplier3")
         expect(Supplier.find(supplier1.id).email).to eq("supplier3@test.com")
       end

@@ -10,6 +10,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'figaro'
 gem 'delayed_job_active_record'
+gem 'daemons'
 group :production do
   gem 'puma', '~> 3.11'
   # for heroku

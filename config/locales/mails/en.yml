@@ -1,0 +1,8 @@
+en:
+  mails:
+    welcome:
+      subject: 'Welcome to alphawholesale'
+      title: 'Welcome to alphawholesale'
+      approved: 'Your user %{identifier} has been approved'
+      follow_url: 'To login to the site, just follow this link: %{url}'
+      thanks: 'Thanks for joining and have a great day'

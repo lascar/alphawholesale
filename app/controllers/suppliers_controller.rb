@@ -48,7 +48,7 @@ class SuppliersController < ApplicationController
   def update
     if @supplier.update(supplier_params)
       if @supplier.previous_changes["approved"] == [false, true]
-        SupplierMailer.with(user: @supplier).welcome_email.deliver_later
+        SendUserApprovalJob.perform_later(@supplier)
       end
       redirect_to( @supplier,
        notice: I18n.t('controllers.suppliers.successfully_updated')) and return

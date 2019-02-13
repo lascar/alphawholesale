@@ -122,3 +122,52 @@ The stylesheets need a refactorization before to go one with front end; a wip to
 For the use of icon-flag-css, the directory app/webpack/flags has been copied from node_modules/flag-icon-css/flags/;
 
 webpack is not good to look for relative path. If somebody has a better solution, please email me!
+
+## CREDENTIALS
+
+Rails credentials new system is used so en .gitignore, master.key.
+
+So our <code>rails credentials:edit</code> is more or less like :
+<pre>
+secret_key_base: <long hash>
+postgres:
+  development:
+    password: <string>
+    username: <string>
+    host: <string>
+    database: <string>
+mail:
+  development:
+    HOST: localhost
+    HOST_PORT: 3000
+    ADDRESS: <string>
+    PORT: 587
+    USER_NAME: <string>
+    PASSWORD: <string>
+    AUTHENTICATION: <string>
+    ENABLE_STARTTLS_AUTO: true
+  production:
+    HOST: <string>
+    HOST_PORT: 80
+    ADDRESS: <string>
+    PORT: 587
+    USER_NAME: <string>
+    PASSWORD: <string>
+    AUTHENTICATION: <string>
+    ENABLE_STARTTLS_AUTO: true
+</pre>
+For master.key, for docker it is in ENV and for development in the config/master.key
+
+(generate the first run of credentials:edit).
+
+## JOB AND MAILS
+
+Of course, a wip!
+
+It use the gem 'delayed_job_active_record' (sidekiq or resque uses redis but this one
+
+uses the db in database.yml, for simplifying with docker).
+
+But the jobs run services (also mailers) to keep them simple.
+
+For now, just in case a supplier is approved a job is run that sends a mail.

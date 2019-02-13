@@ -1,0 +1,8 @@
+fr:
+  mails:
+    welcome:
+      subject: 'Bienvenue à alphawholesale'
+      title: 'Bienvenue à alphawholesale'
+      approved: 'Votre utilisateur %{identifier} a été approuvé'
+      follow_url: 'Pour rentrer sur le site, suivre: %{url}'
+      thanks: 'Merci de vous être registré'

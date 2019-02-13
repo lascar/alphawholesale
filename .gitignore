@@ -27,6 +27,7 @@ config/application.yml
 config/secrets.yml
 # master.key
 config/master.key
+config/credentials.yml.enc
 # gandi
 gandi.txt
 # heroku

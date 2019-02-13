@@ -6,7 +6,7 @@ require 'rails_helper'
 RSpec.describe 'Suppliers Feature new', type: :feature do
   let(:broker1) {create(:broker)}
   let(:supplier_hash) {{identifier: 'identifier', email: 'supplier2@test.com',
-                       tin: 'en', entreprise_name: 'star treck',
+                       tin: 'en', entreprise_name: 'star treck', approved: true,
                        street_and_number: 'street_and_number', city: 'city',
                        code_postal: 'code_postal', country: 'spain', state: 'state',
                        telephone_number1: 'telephone_number1',
