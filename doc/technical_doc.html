@@ -1,0 +1,174 @@
+<!--https://codepen.io/lascar/full/zeeJKb -->
+<div id="page">
+  <nav id="navbar">
+    <header>README alphawholesale</header>
+    <ul>
+      <li><a class="nav-link" href="#What_is_about">What is about</a></li>
+      <li><a class="nav-link" href="#Dependencies">Dependencies</a></li>
+      <li><a class="nav-link" href="#Instalation_in_Development">Instalation in Development</a></li>
+      <li><a class="nav-link" href="#Debug">Debug</a></li>
+      <li><a class="nav-link" href="#Resilient_Nature">Resilient Nature</a></li>
+      <li><a class="nav-link" href="#TODO">TODO</a></li>
+      <li><a class="nav-link" href="#Docker">Docker</a></li>
+      <li><a class="nav-link" href="#Testing">Testing</a></li>
+      <li><a class="nav-link" href="#Refactoring">Refactoring</a></li>
+      <li><a class="nav-link" href="#Front_end_with_webpack">Front end with webpack</a></li>
+      <li><a class="nav-link" href="#Credentials">Credentials</a></li>
+      <li><a class="nav-link" href="#Jobs_and_mails">Jobs and mails</a></li>
+    </ul>
+  </nav>
+  <main id="main-doc">
+    <section class="main-section" id="What_is_about">
+      <header>What is about</header>
+      <article>
+        <p>For wholesale online.</p>
+        <p>A Broker is as a man on the middle; everything occurs with his approval.</p>
+        <p>A Supplier can place an offer, or respond to a tender.</p>
+        <p>A Customer can command, or put out a tender.</p>
+        <p>A Product can have a size, an aspect or a packaging.</p>
+        <p>An Offer has a price for supplier and a price for customer; in the middle... the broker.</p>
+        </artice>
+    </section>
+    <section class="main-section" id="Dependencies">
+      <header>Dependencies</header>
+      <article>
+        <ul>
+          <li>ruby 2.5.3p105</li>
+          <li>rails 5.2.1</li>
+          <li>postgresql*</li>
+        </ul>
+        <p>* The postgresql database should have an user with create right on the alphawholesale database test, development and production if necessary.</p>
+      </article>
+    </section>
+    <section class="main-section" id="Instalation_in_Development">
+      <header>Instalation in Development</header>
+      <article>
+        <p>For your config/database.yml the db user, password and database must be informed in secret.yml.enc
+          <\p>
+            <p><code> bundle exec rake db:create &&  bundle exec rake db:migrate && bundle exec rake db:seed &&  bundle exec rake nb:make_products && bundle exec rake db:seed</code></p>
+            <p>For use of the webpack server in dev you have to run in a console apart <code>./bin/webpack-dev-server</code>.</p>
+            <p>You will obtain 3 users (broker1, supplier1, customer1, password 'milu2000') and a list of fake products and 3 offers the second time seed is run. You can login as broker at /brokers/sign_in and approve the offer or the order.</p>
+            <p>The products are based on 'config/locales/products/fr.yml' (<code>rake nb:make_products</code>). So you can login as customer or supplier, do not forget to attach product before doing an offer or order.</p>
+      </article>
+    </section>
+    <section class="main-section" id="Debug">
+      <header>Debug</header>
+      <article>
+        <p>With pry-byebug, so for a breakpoint you need to put 'binding-pry' in your code and write 'next' to jump to the next line.</p>
+        <p>And pry-rescue to open pry on exception (come handy with rspec)</p>
+        <p>In order to create a breakpoint, you have to write <code>binding.pry</code> in the code.
+      </article>
+    </section>
+    <section class="main-section" id="Resilient_Nature">
+      <header>Resilient Nature</header>
+      <article>
+        <p>No inference are made (we try...) upon the media employed by the user (screen or not, size of screen, help with webreader or not).</p>
+        <p>Bootstrap 4 is amazing (thanks to the flexboxes) at that.</p>
+      </article>
+    </section>
+    <section class="main-section" id="TODO">
+      <header>TODO</header>
+      <article>
+        <p>Customer can put a tender.</p>
+        <p>Supplier can respond to a tender.</p>
+      </article>
+    </section>
+    <section class="main-section" id="Docker">
+      <header>Docker</header>
+      <article>
+        <p>The application is 'dokerized'. It is using docker-compose.</p>
+        <code>docker-compose up -d</code>
+        <p>There is 3 containers :</p>
+        <ul>
+          <li>the 'app', the ruby on rails application</li>
+          <li>the 'db', the database</li>
+          <li>the 'web', the nginx that lisen to the 80 port</li>
+        </ul>
+        <p>But you need an .env file (or better parameter in the command line) to inform</p>
+        <pre>RAILS_MASTER_KEY=&lt;long-hash&gt;
+POSTGRES_PASSWORD=&lt;string&gt;
+POSTGRES_DB=&lt;string&gt;
+RAILS_ENV=&lt;development or production&gt;
+RACK_ENV=&lt;development or production&gt;
+NODE_ENV=&lt;development or production&gt;
+WEBPACKER_DEV_SERVER_HOST=127.0.0.1
+DEVICE_SECRET_KEY=&lt;very long hash&gt;
+DEVICE_MAIL_SENDER=&lt;the mail sender&gt;
+DEVICE_PEPPER=&lt;very long hash&gt;
+</pre>
+      </article>
+    </section>
+    <section class="main-section" id="Testing">
+      <header>Testing</header>
+      <article>
+        <p>It is a work in progress, because it serves me for exploring.</p>
+        <p>I try this :</p>
+        <ul>
+          <li>all the 'routes' are covered with each of the user natures (anonymous, customer, supplier, broker).</li>
+          <li>the negative situations are explored with controller test (not authentificated, not enough permission, failed parameter)</li>
+          <li>the positive situations are explored with feature test (behaviour likewise with capybara syntax, highly simplified thanks to the 'resilient' nature of the application).</li>
+        </ul>
+      </article>
+    </section>
+    <section class="main-section" id="Refactoring">
+      <header>Refactoring</header>
+      <article>
+        <p>It is too a wip.</p>
+        <p>I use reek allthrough i am not so strict.</p>
+        <p>And bullet to try to get ride of misuse of activerecord.</p>
+      </article>
+    </section>
+    <section class="main-section" id="Front_end_with_webpack">
+      <header>Front end with webpack</header>
+      <article>
+        <p>It uses webpack instead of sproket (the migration is reflected in the git log).</p>
+        <p>The stylesheets need a refactorization before to go one with front end; a wip too ;)</p>
+        <p>For the use of icon-flag-css, the directory app/webpack/flags has been copied from node_modules/flag-icon-css/flags/; webpack is not good to look for relative path. If somebody has a better solution, please email me!</p>
+      </article>
+    </section>
+    <section class="main-section" id="Credentials">
+      <header>Credentials</header>
+      <article>
+        <p>Rails credentials new system is used so en .gitignore, master.key.</p>
+        <p>So our <code>rails credentials:edit</code> is more or less like :</p>
+        <pre>
+secret_key_base: &lt;long hash&gt;
+postgres:
+  development:
+    password: &lt;string&gt;
+    username: &lt;string&gt;
+    host: &lt;string&gt;
+    database: &lt;string&gt;
+mail:
+  development:
+    HOST: localhost
+    HOST_PORT: 3000
+    ADDRESS: &lt;string&gt;
+    PORT: 587
+    USER_NAME: &lt;string&gt;
+    PASSWORD: &lt;string&gt;
+    AUTHENTICATION: &lt;string&gt;
+    ENABLE_STARTTLS_AUTO: true
+  production:
+    HOST: &lt;string&gt;
+    HOST_PORT: 80
+    ADDRESS: &lt;string&gt;
+    PORT: 587
+    USER_NAME: &lt;string&gt;
+    PASSWORD: &lt;string&gt;
+    AUTHENTICATION: &lt;string&gt;
+    ENABLE_STARTTLS_AUTO: true
+</pre>
+        <p>For master.key, for docker it is in ENV and for development in the config/master.key (generate the first run of credentials:edit).</p>
+      </article>
+    </section>
+    <section class="main-section" id="Jobs_and_mails">
+      <header>Jobs and mails</header>
+      <article>
+        <p>It use the gem 'delayed_job_active_record' (sidekiq or resque uses redis but this one uses the db in database.yml, for simplifying with docker).</p>
+        <p>But the jobs run services (also mailers) to keep them simple.</p>
+        <p>For now, just in case a supplier is approved a job is run that sends a mail.</p>
+      </article>
+    </section>
+  </main>
+</div>
