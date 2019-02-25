@@ -94,4 +94,4 @@ production:
   username: postgres
   password: <%= ENV["POSTGRES_PASSWORD"] %>
   database:  <%= ENV["POSTGRES_DB"] %>
-  host: db
+  # host: db

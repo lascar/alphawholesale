@@ -69,12 +69,12 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 	config.action_mailer.delivery_method = :smtp
 	config.action_mailer.smtp_settings = {
-		address: Rails.application.credentials.mail[:ADDRESS],
-		port: Rails.application.credentials.mail[:PORT],
-		user_name: Rails.application.credentials.mail[:USER_NAME],
-		password: Rails.application.credentials.mail[:PASSWORD],
-		authentication: Rails.application.credentials.mail[:AUTHENTICATION],
-		enable_starttls_auto: Rails.application.credentials.mail[:ENABLE_STARTTLS_AUTO],
+    address: Rails.application.credentials.mail[:production][:ADDRESS],
+    port: Rails.application.credentials.mail[:production][:PORT],
+    user_name: Rails.application.credentials.mail[:production][:USER_NAME],
+    password: Rails.application.credentials.mail[:production][:PASSWORD],
+		authentication: Rails.application.credentials.mail[:production][:AUTHENTICATION],
+		enable_starttls_auto: Rails.application.credentials.mail[:production][:ENABLE_STARTTLS_AUTO],
 	}
 
   # Ignore bad email addresses and do not raise email delivery errors.
