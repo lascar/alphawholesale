@@ -21,6 +21,12 @@ rails 5.2.1
 * Database
 postgresql
 
+## HEROKU
+
+Deployed at https://alphawholesale.herokuapp.com
+
+Important if you want to try the mobile first.
+
 ## INSTALATION IN DEVELOPMENT
 
 * For your config/database.yml the db user, password and database must be informed in secret.yml.enc
