@@ -5,11 +5,17 @@
     "@fortawesome/fontawesome-free": "^5.7.0",
     "@rails/webpacker": "3.5",
     "bootstrap": ">=4.1.2",
+    "file-loader": "^3.0.1",
     "flag-icon-css": "^3.2.1",
     "jquery": "^3.3.1",
     "jquery-ujs": "^1.2.2",
     "popper.js": "^1.14.7",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "url-loader": "^1.1.2"
+  },
+  "scripts": {
+    "webpack:deploy": "webpack --config=webpack.config.js -p",
+    "heroku-postbuild": "npm run webpack:deploy"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.13",
