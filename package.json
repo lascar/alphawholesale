@@ -4,7 +4,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.7.0",
     "@rails/webpacker": "3.5",
-    "bootstrap": ">=4.1.2",
+    "bootstrap": ">=4.3.1",
     "file-loader": "^3.0.1",
     "flag-icon-css": "^3.2.1",
     "jquery": "^3.3.1",
