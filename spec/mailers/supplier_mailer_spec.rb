@@ -11,7 +11,6 @@ RSpec.describe SupplierMailer, type: :mailer do
 
     it "sent to the supplier's email" do
       expect(mail.to).to eq [supplier1.email]
-      binding.pry
     end
   end
 end

@@ -90,7 +90,6 @@ RSpec.describe SuppliersController, type: :controller do
       end
 
       it "changes the supplier's identifier and changes the supplier's email" do
-        binding.pry
         expect(Supplier.find(supplier1.id).identifier).to eq("supplier3")
         expect(Supplier.find(supplier1.id).email).to eq("supplier3@test.com")
       end
