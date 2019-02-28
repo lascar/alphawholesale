@@ -27,6 +27,12 @@ Deployed at https://alphawholesale.herokuapp.com
 
 Important if you want to try the mobile first.
 
+## CLOUDFRONT
+
+It uses AWS cloudfront for the 'assets' (packs as it uses webpack).
+
+You have to deblock mix content in your browser (in firefox, the icon padlock in the address bar) as https is not used.
+
 ## INSTALATION IN DEVELOPMENT
 
 * For your config/database.yml the db user, password and database must be informed in secret.yml.enc
