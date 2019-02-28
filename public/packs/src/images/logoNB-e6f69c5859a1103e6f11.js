@@ -60,22 +60,22 @@
 /******/ 	__webpack_require__.p = "/packs/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 28);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 28:
-/*!******************************************************************!*\
-  !*** ./app/webpacker/packs/src/stylesheets/alphawholesales.scss ***!
-  \******************************************************************/
+/***/ 2:
+/*!***************************************************!*\
+  !*** ./app/webpacker/packs/src/images/logoNB.svg ***!
+  \***************************************************/
 /*! dynamic exports provided */
 /*! all exports used */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+module.exports = __webpack_require__.p + "packs/src/images/logoNB-ac4e1fb123433ae437800a6d34d6990e.svg";
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=alphawholesales-882af9abc0df3cb90e40.js.map
+//# sourceMappingURL=logoNB-e6f69c5859a1103e6f11.js.map

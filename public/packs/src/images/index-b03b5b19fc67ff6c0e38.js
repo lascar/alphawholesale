@@ -60,22 +60,38 @@
 /******/ 	__webpack_require__.p = "/packs/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 28);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 28:
-/*!******************************************************************!*\
-  !*** ./app/webpacker/packs/src/stylesheets/alphawholesales.scss ***!
-  \******************************************************************/
+/***/ 2:
+/*!***************************************************!*\
+  !*** ./app/webpacker/packs/src/images/logoNB.svg ***!
+  \***************************************************/
 /*! dynamic exports provided */
 /*! all exports used */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+module.exports = __webpack_require__.p + "packs/src/images/logoNB-ac4e1fb123433ae437800a6d34d6990e.svg";
+
+/***/ }),
+
+/***/ 9:
+/*!*************************************************!*\
+  !*** ./app/webpacker/packs/src/images/index.js ***!
+  \*************************************************/
+/*! no exports provided */
+/*! all exports used */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__logoNB_svg__ = __webpack_require__(/*! ./logoNB.svg */ 2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__logoNB_svg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__logoNB_svg__);
+
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=alphawholesales-882af9abc0df3cb90e40.js.map
+//# sourceMappingURL=index-b03b5b19fc67ff6c0e38.js.map
