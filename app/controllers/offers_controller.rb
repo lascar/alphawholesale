@@ -2,7 +2,6 @@ class OffersController < ApplicationController
   include OffersHelper
   include Utilities
   before_action :authenticate_user!
-  before_action :verify_permission
   before_action :set_offer, only: [:show, :edit, :update, :destroy]
 
   # GET /offers

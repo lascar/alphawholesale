@@ -1,6 +1,5 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, except: :index
-  before_action :verify_permission
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   PRODUCT_REGEXP = /^[0-9a-zA-Z_\- ]+$/

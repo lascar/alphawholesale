@@ -2,7 +2,6 @@ class CustomersController < ApplicationController
   include Utilities
   include SuppliersHelper
   before_action :authenticate_user!
-  before_action :verify_permission_user
   before_action :set_customer, only: [:show, :edit, :update, :destroy,
                                       :attach_products, :attach_products_create]
 

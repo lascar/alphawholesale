@@ -1,6 +1,5 @@
 class VarietiesController < ApplicationController
   before_action :authenticate_user!
-  before_action :verify_permission
   before_action :set_variety, only: [:show, :edit, :update, :destroy]
 
   VARIETY_REGEXP = /^[0-9a-zA-Z_\- ]+$/

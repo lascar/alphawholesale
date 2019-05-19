@@ -1,11 +1,11 @@
 class BrokersController < ApplicationController
   include BrokersHelper
   before_action :authenticate_user!
-  before_action :verify_permission_user
   before_action :set_broker, only: [:show, :edit, :update, :destroy]
 
   # GET /brokers
   def index
+    authorize :broker, :index?
     @brokers = Broker.all
   end
 

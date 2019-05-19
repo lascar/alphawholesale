@@ -1,7 +1,6 @@
 class SuppliersController < ApplicationController
   include Utilities
   before_action :authenticate_user!
-  before_action :verify_permission_user
   before_action :set_supplier,
    only: [:show, :edit, :update, :destroy,
           :attach_products, :attach_products_create]

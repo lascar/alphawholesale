@@ -1,9 +1,10 @@
 class ApplicationController < ActionController::Base
+  include Pundit
   include ApplicationHelper
-  include Permissions
   protect_from_forgery
 
 	before_action :set_locale
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   protected
   # !important for devise
 	def after_sign_in_path_for(resource)
@@ -31,50 +32,6 @@ class ApplicationController < ActionController::Base
     current_user_type(user_type)
   end
 
-  def verify_permission_user
-    current_user_id = current_user ? current_user.id : nil
-    id = params[:id] || current_user_id
-    PERMISSIONS[controller_name.to_sym][action_name.to_sym].
-     call(self, current_user, id)
-  end
-
-  def verify_permission
-    object = controller_name.classify.
-     constantize.find_by_id params[:id]
-    id = case user_type
-         when 'supplier'
-           then
-           object && object.has_attribute?('supplier_id') ?
-            object.supplier_id : nil
-         when 'customer'
-           object && object.has_attribute?('customer_id') ?
-            object.customer_id : nil
-         end.to_s
-    controller = ['varieties', 'sizes', 'aspects', 'packagings'].
-     include?(controller_name) ? :variants_for_product : controller_name.to_sym
-    PERMISSIONS[controller][action_name.to_sym].
-     call(self, current_user, id)
-  end
-
-  def verify_permission_nested_except_customer(attribute)
-    if user_type != "customer"
-      verify_permission_nested(attribute)
-    else
-      verify_permission
-    end
-  end
-
-  def verify_permission_nested(attribute)
-    object = controller_name.classify.
-     constantize.find_by_id params[:id]
-    user_type_id = user_type + '_id'
-    nested_object = object ? object.send(attribute) : nil
-    id = (nested_object && nested_object.has_attribute?(user_type_id) ?
-          nested_object.send(user_type_id) : nil).to_s
-    PERMISSIONS[controller_name.to_sym][action_name.to_sym].
-     call(self, current_user, id)
-  end
-
   def extract_locale_from_domain
     if request.domain !~ /localhost/
       parsed_locale = request.domain.match(/[a-z]*\.([a-z.]*)/)[1]
@@ -97,4 +54,19 @@ class ApplicationController < ActionController::Base
     I18n.locale = extract_locale_from_domain ||
      extract_locale_from_subdomain
 	end
+
+  private
+  def user_not_authorized
+    if current_user                                                             
+      user_type = current_user.class.name.downcase                              
+      path = '/' + user_type.pluralize + '/' + current_user.id.to_s             
+      flash[:alert] = I18n.t('devise.errors.messages.not_authorized')                   
+    else                                                                        
+      path = '/'                                                                
+      flash[:alert] = I18n.t('devise.failure.unauthenticated')                          
+    end                                                                         
+    redirect_to path    
+    # flash[:alert] = "You are not authorized to perform this action."
+    # redirect_to(request.referrer || root_path)
+  end
 end

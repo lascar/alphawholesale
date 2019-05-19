@@ -1,7 +1,6 @@
 class SizesController < ApplicationController
   include SizesHelper
   before_action :authenticate_user!
-  before_action :verify_permission
   before_action :set_size, only: [:show, :edit, :update, :destroy]
 
   SIZE_REGEXP = /^[0-9a-zA-Z_\- ]+$/

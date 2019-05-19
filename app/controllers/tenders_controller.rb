@@ -1,7 +1,6 @@
 class TendersController < ApplicationController
   include TendersHelper
   before_action :authenticate_user!
-  before_action :verify_permission
   before_action :set_tender, only: [:show, :edit, :update, :destroy]
 
   # GET /tenders
