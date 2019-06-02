@@ -7,11 +7,13 @@ class CustomersController < ApplicationController
 
   # GET /customers
   def index
+    authorize :customer, :index?
     @customers = Customer.with_approved(true)
   end
 
   # GET /customers/1
   def show
+    authorize @customer
     @orders = @customer.orders
     @products = @customer.products
     @offers = Offer.where(approved: true).select{|o| o.date_end >= Time.now}
@@ -19,12 +21,15 @@ class CustomersController < ApplicationController
 
   # GET /customers/new
   def new
+    @customer = Customer.new
+    authorize @customer
     @currencies, @unit_types = put_currencies_unit_types
     redirect_to new_customer_registration_path
   end
 
   # GET /customers/1/edit
   def edit
+    authorize @customer
     @currencies, @unit_types = put_currencies_unit_types
     @minimum_password_length = PASSWORD_LENGTH_MIN
   end
@@ -32,6 +37,7 @@ class CustomersController < ApplicationController
   # POST /customers
   def create
     @customer = Customer.new(customer_params)
+    authorize @customer
     if @customer.save
       redirect_to @customer,
        notice: I18n.t('controllers.customers.successfully_created')
@@ -44,6 +50,7 @@ class CustomersController < ApplicationController
 
   # PATCH/PUT /customers/1
   def update
+    authorize @customer
     if @customer.update(customer_params)
       if customer_params[:approved]
         SupplierMailer.with(user: @customer).welcome_email.deliver_later
@@ -59,6 +66,7 @@ class CustomersController < ApplicationController
 
   # DELETE /customers/1
   def destroy
+    authorize @customer
     @customer.destroy
     redirect_to customers_url,
      notice: I18n.t('controllers.customers.successfully_destroyed')
@@ -66,6 +74,7 @@ class CustomersController < ApplicationController
 
   # GET /customers/1/attach_product
   def attach_products
+    authorize @customer
     @products_attached = @customer.products.ids
     @products = Product.with_approved(true).
      select{|p| !@products_attached.include?(p.id)}
@@ -73,6 +82,7 @@ class CustomersController < ApplicationController
 
   # POST /customers/1/attach_product_create
   def attach_products_create
+    authorize @customer
     message = ""
     @customer.products = []
     params[:products].each do |product_id|
