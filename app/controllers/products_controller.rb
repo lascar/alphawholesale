@@ -5,6 +5,7 @@ class ProductsController < ApplicationController
   PRODUCT_REGEXP = /^[0-9a-zA-Z_\- ]+$/
   # GET /products
   def index
+    authorize :product, :index?
     if supplier_signed_in?
       @products = Product.where(supplier_id: current_supplier.id) +
         Product.with_approved(true).
@@ -16,10 +17,12 @@ class ProductsController < ApplicationController
 
   # GET /products/1
   def show
+    authorize @product
   end
 
   # GET /products/get_names
   def get_names
+    authorize :product, :get_names?
     @supplier = supplier_signed_in? ? current_supplier : nil
     @names = Product.all.map{|p| p.name}
   end
@@ -34,6 +37,7 @@ class ProductsController < ApplicationController
     end
     @supplier = supplier_signed_in? ? current_supplier : nil
     @product = Product.new(name: product_name || product_name_new)
+    authorize @product
     products = product_name ? Product.where(name: product_name) : Product.all
     @varieties = product_name ?
      Variety.select{|v| v.product.name == product_name } :
@@ -42,6 +46,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+    authorize @product
     @varieties = Variety.select{|v| v.product_id == @product.id}
   end
 
@@ -62,7 +67,7 @@ class ProductsController < ApplicationController
                                         product_params[:supplier_id]
     @product = Product.new(name: name, variety: variety,
                            supplier_id: supplier_id)
-
+    authorize @product
     if @product.save
        message = I18n.t('controllers.products.successfully_created')
        if supplier_signed_in?
@@ -82,6 +87,7 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1
   def update
+    authorize @product
     if @product.update(product_params)
       redirect_to @product, notice:
        I18n.t('controllers.products.successfully_updated')
@@ -97,6 +103,7 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1
   def destroy
+    authorize @product
     @product.destroy
     redirect_to products_url,
      notice: I18n.t('controllers.products.successfully_destroyed')
