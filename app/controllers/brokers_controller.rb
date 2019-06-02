@@ -11,6 +11,7 @@ class BrokersController < ApplicationController
 
   # GET /brokers/1
   def show
+    authorize @broker
     @suppliers_without_approved = Supplier.with_approved(false)
     @customers_without_approved = Customer.with_approved(false)
     @products_without_approved = Product.with_approved(false)
@@ -23,15 +24,18 @@ class BrokersController < ApplicationController
   # GET /brokers/new
   def new
     @broker = Broker.new
+    authorize @broker
   end
 
   # GET /brokers/1/edit
   def edit
+    authorize @broker
   end
 
   # POST /brokers
   def create
     @broker = Broker.new(broker_params)
+    authorize @broker
 
     if @broker.save
       redirect_to @broker, notice: I18n.t('controllers.brokers.successfully_created')
@@ -44,6 +48,7 @@ class BrokersController < ApplicationController
 
   # PATCH/PUT /brokers/1
   def update
+    authorize @broker
     if @broker.update(broker_params)
       redirect_to @broker, notice: I18n.t('controllers.brokers.successfully_updated')
     else
@@ -55,6 +60,7 @@ class BrokersController < ApplicationController
 
   # DELETE /brokers/1
   def destroy
+    authorize @broker
     @broker.destroy
     redirect_to brokers_url, notice: I18n.t('controllers.brokers.successfully_destroyed')
   end

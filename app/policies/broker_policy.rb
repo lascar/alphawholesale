@@ -11,27 +11,27 @@ class BrokerPolicy
   end
 
   def show?
-    false
-  end
-
-  def create?
-    false
+    @user.class.name == "Broker"
   end
 
   def new?
-    create?
+    @user.class.name == "Broker"
+  end
+
+  def create?
+    @user.class.name == "Broker"
   end
 
   def update?
-    false
+    @user.class.name == "Broker"
   end
 
   def edit?
-    update?
+    @user.class.name == "Broker"
   end
 
   def destroy?
-    false
+    @user.class.name == "Broker"
   end
 
   class Scope
