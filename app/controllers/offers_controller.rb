@@ -6,6 +6,7 @@ class OffersController < ApplicationController
 
   # GET /offers
   def index
+    authorize :offer, :index?
     offers_raw = Offer.not_expired.includes(:product).includes(:variety)
     offers_raw_with_approved = offers_raw.with_approved(true)
     if current_customer
@@ -23,11 +24,13 @@ class OffersController < ApplicationController
 
   # GET /offers/1
   def show
+    authorize @offer
   end
 
   # GET /offers/new
   def new
     @offer = Offer.new
+    authorize @offer
     if broker_signed_in?
       @suppliers = Supplier.all.pluck(:identifier, :id)
       products = Product.includes(:varieties).includes(:aspects).
@@ -44,6 +47,7 @@ class OffersController < ApplicationController
 
   # GET /offers/1/edit
   def edit
+    authorize @offer
     if broker_signed_in?
       @suppliers = Supplier.all.pluck(:identifier, :id)
       @supplier_id = params[:supplier_id]
@@ -60,6 +64,7 @@ class OffersController < ApplicationController
   # POST /offers
   def create
     @offer = Offer.new(offer_params)
+    authorize @offer
     if supplier_signed_in?
       @offer.supplier_id = current_supplier.id
     end
@@ -75,6 +80,7 @@ class OffersController < ApplicationController
 
   # PATCH/PUT /offers/1
   def update
+    authorize @offer
     offer_params[:supplier_id] = supplier_signed_in? ? current_supplier.id :
      offer_params[:supplier_id]
     @incoterms = INCOTERMS
@@ -91,6 +97,7 @@ class OffersController < ApplicationController
 
   # DELETE /offers/1
   def destroy
+    authorize @offer
     @offer.destroy
     flash[:notice] = I18n.t('controllers.offers.successfully_destroyed')
     redirect_to offers_index_path
