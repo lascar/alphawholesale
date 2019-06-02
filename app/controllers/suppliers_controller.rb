@@ -7,11 +7,13 @@ class SuppliersController < ApplicationController
 
   # GET /suppliers
   def index
+    authorize :supplier, :index?
     @suppliers = Supplier.with_approved(true)
   end
 
   # GET /suppliers/1
   def show
+    authorize @supplier
     @offers = @supplier.offers.includes(:product)
     @products = @supplier.products
   end
@@ -20,11 +22,13 @@ class SuppliersController < ApplicationController
   def new
     @currencies, @unit_types = put_currencies_unit_types
     @supplier = Supplier.new
+    authorize @supplier
     redirect_to new_supplier_registration_path
   end
 
   # GET /suppliers/1/edit
   def edit
+    authorize @supplier
     @currencies, @unit_types = put_currencies_unit_types
     @minimum_password_length = PASSWORD_LENGTH_MIN
   end
@@ -32,6 +36,7 @@ class SuppliersController < ApplicationController
   # POST /suppliers
   def create
     @supplier = Supplier.new(supplier_params)
+    authorize @supplier
 
     if @supplier.save
       redirect_to @supplier,
@@ -45,6 +50,7 @@ class SuppliersController < ApplicationController
 
   # PATCH/PUT /suppliers/1
   def update
+    authorize @supplier
     if @supplier.update(supplier_params)
       if @supplier.previous_changes["approved"] == [false, true]
         SendUserApprovalJob.perform_later(@supplier)
@@ -60,6 +66,7 @@ class SuppliersController < ApplicationController
 
   # DELETE /suppliers/1
   def destroy
+    authorize @supplier
     @supplier.destroy
     redirect_to suppliers_url,
      notice: I18n.t('controllers.suppliers.successfully_destroyed')
@@ -67,6 +74,7 @@ class SuppliersController < ApplicationController
 
   # GET /suppliers/1/attach_product
   def attach_products
+    authorize @supplier
     @products_attached = @supplier.products.ids
     @products = Product.with_approved(true) +
      Product.where(supplier_id: @supplier.id, approved: false)
@@ -74,6 +82,7 @@ class SuppliersController < ApplicationController
 
   # POST /suppliers/1/attach_product_create
   def attach_products_create
+    authorize @supplier
     message = ""
     @supplier.products = []
     params[:products].each do |product_id|

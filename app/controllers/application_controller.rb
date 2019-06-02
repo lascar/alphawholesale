@@ -57,15 +57,15 @@ class ApplicationController < ActionController::Base
 
   private
   def user_not_authorized
-    if current_user                                                             
-      user_type = current_user.class.name.downcase                              
-      path = '/' + user_type.pluralize + '/' + current_user.id.to_s             
-      flash[:alert] = I18n.t('devise.errors.messages.not_authorized')                   
-    else                                                                        
-      path = '/'                                                                
-      flash[:alert] = I18n.t('devise.failure.unauthenticated')                          
-    end                                                                         
-    redirect_to path    
+    if current_user
+      user_type = current_user.class.name.downcase
+      path = '/' + user_type.pluralize + '/' + current_user.id.to_s
+      flash[:alert] = I18n.t('devise.errors.messages.not_authorized')
+    else
+      path = '/'
+      flash[:alert] = I18n.t('devise.failure.unauthenticated')
+    end
+    redirect_to path
     # flash[:alert] = "You are not authorized to perform this action."
     # redirect_to(request.referrer || root_path)
   end
