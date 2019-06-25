@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
 
   # GET /orders
   def index
+    authorize :order, :index?
     if current_broker
       orders = Order.with_approved(true).includes(:offer)
     elsif customer_signed_in?
@@ -21,6 +22,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   def show
+    authorize @order
     @offer = @order.offer
     @customer_id = customer_signed_in? ? current_customer.id : params[:customer_id]
   end
@@ -35,10 +37,12 @@ class OrdersController < ApplicationController
     @offer = Offer.find(params[:offer_id])
     @offer_nested = make_offer_nested(@offer)
     @order = Order.new(customer_id: customer_id, offer_id: @offer.id)
+    authorize @order
   end
 
   # GET /orders/1/edit
   def edit
+    authorize @order
     if broker_signed_in?
       @customers = Customer.all.pluck(:identifier, :id)
     end
@@ -51,6 +55,7 @@ class OrdersController < ApplicationController
   # POST /orders
   def create
     @order = Order.new(order_params)
+    authorize @order
     @order.customer_id = customer_signed_in? ? current_customer.id :
       order_params['customer_id']
     if @order.save
@@ -64,6 +69,7 @@ class OrdersController < ApplicationController
 
   # PATCH/PUT /orders/1
   def update
+    authorize @order
     if @order.update(order_params)
       flash[:notice] = I18n.t('controllers.orders.successfully_updated')
       redirect_to order_show_path
@@ -75,6 +81,7 @@ class OrdersController < ApplicationController
 
   # DELETE /orders/1
   def destroy
+    authorize @order
     @order.destroy
     flash[:notice] = I18n.t('controllers.orders.successfully_destroyed')
     redirect_to order_index_path
