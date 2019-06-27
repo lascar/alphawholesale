@@ -6,16 +6,19 @@ class AspectsController < ApplicationController
   ASPECT_REGEXP = /^[0-9a-zA-Z_\- ]+$/
   # GET /aspects
   def index
+    authorize :aspect, :index?
     @aspects = Aspect.with_approved(true)
   end
 
   # GET /aspects/1
   def show
+    authorize @aspect
   end
 
   # GET /aspects/new
   def new
     @aspect = Aspect.new
+    authorize @aspect
     @products = Product.all.pluck(:name, :id)
     if broker_signed_in?
       @suppliers = Supplier.all.pluck(:identifier, :id)
@@ -24,6 +27,7 @@ class AspectsController < ApplicationController
 
   # GET /aspects/1/edit
   def edit
+    authorize @aspect
     @products = Product.all.pluck(:name, :id)
     if broker_signed_in?
       @suppliers = Supplier.all.pluck(:identifier, :id)
@@ -33,6 +37,7 @@ class AspectsController < ApplicationController
   # POST /aspects
   def create
     @aspect = Aspect.new(aspect_params)
+    authorize @aspect
     if supplier_signed_in?
       @aspect.supplier_id =  current_supplier.id
     end
@@ -48,6 +53,7 @@ class AspectsController < ApplicationController
 
   # PATCH/PUT /aspects/1
   def update
+    authorize @aspect
     if @aspect.update(aspect_params)
       flash[:notice] = I18n.t('controllers.aspects.successfully_updated')
       redirect_to aspect_show_path
@@ -60,6 +66,7 @@ class AspectsController < ApplicationController
 
   # DELETE /aspects/1
   def destroy
+    authorize @aspect
     @aspect.destroy
     redirect_to '/aspects',
      notice: I18n.t('controllers.aspects.successfully_destroyed')

@@ -5,16 +5,19 @@ class VarietiesController < ApplicationController
   VARIETY_REGEXP = /^[0-9a-zA-Z_\- ]+$/
   # GET /varieties
   def index
+    authorize :variety, :index?
     @varieties = Variety.with_approved(true)
   end
 
   # GET /varieties/1
   def show
+    authorize @variety
   end
 
   # GET /varieties/new
   def new
     @variety = Variety.new
+    authorize @variety
     @products = Product.all.pluck(:name, :id)
     if broker_signed_in?
       @suppliers = Supplier.all.pluck(:identifier, :id)
@@ -23,6 +26,7 @@ class VarietiesController < ApplicationController
 
   # GET /varieties/1/edit
   def edit
+    authorize @variety
     @products = Product.all.pluck(:name, :id)
     if broker_signed_in?
       @suppliers = Supplier.all.pluck(:identifier, :id)
@@ -32,6 +36,7 @@ class VarietiesController < ApplicationController
   # POST /varieties
   def create
     @variety = Variety.new(variety_params)
+    authorize @variety
     @variety.supplier_id = supplier_signed_in? ? current_supplier.id :
       params[:supplier_id]
     if @variety.save
@@ -45,6 +50,7 @@ class VarietiesController < ApplicationController
 
   # PATCH/PUT /varieties/1
   def update
+    authorize @variety
     if @variety.update(variety_params)
       redirect_to @variety, notice:
        I18n.t('controllers.varieties.successfully_updated')
@@ -57,6 +63,7 @@ class VarietiesController < ApplicationController
 
   # DELETE /varieties/1
   def destroy
+    authorize @variety
     @variety.destroy
     redirect_to '/varieties',
      notice: I18n.t('controllers.varieties.successfully_destroyed')

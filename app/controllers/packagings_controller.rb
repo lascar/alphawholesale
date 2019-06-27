@@ -6,16 +6,19 @@ class PackagingsController < ApplicationController
   PACKAGING_REGEXP = /^[0-9a-zA-Z_\- ]+$/
   # GET /packagings
   def index
+    authorize :packaging, :index?
     @packagings = Packaging.with_approved(true)
   end
 
   # GET /packagings/1
   def show
+    authorize @packaging
   end
 
   # GET /packagings/new
   def new
     @packaging = Packaging.new
+    authorize @packaging
     @products = Product.all.pluck(:name, :id)
     if broker_signed_in?
       @suppliers = Supplier.all.pluck(:identifier, :id)
@@ -24,6 +27,7 @@ class PackagingsController < ApplicationController
 
   # GET /packagings/1/edit
   def edit
+    authorize @packaging
     @products = Product.all.pluck(:name, :id)
     if broker_signed_in?
       @suppliers = Supplier.all.pluck(:identifier, :id)
@@ -33,6 +37,7 @@ class PackagingsController < ApplicationController
   # POST /packagings
   def create
     @packaging = Packaging.new(packaging_params)
+    authorize @packaging
     if supplier_signed_in?
       @packaging.supplier_id =  current_supplier.id
     end
@@ -48,6 +53,7 @@ class PackagingsController < ApplicationController
 
   # PATCH/PUT /packagings/1
   def update
+    authorize @packaging
     if @packaging.update(packaging_params)
       redirect_to @packaging, notice:
        I18n.t('controllers.packagings.successfully_updated')
@@ -63,6 +69,7 @@ class PackagingsController < ApplicationController
 
   # DELETE /packagings/1
   def destroy
+    authorize @packaging
     @packaging.destroy
     redirect_to '/packagings',
      notice: I18n.t('controllers.packagings.successfully_destroyed')

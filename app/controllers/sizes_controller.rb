@@ -6,16 +6,19 @@ class SizesController < ApplicationController
   SIZE_REGEXP = /^[0-9a-zA-Z_\- ]+$/
   # GET /sizes
   def index
+    authorize :size, :index?
     @sizes = Size.with_approved(true)
   end
 
   # GET /sizes/1
   def show
+    authorize @size
   end
 
   # GET /sizes/new
   def new
     @size = Size.new
+    authorize @size
     @products = Product.all.pluck(:name, :id)
     if broker_signed_in?
       @suppliers = Supplier.all.pluck(:identifier, :id)
@@ -24,6 +27,7 @@ class SizesController < ApplicationController
 
   # GET /sizes/1/edit
   def edit
+    authorize @size
     @products = Product.all.pluck(:name, :id)
     if broker_signed_in?
       @suppliers = Supplier.all.pluck(:identifier, :id)
@@ -33,6 +37,7 @@ class SizesController < ApplicationController
   # POST /sizes
   def create
     @size = Size.new(size_params)
+    authorize @size
     if supplier_signed_in?
       @size.supplier_id =  current_supplier.id
     end
@@ -48,6 +53,7 @@ class SizesController < ApplicationController
 
   # PATCH/PUT /sizes/1
   def update
+    authorize @size
     if @size.update(size_params)
       redirect_to @size, notice:
        I18n.t('controllers.sizes.successfully_updated')
@@ -63,6 +69,7 @@ class SizesController < ApplicationController
 
   # DELETE /sizes/1
   def destroy
+    authorize @size
     @size.destroy
     redirect_to '/sizes',
      notice: I18n.t('controllers.sizes.successfully_destroyed')
