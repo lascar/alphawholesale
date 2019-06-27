@@ -5,6 +5,7 @@ class TendersController < ApplicationController
 
   # GET /tenders
   def index
+    authorize :tender, :index?
     if current_broker
       @tenders = Tender.with_approved(true)
      else
@@ -15,6 +16,7 @@ class TendersController < ApplicationController
 
   # GET /tenders/1
   def show
+    authorize @tender
     @customer_id = customer_signed_in? ? current_customer.id : params[:customer_id]
     @tender_lines = @tender.tender_lines
   end
@@ -27,10 +29,12 @@ class TendersController < ApplicationController
       @customers = Customer.all.pluck(:identifier, :id)
     end
     @tender = Tender.new(customer_id: @customer_id)
+    authorize @tender
   end
 
   # GET /tenders/1/edit
   def edit
+    authorize @tender
     if broker_signed_in?
       @customers = Customer.all.pluck(:identifier, :id)
     end
@@ -41,6 +45,7 @@ class TendersController < ApplicationController
   # POST /tenders
   def create
     @tender = Tender.new(tender_params)
+    authorize @tender
     @customer_id = customer_signed_in? ? current_customer.id : tender_params['customer_id']
     @tender.customer_id = @customer_id
     if @tender.save
@@ -56,6 +61,7 @@ class TendersController < ApplicationController
 
   # PATCH/PUT /tenders/1
   def update
+    authorize @tender
     if @tender.update(tender_params)
       redirect_to tender_show_path(@tender), notice: I18n.t('controllers.tenders.successfully_updated')
     else
@@ -69,6 +75,7 @@ class TendersController < ApplicationController
 
   # DELETE /tenders/1
   def destroy
+    authorize @tender
     @tender.destroy
     redirect_to tenders_index_path,
       notice: I18n.t('controllers.tenders.successfully_destroyed')

@@ -4,6 +4,7 @@ class TenderLinesController < ApplicationController
 
   # GET /tender_lines
   def index
+    authorize :tender_line, :index?
     tender = Tender.find_by_id(params[:tender_id])
     unless (customer_signed_in? && tender &&
             tender.customer_id == current_customer.id) ||
@@ -17,6 +18,7 @@ class TenderLinesController < ApplicationController
 
   # GET /tender_lines/1
   def show
+    authorize @tender_line
     unless (customer_signed_in? &&
      current_customer.id == @tender_line.tender.customer_id) ||
      broker_signed_in?
@@ -49,10 +51,12 @@ class TenderLinesController < ApplicationController
     @tenders = tenders_for_new
     @customers = Customer.all.pluck(:identifier, :id) if broker_signed_in?
     @tender_line = TenderLine.new(tender_id: tender.id)
+    authorize @tender_line
   end
 
   # GET /tender_lines/1/edit
   def edit
+    authorize @tender_line
     if (customer_signed_in? &&
         current_customer.id == @tender_line.tender.customer_id) ||
        broker_signed_in?
@@ -72,6 +76,7 @@ class TenderLinesController < ApplicationController
     @customer_id = customer_signed_in? ? current_customer.id :
      params['customer_id']
     @tender_line = TenderLine.new(tender_line_params)
+    authorize @tender_line
     tender = Tender.find_by_id(@tender_line.tender_id)
     if (customer_signed_in? && tender &&
         tender.customer_id == current_customer.id) || broker_signed_in?
@@ -95,6 +100,7 @@ class TenderLinesController < ApplicationController
 
   # PATCH/PUT /tender_lines/1
   def update
+    authorize @tender_line
     if (customer_signed_in? &&
         @tender_line.tender.customer_id == current_customer.id) ||
        broker_signed_in?
@@ -124,6 +130,7 @@ class TenderLinesController < ApplicationController
 
   # DELETE /tender_lines/1
   def destroy
+    authorize @tender_line
     if (customer_signed_in? && current_customer.id == @tender_line.tender.customer_id) ||
      broker_signed_in?
       @tender_line.destroy
