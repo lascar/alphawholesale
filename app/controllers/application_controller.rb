@@ -66,7 +66,5 @@ class ApplicationController < ActionController::Base
       flash[:alert] = I18n.t('devise.failure.unauthenticated')
     end
     redirect_to path
-    # flash[:alert] = "You are not authorized to perform this action."
-    # redirect_to(request.referrer || root_path)
   end
 end
