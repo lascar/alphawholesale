@@ -21,12 +21,6 @@ rails 5.2.1
 * Database
 postgresql
 
-## HEROKU
-
-Deployed at https://alphawholesale.herokuapp.com
-
-Important if you want to try the mobile first.
-
 ## CLOUDFRONT
 
 It uses AWS cloudfront for the 'assets' (packs as it uses webpack).
