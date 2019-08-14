@@ -16,10 +16,10 @@ group :production do
   gem "rack-timeout"
 end
 # webpack
-gem 'webpacker'
+gem 'webpacker', '>= 3.5.5'
 
 # device
-gem 'devise'
+gem 'devise', '>= 4.6.0'
 # pundit
 gem 'pundit'
 # Use Redis adapter to run Action Cable in production
@@ -36,7 +36,7 @@ gem 'pundit'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '>= 3.8.2'
   # gem 'i18n-debug'
   gem 'reek'
   gem 'pry-rails'
@@ -47,21 +47,21 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
+  gem 'web-console', '>= 3.7.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'erd', require: false
+  gem 'erd', '>= 0.6.3', require: false
 end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'factory_bot_rails'
+  gem 'factory_bot_rails', '>= 5.0.1'
   gem 'database_cleaner'
-  gem 'capybara', '>= 2.15', '< 4.0'
+  gem 'capybara', '>= 3.13.2', '< 4.0'
   gem 'shoulda'
-  gem 'rails-controller-testing'
+  gem 'rails-controller-testing', '>= 1.0.4'
   gem 'bullet'
 end
 
