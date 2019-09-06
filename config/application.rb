@@ -39,6 +39,6 @@ module Alphawholesale
     config.autoload_paths += %W(#{config.root}/app/helpers)
     config.autoload_paths += %W(#{config.root}/app/services)
     config.autoload_paths += %W(#{config.root}/lib)
-    config.active_job.queue_adapter = :delayed_job
+    config.active_job.queue_adapter = :sidekiq
   end
 end

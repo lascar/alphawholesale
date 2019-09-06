@@ -9,11 +9,11 @@ module ApplicationHelper
     clases = "#{class1} #{class2} " + classes.join(' ')
     "<i class=\"#{clases}\"></i>".html_safe
   end
-    
-	def monetary_field(objname, method, value)
-		text_field "#{objname}", "#{method}", value: ('%0.2f' % value), size: 6,
+
+  def monetary_field(objname, method, value)
+    text_field "#{objname}", "#{method}", value: ('%0.2f' % value), size: 6,
      class: 'monetary_field', autocomplete: :off
-	end
+  end
 
   def resource
     resource_name = request.controller_class.name

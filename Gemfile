@@ -7,9 +7,7 @@ ruby '2.5.3'
 gem 'rails', '~> 5.2.3'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
-# Use Puma as the app server
-gem 'delayed_job_active_record'
-gem 'daemons'
+gem 'sidekiq'
 group :production do
   gem 'puma', '~> 3.11'
   # for heroku
@@ -52,7 +50,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'erd', require: false
 end
 
 group :test do
