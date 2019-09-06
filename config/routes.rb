@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
   root 'welcome#home'
 
@@ -64,5 +65,7 @@ Rails.application.routes.draw do
       post 'detach_product', as: :detach_product
     end
   end
-
+  authenticate :broker do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end

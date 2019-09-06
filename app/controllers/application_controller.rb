@@ -3,13 +3,13 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   protect_from_forgery
 
-	before_action :set_locale
+  before_action :set_locale
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   protected
   # !important for devise
-	def after_sign_in_path_for(resource)
-	  '/' + resource.class.name.downcase.pluralize + '/' + resource.id.to_s
-	end
+  def after_sign_in_path_for(resource)
+    '/' + resource.class.name.downcase.pluralize + '/' + resource.id.to_s
+  end
 
   def authenticate_user!
     if customer_signed_in? || supplier_signed_in? || broker_signed_in?
@@ -50,10 +50,10 @@ class ApplicationController < ActionController::Base
     locale.to_s.strip.to_sym
   end
 
-	def set_locale
+  def set_locale
     I18n.locale = extract_locale_from_domain ||
      extract_locale_from_subdomain
-	end
+  end
 
   private
   def user_not_authorized
