@@ -16,26 +16,33 @@ An Offer has a price for supplier and a price for customer; in the middle... the
 ruby 2.5.3p105
 
 * System dependencies
-rails 5.2.1
+rails 6.0.0
 
 * Database
 postgresql
+Redis server 5.0.5 (https://www.hugeserver.com/kb/install-redis-4-debian-9-stretch/ for install on debian)
+
+## UPGRADE TO RAILS 6
+
+It was write in rails 5.2 and used 'delayed_job_active_record' but now it use sidekiq because of the problems with this gem
+
+It use rspec 4 because the 3 has given problems too
 
 ## CLOUDFRONT
 
-It uses AWS cloudfront for the 'assets' (packs as it uses webpack).
+It uses AWS cloudfront in production for the 'assets' (packs as it uses webpack).
 
 You have to deblock mix content in your browser (in firefox, the icon padlock in the address bar) as https is not used.
 
 ## INSTALATION IN DEVELOPMENT
 
-* For your config/database.yml the db user, password and database must be informed in secret.yml.enc
+* For your config/database.yml the db user, password and database must be informed in secret.yml.enc (see SECRET_YML_ENC_EXAMPLE.md)
 
 * <code> bundle exec rake db:create &&  bundle exec rake db:migrate && bundle exec rake db:seed &&  bundle exec rake nb:make_products && bundle exec rake db:seed</code>
 
 * For use of the webpack server in dev you have to run in a console apart <code>./bin/webpack-dev-server</code>.
 
-You will obtain 3 users (broker1, supplier1, customer1, password 'milu2000')
+You will obtain 3 users (broker1, supplier1, customer1, password 'passwordi83')
 
 and a list of fake products and 3 offers the second time seed is run.
 
@@ -78,7 +85,9 @@ There is 3 containers :
 * the 'db', the database
 
 * the 'web', the nginx that lisen to the 80 port
-,
+
+* TODO redis
+
 But you need an .env file (or better parameter in the command line) to inform
 
 <code>RAILS_MASTER_KEY=<long-hash>
@@ -125,43 +134,10 @@ It uses webpack instead of sproket (the migration is reflected in the git log).
 
 The stylesheets need a refactorization before to go one with front end; a wip too ;)
 
-For the use of icon-flag-css, the directory app/webpack/flags has been copied from node_modules/flag-icon-css/flags/;
-
-webpack is not good to look for relative path. If somebody has a better solution, please email me!
-
 ## CREDENTIALS
 
 Rails credentials new system is used so en .gitignore, master.key.
 
-So our <code>rails credentials:edit</code> is more or less like :
-<pre>
-secret_key_base: <long hash>
-postgres:
-  development:
-    password: <string>
-    username: <string>
-    host: <string>
-    database: <string>
-mail:
-  development:
-    HOST: localhost
-    HOST_PORT: 3000
-    ADDRESS: <string>
-    PORT: 587
-    USER_NAME: <string>
-    PASSWORD: <string>
-    AUTHENTICATION: <string>
-    ENABLE_STARTTLS_AUTO: true
-  production:
-    HOST: <string>
-    HOST_PORT: 80
-    ADDRESS: <string>
-    PORT: 587
-    USER_NAME: <string>
-    PASSWORD: <string>
-    AUTHENTICATION: <string>
-    ENABLE_STARTTLS_AUTO: true
-</pre>
 For master.key, for docker it is in ENV and for development in the config/master.key
 
 (generate the first run of credentials:edit).
@@ -170,10 +146,6 @@ For master.key, for docker it is in ENV and for development in the config/master
 
 Of course, a wip!
 
-It use the gem 'delayed_job_active_record' (sidekiq or resque uses redis but this one
-
-uses the db in database.yml, for simplifying with docker).
-
-But the jobs run services (also mailers) to keep them simple.
+It use sidekiq
 
 For now, just in case a supplier is approved a job is run that sends a mail.

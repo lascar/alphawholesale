@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 6.0.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'sidekiq'
@@ -34,7 +34,8 @@ gem 'pundit'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 4.0.0.beta2'
+  #gem 'rspec-rails'
   # gem 'i18n-debug'
   gem 'reek'
   gem 'pry-rails'
