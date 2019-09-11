@@ -17,7 +17,7 @@ end
 gem 'webpacker'
 
 # device
-gem 'devise'
+gem 'devise', '>= 4.7.1'
 # pundit
 gem 'pundit'
 # Use Redis adapter to run Action Cable in production
