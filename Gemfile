@@ -38,13 +38,11 @@ group :development, :test do
   #gem 'rspec-rails'
   # gem 'i18n-debug'
   gem 'reek'
-  gem 'pry-rails'
-  gem 'pry-byebug'
-  gem 'pry-rescue'
-  gem 'pry-stack_explorer'
+  gem 'byebug'
 end
 
 group :development do
+  gem 'webrick'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
@@ -60,6 +58,7 @@ group :test do
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'shoulda'
   gem 'rails-controller-testing'
+  gem 'launchy'
   gem 'bullet'
 end
 

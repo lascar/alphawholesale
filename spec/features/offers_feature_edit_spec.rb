@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Offers Feature", type: :feature do
-  let(:broker1) {create(:broker)}
-  let(:product1) {create(:product)}
+  let!(:broker1) {create(:broker, products: [product1])}
+  let(:product1) {create(:product, approved: true)}
   let(:supplier1) {create(:supplier, products: [product1])}
   let(:supplier2) {create(:supplier)}
   let!(:offer1) {create(:offer, supplier: supplier1, product: product1)}

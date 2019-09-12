@@ -173,6 +173,11 @@ en:
         unit_price: "Unit price"
     errors:
       models:
+        attached_product:
+          not_attachable: 'no attachable'
+          product:
+            uniqueness: "%{product} is already attached"
+            not_approved: "%{product} is not approved"
         broker:
           attributes:
             identifier:

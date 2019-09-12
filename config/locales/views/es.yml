@@ -1,6 +1,9 @@
 es:
   required_fields: "* Los campos obligatorios estan seguido por una estrella"
   control_panel: "Panel de control"
+  attached_products:
+    detach_product: "Derelacionar Producto"
+    attached_products: "Relacionar Productos"
   brokers:
     new: "Nuevo Corredor"
     editing: "Editar Corredor"
@@ -12,8 +15,6 @@ es:
     editing: "Editar Proveedor"
     edit: "Editar Proveedor"
     prohibited_customer_saved: "impidiendo este proveedor de estar salvaguardado"
-    detach_product: "Derelacionar Producto"
-    attach_products: "Relacionar Productos"
     without_approved: "Proveedores sin validación"
     list: "Listado de Proveedores"
   customers:

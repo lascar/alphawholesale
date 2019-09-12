@@ -23,7 +23,7 @@ es:
     new: "Nuevo Proveedor"
     editing: "Modificar Proveedor"
     page: "Pagína del Proveedor"
-    attach_products: "Relacionar productos"
+    attached_products: "Relacionar productos"
   customer:
     customer: "Cliente"
     new: "Nuevo Cliente"

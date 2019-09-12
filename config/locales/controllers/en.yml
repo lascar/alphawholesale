@@ -1,5 +1,8 @@
 en:
   controllers:
+    attached_products:
+      update:
+        succefully: "Attached products were successfully updated."
     customers:
       successfully_created: "Customer was successfully created."
       successfully_updated: "Customer was successfully updated."
@@ -8,10 +11,6 @@ en:
       successfully_created: "Supplier was successfully created."
       successfully_updated: "Supplier was successfully updated."
       successfully_destroyed: "Supplier was successfully destroyed."
-      product_detached: "Product Detached"
-      product_attached: "Product %{product_reference} Attached. "
-      product_not_attached: "Product %{product_reference} NOT Attached. "
-      product_not_detached: "Product NOT Detached"
     suppliers_registrations:
       action_not_allowed_from_here: "You must perform from suppliers"
     brokers:

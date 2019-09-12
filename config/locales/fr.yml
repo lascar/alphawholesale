@@ -23,7 +23,7 @@ fr:
     new: "Nouveau Fournisseur"
     editing: "Modifier Fournisseur"
     page: "Page du Fournisseur"
-    attach_products: "Relationner des produits"
+    attached_products: "Relationner des produits"
   customer:
     customer: "Client"
     new: "Nouveau Client"

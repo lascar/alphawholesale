@@ -171,6 +171,11 @@ es:
         unit_price: "Precio por Unitad"
     errors:
       models:
+        attached_product:
+          not_attachable: 'no relacionable'
+          product:
+            uniqueness: "%{product} esta ya relacionado"
+            not_approved: "%{product} no esta aprobado"
         broker:
           attributes:
             identifier:

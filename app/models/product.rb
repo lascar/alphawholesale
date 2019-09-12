@@ -4,8 +4,8 @@ class Product < ApplicationRecord
   has_many :offers
   has_many :order_lines
   has_many :tender_lines
-  has_many :product_suppliers, dependent: :delete_all
-  has_many :suppliers, through: :product_suppliers
+  has_many :attached_products, dependent: :delete_all
+  has_many :customers, through: :attached_products
   validates :name, presence: true, allow_blank: false
   validates :name, uniqueness: true
   has_many :varieties

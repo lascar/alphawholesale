@@ -5,7 +5,7 @@ RSpec.describe "Offers Feature", type: :feature do
   let(:customer1) {create(:customer)}
   let(:supplier1) {create(:supplier)}
   let(:product1) {create(:product)}
-  let(:broker1) {create(:broker)}
+  let!(:broker1) {create(:broker, products: [product1])}
   let!(:offer1) {create(:offer, approved: true,
                                 date_start: Time.now, date_end: Time.now + 4.days,
                                 unit_price_supplier: 0.1, unit_price_broker: 0.2)}
