@@ -23,7 +23,7 @@ en:
     new: "New Supplier"
     editing: "Editing Supplier"
     page: "Supplier Home"
-    attach_products: "Attach products"
+    attached_products: "Attached products"
   customer:
     customer: "Customer"
     new: "New Customer"

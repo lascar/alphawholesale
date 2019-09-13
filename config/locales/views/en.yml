@@ -13,7 +13,7 @@ en:
     edit: "Edit Supplier"
     prohibited_supplier_saved: "prohibited this supplier from being saved"
     detach_product: "Detach Product"
-    attach_products: "Attach Products"
+    attached_products: "Attached Products"
     without_approved: "Suppliers without approved"
     list: "Suppliers list"
   customers:

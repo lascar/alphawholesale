@@ -2,8 +2,7 @@ class CustomersController < ApplicationController
   include Utilities
   include SuppliersHelper
   before_action :authenticate_user!
-  before_action :set_customer, only: [:show, :edit, :update, :destroy,
-                                      :attach_products, :attach_products_create]
+  before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
   # GET /customers
   def index
@@ -70,26 +69,6 @@ class CustomersController < ApplicationController
     @customer.destroy
     redirect_to customers_url,
      notice: I18n.t('controllers.customers.successfully_destroyed')
-  end
-
-  # GET /customers/1/attach_product
-  def attach_products
-    authorize @customer
-    @products_attached = @customer.products.ids
-    @products = Product.with_approved(true).
-     select{|p| !@products_attached.include?(p.id)}
-  end
-
-  # POST /customers/1/attach_product_create
-  def attach_products_create
-    authorize @customer
-    message = ""
-    @customer.products = []
-    params[:products].each do |product_id|
-      product = Product.find_by_id(product_id)
-      @customer.products << product
-    end
-    redirect_to "/customers/" + @customer.id.to_s, notice: message
   end
 
  private

@@ -13,7 +13,7 @@ es:
     edit: "Editar Proveedor"
     prohibited_customer_saved: "impidiendo este proveedor de estar salvaguardado"
     detach_product: "Derelacionar Producto"
-    attach_products: "Relacionar Productos"
+    attached_products: "Relacionar Productos"
     without_approved: "Proveedores sin validación"
     list: "Listado de Proveedores"
   customers:

@@ -11,50 +11,50 @@ es:
       product_detached: "Producto derelacionado"
       product_attached: "Product %{product_reference} relacionado. "
       product_not_attached: "Product %{product_reference} NO relacionado. "
-      product_not_detached: "Producto NO derelacionado"
-    suppliers_registrations:
-      action_not_allowed_from_here: "Tiene que proceder desde 'suppliers'"
-    brokers:
-      successfully_created: "El Corredor ha sido creado."
-      successfully_updated: "El Corredor ha sido modificado."
-      successfully_destroyed: "El Corredor ha sido eliminado."
-    products:
-      successfully_created: "El Producto ha sido creado."
-      successfully_updated: "El Producto ha sido modificado."
-      successfully_destroyed: "El Producto ha sido eliminado."
-    packagings:
-      successfully_created: "El Almacenamiento ha sido creado."
-      successfully_updated: "El Almacenamiento ha sido modificado."
-      successfully_destroyed: "El Almacenamiento ha sido eliminado."
-    aspects:
-      successfully_created: "El Aspecto ha sido creado."
-      successfully_updated: "El Aspecto ha sido modificado."
-      successfully_destroyed: "El Aspecto ha sido eliminado."
-    sizes:
-      successfully_created: "El Size ha sido creado."
-      successfully_updated: "El Size ha sido modificado."
-      successfully_destroyed: "El Size ha sido eliminado."
-    origins:
-      successfully_created: "El Origen ha sido creado."
-      successfully_updated: "El Origen ha sido modificado."
-      successfully_destroyed: "El Origen ha sido eliminado."
-    offers:
-      successfully_created: "La Oferta ha sido creado."
-      successfully_updated: "La Oferta ha sido modificado."
-      successfully_destroyed: "La Oferta ha sido eliminado."
-    orders:
-      successfully_created: "El Pedido ha sido creado."
-      successfully_updated: "El Pedido ha sido modificado."
-      successfully_destroyed: "El Pedido ha sido eliminado."
-    order_lines:
-      successfully_created: "La Linea de Pedido ha sido creado."
-      successfully_updated: "La Linea de Pedido ha sido modificado."
-      successfully_destroyed: "La Linea de Pedido ha sido eliminado."
-    tenders:
-      successfully_created: "La Licitación ha sido creado."
-      successfully_updated: "La Licitación ha sido modificado."
-      successfully_destroyed: "La Licitación ha sido eliminado."
-    tender_lines:
-      successfully_created: "La Linea de Licitación ha sido creado."
-      successfully_updated: "La Linea de Licitación ha sido modificado."
-      successfully_destroyed: "La Linea de Licitación ha sido eliminado."
+    product_not_detached: "Producto NO derelacionado"
+  suppliers_registrations:
+    action_not_allowed_from_here: "Tiene que proceder desde 'suppliers'"
+  brokers:
+    successfully_created: "El Corredor ha sido creado."
+    successfully_updated: "El Corredor ha sido modificado."
+    successfully_destroyed: "El Corredor ha sido eliminado."
+  products:
+    successfully_created: "El Producto ha sido creado."
+    successfully_updated: "El Producto ha sido modificado."
+    successfully_destroyed: "El Producto ha sido eliminado."
+  packagings:
+    successfully_created: "El Almacenamiento ha sido creado."
+    successfully_updated: "El Almacenamiento ha sido modificado."
+    successfully_destroyed: "El Almacenamiento ha sido eliminado."
+  aspects:
+    successfully_created: "El Aspecto ha sido creado."
+    successfully_updated: "El Aspecto ha sido modificado."
+    successfully_destroyed: "El Aspecto ha sido eliminado."
+  sizes:
+    successfully_created: "El Size ha sido creado."
+    successfully_updated: "El Size ha sido modificado."
+    successfully_destroyed: "El Size ha sido eliminado."
+  origins:
+    successfully_created: "El Origen ha sido creado."
+    successfully_updated: "El Origen ha sido modificado."
+    successfully_destroyed: "El Origen ha sido eliminado."
+  offers:
+    successfully_created: "La Oferta ha sido creado."
+    successfully_updated: "La Oferta ha sido modificado."
+    successfully_destroyed: "La Oferta ha sido eliminado."
+  orders:
+    successfully_created: "El Pedido ha sido creado."
+    successfully_updated: "El Pedido ha sido modificado."
+    successfully_destroyed: "El Pedido ha sido eliminado."
+  order_lines:
+    successfully_created: "La Linea de Pedido ha sido creado."
+    successfully_updated: "La Linea de Pedido ha sido modificado."
+    successfully_destroyed: "La Linea de Pedido ha sido eliminado."
+  tenders:
+    successfully_created: "La Licitación ha sido creado."
+    successfully_updated: "La Licitación ha sido modificado."
+    successfully_destroyed: "La Licitación ha sido eliminado."
+  tender_lines:
+    successfully_created: "La Linea de Licitación ha sido creado."
+    successfully_updated: "La Linea de Licitación ha sido modificado."
+    successfully_destroyed: "La Linea de Licitación ha sido eliminado."

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_06_142530) do
+ActiveRecord::Schema.define(version: 2019_09_12_090358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 2019_09_06_142530) do
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_aspects_on_product_id"
     t.index ["supplier_id"], name: "index_aspects_on_supplier_id"
+  end
+
+  create_table "attached_products", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.string "attachable_type", null: false
+    t.bigint "attachable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["attachable_type", "attachable_id"], name: "index_attached_products_on_attachable_type_and_attachable_id"
+    t.index ["product_id"], name: "index_attached_products_on_product_id"
   end
 
   create_table "brokers", force: :cascade do |t|
@@ -115,24 +125,6 @@ ActiveRecord::Schema.define(version: 2019_09_06_142530) do
     t.index ["supplier_id"], name: "index_packagings_on_supplier_id"
   end
 
-  create_table "product_customers", force: :cascade do |t|
-    t.bigint "customer_id"
-    t.bigint "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_product_customers_on_customer_id"
-    t.index ["product_id"], name: "index_product_customers_on_product_id"
-  end
-
-  create_table "product_suppliers", force: :cascade do |t|
-    t.bigint "supplier_id"
-    t.bigint "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_product_suppliers_on_product_id"
-    t.index ["supplier_id"], name: "index_product_suppliers_on_supplier_id"
-  end
-
   create_table "products", force: :cascade do |t|
     t.bigint "supplier_id"
     t.string "reference"
@@ -222,4 +214,5 @@ ActiveRecord::Schema.define(version: 2019_09_06_142530) do
     t.index ["supplier_id"], name: "index_varieties_on_supplier_id"
   end
 
+  add_foreign_key "attached_products", "products"
 end

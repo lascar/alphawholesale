@@ -60,6 +60,7 @@ group :test do
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'shoulda'
   gem 'rails-controller-testing'
+  gem 'launchy'
   gem 'bullet'
 end
 
