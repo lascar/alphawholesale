@@ -51,4 +51,31 @@ namespace :nb do
       end
     end
   end
+  desc "build the example attached_products list and
+   attach the first to the first supplier and customer"
+  task make_attached_products_list: :environment do
+    broker = Broker.first
+    supplier = Supplier.first
+    customer = Customer.first
+    product_1 = Product.first
+    product_2 = Product.first(2).last
+    product_3 = Product.first(3).last
+    [product_1, product_2].each do |product|
+      variety = product.varieties.first
+      aspect = product.aspects.first
+      packaging = product.packagings.first
+      AttachedProduct.create(
+        attachable_type: 'Broker', attachable_id: broker.id, product: product,
+        variety: variety, aspect: aspect, packaging: packaging
+      )
+      AttachedProduct.create(
+        attachable_type: 'Supplier', attachable_id: supplier.id, product: product,
+        variety: variety, aspect: aspect, packaging: packaging
+      )
+      AttachedProduct.create(
+        attachable_type: 'Customer', attachable_id: customer.id, product: product,
+        variety: variety, aspect: aspect, packaging: packaging
+      )
+    end
+  end
 end

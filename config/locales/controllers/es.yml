@@ -1,5 +1,8 @@
 es:
   controllers:
+    attached_products:
+      update:
+        succefully: "Los productos relacionados han sido modificado con exito."
     customers:
       successfully_created: "El Cliente ha sido creado."
       successfully_updated: "El Cliente ha sido modificado."
@@ -8,10 +11,6 @@ es:
       successfully_created: "El Proveedor ha sido creado."
       successfully_updated: "El Proveedor ha sido modificado."
       successfully_destroyed: "El Proveedor ha sido eliminado."
-      product_detached: "Producto derelacionado"
-      product_attached: "Product %{product_reference} relacionado. "
-      product_not_attached: "Product %{product_reference} NO relacionado. "
-    product_not_detached: "Producto NO derelacionado"
   suppliers_registrations:
     action_not_allowed_from_here: "Tiene que proceder desde 'suppliers'"
   brokers:

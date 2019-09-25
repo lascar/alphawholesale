@@ -54,14 +54,6 @@ doing an offer or order.
 
 You can login as broker at /brokers/sign_in and approve the offer or the order
 
-## DEBUG
-
-With pry-byebug, so for a breakpoint you need to put 'binding-pry' in your code
-
-and write 'next' to jump to the next line.
-
-And pry-rescue to open pry on exception (come handy with rspec)
-
 ## RESILIENT NATURE
 
 No inference are made (we try...) upon the media employed by the user (screen or not, size

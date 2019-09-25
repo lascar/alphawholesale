@@ -177,6 +177,7 @@ fr:
     errors:
       models:
         attached_product:
+          not_attachable: 'non attachable'
           product:
             uniqueness: "%{product} est déja attaché"
             not_approved: "%{product} n'est pas approuvé"

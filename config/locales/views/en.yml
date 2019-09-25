@@ -1,6 +1,9 @@
 en:
   required_fields: "* The required fields are followed by a star"
   control_panel: "Control Pannel"
+  attached_products:
+    detach_product: "Detach Product"
+    attached_products: "Attached Products"
   brokers:
     new: "New Broker"
     editing: "Editing Broker"
@@ -12,8 +15,6 @@ en:
     editing: "Editing Supplier"
     edit: "Edit Supplier"
     prohibited_supplier_saved: "prohibited this supplier from being saved"
-    detach_product: "Detach Product"
-    attached_products: "Attached Products"
     without_approved: "Suppliers without approved"
     list: "Suppliers list"
   customers:

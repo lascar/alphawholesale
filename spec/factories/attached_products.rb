@@ -1,6 +1,9 @@
 FactoryBot.define do
   factory :attached_product do
-    product { nil }
+    product
+    variety { nil }
+    aspect { nil }
+    packaging { nil }
     attachable { nil }
   end
 end

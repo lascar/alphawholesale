@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
-  resources :attached_products
+  get 'attached_products', to: 'attached_products#index'
+  get 'edit_attached_products', to: 'attached_products#edit'
+  post 'attached_products', to: 'attached_products#update'
   root 'welcome#home'
 
   devise_for :suppliers, controllers: {

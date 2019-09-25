@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_12_090358) do
+ActiveRecord::Schema.define(version: 2019_09_12_083320) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
   enable_extension "plpgsql"
 
   create_table "aspects", force: :cascade do |t|
@@ -28,12 +29,19 @@ ActiveRecord::Schema.define(version: 2019_09_12_090358) do
 
   create_table "attached_products", force: :cascade do |t|
     t.bigint "product_id", null: false
+    t.bigint "variety_id"
+    t.bigint "aspect_id"
+    t.bigint "packaging_id"
     t.string "attachable_type", null: false
     t.bigint "attachable_id", null: false
+    t.boolean "mailing", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["aspect_id"], name: "index_attached_products_on_aspect_id"
     t.index ["attachable_type", "attachable_id"], name: "index_attached_products_on_attachable_type_and_attachable_id"
+    t.index ["packaging_id"], name: "index_attached_products_on_packaging_id"
     t.index ["product_id"], name: "index_attached_products_on_product_id"
+    t.index ["variety_id"], name: "index_attached_products_on_variety_id"
   end
 
   create_table "brokers", force: :cascade do |t|
@@ -125,6 +133,15 @@ ActiveRecord::Schema.define(version: 2019_09_12_090358) do
     t.index ["supplier_id"], name: "index_packagings_on_supplier_id"
   end
 
+  create_table "product_customers", force: :cascade do |t|
+    t.bigint "customer_id"
+    t.bigint "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_product_customers_on_customer_id"
+    t.index ["product_id"], name: "index_product_customers_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.bigint "supplier_id"
     t.string "reference"
@@ -214,5 +231,8 @@ ActiveRecord::Schema.define(version: 2019_09_12_090358) do
     t.index ["supplier_id"], name: "index_varieties_on_supplier_id"
   end
 
+  add_foreign_key "attached_products", "aspects"
+  add_foreign_key "attached_products", "packagings"
   add_foreign_key "attached_products", "products"
+  add_foreign_key "attached_products", "varieties"
 end
