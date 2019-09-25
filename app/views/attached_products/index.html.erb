@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Attach Products</h1>
+
+<table>
+  <thead>
+    <th><%= Product.human_attribute_name("name") %></th>
+    <th><%= Variety.human_attribute_name("name") %></th>
+    <th><%= Aspect.human_attribute_name("name") %></th>
+    <th><%= Packaging.human_attribute_name("name") %></th>
+  </thead>
+
+  <tbody>
+    <% @attached_products.each do |attached_product| %>
+      <% product_name = attached_product[:product_name] %>
+        <tr id="attached_product_<%= attached_product[:id].to_s %>">
+        <td><%= t("product.name." + product_name) %></td>
+        <td><%= t("product.variety." + product_name + "." + attached_product[:variety_name].to_s, default: t("product.variety.none")) %></td>
+        <td><%= t("product.aspect." + product_name + "." + attached_product[:aspect_name].to_s, default: t("product.aspect.none")) %></td>
+        <td><%= t("product.packaging." + product_name + "." + attached_product[:packaging_name].to_s, default: t("product.packaging.none")) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to "Edit Attach Product", edit_attached_products_path %>

@@ -34,14 +34,6 @@ class CustomerPolicy
     @user.class.name == "Broker"
   end
 
-  def attach_products?
-    record == user or @user.class.name == "Broker"
-  end
-
-  def attach_products_create?
-    record == user or @user.class.name == "Broker"
-  end
-
   class Scope
     attr_reader :user, :scope
 

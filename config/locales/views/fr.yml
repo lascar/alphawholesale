@@ -1,6 +1,9 @@
 fr:
   required_fields: "* Les champs obligatoires sont suivis d'une étoile"
   control_panel: "Paneau de commande"
+  attached_products:
+    detach_product: "Détacher Produit"
+    attached_product: "Attacher des produits"
   brokers:
     new: "Nouveau Courtier"
     editing: "Modifier Courtier"
@@ -12,8 +15,6 @@ fr:
     editing: "Modifier Fournisseur"
     edit: "Modifier Fournisseur"
     prohibited_supplier_saved: "empêché ce fournisseur d'être sauvegardé"
-    detach_product: "Détacher Produit"
-    attach_product: "Attacher des produits"
     without_approved: "Fournisseurs sans approuvé"
     list: "Liste de Fournisseurs"
   customers:

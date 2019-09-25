@@ -1,0 +1,44 @@
+<%# binding.pry %>
+<%= form_tag(attached_products_path, authenticity_token: true, method: :put) do -%>
+  <%= label_tag :product %>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <table class="table-all table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th><%= Product.human_attribute_name("name") %></th>
+              <th><%= Variety.human_attribute_name("name") %></th>
+              <th><%= Aspect.human_attribute_name("name") %></th>
+              <th><%= Packaging.human_attribute_name("name") %></th>
+              <th class="table-icons-1" colspan="1"></th>
+            </tr>
+          </thead>
+
+         <!--[{:product_name=>"Product 1", :variety_name=>nil, :aspect_name=>nil, :packaging_name=>nil, :id=>1, :is_attached=>true}, {:product_name=>"Product 2", :variety_name=>nil, :aspect_name=>nil, :packaging_name=>nil, :id=>2, :is_attached=>false}, {:product_name=>"Product 3", :variety_name=>nil, :aspect_name=>nil, :packaging_name=>nil, :id=>3, :is_attached=>false}] -->
+
+          <tbody>
+            <% for attached_product in @attached_products %>
+              <tr>
+                <% product_name = attached_product[:product_name] %>
+                <td><%= t("product.name." + product_name) %></td>
+                <td><%= t("product.variety." + product_name + "." + attached_product[:variety_name].to_s, default: t("product.variety.none")) %></td>
+                <td><%= t("product.aspect." + product_name + "." + attached_product[:aspect_name].to_s, default: t("product.aspect.none")) %></td>
+                <td><%= t("product.packaging." + product_name + "." + attached_product[:packaging_name].to_s, default: t("product.packaging.none")) %></td>
+                <td>
+                  <%= check_box_tag "attached_products[]",
+                   attached_product[:id],
+                   attached_product[:is_attached],
+                   id: "attached_product_" + attached_product[:id].to_s %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div><%= submit_tag 'Save' %></div>
+<% end -%>
+</br>

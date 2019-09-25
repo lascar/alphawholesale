@@ -2,8 +2,7 @@ class SuppliersController < ApplicationController
   include Utilities
   before_action :authenticate_user!
   before_action :set_supplier,
-   only: [:show, :edit, :update, :destroy,
-          :attach_products, :attach_products_create]
+   only: [:show, :edit, :update, :destroy]
 
   # GET /suppliers
   def index
@@ -70,26 +69,6 @@ class SuppliersController < ApplicationController
     @supplier.destroy
     redirect_to suppliers_url,
      notice: I18n.t('controllers.suppliers.successfully_destroyed')
-  end
-
-  # GET /suppliers/1/attach_product
-  def attach_products
-    authorize @supplier
-    @products_attached = @supplier.products.ids
-    @products = Product.with_approved(true) +
-     Product.where(supplier_id: @supplier.id, approved: false)
-  end
-
-  # POST /suppliers/1/attach_product_create
-  def attach_products_create
-    authorize @supplier
-    message = ""
-    @supplier.products = []
-    params[:products].each do |product_id|
-      product = Product.find_by_id(product_id)
-      @supplier.products << product
-    end
-    redirect_to "/suppliers/" + @supplier.id.to_s, notice: message
   end
 
   private

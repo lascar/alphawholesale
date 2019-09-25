@@ -1,5 +1,8 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+  get 'attached_products', to: 'attached_products#index'
+  get 'edit_attached_products', to: 'attached_products#edit'
+  put 'attached_products', to: 'attached_products#update'
   root 'welcome#home'
 
   devise_for :suppliers, controllers: {
@@ -50,21 +53,9 @@ Rails.application.routes.draw do
     resources :tender_lines
   end
 
-  resources :suppliers, concerns: [:offertable, :orderable, :productable, :tenderable] do
-    member do
-      get 'attach_products', as: :attach_products
-      post 'attach_products_create', as: :attach_products_create
-      post 'detach_product', as: :detach_product
-    end
-  end
+  resources :suppliers, concerns: [:offertable, :orderable, :productable, :tenderable]
 
-  resources :customers, concerns: [:offertable, :orderable, :tenderable, :productable] do
-    member do
-      get 'attach_products', as: :attach_products
-      post 'attach_products_create', as: :attach_products_create
-      post 'detach_product', as: :detach_product
-    end
-  end
+  resources :customers, concerns: [:offertable, :orderable, :tenderable, :productable]
   authenticate :broker do
     mount Sidekiq::Web => '/sidekiq'
   end
