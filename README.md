@@ -48,6 +48,12 @@ and a list of fake products and 3 offers the second time seed is run.
 
 The products are based on 'config/locales/products/fr.yml' (<code>rake nb:make_products</code>).
 
+For production you have to change this list accordingly to his simple sintax
+and change the products/es and en too.
+
+If you want to add a product, simply add it in the file (product, variety, aspect and/or packaging);
+the task is idempotent, no problem.
+
 So you can login as customer or supplier, do not forget to attach product before
 
 doing an offer or order.
@@ -61,6 +67,9 @@ No inference are made (we try...) upon the media employed by the user (screen or
 of screen, help with webreader or not).
 
 Bootstrap 4 is amazing (thanks to the flexboxes) at that.
+
+Javascript is use only for the client's comfort, if javascript is not activated,
+the application still works!
 
 ## TODO
 
@@ -78,7 +87,7 @@ There is 3 containers :
 
 * the 'web', the nginx that lisen to the 80 port
 
-* TODO redis
+* TODO redis/sidekiq
 
 But you need an .env file (or better parameter in the command line) to inform
 
