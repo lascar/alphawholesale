@@ -1,5 +1,8 @@
 es:
   controllers:
+    admin_attached_products:
+      update:
+        succefully: "Los productos relacionados han sido modificado con exito."
     attached_products:
       update:
         succefully: "Los productos relacionados han sido modificado con exito."

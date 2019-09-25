@@ -1,5 +1,8 @@
 en:
   controllers:
+    admin_attached_products:
+      update:
+        succefully: "Attached products were successfully updated."
     attached_products:
       update:
         succefully: "Attached products were successfully updated."

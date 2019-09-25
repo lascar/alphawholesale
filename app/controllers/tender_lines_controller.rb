@@ -30,7 +30,7 @@ class TenderLinesController < ApplicationController
 
   def products_for_new
     if customer_signed_in?
-      current_customer.products.map{|p| [I18n.t('products.name.' + p.name), p.id]}
+      current_customer.attached_products.map{|ap| [I18n.t('products.name.' + ap.product.name), p.id]}
     else
       Product.all.pluck(:name, :id)
     end

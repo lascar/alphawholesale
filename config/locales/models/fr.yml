@@ -177,9 +177,9 @@ fr:
     errors:
       models:
         attached_product:
+          uniqueness: "est déja attaché"
           not_attachable: 'non attachable'
           product:
-            uniqueness: "%{product} est déja attaché"
             not_approved: "%{product} n'est pas approuvé"
         broker:
           attributes:

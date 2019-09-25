@@ -172,9 +172,9 @@ es:
     errors:
       models:
         attached_product:
+          uniqueness: "esta ya relacionado"
           not_attachable: 'no relacionable'
           product:
-            uniqueness: "%{product} esta ya relacionado"
             not_approved: "%{product} no esta aprobado"
         broker:
           attributes:

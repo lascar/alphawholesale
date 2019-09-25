@@ -15,7 +15,7 @@
 <%= link_to t("customers.edit"), path_edit_customer(@customer),
   class: "btn btn-info btn-sm give-me-some-space" %>
 <div class="row small-font">
-  <div class="col-md-9">
+  <div class="col-md-7">
     <div class="card">
       <div class="card-header text-center text-uppercase">
         <b>
@@ -66,32 +66,64 @@
       <% end %>
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-5">
     <div class="card">
       <div class="card-header text-center text-uppercase">
-        <%= Product.model_name.human(count: @products.count) %> : <%= @products.count %>
+        <%= t("views.customers.show.attached_products", count: @attached_products.count) %>
       </div>
-      <% if @products.count > 0 %>
-      <table class="table table-responsive table-hover table-all">
-        <thead>
-          <tr>
-            <th scope="col" class="text-truncate"
-             title="<%= Product.human_attribute_name("name") %>">
-              <%= Product.human_attribute_name("name") %>
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @products.each do |product| %>
+      <% if @attached_products.count > 0 %>
+        <table class="table table-responsive table-hover table-all">
+          <thead>
             <tr>
-              <td class="text-truncate" title="<%= product.name %>">
-                <%= product.name %>
-              </td>
+              <th scope="col" class="text-truncate"
+               title="<%= t("views.product_name") %>">
+                <%= t("views.product_name") %>
+              </th>
+              <th scope="col" class="text-truncate"
+               title="<%= t("views.variety_name") %>">
+                <%= t("views.variety_name") %>
+              </th>
+              <th scope="col" class="text-truncate"
+               title="<%= t("views.customers.show.aspect_name") %>">
+                <%= t("views.customers.show.aspect_name") %>
+              </th>
+              <th scope="col" class="text-truncate"
+               title="<%= t("views.customers.show.packaging_name") %>">
+                <%= t("views.customers.show.packaging_name") %>
+              </th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            <% @attached_products.each do |attached| %>
+              <% attached_products = attached.last %>
+              <% attached_products.each do |attached_product| %>
+                <tr>
+                  <td class="text-truncate"
+                      title="<%= t("views.product_name") +
+                        " " + attached_product[:product_name] %>">
+                    <%= attached_product[:product_name] %>
+                  </td>
+                  <td class="text-truncate"
+                      title="<%= t("views.variety_name") +
+                        " " + attached_product[:variety_name].to_s %>">
+                    <%= attached_product[:variety_name].to_s %>
+                  </td>
+                  <td class="text-truncate"
+                      title="<%= t("views.customers.show.aspect_name") +
+                        " " + attached_product[:aspect_name].to_s %>">
+                    <%= attached_product[:aspect_name].to_s %>
+                  </td>
+                  <td class="text-truncate"
+                      title="<%= t("views.customers.show.packaging_name") +
+                        " " + attached_product[:packaging_name].to_s %>">
+                    <%= attached_product[:packaging_name].to_s %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
       <% end %>
       <br>
       <%= link_to t("customers.attached_products"), attached_products_path(customer_id: @customer.id),
