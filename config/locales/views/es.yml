@@ -1,6 +1,21 @@
 es:
   required_fields: "* Los campos obligatorios estan seguido por una estrella"
   control_panel: "Panel de control"
+  views:
+    admin_attached_products:
+      index:
+        title: "Productos relacionados por %{type}"
+        attached_products: 'Productos relacionados'
+        new_attached: 'Nuevo relacionado'
+        product_name: 'Producto'
+        variety_name: 'Variedad'
+        aspect_name: 'Aspecto'
+        packaging_name: 'Acondicionamiento'
+    brokers:
+      attached_products: 'Productos relacionados'
+      manage_attachable: 'Gestionar productos relacionables'
+      manage_supplier_attached: 'Gestionar productos relacionados a proveedor'
+      manage_customer_attached: 'Gestionar productos relacionados a cliente'
   attached_products:
     detach_product: "Derelacionar Producto"
     attached_products: "Relacionar Productos"

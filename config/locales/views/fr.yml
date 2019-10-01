@@ -1,6 +1,21 @@
 fr:
   required_fields: "* Les champs obligatoires sont suivis d'une étoile"
   control_panel: "Paneau de commande"
+  views:
+    admin_attached_products:
+      index:
+        title: "Produits attachés pour %{type}"
+        attached_products: 'Produits attachés'
+        new_attached: 'Nouveau attaché'
+        product_name: 'Produit'
+        variety_name: 'Variété'
+        aspect_name: 'Aspect'
+        packaging_name: 'Conditionement'
+    brokers:
+      attached_products: 'Produits attachés'
+      manage_attachable: 'Gestion des produits attachables'
+      manage_supplier_attached: 'Gestion des produits attachés à fournisseur'
+      manage_customer_attached: 'Gestion des produits attachés à client'
   attached_products:
     detach_product: "Détacher Produit"
     attached_product: "Attacher des produits"

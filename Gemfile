@@ -60,6 +60,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'launchy'
   gem 'bullet'
+  gem 'selenium-webdriver'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

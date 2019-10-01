@@ -43,46 +43,24 @@
     <div class="col-md-6">
       <table class="table-bordered table-hover table-sm table-all table-broker">
         <caption>
-          <%= t('packagings.without_approved') %>
+          <%= t('views.brokers.attached_products') %>
         </caption>
-        <thead>
-          <tr>
-            <th><div class="cell-resumen">
-              <%= Packaging.human_attribute_name("name") %>
-            </div></th>
-            <th><div class="cell-resumen">
-              <%= Packaging.human_attribute_name("product") %>
-            </div></th>
-            <th class="table-icons" colspan="3"></th>
-          </tr>
-        </thead>
         <tbody>
-          <% @packagings_without_approved.each do |packaging| %>
             <tr>
-              <td><div class="cell-resumen">
-                <%= packaging.name %>
-              </div></td>
-              <td><div class="cell-resumen">
-                <%= packaging.product.name %>
-              </div></td>
               <td>
-                <%= link_to icon('fas', 'fa-eye'), packaging, title: t("show") %>
+                <%= link_to t("views.brokers.manage_attachable"), admin_attached_products_path %>
               </td>
+            </tr><tr>
               <td>
-                <%= link_to icon('fas', 'fa-edit'), edit_packaging_path(packaging),
-                 title: t("edit") %>
+                <%= link_to t("views.brokers.manage_supplier_attached"), admin_attached_products_path("search[type]": "supplier") %>
               </td>
+            </tr><tr>
               <td>
-                <%= link_to icon('fas', 'fa-trash'), packaging, title: t("destroy"),
-                 method: :delete, data: { confirm: t(:are_you_sure) } %>
+                <%= link_to t("views.brokers.manage_customer_attached"), admin_attached_products_path("search[type]": "customer") %>
               </td>
             </tr>
-          <% end %>
         </tbody>
       </table>
-      <%= link_to t("packagings.new"), new_packaging_path %>
-      <br>
-      <%= link_to t("packagings.list"), packagings_path %>
     </div>
   </div>
 </div><div class="card shadow-sm">
