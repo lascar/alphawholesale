@@ -34,7 +34,7 @@
                 <%= object_match[:identifier] %>
               </td>
               <td>
-                <%= link_to t("views.admin_attached_products.index.new_attached"), new_admin_attached_product_path("new[type]": object_match[:type], "new[id]": object_match[:id]) %>
+                <%= link_to icon('fas', 'fa-plus'), new_admin_attached_product_path("new[type]": object_match[:type], "new[id]": object_match[:id]), title: t("views.admin_attached_products.index.new_attached") %>
               </td>
             </tr>
             <% attached_products.each do |attached_product| %>
