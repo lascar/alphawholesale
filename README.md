@@ -13,7 +13,7 @@ A Product can have a size, an aspect or a packaging.
 An Offer has a price for supplier and a price for customer; in the middle... the broker.
 
 * Ruby version
-ruby 2.5.3p105
+ruby 2.6.5
 
 * System dependencies
 rails 6.0.0
