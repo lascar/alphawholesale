@@ -28,9 +28,8 @@ class AdminAttachedProductsController < ApplicationController
   def create 
     attached_products = AttachedProduct.where(attachable_type: 'Broker').
      inject(Set[]) do |array, attached_product|
-      product = Product.find_by_id attached_product.product_id
-      product_hash = product ? {product_id: product.id, product_name: product.name} :
-        {product_id: 0}
+      product = Product.find attached_product.product_id
+      product_hash = {product_id: product.id, product_name: product.name}
       variety = Variety.find_by_id attached_product.variety_id
       variety_hash = variety ? {variety_id: variety.id, variety_name: variety.name} :
         {variety_id: 0}
