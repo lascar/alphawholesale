@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def extract_locale_from_domain
-    if request.domain !~ /localhost/
+    if !request.domain.nil? && request.domain !~ /localhost/
       parsed_locale = request.domain.match(/[a-z]*\.([a-z.]*)/)[1]
       if parsed_locale == "co.uk" || parsed_locale == "us"
         parsed_locale = "en"

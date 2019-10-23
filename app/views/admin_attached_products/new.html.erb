@@ -1,0 +1,71 @@
+<h1><%= t("views.admin_attached_products.new.title") %>
+</h1>
+<%= form_with(url: admin_attached_products_path, authenticity_token: true, method: :post, local: true) do |form|-%>
+  <% @attachable_products.each do |attachable_product| %>
+    <!-- {:product_id=>1, :product_name=>"Product 1", :product_varieties=>[{:variety_id=>1, :variety_name=>"Variety 1"}, {:variety_id=>2, :variety_name=>"Variety 2"}, {:variety_id=>3, :variety_name=>"Variety 3"}], :product_aspects=>[{:aspect_id=>1, :aspect_name=>"Aspect 1"}, {:aspect_id=>2, :aspect_name=>"Aspect 2"}, {:aspect_id=>3, :aspect_name=>"Aspect 3"}], :product_packaging=>[{:packaging_id=>1, :packaging_name=>"Packaging 1"}, {:packaging_id=>2, :packaging_name=>"Packaging 2"}, {:packaging_id=>3, :packaging_name=>"Packaging 3"}]} -->
+    <%# byebug %>
+    <div class="row">
+      <% product_id = attachable_product[:product_id].to_s %>
+      <% product_name = attachable_product[:product_name] %>
+      <div class="col-md-12">
+        <%= label_tag do %>
+          <%= check_box_tag "create[product][]", product_id, false, id: "product#{product_id}" %>
+          <%= t("product.name." + product_name) %>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <%= t("views.variety_name") %>
+      </div>
+      <% attachable_product[:product_varieties].each do |variety| %>
+        <div class="col-md-4">
+          <% variety_id = variety[:variety_id].to_s %>
+          <% variety_name = variety[:variety_name] %>
+          <%= label_tag do %>
+            <%= check_box_tag "create[products][" + product_id +
+              "_" + product_name + "[varieties][]", variety_id + "_" +
+              variety_name, false, id: "variety_#{variety_id}" %>
+            <%= t("product.variety." + product_name +  "." + variety[:variety_name]) %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <%= t("views.aspect_name") %>
+      </div>
+      <% attachable_product[:product_aspects].each do |aspect| %>
+        <div class="col-md-4">
+          <% aspect_id = aspect[:aspect_id].to_s %>
+          <% aspect_name = aspect[:aspect_name] %>
+          <%= label_tag do %>
+            <%= check_box_tag "create[products][" + product_id +
+              "_" + product_name + "[aspects][]", aspect_id + "_" +
+              aspect_name, false, id: "aspect_#{aspect_id}" %>
+            <%= aspect[:aspect_name] %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <%= t("views.packaging_name") %>
+      </div>
+      <% attachable_product[:product_packagings].each do |packaging| %>
+        <div class="col-md-4">
+          <% packaging_id = packaging[:packaging_id].to_s %>
+          <% packaging_name = packaging[:packaging_name] %>
+          <%= label_tag do %>
+            <%= check_box_tag "create[products][" + product_id +
+              "_" + product_name + "[packagings][]", packaging_id + "_" +
+              packaging_name, false, id: "packaging_#{packaging_id}" %>
+            <%= packaging[:packaging_name] %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <br>
+  <% end %>
+  <%= form.submit t("views.create") %>
+<% end %>

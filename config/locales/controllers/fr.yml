@@ -1,8 +1,11 @@
 fr:
   controllers:
+    admin_attached_products:
+      update:
+        succefully: "Les produits relationnés ont été modifiés avec succés."
     attached_products:
       update:
-        succefully: "Les produits rattachés ont été modifiés avec succés."
+        succefully: "Les produits relationnés ont été modifiés avec succés."
     customers:
       successfully_created: "Le Client a été créé."
       successfully_updated: "Le Client a été modifié."

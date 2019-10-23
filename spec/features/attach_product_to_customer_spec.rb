@@ -7,8 +7,16 @@ RSpec.describe 'Customers Feature new', type: :feature do
   let!(:product2) {create(:product, approved: true)}
   let!(:product3) {create(:product, approved: true)}
   let!(:product4) {create(:product, approved: true)}
-  let!(:broker1) {create(:broker, products: [product1, product2, product3])}
-  let(:customer1) {create(:customer, products: [product1])}
+  let!(:broker1) {create(:broker)}
+  let!(:attached_product1) {create(:attached_product, attachable: broker1,
+                                   product: product1)}
+  let!(:attached_product2) {create(:attached_product, attachable: broker1,
+                                   product: product2)}
+  let!(:attached_product3) {create(:attached_product, attachable: broker1,
+                                   product: product3)}
+  let(:customer1) {create(:customer)}
+  let!(:attached_product4) {create(:attached_product, attachable: customer1,
+                                   product: product1)}
 
   describe 'GET #attach_products' do
 

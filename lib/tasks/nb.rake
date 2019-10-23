@@ -24,19 +24,15 @@ namespace :nb do
                                  approved: true)
         end
         sizes.each do |size_name|
-          size = Size.find_by_name_and_product_id(
-           size_name, product.id)
+          size = Size.find_by_name_and_product_id(size_name, product.id)
           if !size
-            Size.create(name: size_name,
-                              product_id: product.id, approved: true)
+            Size.create(name: size_name, product_id: product.id, approved: true)
           end
         end
         aspects.each do |aspect_name|
-          aspect = Aspect.find_by_name_and_product_id(
-           aspect_name, product.id)
+          aspect = Aspect.find_by_name_and_product_id(aspect_name, product.id)
           if !aspect
-            Aspect.create(name: aspect_name,
-                             product_id: product.id, approved: true)
+            Aspect.create(name: aspect_name, product_id: product.id, approved: true)
           end
         end
         packagings.each do |packaging_name|
@@ -44,8 +40,7 @@ namespace :nb do
           packaging_name, product.id)
           if !packaging
             packaging = Packaging.create(name: packaging_name,
-                                             product_id: product.id,
-                                             approved: true)
+                                         product_id: product.id, approved: true)
           end
         end
       end

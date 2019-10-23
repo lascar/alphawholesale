@@ -1,34 +1,65 @@
 fr:
   required_fields: "* Les champs obligatoires sont suivis d'une étoile"
-  control_panel: "Paneau de commande"
+  control_panel: 'Paneau de commande'
+  views:
+    create: 'Créer'
+    update: 'Modifier'
+    broker: 'Courtier'
+    product_name: 'Produit'
+    variety_name: 'Varieté'
+    aspect_name: 'Aspect'
+    packaging_name: 'Conditionnement'
+    suppliers:
+      show:
+        attached_products: 'Produits Relationnés: %{count}'
+    customers:
+      show:
+        attached_products: 'Produits Relationnés: %{count}'
+    admin_attached_products:
+      index:
+        title: 'Produits relationnables'
+        attached_products: 'Produits relationnables'
+        new_attached: 'Nouveaux produits relationnables'
+      new:
+        title: 'nouveaux produits relationnables'
+      edit:
+        title: 'Editer les produits relationnables'
+        product_name: 'Produit'
+        variety_name: 'Variété'
+        aspect_name: 'Aspect'
+        packaging_name: 'Conditionnement'
+        checked: 'selectionné'
+    brokers:
+      attached_products: 'Produits relationnables'
+      manage_attachable: 'Gestion des produits relationnables'
   attached_products:
-    detach_product: "Détacher Produit"
-    attached_product: "Attacher des produits"
+    detach_product: 'Dérelationner Produit'
+    attached_product: 'Relationner des produits'
   brokers:
-    new: "Nouveau Courtier"
-    editing: "Modifier Courtier"
-    edit: "Modifier Courtier"
+    new: 'Nouveau Courtier'
+    editing: 'Modifier Courtier'
+    edit: 'Modifier Courtier'
     prohibited_broker_saved: "empêché ce courtier d'être sauvegardé"
-    list: "Liste de Courtiers"
+    list: 'Liste de Courtiers'
   suppliers:
-    new: "Nouveau Fournisseur"
-    editing: "Modifier Fournisseur"
-    edit: "Modifier Fournisseur"
+    new: 'Nouveau Fournisseur'
+    editing: 'Modifier Fournisseur'
+    edit: 'Modifier Fournisseur'
     prohibited_supplier_saved: "empêché ce fournisseur d'être sauvegardé"
-    without_approved: "Fournisseurs sans approuvé"
-    list: "Liste de Fournisseurs"
+    without_approved: 'Fournisseurs sans approuvé'
+    list: 'Liste de Fournisseurs'
   customers:
-    new: "Nouveau Client"
-    editing: "Modifier Client"
-    edit: "Modifier Client"
+    new: 'Nouveau Client'
+    editing: 'Modifier Client'
+    edit: 'Modifier Client'
     prohibited_customer_saved: "empêché ce client d'être sauvegardé"
-    without_approved: "Clients sans approuvé"
-    list: "Liste de Clients"
+    without_approved: 'Clients sans approuvé'
+    list: 'Liste de Clients'
   products:
-    get_names: "Obtenir les noms de produits"
-    new: "Nouveau Produit"
+    get_names: 'Obtenir les noms de produits'
+    new: 'Nouveau Produit'
     prohibited_product_saved: "empêché ce produit d'être sauvegardé"
-    editing: "Modifier Produit"
+    editing: 'Modifier Produit'
     name_not_in_list: "Le Nom n'est pas sur la liste"
     name_only_allowed: "(Ne sont permis que lettre non accentuée, chiffre, trait, espace souligné, barre vertical oblique et trait d'union)"
     variety_not_in_list: "L'espèce n'est pas sur la liste"
@@ -41,39 +72,39 @@ fr:
     size_only_allowed: "(Ne sont permis que lettre non accentuée, chiffre, trait, espace souligné, barre vertical oblique et trait d'union)"
     packaging_not_in_list: "L'aconditionnement n'est pas sur la liste"
     packaging_only_allowed: "(Ne sont permis que lettre non accentuée, chiffre, trait, espace souligné, barre vertical oblique et trait d'union)"
-    without_approved: "Produits sans approuvé"
-    list: "Liste de Produits"
+    without_approved: 'Produits sans approuvé'
+    list: 'Liste de Produits'
   packagings:
-    new: "Nouveau Conditionnement"
-    list: "Liste de Conditionnement"
-    without_approved: "Conditionnement sans approuvé"
+    new: 'Nouveau Conditionnement'
+    list: 'Liste de Conditionnement'
+    without_approved: 'Conditionnement sans approuvé'
   aspects:
-    new: "Nouveau Aspect"
-    list: "Liste de Aspect"
-    without_approved: "Aspect sans approuvé"
+    new: 'Nouveau Aspect'
+    list: 'Liste de Aspect'
+    without_approved: 'Aspect sans approuvé'
   sizes:
-    new: "Nouveau Calibre"
-    list: "Liste de Calibres"
-    without_approved: "Calibre sans approuvé"
+    new: 'Nouveau Calibre'
+    list: 'Liste de Calibres'
+    without_approved: 'Calibre sans approuvé'
     offers:
-    new: "Nouvelle Offre"
-    editing: "Modifier Offre"
+    new: 'Nouvelle Offre'
+    editing: 'Modifier Offre'
     prohibited_offer_saved: "empêché cette offre d'être sauvegardée"
-    without_approved: "Offres sans approuvé"
-    list: "Liste de Offres"
+    without_approved: 'Offres sans approuvé'
+    list: 'Liste de Offres'
   offers:
-    new: "Nouvelle Offre"
-    editing: "Modifier Offre"
+    new: 'Nouvelle Offre'
+    editing: 'Modifier Offre'
     prohibited_order_saved: "empêché cette offre d'être sauvegardée"
-    without_approved: "Offres sans approuvé"
-    list: "Liste de Offres"
-    make_order: "Passer Commande"
+    without_approved: 'Offres sans approuvé'
+    list: 'Liste de Offres'
+    make_order: 'Passer Commande'
   orders:
-    new: "Passer la Commande"
-    editing: "Modifier la Commande"
+    new: 'Passer la Commande'
+    editing: 'Modifier la Commande'
     prohibited_order_saved: "empêché cette commande d'être sauvegardée"
-    without_approved: "Commandes sans approuvé"
-    list: "Liste de Commandes"
+    without_approved: 'Commandes sans approuvé'
+    list: 'Liste de Commandes'
   tenders:
     new: "Nouvelle Appel d'Offre"
     editing: "Modifier Appel d'Offre"

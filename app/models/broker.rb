@@ -7,5 +7,4 @@ class Broker < ApplicationRecord
   validates :email, presence: true, allow_blank: false
   validates :password, presence: true, allow_blank: false, length: {minimum: 6}
   has_many :attached_products, as: :attachable, dependent: :delete_all
-  has_many :products, through: :attached_products
 end

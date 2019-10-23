@@ -1,6 +1,37 @@
 en:
   required_fields: "* The required fields are followed by a star"
   control_panel: "Control Pannel"
+  views:
+    create: 'Create'
+    update: 'Update'
+    broker: 'Broker'
+    product_name: 'Product'
+    variety_name: 'Variety'
+    aspect_name: 'Aspect'
+    packaging_name: 'Packaging'
+    suppliers:
+      show:
+        attached_products: 'Attached Products: %{count}'
+    customers:
+      show:
+        attached_products: 'Attached Products: %{count}'
+    admin_attached_products:
+      index:
+        title: "Attachable Products"
+        attached_products: 'Attached products'
+        new_attached: 'New attached products'
+      new:
+        title: "New attachable products"
+      edit:
+        title: "Edit attachable products"
+        product_name: "Product"
+        variety_name: "Variety"
+        aspect_name: "Aspect"
+        packaging_name: "Packaging"
+        checked: 'checked'
+    brokers:
+      attached_products: 'Attachable products'
+      manage_attachable: 'Manage attachable products'
   attached_products:
     detach_product: "Detach Product"
     attached_products: "Attached Products"
