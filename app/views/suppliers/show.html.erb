@@ -16,7 +16,7 @@
 <%= link_to t("suppliers.edit"), supplier_edit_path(@supplier),
   class: "btn btn-danger btn-sm give-me-some-space" %>
 <div class="row small-font">
-  <div class="col-md-9">
+  <div class="col-md-7">
     <div class="card">
       <div class="card-header text-center text-uppercase">
         <b>
@@ -40,7 +40,7 @@
               title="<%= Offer.human_attribute_name("unit_price_supplier") %>">
               <%= Offer.human_attribute_name("unit_price_supplier") %>
             </th>
-            <th scope="col" colspan="3"></th>
+            <th scope="col" colspan="3" class="table-col-icon3"></th>
           </tr>
         </thead>
 
@@ -57,13 +57,13 @@
                 <%= offer.unit_price_supplier.to_s  + " " + offer.supplier.
                   currency.to_s %>
               </td>
-              <td><%= link_to icon('fas', 'fa-eye'),
+              <td class="col-icon"><%= link_to icon('fas', 'fa-eye'),
                        supplier_offer_path(@supplier, offer),
                        title: t("show") %></td>
-              <td><%= link_to icon('fas', 'fa-edit'),
+              <td class="col-icon"><%= link_to icon('fas', 'fa-edit'),
                        edit_supplier_offer_path(@supplier, offer),
                        title: t("edit") %></td>
-              <td><%= link_to icon('fas', 'fa-trash'),
+              <td class="col-icon"><%= link_to icon('fas', 'fa-trash'),
                        supplier_offer_path(@supplier, offer),
                        title: t("destroy"), method: :delete,
                        data: { confirm: t(:are_you_sure) } %></td>
@@ -76,32 +76,64 @@
       <%= link_to t("offers.new"), new_supplier_offer_path(@supplier.id), class:  "btn btn-primary btn-sm" %>
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-5">
     <div class="card">
       <div class="card-header text-center text-uppercase">
-        <%= Product.model_name.human(count: @products.count) %> : <%= @products.count %>
+        <%= t("views.suppliers.show.attached_products", count: @attached_products.count) %>
       </div>
-      <% if @products.count > 0 %>
-      <table class="table table-responsive table-hover table-all">
-        <thead>
-          <tr>
-            <th scope="col" class="text-truncate"
-             title="<%= Product.human_attribute_name("name") %>">
-              <%= Product.human_attribute_name("name") %>
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @products.each do |product| %>
+      <% if @attached_products.count > 0 %>
+        <table class="table table-responsive table-hover table-all">
+          <thead>
             <tr>
-              <td class="text-truncate" title="<%= product.name %>">
-                <%= product.name %>
-              </td>
+              <th scope="col" class="text-truncate"
+               title="<%= t("views.product_name") %>">
+                <%= t("views.product_name") %>
+              </th>
+              <th scope="col" class="text-truncate"
+               title="<%= t("views.variety_name") %>">
+                <%= t("views.variety_name") %>
+              </th>
+              <th scope="col" class="text-truncate"
+               title="<%= t("views.suppliers.show.aspect_name") %>">
+                <%= t("views.suppliers.show.aspect_name") %>
+              </th>
+              <th scope="col" class="text-truncate"
+               title="<%= t("views.suppliers.show.packaging_name") %>">
+                <%= t("views.suppliers.show.packaging_name") %>
+              </th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            <% @attached_products.each do |attached| %>
+              <% attached_products = attached.last %>
+              <% attached_products.each do |attached_product| %>
+                <tr>
+                  <td class="text-truncate"
+                      title="<%= t("views.product_name") +
+                        " " + attached_product[:product_name] %>">
+                    <%= attached_product[:product_name] %>
+                  </td>
+                  <td class="text-truncate"
+                      title="<%= t("views.variety_name") +
+                        " " + attached_product[:variety_name].to_s %>">
+                    <%= attached_product[:variety_name].to_s %>
+                  </td>
+                  <td class="text-truncate"
+                      title="<%= t("views.suppliers.show.aspect_name") +
+                        " " + attached_product[:aspect_name].to_s %>">
+                    <%= attached_product[:aspect_name].to_s %>
+                  </td>
+                  <td class="text-truncate"
+                      title="<%= t("views.suppliers.show.packaging_name") +
+                        " " + attached_product[:packaging_name].to_s %>">
+                    <%= attached_product[:packaging_name].to_s %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
       <% end %>
       <br>
       <%= link_to t("suppliers.attached_products"), attached_products_path(supplier_id: @supplier.id),

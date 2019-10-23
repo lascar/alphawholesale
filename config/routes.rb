@@ -1,7 +1,8 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
   authenticate :broker do
-    resources :admin_attached_products
+    resources :admin_attached_products, only: [:index]
+    resource :admin_attached_products, only: [ :new, :create, :update]
   end
   get 'attached_products', to: 'attached_products#index'
   get 'edit_attached_products', to: 'attached_products#edit'

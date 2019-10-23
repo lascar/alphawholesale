@@ -14,7 +14,7 @@ class SuppliersController < ApplicationController
   def show
     authorize @supplier
     @offers = @supplier.offers.includes(:product)
-    @products = @supplier.products
+    @attached_products = make_attached_products(@supplier.attached_products)
   end
 
   # GET /suppliers/new

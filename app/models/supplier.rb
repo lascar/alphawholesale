@@ -5,7 +5,6 @@ class Supplier < ApplicationRecord
          :recoverable, :rememberable
   has_many :offers
   has_many :attached_products, as: :attachable, dependent: :delete_all
-  has_many :products, through: :attached_products
   validates :identifier, presence: true, allow_blank: false, uniqueness: true
   validates :email, presence: true, allow_blank: false
   validates :tin, presence: true, allow_blank: false

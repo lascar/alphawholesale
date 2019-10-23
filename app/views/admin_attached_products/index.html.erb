@@ -1,5 +1,4 @@
-<h1><%= t("views.admin_attached_products.index.title",
-  type: t("activerecord.models.#{@type.downcase}.name")) %>
+<h1><%= t("views.admin_attached_products.index.title") %>
 </h1>
 <div class="card shadow-sm">
   <div class="row">
@@ -11,34 +10,23 @@
         <thead>
           <tr>
             <th>
-               <%= t("views.admin_attached_products.index.product_name") %>
+               <%= t("views.product_name") %>
             </th>
             <th>
-               <%= t("views.admin_attached_products.index.variety_name") %>
+               <%= t("views.variety_name") %>
             </th>
             <th>
-               <%= t("views.admin_attached_products.index.aspect_name") %>
+               <%= t("views.aspect_name") %>
             </th>
             <th>
-               <%= t("views.admin_attached_products.index.packaging_name") %>
+               <%= t("views.packaging_name") %>
             </th>
-            <th class="table-icons"</th>
           </tr>
         </thead>
         <tbody>
-          <% reg = /(?<type>[A-Z][a-z]+)_(?<id>\d+)_(?<identifier>.+)/ %>
           <% @attached_products.each do |object, attached_products| %>
-            <% object_match = object.match(reg)  %>
-            <tr>
-              <td colspan="4">
-                <%= object_match[:identifier] %>
-              </td>
-              <td>
-                <%= link_to icon('fas', 'fa-plus'), new_admin_attached_product_path("new[type]": object_match[:type], "new[id]": object_match[:id]), title: t("views.admin_attached_products.index.new_attached") %>
-              </td>
-            </tr>
             <% attached_products.each do |attached_product| %>
-              <tr id="<%= object_match[:type] + "_" + object_match[:id] %>_<%= attached_product[:id] %>">
+              <tr id="<%= object %>">
                 <td>
                   <%= attached_product[:product_name] %>
                 </td>
@@ -51,13 +39,15 @@
                 <td>
                   <%= attached_product[:packaging_name] %>
                 </td>
-                <td>
-                  <%= link_to icon('fas', 'fa-trash'), admin_attached_products_path("destroy[id]": attached_product[:id]), title: t("destroy"),
-                   method: :delete, data: { confirm: t(:are_you_sure) } %>
-                </td>
               </tr>
             <% end %>
           <% end %>
+          <tr>
+            <td colspan="4">
+              <%= link_to t("views.admin_attached_products.index.new_attached"), new_admin_attached_products_path,
+               title: t("views.admin_attached_products.index.new_attached") %>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

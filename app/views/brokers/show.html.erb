@@ -46,19 +46,11 @@
           <%= t('views.brokers.attached_products') %>
         </caption>
         <tbody>
-            <tr>
-              <td>
-                <%= link_to t("views.brokers.manage_attachable"), admin_attached_products_path %>
-              </td>
-            </tr><tr>
-              <td>
-                <%= link_to t("views.brokers.manage_supplier_attached"), admin_attached_products_path("search[type]": "supplier") %>
-              </td>
-            </tr><tr>
-              <td>
-                <%= link_to t("views.brokers.manage_customer_attached"), admin_attached_products_path("search[type]": "customer") %>
-              </td>
-            </tr>
+          <tr>
+            <td>
+              <%= link_to t("views.brokers.manage_attachable"), admin_attached_products_path %>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

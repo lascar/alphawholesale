@@ -6,5 +6,5 @@ class AttachedProduct < ApplicationRecord
   belongs_to :attachable, polymorphic: true
   validates_with BrokerAttachedProductValidator
   validates_with ProductApprovedValidator
-  validates_with ProductAlreadyAttachedValidator
+  validates_with AlreadyAttachedValidator
 end

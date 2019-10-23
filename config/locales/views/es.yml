@@ -2,20 +2,36 @@ es:
   required_fields: "* Los campos obligatorios estan seguido por una estrella"
   control_panel: "Panel de control"
   views:
+    create: 'Crear'
+    update: 'Modificar'
+    broker: 'Corredor'
+    product_name: 'Producto'
+    variety_name: 'Variedad'
+    aspect_name: 'Aspecto'
+    packaging_name: 'Acondicionamiento'
+    suppliers:
+      show:
+        attached_products: 'Productos Relacionados: %{count}'
+    customers:
+      show:
+        attached_products: 'Productos Relacionados: %{count}'
     admin_attached_products:
       index:
-        title: "Productos relacionados por %{type}"
-        attached_products: 'Productos relacionados'
-        new_attached: 'Nuevo relacionado'
-        product_name: 'Producto'
-        variety_name: 'Variedad'
-        aspect_name: 'Aspecto'
-        packaging_name: 'Acondicionamiento'
+        title: "Productos relacionable"
+        attached_products: 'Productos relacionables'
+        new_attached: 'Nuevos productos relacionables'
+      new:
+        title: "Nuevos productos relacionables"
+      edit:
+        title: "Editar productos relacionables"
+        product_name: "Productos"
+        variety_name: "Variedad"
+        aspect_name: "Aspecto"
+        packaging_name: "Acondicinamiento"
+        checked: 'selectionado'
     brokers:
-      attached_products: 'Productos relacionados'
+      attached_products: 'Productos relacionables'
       manage_attachable: 'Gestionar productos relacionables'
-      manage_supplier_attached: 'Gestionar productos relacionados a proveedor'
-      manage_customer_attached: 'Gestionar productos relacionados a cliente'
   attached_products:
     detach_product: "Derelacionar Producto"
     attached_products: "Relacionar Productos"

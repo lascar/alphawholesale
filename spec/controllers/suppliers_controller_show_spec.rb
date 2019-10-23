@@ -66,7 +66,6 @@ RSpec.describe SuppliersController, type: :controller do
     # TEST when the supplier is asked for his page
     # TEST then the supplier is assigned
     # TEST and all the offers of the supplier are assigned
-    # TEST and all the products of the supplier are assigned
     # TEST and the supplier's show page is returned
     describe "as a logged supplier asking for his page" do
       before :each do
@@ -74,9 +73,8 @@ RSpec.describe SuppliersController, type: :controller do
         get :show, params: {id: supplier1.to_param}
       end
 
-      it "assigns all the supplier's offers and assigns all the supplier's products" do
+      it "assigns all the supplier's offers" do
         expect(assigns(:offers).sort).to eq(supplier1.offers.sort)
-        expect(assigns(:products).sort).to eq(supplier1.products.sort)
       end
 
     end
@@ -85,7 +83,6 @@ RSpec.describe SuppliersController, type: :controller do
     # TEST when a supplier is asked for show
     # TEST then the supplier is assigned
     # TEST and all the offers of the supplier are assigned
-    # TEST and all the products of the supplier are assigned
     # TEST and the supplier's show page is returned
     describe "as a logged broker asking for a supplier's page" do
       before :each do
@@ -93,10 +90,8 @@ RSpec.describe SuppliersController, type: :controller do
         get :show, params: {id: supplier1.to_param}
       end
 
-      it "assigns all the supplier's offers and
-       assigns all the supplier's products" do
+      it "assigns all the supplier's offers" do
         expect(assigns(:offers).sort).to eq(supplier1.offers.sort)
-        expect(assigns(:products).sort).to eq(supplier1.products.sort)
       end
 
     end
