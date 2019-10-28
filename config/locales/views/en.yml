@@ -16,6 +16,8 @@ en:
     approved: 'Approved'
     email: 'Email'
     quantity: 'Quantity'
+    unit_price_supplier: 'Unit Price'
+    unit_price_customer: 'Unit Price'
     suppliers:
       show:
         attached_products: 'Attached Products: %{count}'

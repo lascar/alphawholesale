@@ -29,6 +29,7 @@ en:
     new: "New Customer"
     editing: "Editing Customer"
     page: "Customer Home"
+    attached_products: "Attached products"
   offer:
     offer: "Offer"
     new: "New Offer"

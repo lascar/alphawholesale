@@ -29,6 +29,7 @@ es:
     new: "Nuevo Cliente"
     editing: "Modificar Cliente"
     page: "Pagína del Cliente"
+    attached_products: "Relacionar productos"
   offer:
     offer: "Oferta"
     new: "Nueva Oferta"

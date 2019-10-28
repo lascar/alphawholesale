@@ -16,7 +16,7 @@
 <%= link_to t("suppliers.edit"), supplier_edit_path(@supplier),
   class: "btn btn-danger btn-sm give-me-some-space" %>
 <div class="row small-font">
-  <div class="col-md-7">
+  <div class="col-md-6">
     <div class="card">
       <div class="card-header text-center text-uppercase">
         <b>
@@ -29,15 +29,15 @@
         <thead>
           <tr>
             <th scope="col" class="text-truncate"
-              title="<%= Offer.human_attribute_name("product") %>">
+              title="<%= t("views.product_name") %>">
               <%= t("views.product_name") %>
             </th>
             <th scope="col" class="text-truncate"
-              title="<%= t("views.quantity") %>">
+              title="<%= t('views.quantity') %>">
               <%= t("views.quantity") %>
             </th>
             <th scope="col" class="text-truncate"
-              title="<%= Offer.human_attribute_name("unit_price_supplier") %>">
+              title="<%= t("views.unit_price_supplier") %>">
               <%= t("views.unit_price_supplier") %>
             </th>
             <th scope="col" colspan="3" class="table-col-icon3"></th>
@@ -48,7 +48,7 @@
           <% @offers.each do |offer| %>
             <tr>
               <td class="text-truncate" title="<%= offer.product.name %>">
-                <%= offer.product.name %>
+                <%= t('product.name.' + offer.product.name) %>
               </td>
               <td class="text-truncate" title="<%= offer.quantity %>">
                 <%= offer.quantity.to_s + " " + offer.supplier.unit_type.to_s %>
@@ -76,7 +76,7 @@
       <%= link_to t("offers.new"), new_supplier_offer_path(@supplier.id), class:  "btn btn-primary btn-sm" %>
     </div>
   </div>
-  <div class="col-md-5">
+  <div class="col-md-6">
     <div class="card">
       <div class="card-header text-center text-uppercase">
         <%= t("views.suppliers.show.attached_products", count: @attached_products.count) %>
@@ -86,20 +86,20 @@
           <thead>
             <tr>
               <th scope="col" class="text-truncate"
-               title="<%= t("views.product_name") %>">
+               title="<%= t('views.product_name') %>">
                 <%= t("views.product_name") %>
               </th>
               <th scope="col" class="text-truncate"
-               title="<%= t("views.variety_name") %>">
+               title="<%= t('views.variety_name') %>">
                 <%= t("views.variety_name") %>
               </th>
               <th scope="col" class="text-truncate"
-               title="<%= t("views.suppliers.show.aspect_name") %>">
-                <%= t("views.suppliers.show.aspect_name") %>
+               title="<%= t('views.aspect_name') %>">
+                <%= t("views.aspect_name") %>
               </th>
               <th scope="col" class="text-truncate"
-               title="<%= t("views.suppliers.show.packaging_name") %>">
-                <%= t("views.suppliers.show.packaging_name") %>
+               title="<%= t('views.packaging_name') %>">
+                <%= t("views.packaging_name") %>
               </th>
             </tr>
           </thead>
@@ -108,26 +108,33 @@
             <% @attached_products.each do |attached| %>
               <% attached_products = attached.last %>
               <% attached_products.each do |attached_product| %>
+                <% product_name = attached_product[:product_name] %>
                 <tr>
                   <td class="text-truncate"
-                      title="<%= t("views.product_name") +
-                        " " + attached_product[:product_name] %>">
-                    <%= attached_product[:product_name] %>
+                      title="<%= t('views.product_name') + ' ' +
+                        t('product.name.' + product_name) %>">
+                    <%= t('product.name.' + product_name) %>
                   </td>
                   <td class="text-truncate"
-                      title="<%= t("views.variety_name") +
-                        " " + attached_product[:variety_name].to_s %>">
-                    <%= attached_product[:variety_name].to_s %>
+                      title="<%= t('views.variety_name') + ' ' +
+                        t('product.variety.' + product_name + '.' +
+                          attached_product[:variety_name].to_s) %>">
+                        <%= t('product.variety.' + product_name + '.' +
+                              attached_product[:variety_name].to_s) %>
                   </td>
                   <td class="text-truncate"
-                      title="<%= t("views.suppliers.show.aspect_name") +
-                        " " + attached_product[:aspect_name].to_s %>">
-                    <%= attached_product[:aspect_name].to_s %>
+                      title="<%= t('views.aspect_name') + ' ' +
+                        t('product.aspect.' + product_name + '.' +
+                          attached_product[:aspect_name].to_s) %>">
+                        <%= t('product.aspect.' + product_name + '.' +
+                              attached_product[:aspect_name].to_s) %>
                   </td>
                   <td class="text-truncate"
-                      title="<%= t("views.suppliers.show.packaging_name") +
-                        " " + attached_product[:packaging_name].to_s %>">
-                    <%= attached_product[:packaging_name].to_s %>
+                      title="<%= t('views.packaging_name') + ' ' +
+                        t('product.packaging.' + product_name + '.' +
+                          attached_product[:packaging_name].to_s) %>">
+                        <%= t('product.packaging.' + product_name + '.' +
+                              attached_product[:packaging_name].to_s) %>
                   </td>
                 </tr>
               <% end %>
@@ -136,7 +143,7 @@
         </table>
       <% end %>
       <br>
-      <%= link_to t("suppliers.attached_products"), attached_products_path(supplier_id: @supplier.id),
+      <%= link_to t("supplier.attached_products"), attached_products_path(supplier_id: @supplier.id),
         id: "attached_products", class:  "btn btn-primary btn-sm" %>
     </div>
   </div>

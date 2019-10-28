@@ -16,7 +16,8 @@ fr:
     approved: 'Validé'
     email: 'Courrier électronique'
     quantity: 'Quantité'
-    unit_price_supplier: 'Prix unité fournisseur'
+    unit_price_supplier: 'Prix unité'
+    unit_price_customer: 'Prix unité'
     suppliers:
       show:
         attached_products: 'Produits Relationnés: %{count}'

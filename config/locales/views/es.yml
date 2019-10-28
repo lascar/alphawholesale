@@ -15,6 +15,8 @@ es:
     approved: 'Validado'
     email: 'Correo electrónico'
     quantity: 'Cantidad'
+    unit_price_supplier: 'Precio Unidad'
+    unit_price_customer: 'Precio Unidad'
     unit_price_supplier: 'Precio unidad proveedor'
     suppliers:
       show:
