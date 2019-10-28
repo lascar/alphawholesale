@@ -41,10 +41,10 @@ fr:
     brokers:
       attached_products: 'Produits relationnables'
       manage_attachable: 'Gestion des produits relationnables'
-  attached_products:
-    edit: 'Editer les produits relationnés'
-    detach_product: 'Dérelationner Produit'
-    attached_product: 'Relationner des produits'
+      attached_products:
+      edit: 'Editer les produits relationnés'
+      detach_product: 'Dérelationner Produit'
+      attached_product: 'Relationner des produits'
   brokers:
     new: 'Nouveau Courtier'
     editing: 'Modifier Courtier'

@@ -24,23 +24,22 @@
           </tr>
         </thead>
         <tbody>
-          <% @attached_products.each do |object, attached_products| %>
-            <% attached_products.each do |attached_product| %>
-              <tr id="<%= object %>">
-                <td>
-                  <%= attached_product[:product_name] %>
-                </td>
-                <td>
-                  <%= attached_product[:variety_name] %>
-                </td>
-                <td>
-                  <%= attached_product[:aspect_name] %>
-                </td>
-                <td>
-                  <%= attached_product[:packaging_name] %>
-                </td>
-              </tr>
-            <% end %>
+          <% @attached_products.each do |attached_product| %>
+            <%# binding.pry %>
+            <tr id='<%= "attached_product_#{attached_product[:id]}" %>'>
+              <td>
+                <%= attached_product[:product_name] %>
+              </td>
+              <td>
+                <%= attached_product[:variety_name] %>
+              </td>
+              <td>
+                <%= attached_product[:aspect_name] %>
+              </td>
+              <td>
+                <%= attached_product[:packaging_name] %>
+              </td>
+            </tr>
           <% end %>
           <tr>
             <td colspan="4">
