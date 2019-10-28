@@ -3,12 +3,21 @@ en:
   control_panel: "Control Pannel"
   views:
     create: 'Create'
+    edit: 'Edit'
     update: 'Update'
-    broker: 'Broker'
+    broker_name: 'Broker'
+    supplier_name: 'Supplier'
+    customer_name: 'Customer'
     product_name: 'Product'
     variety_name: 'Variety'
     aspect_name: 'Aspect'
     packaging_name: 'Packaging'
+    identifier: 'Identifier'
+    approved: 'Approved'
+    email: 'Email'
+    quantity: 'Quantity'
+    unit_price_supplier: 'Unit Price'
+    unit_price_customer: 'Unit Price'
     suppliers:
       show:
         attached_products: 'Attached Products: %{count}'
@@ -33,6 +42,7 @@ en:
       attached_products: 'Attachable products'
       manage_attachable: 'Manage attachable products'
   attached_products:
+    edit: 'Edit attached products'
     detach_product: "Detach Product"
     attached_products: "Attached Products"
   brokers:

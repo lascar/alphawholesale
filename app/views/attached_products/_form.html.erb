@@ -2,15 +2,14 @@
 <%= form_tag(attached_products_path, authenticity_token: true, method: :put) do -%>
   <%= label_tag :product %>
   <div class="row">
-    <div class="col-md-8">
       <div class="card">
         <table class="table-all table-bordered table-responsive">
           <thead>
             <tr>
-              <th><%= Product.human_attribute_name("name") %></th>
-              <th><%= Variety.human_attribute_name("name") %></th>
-              <th><%= Aspect.human_attribute_name("name") %></th>
-              <th><%= Packaging.human_attribute_name("name") %></th>
+              <th><%= t('views.product_name') %></th>
+              <th><%= t('views.variety_name') %></th>
+              <th><%= t('views.aspect_name') %></th>
+              <th><%= t('views.packaging_name') %></th>
               <th class="table-icons-1" colspan="1"></th>
             </tr>
           </thead>
@@ -36,7 +35,6 @@
           </tbody>
         </table>
       </div>
-    </div>
   </div>
 
   <div><%= submit_tag 'Save' %></div>
