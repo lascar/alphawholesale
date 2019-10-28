@@ -29,6 +29,7 @@ fr:
     new: "Nouveau Client"
     editing: "Modifier Client"
     page: "Page du Client"
+    attached_products: "Relationner des produits"
   offer:
     offer: "Offre"
     new: "Nouvelle Offre"
