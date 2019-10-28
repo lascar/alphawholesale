@@ -3,12 +3,19 @@ es:
   control_panel: "Panel de control"
   views:
     create: 'Crear'
+    edit: 'Editar'
     update: 'Modificar'
-    broker: 'Corredor'
+    broker_name: 'Corredor'
+    supplier_name: 'Proveedor'
+    customer_name: 'Cliente'
     product_name: 'Producto'
     variety_name: 'Variedad'
     aspect_name: 'Aspecto'
     packaging_name: 'Acondicionamiento'
+    approved: 'Validado'
+    email: 'Correo electrónico'
+    quantity: 'Cantidad'
+    unit_price_supplier: 'Precio unidad proveedor'
     suppliers:
       show:
         attached_products: 'Productos Relacionados: %{count}'
@@ -33,6 +40,7 @@ es:
       attached_products: 'Productos relacionables'
       manage_attachable: 'Gestionar productos relacionables'
   attached_products:
+    edit: 'Editar los productos relacionados'
     detach_product: "Derelacionar Producto"
     attached_products: "Relacionar Productos"
   brokers:

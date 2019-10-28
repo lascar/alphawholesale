@@ -1,16 +1,16 @@
 <%# binding.pry %>
 <% if broker_signed_in? %>
   <p>
-    <strong><%= Supplier.human_attribute_name("identifier") %></strong>
+    <strong><%= t("views.identifier") %></strong>
     <%= @supplier.identifier %>
   </p>
   <p>
-    <strong><%= Supplier.human_attribute_name("approved") %></strong>
+    <strong><%= t("views.approved") %></strong>
     <%= check_box_tag :approved, '', @supplier.approved, disabled: true %>
   </p>
 <% end %>
 <p>
-  <strong><%= Supplier.human_attribute_name("email") %></strong>
+  <strong><%= t("views.email") %></strong>
   <%= @supplier.email %>
 </p>
 <%= link_to t("suppliers.edit"), supplier_edit_path(@supplier),
@@ -30,15 +30,15 @@
           <tr>
             <th scope="col" class="text-truncate"
               title="<%= Offer.human_attribute_name("product") %>">
-              <%= Offer.human_attribute_name("product") %>
+              <%= t("views.product_name") %>
             </th>
             <th scope="col" class="text-truncate"
-              title="<%= Offer.human_attribute_name("quantity") %>">
-              <%= Offer.human_attribute_name("quantity") %>
+              title="<%= t("views.quantity") %>">
+              <%= t("views.quantity") %>
             </th>
             <th scope="col" class="text-truncate"
               title="<%= Offer.human_attribute_name("unit_price_supplier") %>">
-              <%= Offer.human_attribute_name("unit_price_supplier") %>
+              <%= t("views.unit_price_supplier") %>
             </th>
             <th scope="col" colspan="3" class="table-col-icon3"></th>
           </tr>
