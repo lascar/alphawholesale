@@ -105,39 +105,36 @@
           </thead>
 
           <tbody>
-            <% @attached_products.each do |attached| %>
-              <% attached_products = attached.last %>
-              <% attached_products.each do |attached_product| %>
-                <% product_name = attached_product[:product_name] %>
-                <tr>
-                  <td class="text-truncate"
-                      title="<%= t('views.product_name') + ' ' +
-                        t('product.name.' + product_name) %>">
-                    <%= t('product.name.' + product_name) %>
-                  </td>
-                  <td class="text-truncate"
-                      title="<%= t('views.variety_name') + ' ' +
-                        t('product.variety.' + product_name + '.' +
-                          attached_product[:variety_name].to_s) %>">
-                        <%= t('product.variety.' + product_name + '.' +
-                              attached_product[:variety_name].to_s) %>
-                  </td>
-                  <td class="text-truncate"
-                      title="<%= t('views.aspect_name') + ' ' +
-                        t('product.aspect.' + product_name + '.' +
-                          attached_product[:aspect_name].to_s) %>">
-                        <%= t('product.aspect.' + product_name + '.' +
-                              attached_product[:aspect_name].to_s) %>
-                  </td>
-                  <td class="text-truncate"
-                      title="<%= t('views.packaging_name') + ' ' +
-                        t('product.packaging.' + product_name + '.' +
-                          attached_product[:packaging_name].to_s) %>">
-                        <%= t('product.packaging.' + product_name + '.' +
-                              attached_product[:packaging_name].to_s) %>
-                  </td>
-                </tr>
-              <% end %>
+            <% @attached_products.each do |attached_product| %>
+              <% product_name = attached_product[:product_name] %>
+              <tr>
+                <td class="text-truncate"
+                    title="<%= t('views.product_name') + ' ' +
+                      t('product.name.' + product_name) %>">
+                  <%= t('product.name.' + product_name) %>
+                </td>
+                <td class="text-truncate"
+                    title="<%= t('views.variety_name') + ' ' +
+                      t('product.variety.' + product_name + '.' +
+                        attached_product[:variety_name].to_s) %>">
+                      <%= t('product.variety.' + product_name + '.' +
+                            attached_product[:variety_name].to_s) %>
+                </td>
+                <td class="text-truncate"
+                    title="<%= t('views.aspect_name') + ' ' +
+                      t('product.aspect.' + product_name + '.' +
+                        attached_product[:aspect_name].to_s) %>">
+                      <%= t('product.aspect.' + product_name + '.' +
+                            attached_product[:aspect_name].to_s) %>
+                </td>
+                <td class="text-truncate"
+                    title="<%= t('views.packaging_name') + ' ' +
+                      t('product.packaging.' + product_name + '.' +
+                        attached_product[:packaging_name].to_s) %>">
+                      <%= t('product.packaging.' + product_name + '.' +
+                            attached_product[:packaging_name].to_s) %>
+                </td>
+              </tr>
             <% end %>
           </tbody>
         </table>

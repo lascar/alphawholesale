@@ -1,13 +1,12 @@
 # for tools generals
 module Utilities
   def make_attached_products_hash(attached_products)
-    attached_products.inject({}) do |hash, attached_product|
+    attached_products.inject(Set[]) do |hash, attached_product|
       id_string = attached_product.product_id.to_s + '_' +
                   attached_product.variety_id.to_s + '_' +
                   attached_product.aspect_id.to_s + '_' +
                   attached_product.packaging_id.to_s
-      hash[id_string] ||= []
-      hash[id_string] << {id: attached_product.id,
+      hash << {id: attached_product.id,
                           product_name: attached_product.product.name,
                           product_id: attached_product.product.id,
                           variety_name: attached_product.variety&.name || '',
