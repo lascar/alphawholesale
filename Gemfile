@@ -9,7 +9,7 @@ gem 'rails', '~> 6.0.0'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'sidekiq'
 group :production do
-  gem 'puma', '~> 3.11'
+  gem 'puma', '~> 3.12'
   # for heroku
   gem "rack-timeout"
 end
