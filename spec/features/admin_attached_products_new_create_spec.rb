@@ -70,9 +70,15 @@ RSpec.describe 'Admin Attached Products Customers Feature', type: :feature do
         click_button I18n.t("views.update")
 
         # index
-        expect(page.assert_selector("tr##{product1.id.to_s + '_' + variety1_product1.id.to_s + '_' + aspect1_product1.id.to_s + '_' + packaging1_product1.id.to_s}")).to be(true)
-        expect(page.assert_selector("tr##{product2.id.to_s + '_' + variety1_product2.id.to_s + '_' + aspect1_product2.id.to_s + '_' + packaging1_product2.id.to_s}")).to be(true)
-        expect(page.assert_selector("tr##{product1.id.to_s + '_' + variety2_product1.id.to_s + '_' + aspect1_product1.id.to_s + '_' + packaging1_product1.id.to_s}")).to be(true)
+        attached_products = AttachedProduct.where(attachable_type: 'Broker')
+        expect(attached_products.count).to eq(3)
+        expect(page.assert_selector("tr#attached_product_#{attached_products[2][:id].to_s}")).to be(true)
+        within("tr#attached_product_#{attached_products[2][:id].to_s}") do
+          find("td", :text => "#{product1.name}")
+          find("td", :text => "#{variety2_product1.name}")
+          find("td", :text => "#{aspect1_product1.name}")
+          find("td", :text => "#{packaging1_product1.name}")
+        end
       end
     end
 

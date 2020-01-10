@@ -2,6 +2,7 @@
 module Utilities
   def make_attached_products_hash(attached_products)
     attached_products.inject(Set[]) do |hash, attached_product|
+      # binding.pry
       id_string = attached_product.product_id.to_s + '_' +
                   attached_product.variety_id.to_s + '_' +
                   attached_product.aspect_id.to_s + '_' +
