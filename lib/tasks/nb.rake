@@ -1,13 +1,13 @@
 namespace :nb do
-  desc "build the product list upon the product/fr.yml"
+  desc "build the product list upon the product/en.yml"
   task make_products: :environment do
-    hash = YAML.load_file("config/locales/products/fr.yml")
-    names = hash["fr"]["product"]["name"]
+    hash = YAML.load_file("config/locales/products/en.yml")
+    names = hash["en"]["product"]["name"]
     names.each do |name,v|
-      hash_varieties = hash["fr"]["product"]["variety"][name]
-      hash_aspects = hash["fr"]["product"]["aspect"][name]
-      hash_sizes = hash["fr"]["product"]["size"][name]
-      hash_packagings = hash["fr"]["product"]["packaging"][name]
+      hash_varieties = hash["en"]["product"]["variety"][name]
+      hash_aspects = hash["en"]["product"]["aspect"][name]
+      hash_sizes = hash["en"]["product"]["size"][name]
+      hash_packagings = hash["en"]["product"]["packaging"][name]
       varieties = hash_varieties ? hash_varieties.keys : ["none"]
       aspects = hash_aspects ? hash_aspects.keys : ["none"]
       sizes = hash_sizes ? hash_sizes.keys : ["none"]

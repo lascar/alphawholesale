@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
         parsed_locale = "en"
       end
       I18n.available_locales.map(&:to_s).include?(parsed_locale) ?
-        parsed_locale.to_s.strip.to_sym : nil
+        parsed_locale.to_s.strip.to_sym : :en
     end
   end
 
