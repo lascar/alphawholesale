@@ -40,6 +40,7 @@ group :development, :test do
   gem 'reek'
   gem 'byebug'
   gem 'pry'
+  gem 'pry-byebug'
 end
 
 group :development do
