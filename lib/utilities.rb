@@ -3,20 +3,16 @@ module Utilities
   def make_attached_products_hash(attached_products)
     attached_products.inject(Set[]) do |hash, attached_product|
       # binding.pry
-      id_string = attached_product.product_id.to_s + '_' +
-                  attached_product.variety_id.to_s + '_' +
-                  attached_product.aspect_id.to_s + '_' +
-                  attached_product.packaging_id.to_s
       hash << {id: attached_product.id,
-                          product_name: attached_product.product.name,
-                          product_id: attached_product.product.id,
-                          variety_name: attached_product.variety&.name || '',
-                          variety_id: attached_product.variety&.id || 0,
-                          aspect_name: attached_product.aspect&.name || '',
-                          aspect_id: attached_product.aspect&.id || 0,
-                          packaging_name: attached_product.packaging&.name || '',
-                          packaging_id: attached_product.packaging&.id || 0,
-                         }
+               product_name: attached_product.product.name,
+               product_id: attached_product.product.id,
+               variety_name: attached_product.variety&.name || '',
+               variety_id: attached_product.variety&.id || 0,
+               aspect_name: attached_product.aspect&.name || '',
+               aspect_id: attached_product.aspect&.id || 0,
+               packaging_name: attached_product.packaging&.name || '',
+               packaging_id: attached_product.packaging&.id || 0,
+               }
       hash
     end
   end
