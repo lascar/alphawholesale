@@ -10,16 +10,3 @@ Customer.create(identifier: 'customer1', email: 'pascal.carrie@semillasl.com',
                 approved: true, tin: "B000000001",
                 entreprise_name: "customer entreprise", country: "france") unless
  Customer.find_by_identifier('customer1')
-if Rails.env == "development" && Supplier.first.identifier == 'supplier1'
-  if !Product.all.empty? and Offer.all.empty?
-    (1..3).each do |i|
-      Offer.create(supplier_id: Supplier.first.id, product_id: Product.first.id,
-                   approved: true, quantity: 1000 + i, unit_price_supplier: 20 + i,
-                   unit_price_broker: 25 + i,
-                   localisation_supplier: 'localisation_supplier_' + i.to_s,
-                   localisation_broker: 'localisation_broker_' + i.to_s,
-                   incoterm: INCOTERMS[i], observation: "observation " + i.to_s,
-                   date_start: Time.now, date_end: Time.now + 6.weeks)
-    end
-  end
-end

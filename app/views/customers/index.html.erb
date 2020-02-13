@@ -1,11 +1,10 @@
-<%# binding.pry %>
-<h1><%= Customer.model_name.human(count: 2) %></h1>
+<h1><%= t("models.customer.name") + t("count", count: @customers.count) %></h1>
 
 <table class="table-all table-bordered table-hover">
   <thead>
     <tr>
-      <th><%= Customer.human_attribute_name("identifier") %></th>
-      <th><%= Customer.human_attribute_name("email") %></th>
+      <th><%= t("models.attributes.customer.identifier") %></th>
+      <th><%= t("models.attributes.customer.email") %></th>
       <th colspan="3"></th>
     </tr>
   </thead>

@@ -16,12 +16,6 @@ en:
       order:
         create: "Place Order"
         update: "Update Order"
-      tender:
-        create: "New Tender"
-        update: "Update Tender"
-      tender_line:
-        create: "New Tender Line"
-        update: "Update Tender Line"
       product:
         create: "New Product"
         update: "Update Product"

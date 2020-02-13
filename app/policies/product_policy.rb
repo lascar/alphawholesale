@@ -6,28 +6,20 @@ class ProductPolicy
     @record = record
   end
 
-  def index?
-    true
-  end
-
-  def show?
-    @user.class.name == "Supplier" || @user.class.name == "Broker"
-  end
-
   def create?
-    @user.class.name == "Supplier" || @user.class.name == "Broker"
+    @user.class.name == "Broker"
   end
 
   def new?
-    @user.class.name == "Supplier" || @user.class.name == "Broker"
+    @user.class.name == "Broker"
   end
 
   def update?
-    @record.supplier == @user || @user.class.name == "Broker"
+    @user.class.name == "Broker"
   end
 
   def edit?
-    @record.supplier == @user || @user.class.name == "Broker"
+    @user.class.name == "Broker"
   end
 
   def destroy?
@@ -35,7 +27,7 @@ class ProductPolicy
   end
 
   def get_names?
-    @user.class.name == "Supplier" || @user.class.name == "Broker"
+    @user.class.name == "Broker"
   end
 
   class Scope

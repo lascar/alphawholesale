@@ -30,11 +30,11 @@ RSpec.describe "Orders Feature", type: :feature do
     describe "as a logged broker" do
       before :each do
         sign_in(broker1)
-        visit offer_path(offer1)
+        visit broker_offer_path(broker_id: broker1.id, id: offer1.id)
       end
 
       it "can create an order from an offer" do
-        click_link(I18n.t("orders.new"))
+        click_link(I18n.t("views.orders.new"))
         expect(page).to have_xpath("//form[@action='/orders'
                                    and @method='post']")
         select_customer = find('select[name="order[customer_id]"]')

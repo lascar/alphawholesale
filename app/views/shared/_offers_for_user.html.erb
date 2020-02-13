@@ -1,0 +1,63 @@
+<div class="row small-font">
+  <div class="card">
+    <div class="card-header text-center text-uppercase">
+      <b>
+        <%= t("models.offer.name") + t("with_count", count: @offers.count) %> :
+      </b>
+    </div>
+    <table class="table table-responsive table-hover table-all">
+      <thead>
+        <tr>
+          <th scope="col" class="text-truncate"
+            title="<%= t("views.product_name") %>">
+            <%= t("views.product_name") %>
+          </th>
+          <th scope="col" class="text-truncate"
+            title="<%= t("views.quantity_name") %>">
+            <%= t("views.quantity_name") %>
+          </th>
+          <% if supplier_signed_in? || broker_signed_in? %>
+            <th scope="col" class="text-truncate"
+              title="<%= t("views.unit_price_supplier") %>">
+              <%= t("views.unit_price_supplier") %>
+          <% end %>
+          <% if !supplier_signed_in? %>
+            <th scope="col" class="text-truncate"
+              title="<%= t("views.unit_price_broker") %>">
+              <%= t("views.unit_price_broker") %>
+          <% end %>
+        </th>
+        <th scope="col" colspan="1"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @offers.each do |offer| %>
+        <% product_name = offer.product.name %>
+        <tr>
+          <td class="text-truncate"
+              title="<%= t('views.product_name') + ' ' +
+                t('product.name.' + product_name) %>">
+            <%= t('product.name.' + product_name) %>
+          </td>
+          <td class="text-truncate" title="<%= offer.quantity %>">
+            <%= offer.quantity.to_s + " " + offer.supplier.unit_type %>
+          </td>
+          <% if supplier_signed_in? || broker_signed_in?%>
+            <td class="text-truncate" title="<%= offer.unit_price_supplier %>">
+              <%= offer.unit_price_supplier.to_s  + " " + offer.supplier.currency %>
+          <% end %>
+          <% if !supplier_signed_in? %>
+            <td class="text-truncate" title="<%= offer.unit_price_broker %>">
+              <%= offer.unit_price_broker.to_s  + " " + offer.supplier.currency %>
+          <% end %>
+          </td>
+          <td><%= link_to icon('fas', 'fa-eye'), title: t("show"),
+            path_for(user: current_user, path: "show_offer",
+                     options: {object_id: offer.id}) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

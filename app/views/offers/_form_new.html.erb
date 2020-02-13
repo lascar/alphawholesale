@@ -1,13 +1,13 @@
-<%# javascript_include_tag 'offers' %>
-<%= form_with(offer_form_hash(@supplier_id, @offer)) do |form| %>
+<%= form_with(model: offer, url: path_for(user: current_user, path: "offers"),
+             local: true) do |form| %>
   <% if offer.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
-
+      <h2><%= pluralize(offer.errors.count, "error") %> <%= t(
+        "views.offers.prohibited_offer_saved") %>:</h2>
       <ul>
-      <% offer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% offer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -17,128 +17,60 @@
       <%= form.select :supplier_id, @suppliers%>
     </div>
   <% end %>
-  <% @products.each do |product_name, product| %>
-    <div class="card card_product" id="card_product_<%= product_name %>">
-      <b>
-        <%= form.radio_button :product_id, product["product_id"],
-          class: "radio_product", id: "offer_product_name_" + product_name,
-          autocomplete: :off %>
-        <%= t("product.name." + product_name) %>
-      </b>
-      <br>
-      <div class="row">
-        <div class="col col_not_product">
-          <table class="table-bordered table-hover table-sm table-all table-responsive">
-            <thead>
-              <tr>
-                <th><%= Variety.human_attribute_name("name") %></th>
-                <th class="table-icons-1" colspan="1"></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% for variety in product["variety"] %>
-                <% variety_name = variety.first %>
-                <tr>
-                  <td><%= t("product.variety." + product_name +  "." + variety_name) %></td>
-      <%# binding.pry %>
-                  <td>
-                    <%= form.radio_button :variety_id, variety.last,
-                     id: "variety_" + variety.last.to_s,
-                     class: "radio_variety variety_" + product_name %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div class="col col_not_product">
-          <table class="table-bordered table-hover table-sm table-all table-responsive">
-            <thead>
-              <tr>
-                <th><%= Aspect.human_attribute_name("name") %></th>
-                <th class="table-icons-1" colspan="1"></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% for aspect in product["aspects"] %>
-                <% aspect_name = aspect.first %>
-                <tr>
-                  <td><%= t("product.aspect." + product_name +  "." + aspect_name) %></td>
-                  <td>
-                    <%= form.radio_button :aspect_id, aspect.last,
-                     id: "aspect_" + aspect.last.to_s,
-                     class: "aspect_" + product_name %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div class="col col_not_product">
-          <table class="table-bordered table-hover table-sm table-all table-responsive">
-            <thead>
-              <tr>
-                <th><%= Size.human_attribute_name("name") %></th>
-                <th class="table-icons-1" colspan="1"></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% for size in product["sizes"] %>
-                <% size_name = size.first %>
-                <tr>
-                  <td><%= t("product.size." + product_name +  "." + size_name) %></td>
-                  <td>
-                    <%= form.radio_button :size_id, size.last,
-                     id: "size_" + size.last.to_s,
-                     class: "size_" + product_name %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div class="col col_not_product">
-          <table class="table-bordered table-hover table-sm table-all table-responsive">
-            <thead>
-              <tr>
-                <th><%= Packaging.human_attribute_name("name") %></th>
-                <th class="table-icons-1" colspan="1"></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% for packaging in product["packagings"] %>
-                <% packaging_name = packaging.first %>
-                <tr>
-                  <td><%= t("product.packaging." + product_name +  "." + packaging_name) %></td>
-                  <td>
-                    <%= form.radio_button :packaging_id, packaging.last,
-                     id: "packaging_" + packaging.last.to_s,
-                     class: "packaging_" + product_name %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  <% end %>
-  <br>
+  <div class="card">
+    <table class="table-all table-bordered table-responsive">
+      <thead>
+        <tr>
+          <th colspan="1"></th>
+          <th><%= t("models.attributes.attached_product.product") %></th>
+          <th><%= t("models.attributes.attached_product.variety") %></th>
+          <th><%= t("models.attributes.attached_product.aspect") %></th>
+          <th><%= t("models.attributes.attached_product.packaging") %></th>
+          <th><%= t("models.attributes.attached_product.size") %></th>
+          <th><%= t("models.attributes.attached_product.caliber") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @attached_products.each do |attached_product| %>
+          <tr>
+            <td>
+              <%= form.radio_button :attached_product_id, attached_product.id,
+                autocomplete: :off %>
+            </td>
+            <td>
+              <%= attached_product.product %>
+            </td>
+            <td>
+              <%= attached_product.variety %>
+            </td>
+            <td>
+              <%= attached_product.aspect %>
+            </td>
+            <td>
+              <%= attached_product.packaging %>
+            </td>
+            <td>
+              <%= attached_product.size %>
+            </td>
+            <td>
+              <%= attached_product.caliber %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
   <br>
   <div class="card">
     <div class="row">
       <div class="col-3">
-        <%= label_tag t('activerecord.attributes.offer.quantity') %>
+        <%= label_tag t('models.attributes.offer.quantity') %>
         <div style="clear: both;"></div>
         <%= form.number_field :quantity %>
         &nbsp;
       </div>
       <div class="col-3">
-        <%= label_tag t('activerecord.attributes.offer.unit_price_supplier') %>
+        <%= label_tag t('models.attributes.offer.unit_price_supplier') %>
         <div style="clear: both;"></div>
         <%= monetary_field 'offer', 'unit_price_supplier', 0 %>
         &nbsp;
@@ -147,28 +79,28 @@
 
     <div class="row row_offer">
       <div class="col-3">
-        <%= label_tag t('activerecord.attributes.offer.incoterm') %>
+        <%= label_tag t('models.attributes.offer.incoterm') %>
         <div style="clear: both;"></div>
         <%= form.select :incoterm, @incoterms%>
         &nbsp;
       </div>
 
       <div class="col-3">
-        <%= label_tag t('activerecord.attributes.offer.localisation_supplier') %>
+        <%= label_tag t('models.attributes.offer.localisation_supplier') %>
         <div style="clear: both;"></div>
         <%= form.text_field :localisation_supplier %>
         &nbsp;
       </div>
 
       <div class="col-3">
-        <%= label_tag t('activerecord.attributes.offer.date_start') %>
+        <%= label_tag t('models.attributes.offer.date_start') %>
         <div style="clear: both;"></div>
-        <%= form.text_field :date_start, value: Time.now.strftime("%d/%m/%Y"), disabled: true %>
+        <%= form.text_field :date_start, value: Time.now.strftime("%d/%m/%Y") %>
         &nbsp;
       </div>
 
       <div class="col-3">
-        <%= label_tag t('activerecord.attributes.offer.date_end') %>
+        <%= label_tag t('models.attributes.offer.date_end') %>
         <div style="clear: both;"></div>
         <%= form.date_field :date_end, min:  Time.now.strftime("%d/%m/%Y") %>
         &nbsp;
@@ -177,7 +109,7 @@
 
     <div class="row row_offer">
       <div class="col-9">
-        <%= label_tag t('activerecord.attributes.offer.observation') %>
+        <%= label_tag t('models.attributes.offer.observation') %>
         <div style="clear: both;"></div>
           <%= form.text_area :observation, :rows => 10, style: 'width:100%;' %>
         &nbsp;
@@ -189,13 +121,13 @@
     <div class="card">
       <div class="row">
         <div class="col">
-          <%= label_tag t('activerecord.attributes.offer.unit_price_broker') %>
+          <%= label_tag t('models.attributes.offer.unit_price_broker') %>
           <div style="clear: both;"></div>
           <%= monetary_field 'offer', 'unit_price_broker', 0 %>
           &nbsp;
         </div>
         <div class="col">
-          <%= label_tag t('activerecord.attributes.offer.localisation_broker') %>
+          <%= label_tag t('models.attributes.offer.localisation_broker') %>
           <div style="clear: both;"></div>
           <%= form.text_field :localisation_broker %>
           &nbsp;
@@ -203,7 +135,7 @@
 
         &nbsp;
         <div class="col">
-          <%= label_tag t('activerecord.attributes.offer.approved') %>
+          <%= label_tag t('models.attributes.offer.approved') %>
           <div style="clear: both;"></div>
           <%= form.check_box :approved %>
         </div>

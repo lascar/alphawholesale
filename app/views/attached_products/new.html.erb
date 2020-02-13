@@ -1,0 +1,126 @@
+<h1><%= t("views.attached_products.new") %></h1>
+ <h3><%= t("views.product_name") + " : " +
+         t("products." + @product + ".name") %></h3>
+</br>
+
+<%= form_with(url: path_for(user: @user, path: "attached_products"), authenticity_token: true,
+    id: "form_create_attach_product", method: :post, local: true) do |form| -%>
+  <%= hidden_field_tag "create_attached_product[product]", @product %>
+  <%= hidden_field_tag "#{user_type(@user)}_id", @user.id.to_s %>
+  <div class="row">
+      <div class="card col-4">
+        <table class="table-all table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th><%= t('views.variety_name') %></th>
+            </tr>
+          </thead>
+
+          <tbody id="radios_varieties">
+            <% for variety in @varieties %>
+              <tr>
+                <td>
+                  <%= form.radio_button "create_attached_product[variety]", variety,
+                      checked: variety == "nil", autocomplete: :off %>
+                  <%= form.label "create_attached_product[" + variety + "]",
+                      t("products." + @product + ".varieties." + variety) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="card col-4">
+        <table class="table-all table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th><%= t('views.aspect_name') %></th>
+            </tr>
+          </thead>
+
+          <tbody id="radios_aspects">
+            <% for aspect in @aspects %>
+              <tr>
+                <td>
+                  <%= form.radio_button "create_attached_product[aspect]", aspect,
+                      checked: aspect == "nil", autocomplete: :off %>
+                  <%= form.label "create_attached_product[" + aspect + "]",
+                      t("products." + @product + ".aspects." + aspect) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="card col-4">
+        <table class="table-all table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th><%= t('views.packaging_name') %></th>
+            </tr>
+          </thead>
+
+          <tbody id="radios_packagings">
+            <% for packaging in @packagings %>
+              <tr>
+                <td>
+                  <%= form.radio_button "create_attached_product[packaging]", packaging,
+                      checked: packaging == "nil", autocomplete: :off %>
+                  <%= form.label "create_attached_product[" + packaging + "]",
+                      t("products." + @product + ".packagings." + packaging) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="card col-4">
+        <table class="table-all table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th><%= t('views.size_name') %></th>
+            </tr>
+          </thead>
+
+          <tbody id="radios_sizes">
+            <% for size in @sizes %>
+              <tr>
+                <td>
+                  <%= form.radio_button "create_attached_product[size]", size,
+                      checked: size == "nil", autocomplete: :off %>
+                  <%= form.label "create_attached_product[" + size + "]",
+                      t("products." + @product + ".sizes." + size) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="card col-4">
+        <table class="table-all table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th><%= t('views.caliber_name') %></th>
+            </tr>
+          </thead>
+
+          <tbody id="radios_calibers">
+            <% for caliber in @calibers %>
+              <tr>
+                <td>
+                  <%= form.radio_button "create_attached_product[caliber]", caliber,
+                      checked: caliber == "nil", autocomplete: :off %>
+                  <%= form.label "create_attached_product[" + caliber + "]",
+                      t("products." + @product + ".calibers." + caliber) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+  </div>
+
+  <div><%= submit_tag t("views.create") %></div>
+<% end -%>
+
+<%= link_to t("views.back"), path %>

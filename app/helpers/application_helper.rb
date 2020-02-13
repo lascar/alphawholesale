@@ -1,5 +1,108 @@
 module ApplicationHelper
-  include VarietiesHelper
+  path_products = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/#{id.to_s}/products"
+  end
+
+  path_attached_products = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/#{id.to_s}/attached_products"
+  end
+
+  path_new_attached_product = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/#{id.to_s}/attached_products/new"
+  end
+
+  path_offers = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/#{id.to_s}/offers/"
+  end
+
+  path_show_offer = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/#{id.to_s}/offers/#{options[:object_id].to_s}"
+  end
+
+  path_new_offer = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/#{id.to_s}/offers/new"
+  end
+  
+  path_edit_offer = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/#{id.to_s}/offers/#{options[:object_id].to_s}/edit"
+  end
+
+  path_update_offer = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/#{id.to_s}/offers/#{options[:object_id].to_s}"
+  end
+
+  path_orders = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/#{id.to_s}/orders/"
+  end
+
+  path_show_order = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/#{id.to_s}/orders/#{options[:object_id].to_s}"
+  end
+
+  path_new_order = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/#{id.to_s}/orders/new?object_id=#{options[:offer_id]}"
+  end
+  
+  path_edit_order = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/#{id.to_s}/orders/#{option[object_id].to_s}/edit"
+  end
+
+  path_update_order = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/#{id.to_s}/orders/#{option[object_id].to_s}"
+  end
+
+  path_user_products = -> (id:, user_type:, options:) do
+    "/#{user_type}s/#{id.to_s}/user_products/"
+  end
+
+  path_update_user_products = -> (id:, user_type:, options:) do
+    "/#{user_type}s/#{id.to_s}/user_products/#{id.to_s}"
+  end
+
+  path_new_user = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/new"
+  end
+
+  path_edit_user = -> (id:, user_type:, options:) do
+    "#{options[:pre]}/#{user_type}s/#{id.to_s}/edit"
+  end
+
+  path_edit_broker = -> (id:, user_type:, options:) do
+    "/#{user_type}s/#{id.to_s}/edit"
+  end
+
+  PATH = {
+    path_for_products: path_products,
+    path_for_attached_products: path_attached_products,
+    path_for_new_attached_product: path_new_attached_product,
+    path_for_offers: path_offers,
+    path_for_show_offer: path_show_offer,
+    path_for_new_offer: path_new_offer,
+    path_for_edit_offer: path_edit_offer,
+    path_for_update_offer: path_update_offer,
+    path_for_orders: path_orders,
+    path_for_show_order: path_show_order,
+    path_for_new_order: path_new_order,
+    path_for_edit_order: path_edit_order,
+    path_for_update_order: path_update_order,
+    path_for_user_products: path_user_products,
+    path_for_update_user_products: path_update_user_products,
+    path_for_new_user: path_new_user,
+    path_for_edit_user: path_edit_user,
+    path_for_edit_broker: path_edit_broker,
+  }
+
+  def path_for(user: nil, path: nil, options: {})
+    path_for = PATH["path_for_#{path}".to_sym]
+    if path_for
+      if broker_signed_in? && user.class.name != 'Broker'
+        options[:pre] = "/brokers/#{current_broker.id.to_s}"
+      end
+      path_for.call(id: user.try(:id), user_type: user_type(user), options: options)
+    end
+  end
+
+
   # http://www.socialmemorycomplex.net/2007/09/16/text_field-and-currency-values/
   def flag_icon(country_sym)
       "<span class=\"flag-icon flag-icon-#{country_sym.to_s}\"></span>".html_safe
@@ -44,11 +147,9 @@ module ApplicationHelper
     (user_type == 'customer' && current_customer)
   end
 
-  def user_type
-    (broker_signed_in? && 'broker') ||
-      (supplier_signed_in? && 'supplier') ||
-      (customer_signed_in? && 'customer') ||
-      ''
+  def user_type(user=current_user)
+    return user if user.is_a?(String)
+    user&.class&.name&.downcase || ''
   end
 
   def user_logged(user_type)
@@ -68,7 +169,7 @@ module ApplicationHelper
     if !user_type.blank?
       string += <<-HERE
           <li>
-            #{link_to t('control_panel'), path, class: 'btn btn-gris btn-sm'}
+            #{link_to t('views.control_panel'), path, class: 'btn btn-gris btn-sm'}
           </li>
 HERE
     end
@@ -77,13 +178,13 @@ HERE
 
   def helper_activerecord_error_message(attribute, messages)
     message = ''
-    messages.each do |k,v|
-      message += I18n.t('activerecord.attributes.' + attribute + '.' + k.to_s) +
-       ' : ' + v.inject('')do |s, m|
-        s += ' ' + m.to_s + ', '
+    messages.keys.each do |key|
+      messages[key].each do |error|
+        message += I18n.t('models.attributes.' + attribute + '.' + key.to_s) +
+                   + ' : ' + error + '<br>'
       end
     end
-    message.sub(/, $/, '')
+    message
   end
 
   def helper_devise_error_message(devise_messages)
@@ -92,7 +193,7 @@ HERE
     messages = devise_messages.respond_to?('messages') ?
       devise_messages.messages : []
     messages.each do |key, array|
-      message += I18n.t('activerecord.attributes.' + domain +
+      message += I18n.t('models.attributes.' + domain +
                         '.' + key.to_s)
       message += " : "
       array.inject(message) do |m, v|

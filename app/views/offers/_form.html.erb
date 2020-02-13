@@ -1,9 +1,9 @@
-<%# binding.pry %>
-<%= form_with(offer_form_hash(@supplier_id, @offer)) do |form| %>
-  <% if offer.errors.any? %>
+<%= form_with(model: offer, url: path_for(user: current_user,
+    path: "update_offer", options: {offer_id: offer.id})) do |form| %>
+  <% if offer && offer.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
-
+      <h2><%= pluralize(offer.errors.count, "error") %> <%= t(
+        "views.offers.prohibited_offer_saved") %>:</h2>
       <ul>
         <% offer.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -14,42 +14,49 @@
   <% if broker_signed_in? %>
     <div class="field">
       <%= form.label :supplier %>
-      <%= form.select :supplier_id, @suppliers%>
+      <%= form.select :supplier_id, @suppliers, selected: offer.supplier_id%>
     </div>
   <% end %>
 
   <div class="card">
-    <div class="row">
-      <div class="col-3">
-        <div class="field">
-          <%= form.label :product %>
-          <%= form.text_field :product, value: form.object.product.name, disabled: true%>
-        </div>
-      </div>
-
-      <div class="col-3">
-        <div class="field">
-          <%= form.label :variety %>
-          <%= form.select :variety_id, @varieties %>
-        </div>
-      </div>
-
-      <div class="col-3">
-        <div class="field">
-          <%= form.label :aspect %>
-          <%= form.select :aspect_id, @aspects %>
-        </div>
-      </div>
-
-      <div class="col-3">
-        <div class="field">
-          <%= form.label :packaging %>
-          <%= form.select :packaging_id, @packagings %>
-        </div>
-      </div>
+    <div class="row mt-3">
+      <table class="table-all table-bordered table-responsive">
+        <thead>
+          <tr>
+            <th><%= t("models.attributes.attached_product.product") %></th>
+            <th><%= t("models.attributes.attached_product.variety") %></th>
+            <th><%= t("models.attributes.attached_product.aspect") %></th>
+            <th><%= t("models.attributes.attached_product.packaging") %></th>
+            <th><%= t("models.attributes.attached_product.size") %></th>
+            <th><%= t("models.attributes.attached_product.caliber") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% attached_product = offer.attached_product %>
+          <tr>
+            <td>
+              <%= attached_product.product %>
+            </td>
+            <td>
+              <%= attached_product.variety %>
+            </td>
+            <td>
+              <%= attached_product.aspect %>
+            </td>
+            <td>
+              <%= attached_product.packaging %>
+            </td>
+            <td>
+              <%= attached_product.size %>
+            </td>
+            <td>
+              <%= attached_product.caliber %>
+            </td>
+          </tr>
+      </table>
     </div>
-
-    <div class="row">
+    <br>
+    <div class="row mt-3">
       <div class="col-3">
         <div class="field">
           <%= form.label :quantity %>

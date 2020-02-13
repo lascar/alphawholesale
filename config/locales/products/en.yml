@@ -1,80 +1,92 @@
 en:
-  product:
-    select_name: "select a name"
-    select_variety: "select a variety"
-    select_origin: "select an origin"
-    select_aspect: "select an aspect"
-    select_size: "select a size"
-    select_packaging: "select a packaging"
-    name:
-      product1: "product 1"
-      product2: "product 2"
-      product3: "product 3"
-    variety:
-      product1:
+  select_name: "select a name"
+  select_variety: "select a variety"
+  select_origin: "select an origin"
+  select_aspect: "select an aspect"
+  select_size: "select a size"
+  select_packaging: "select a packaging"
+  products:
+    product1:
+      name: "product 1"
+      varieties:
         variety1_product1: "variety 1 product 1"
         variety2_product1: "variety 2 product 1"
         variety3_product1: "variety 3 product 1"
         variety4_product1: "variety 4 product 1"
-      product2:
-        variety1_product2: "variety 1 product 2"
-        variety2_product2: "variety 2 product 2"
-        variety3_product2: "variety 3 product 2"
-        variety4_product2: "variety 4 product 2"
-      product3:
-        variety1_product3: "variety 1 product 3"
-        variety2_product3: "variety 2 product 3"
-        variety3_product3: "variety 3 product 3"
-        variety4_product3: "variety 4 product 3"
-      none: "not specified"
-    aspect:
-      product1:
+        nil: "not specified"
+      aspects:
         aspect1_product1: "aspect 1 product 1"
         aspect2_product1: "aspect 2 product 1"
         aspect3_product1: "aspect 3 product 1"
-        aspect4_product1: "aspect 4 product 1"
-      product2:
-        aspect1_product2: "aspect 1 product 2"
-        aspect2_product2: "aspect 2 product 2"
-        aspect3_product2: "aspect 3 product 2"
-        aspect4_product2: "aspect 4 product 2"
-      product3:
-        aspect1_product3: "aspect 1 product 3"
-        aspect2_product3: "aspect 2 product 3"
-        aspect3_product3: "aspect 3 product 3"
-        aspect4_product3: "aspect 4 product 3"
-      none: "not specified"
-    size:
-      product1:
-        size1_product1: "size 1 product 1"
-        size2_product1: "size 2 product 1"
-        size3_product1: "size 3 product 1"
-        size4_product1: "size 4 product 1"
-      product2:
-        size1_product2: "size 1 product 2"
-        size2_product2: "size 2 product 2"
-        size3_product2: "size 3 product 2"
-        size4_product2: "size 4 product 2"
-      product3:
-        size1_product3: "size 1 product 3"
-        size2_product3: "size 2 product 3"
-        size3_product3: "size 3 product 3"
-        size4_product3: "size 4 product 3"
-      none: "not specified"
-    packaging:
-      product1:
+        nil: "not specified"
+      packagings:
         packaging1_product1: "packaging 1 product 1"
         packaging2_product1: "packaging 2 product 1"
         packaging3_product1: "packaging 3 product 1"
         packaging4_product1: "packaging 4 product 1"
-      product2:
+        nil: "not specified"
+      sizes:
+        size1_product1: "size 1 product 1"
+        size2_product1: "size 2 product 1"
+        size3_product1: "size 3 product 1"
+        nil: "not specified"
+      calibers:
+        caliber1_product1: "caliber 1 product 1"
+        caliber2_product1: "caliber 2 product 1"
+        caliber3_product1: "caliber 3 product 1"
+        nil: "not specified"
+    product2:
+      name: "product 2"
+      varieties:
+        variety1_product2: "variety 1 product 2"
+        variety2_product2: "variety 2 product 2"
+        variety3_product2: "variety 3 product 2"
+        variety4_product2: "variety 4 product 2"
+        nil: "not specified"
+      aspects:
+        aspect1_product2: "aspect 1 product 2"
+        aspect2_product2: "aspect 2 product 2"
+        aspect3_product2: "aspect 3 product 2"
+        nil: "not specified"
+      packagings:
         packaging1_product2: "packaging 1 product 2"
         packaging2_product2: "packaging 2 product 2"
         packaging3_product2: "packaging 3 product 2"
-        packaging4_product2: "packaging 4 product 2"
-      product3:
+        nil: "not specified"
+      sizes:
+        size1_product2: "size 1 product 2"
+        size2_product2: "size 2 product 2"
+        size3_product2: "size 3 product 2"
+        nil: "not specified"
+      calibers:
+        caliber1_product2: "caliber 1 product 2"
+        caliber2_product2: "caliber 2 product 2"
+        caliber3_product2: "caliber 3 product 2"
+        nil: "not specified"
+    product3:
+      name: "product 3"
+      varieties:
+        variety1_product3: "variety 1 product 3"
+        variety2_product3: "variety 2 product 3"
+        variety3_product3: "variety 3 product 3"
+        nil: "not specified"
+      aspects:
+        aspect1_product3: "aspect 1 product 3"
+        aspect2_product3: "aspect 2 product 3"
+        aspect3_product3: "aspect 3 product 3"
+        nil: "not specified"
+      packagings:
         packaging1_product3: "packaging 1 product 3"
         packaging2_product3: "packaging 2 product 3"
         packaging3_product3: "packaging 3 product 3"
-        packaging4_product3: "packaging 4 product 3"
-      none: "not specified"
+        nil: "not specified"
+      sizes:
+        size1_product3: "size 1 product 3"
+        size2_product3: "size 2 product 3"
+        size3_product3: "size 3 product 3"
+        nil: "not specified"
+      calibers:
+        caliber1_product3: "caliber 1 product 3"
+        caliber2_product3: "caliber 2 product 3"
+        caliber3_product3: "caliber 3 product 3"
+        nil: "not specified"

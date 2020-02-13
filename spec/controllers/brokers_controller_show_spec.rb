@@ -67,9 +67,8 @@ RSpec.describe BrokersController, type: :controller do
     # TEST then the broker is assigned
     # TEST and the suppliers without approved is assigned
     # TEST and the customers without approved is assigned
-    # TEST and the products without approved is assigned
+    # TEST and the products
     # TEST and the offers without approved is assigned
-    # TEST and the tenders without approved is assigned
     # TEST and the orders without approved is assigned
     # TEST and the show template is rendered
     describe "as a logged broker asking for his page" do
@@ -80,16 +79,14 @@ RSpec.describe BrokersController, type: :controller do
 
       it "assigns the broker and assigns the suppliers_without_approved and
        assigns the customers_without_approved and
-       assigns the products_without_approved and
+       assigns the products and
        assigns the offers_without_approved and
-       assigns the tenders_without_approved and
        assigns the orders_without_approved and renders the show template" do
         expect(assigns(:broker)).to eq(broker1)
         expect(assigns(:suppliers_without_approved)).to eq(Supplier.with_approved(false))
         expect(assigns(:customers_without_approved)).to eq(Customer.with_approved(false))
-        expect(assigns(:products_without_approved)).to eq(Product.with_approved(false))
+        expect(assigns(:products)).to eq(Product.all)
         expect(assigns(:offers_without_approved)).to eq(Offer.with_approved(false))
-        expect(assigns(:tenders_without_approved)).to eq(Tender.with_approved(false))
         expect(assigns(:orders_without_approved)).to eq(Order.with_approved(false))
         expect(response).to render_template(:show)
       end

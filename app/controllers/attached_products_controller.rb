@@ -1,63 +1,71 @@
 class AttachedProductsController < ApplicationController
-  before_action :set_object
-
+  include Utilities
   # GET /attached_products
   def index
-    object_attached_products = @object.attached_products.includes(:product).
-      includes(:variety).includes(:aspect).includes(:packaging)
-    @attached_products = make_attached_hashs(object_attached_products)
+    @attached_products = @user.attached_products
+    @products = Product.all.pluck(:name, :name)
   end
 
-  # GET /attached_products/1/edit
-  def edit
-    attachable_products = AttachedProduct.includes(:product).includes(:variety).
-      includes(:aspect).where(attachable_type: 'Broker')
-    object_attached_products = @object.attached_products.includes(:product).
-      includes(:variety).includes(:aspect).includes(:packaging)
-		@attached_products = make_attached_hashs(object_attached_products, attachable_products)
-	end
-
-	# PATCH/PUT /attached_products/1
-	def update
-		@object.attached_products.destroy_all
-		attached_products_params.each do |attachable_id|
-			attachable = AttachedProduct.find attachable_id
-			@object.attached_products.create(product_id: attachable.product_id,
-																			 variety_id: attachable.variety_id,
-																			 aspect_id: attachable.aspect_id,
-																			 packaging_id: attachable.packaging_id)
-		end
-    redirect_to attached_products_path, notice: I18n.t('controllers.attached_products.update.succefully')
-	end
-
-	private
-	# Use callbacks to share common setup or constraints between actions.
-	def set_object
-		@object = current_customer || current_supplier
-	end
-
-	# Only allow a trusted parameter "white list" through.
-	def attached_products_params
-		params.require(:attached_products)
-	end
-
-	def make_attached_hashs(object_attached_products, attached_products=nil)
-    object_attached_products_hashs = object_attached_products.map do |object_attached_product|
-      make_attached_hash(object_attached_product)
-    end
-    attached_products_hashs = attached_products&.map do |attached_product|
-      attached_hash = make_attached_hash(attached_product)
-      is_attached = object_attached_products_hashs.map{|hash| hash.except(:id)}.include? (attached_hash.except(:id))
-      attached_hash.merge({is_attached: is_attached})
-    end
-    attached_products ? attached_products_hashs : object_attached_products_hashs
+  # GET /attached_products/new
+  def new
+    @user = params[:supplier_id] ? Supplier.find(params[:supplier_id]) :
+      Customer.find(params[customer_id])
+    product = Product.find_by(name: params_new["product"])
+    @product = product.name
+    @varieties = product.assortments['varieties']
+    @aspects = product.assortments['aspects']
+    @packagings = product.assortments['packagings']
+    @sizes = product.assortments['sizes']
+    @calibers = product.assortments['calibers']
   end
 
-  def make_attached_hash(attached_product)
-    {id: attached_product.id,
-     product_name: attached_product.product.name,
-     variety_name: attached_product.variety&.name,
-     aspect_name: attached_product.aspect&.name,
-     packaging_name: attached_product.packaging&.name}
+  # POST /attached_products/create
+  def create 
+    @user = params[:supplier_id] ? Supplier.find(params[:supplier_id]) :
+      Customer.find(params[customer_id])
+    definition = params_create.to_h.symbolize_keys
+    definition.delete(:product)
+    attached_product = AttachedProduct.find_or_create_by(product: params_create[:product],
+                                           definition: definition,
+                                           attachable: @user)
+    message = attached_product.save ?
+      I18n.t('controllers.attached_products.create.succefully') :
+      helper_activerecord_error_message('attached_product',
+                                        attached_product.errors)
+    redirect_to path_for(user: @user, path: 'attached_products'), notice: message
+  end
+
+  def update
+    AttachedProduct.where(attachable_type: 'Broker').destroy_all
+    array_attached_products = params_update[:attached_products].each do |attached_product|
+      matches = attached_product.match(/(?<product_id>\d+)_(?<variety_id>\d*)_(?<aspect_id>\d*)_(?<packaging_id>\d*)/)
+      variety_id = matches[:variety_id]
+      aspect_id = matches[:aspect_id]
+      packaging_id = matches[:packaging_id]
+      AttachedProduct.find_or_create_by(attachable_type: 'Broker',
+                                        attachable_id: current_broker.id,
+                                        product_id: matches[:product_id],
+                                        variety_id: variety_id == "0" ? nil : variety_id,
+                                        aspect_id: aspect_id == "0" ? nil : aspect_id,
+                                        packaging_id: packaging_id == "0" ? nil : packaging_id)
+    end
+    redirect_to attached_products_path,
+      notice: I18n.t('controllers.attached_products.update.succefully')
+  end
+
+  private
+  def params_new
+    base = [:product, :user_id, :user_type]
+    params.fetch(:new_attached_product, {}).permit(base)
+  end
+
+  def params_create
+    base = [:product, :variety, :aspect, :packaging, :size, :caliber]
+    params.fetch(:create_attached_product, {}).permit(base)
+  end
+
+  def params_update
+    base = [:attached_products => []]
+    params.fetch(:update, {}).permit(base)
   end
 end

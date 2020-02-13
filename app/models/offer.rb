@@ -1,42 +1,38 @@
 class Offer < ApplicationRecord
   belongs_to :supplier
+  belongs_to :attached_product
   belongs_to :product
-  belongs_to :variety, optional: true
-  belongs_to :aspect, optional: true
-  belongs_to :size, optional: true
-  belongs_to :packaging, optional: true
+  has_many :orders
   validates :supplier, presence: true
   validates :product, presence: true
-
+  validates :attached_product, presence: true
+ 
   def product_name
-    product ? product.name : nil
+    attached_product.product
   end
 
   def variety_name
-    variety ? variety.name : nil
+    attached_product.variety
   end
 
   def aspect_name
-    aspect ?  aspect.name : nil
+    attached_product.aspect
   end
 
   def packaging_name
-    packaging ? packaging.name : nil
+    attached_product.packaging
   end
 
-  def supplier_currency
-    supplier ? supplier.currency : nil
+  def size_name
+    attached_product.size
   end
 
-  def self.by_supplier(supplier_id)
-    where(supplier_id: supplier_id)
-  end
-
-  def self.with_approved(approved)
-    where(approved: approved)
+  def caliber_name
+    attached_product.caliber
   end
 
   def self.not_expired
     where('date_end >= ?', Time.now)
   end
+
 end

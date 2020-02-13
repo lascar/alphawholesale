@@ -1,4 +1,3 @@
-<%# binding.pry %>
 <%= form_with(order_form_hash(@order)) do |form| %>
   <% if @order.errors.any? %>
     <div id="error_explanation">
@@ -29,24 +28,24 @@
   <div class="card">
     <div class="row">
       <div class="col-3">
-        <strong><%= Offer.human_attribute_name("product") %>:</strong>
+        <strong><%= t("models.attributes.offer.product") %>:</strong>
         <%= t("product.name." + @offer_nested[:product_name]) %>
       </div>
 
       <div class="col-3">
-        <strong><%= Product.human_attribute_name("variety") %>:</strong>
+        <strong><%= t("models.attributes.product.variety") %>:</strong>
         <%= @offer_nested[:variety_name] ? t("product.variety." + @offer_nested[:product_name] +
                                "." + @offer_nested[:variety_name]) : "" %>
       </div>
 
       <div class="col-3">
-        <strong><%= Offer.human_attribute_name("aspect") %>:</strong>
+        <strong><%= t("models.attributes.offer.aspect") %>:</strong>
         <%= @offer_nested[:aspect_name] ? t("product.aspect." + @offer_nested[:product_name] +
                               "." + @offer_nested[:aspect_name]) : "" %>
       </div>
 
       <div class="col-3">
-        <strong><%= Offer.human_attribute_name("packaging") %>:</strong>
+        <strong><%= t("models.attributes.offer.packaging") %>:</strong>
         <%= @offer_nested[:packaging_name] ? t("product.packaging." + @offer_nested[:product_name] +
                                  "." + @offer_nested[:packaging_name]) : "" %>
       </div>
@@ -64,7 +63,7 @@
 
       <% if !customer_signed_in? %>
         <div class="col-3">
-          <strong><%= Offer.human_attribute_name("unit_price_supplier") %>:</strong>
+          <strong><%= t("models.attributes.offer.unit_price_supplier") %>:</strong>
           <%= @offer.unit_price_supplier.to_s + " " + t("currencies." +
               @offer_nested[:supplier_currency] + ".symbol") %>
         </div>
@@ -72,7 +71,7 @@
 
       <% if !supplier_signed_in? %>
         <div class="col-3">
-          <strong><%= Offer.human_attribute_name("unit_price_broker") %>:</strong>
+          <strong><%= t("models.attributes.offer.unit_price_broker") %>:</strong>
           <%= @offer.unit_price_broker.to_s + " " + t("currencies." +
               @offer_nested[:supplier_currency] + ".symbol") %>
         </div>
@@ -84,7 +83,7 @@
     <div class="row">
       <div class="col-3">
         <div class="field">
-          <strong><%= Offer.human_attribute_name("incoterm") %>:</strong>
+          <strong><%= t("models.attributes.offer.incoterm") %>:</strong>
           <%= @offer.incoterm %>
         </div>
       </div>
@@ -92,7 +91,7 @@
       <% if !customer_signed_in? %>
         <div class="col-3">
           <div class="field">
-            <strong><%= Offer.human_attribute_name("localisation_supplier") %>:</strong>
+            <strong><%= t("models.attributes.offer.localisation_supplier") %>:</strong>
             <%= @offer.localisation_supplier %>
           </div>
         </div>
@@ -101,7 +100,7 @@
       <% if !supplier_signed_in? %>
         <div class="col-3">
           <div class="field">
-            <strong><%= Offer.human_attribute_name("localisation_broker") %>:</strong>
+            <strong><%= t("models.attributes.offer.localisation_broker") %>:</strong>
             <%= @offer.localisation_broker %>
           </div>
         </div>
@@ -112,7 +111,7 @@
   <div class="card">
     <div class="row">
       <div class="col-9">
-        <strong><%= Offer.human_attribute_name("observation") %>:</strong>
+        <strong><%= t("models.attributes.offer.observation") %>:</strong>
         <%= simple_format(@offer.observation) %>
       </div>
     </div>

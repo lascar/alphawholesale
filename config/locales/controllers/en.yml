@@ -1,9 +1,11 @@
 en:
   controllers:
-    admin_attached_products:
+    user_products:
       update:
-        succefully: "Attached products were successfully updated."
+        succefully: "User products were successfully updated."
     attached_products:
+      create:
+        succefully: "Attached product was successfully created."
       update:
         succefully: "Attached products were successfully updated."
     customers:
@@ -52,11 +54,3 @@ en:
       successfully_created: "Order Line was successfully created."
       successfully_updated: "Order Line was successfully updated."
       successfully_destroyed: "Order Line was successfully destroyed."
-    tenders:
-      successfully_created: "Tender was successfully created."
-      successfully_updated: "Tender was successfully updated."
-      successfully_destroyed: "Tender was successfully destroyed."
-    tender_lines:
-      successfully_created: "Tender Line was successfully created."
-      successfully_updated: "Tender Line was successfully updated."
-      successfully_destroyed: "Tender Line was successfully destroyed."

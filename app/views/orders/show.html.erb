@@ -1,23 +1,34 @@
 <div class="card">
   <div class="row">
     <div class="col-3">
-      <strong><%= Offer.human_attribute_name("product") %>:</strong>
-      <%= @offer.product.name %>
+      <strong><%= t("models.attributes.offer.product") %>:</strong>
+      <%= @offer.product_name %>
     </div>
 
     <div class="col-3">
-      <strong><%= Product.human_attribute_name("variety") %>:</strong>
-      <%= @offer.variety ? @offer.variety.name : "" %>
+      <strong><%= t("models.attributes.product.variety") %>:</strong>
+      <%= @offer.variety_name %>
     </div>
 
     <div class="col-3">
-      <strong><%= Offer.human_attribute_name("aspect") %>:</strong>
-      <%= @offer.aspect ? @offer.aspect.name : "" %>
+      <strong><%= t("models.attributes.offer.aspect") %>:</strong>
+      <%= @offer.aspect_name %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <strong><%= t("models.attributes.offer.packaging") %>:</strong>
+      <%= @offer.packaging_name%>
     </div>
 
     <div class="col-3">
-      <strong><%= Offer.human_attribute_name("packaging") %>:</strong>
-      <%= @offer.packaging ? @offer.packaging.name : "" %>
+      <strong><%= t("models.attributes.product.size") %>:</strong>
+      <%= @offer.size_name %>
+    </div>
+
+    <div class="col-3">
+      <strong><%= t("models.attributes.offer.caliber") %>:</strong>
+      <%= @offer.caliber_name %>
     </div>
   </div>
 </div>
@@ -25,18 +36,18 @@
 <div class="card">
   <div class="row">
     <div class="col-3">
-      <strong><%= Order.human_attribute_name("quantity") %>:</strong>
+      <strong><%= t("models.attributes.order.quantity") %>:</strong>
       <%= @order.quantity.to_s + " " + t("unit_types." + @offer.supplier.unit_type +
           ".symbol")%>
     </div>
 
     <% if !customer_signed_in? %>
       <div class="col-3">
-        <strong><%= t("activerecord.models.customer.name") %>:</strong>
+        <strong><%= t("models.customer.name") %>:</strong>
         <%= @order.customer.identifier %>
       </div>
       <div class="col-3">
-        <strong><%= Offer.human_attribute_name("unit_price_supplier") %>:</strong>
+        <strong><%= t("models.attributes.offer.unit_price_supplier") %>:</strong>
         <%= @offer.unit_price_supplier.to_s + " " +
           t("currencies." + @offer.supplier.currency + ".symbol") %>
       </div>
@@ -44,7 +55,7 @@
 
     <% if !supplier_signed_in? %>
       <div class="col-3">
-        <strong><%= Offer.human_attribute_name("unit_price_broker") %>:</strong>
+        <strong><%= t("models.attributes.offer.unit_price_broker") %>:</strong>
         <%= @offer.unit_price_broker.to_s + " " +
           t("currencies." + @offer.supplier.currency + ".symbol") %>
       </div>
@@ -57,26 +68,26 @@
 <div class="card">
   <div class="row">
     <div class="col-3">
-      <strong><%= Offer.human_attribute_name("incoterm") %>:</strong>
+      <strong><%= t("models.attributes.offer.incoterm") %>:</strong>
       <%= @offer.incoterm %>
     </div>
 
     <% if !customer_signed_in? %>
       <div class="col-3">
-        <strong><%= Offer.human_attribute_name("localisation_supplier") %>:</strong>
+        <strong><%= t("models.attributes.offer.localisation_supplier") %>:</strong>
         <%= @offer.localisation_supplier %>
       </div>
     <% end %>
 
     <% if !supplier_signed_in? %>
       <div class="col-3">
-        <strong><%= Offer.human_attribute_name("localisation_broker") %>:</strong>
+        <strong><%= t("models.attributes.offer.localisation_broker") %>:</strong>
         <%= @offer.localisation_broker %>
       </div>
     <% end %>
 
     <div class="col-3">
-      <strong><%= Order.human_attribute_name("approved") %></strong>
+      <strong><%= t("models.attributes.order.approved") %></strong>
       <%= check_box_tag :approved, '', @order.approved, disabled: true %>
     </div>
 
@@ -86,7 +97,7 @@
 <div class="card">
   <div class="row">
     <div class="col">
-      <strong><%= Offer.human_attribute_name("observation") %>:</strong>
+      <strong><%= t("models.attributes.offer.observation") %>:</strong>
       <%= simple_format(@offer.observation) %>
     </div>
   </div>
@@ -95,12 +106,12 @@
 <div class="card">
   <div class="row">
     <div class="col">
-      <strong><%= Order.human_attribute_name("customer_observation") %>:</strong>
+      <strong><%= t("models.attributes.order.customer_observation") %>:</strong>
       <%= simple_format(@order.customer_observation) %>
     </div>
   </div>
 </div>
 
-<%# binding.pry %>
-<%= link_to t("edit"), order_edit_path(@order) %> |
+<%= link_to t("edit"), path_for(user: current_user, path: "edit_order",
+                                options: {object_id: @order.id}) %> |
 <%= link_to t("back"), :back %>

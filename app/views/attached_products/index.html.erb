@@ -1,28 +1,66 @@
-<p id="notice"><%= notice %></p>
+<h1><%= t("views.attached_products.name") %></h1>
 
-<h1>Attach Products</h1>
-
-<table>
+<table class="table-responsive">
   <thead>
     <th><%= t("views.product_name") %></th>
     <th><%= t("views.variety_name") %></th>
     <th><%= t("views.aspect_name") %></th>
     <th><%= t("views.packaging_name") %></th>
+    <th><%= t("views.size_name") %></th>
+    <th><%= t("views.caliber_name") %></th>
+    <th class="table-icons" colspan="1"></th>
   </thead>
 
   <tbody>
     <% @attached_products.each do |attached_product| %>
-      <% product_name = attached_product[:product_name] %>
-        <tr id="attached_product_<%= attached_product[:id].to_s %>">
-        <td><%= t("product.name." + product_name) %></td>
-        <td><%= t("product.variety." + product_name + "." + attached_product[:variety_name].to_s, default: t("product.variety.none")) %></td>
-        <td><%= t("product.aspect." + product_name + "." + attached_product[:aspect_name].to_s, default: t("product.aspect.none")) %></td>
-        <td><%= t("product.packaging." + product_name + "." + attached_product[:packaging_name].to_s, default: t("product.packaging.none")) %></td>
+      <% product = attached_product.product %>
+      <tr id="attached_product_<%= attached_product.id.to_s %>">
+        <td><%= t("products." + product + ".name") %></td>
+        <td id="<%= 'attached_product_variety_' + attached_product.id.to_s %>">
+          <%= t("products." + product + "." + ".varieties." + attached_product.variety) %>
+        </td>
+        <td id="<%= 'attached_product_aspect_' + attached_product.id.to_s %>">
+          <%= t("products." + product + "." + ".aspects." + attached_product.aspect) %>
+        </td>
+        <td id="<%= 'attached_product_packaging_' + attached_product.id.to_s %>">
+          <%= t("products." + product + "." + ".packagings." + attached_product.packaging) %>
+        </td>
+        <td id="<%= 'attached_product_size_' + attached_product.id.to_s %>">
+          <%= t("products." + product + "." + ".sizes." + attached_product.size) %>
+        </td>
+        <td id="<%= 'attached_product_caliber_' + attached_product.id.to_s %>">
+          <%= t("products." + product + "." + ".calibers." + attached_product.caliber) %>
+        </td>
+        <%= render current_user.class.name.downcase + "_delete",
+          locals: {id: attached_product.id} %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <%= t("views.attached_products.select_product") %>
+      </div>
+      <div class="card-body">
+        <% path = path_for(user: @user, path: "new_attached_product") %>
+        <%= form_with(url: path, method: 'get', local: true,
+            authenticity_token: true, id: "form_new_attach_product") do |form| %>
+          <div class="field">
+            <%= form.label "new_attached_product[product]", t("views.products.name") %>
+            <%= form.select "new_attached_product[product]", @products, {} %>
+          </div>
 
-<%= link_to t("views.attached_products.edit"), edit_attached_products_path %>
+          <div class="actions">
+            <%= form.submit t("views.attached_products.new") %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<%#= render current_user.class.name.downcase + "_new" %>
+<%#= link_to t("views.attached_products.new"), new_supplier_attached_product_path, id: "link_new_attached_products" %>

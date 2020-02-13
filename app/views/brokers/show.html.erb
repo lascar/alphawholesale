@@ -1,74 +1,19 @@
-<%# binding.pry %>
-<%= link_to t("brokers.edit"), edit_broker_path(@broker), class: "btn btn-info btn-sm give-me-some-space" %>
+<%= link_to t("views.brokers.edit"), path_for(user: current_user, path: "edit_broker"),
+    class: "btn btn-info btn-sm give-me-some-space" %>
 <div class="card shadow-sm">
   <div class="row">
-    <div class="col-md-6">
+    <div class="card col-md-6">
       <table class="table-bordered table-hover table-sm table-all table-broker">
         <caption>
-          <%= t('products.without_approved') %>
+          <%= t('views.suppliers.without_approved') %>
         </caption>
         <thead>
           <tr>
             <th><div class="cell-resumen">
-              <%= Product.human_attribute_name("identifier") %>
-            </div></th>
-            <th class="table-icons" colspan="3"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @products_without_approved.each do |product| %>
-            <tr>
-              <td><div class="cell-resumen">
-                <%= product.name %>
-              </div></td>
-              <td>
-                <%= link_to icon('fas', 'fa-eye'), product, title: t("show") %>
-              </td>
-              <td>
-                <%= link_to icon('fas', 'fa-edit'), edit_product_path(product),
-                 title: t("edit") %>
-              </td>
-              <td>
-                <%= link_to icon('fas', 'fa-trash'), product, title: t("destroy"),
-                 method: :delete, data: { confirm: t(:are_you_sure) } %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%= link_to t("products.new"), new_product_path %>
-      <br>
-      <%= link_to t("products.list"), products_path %>
-    </div>
-    <div class="col-md-6">
-      <table class="table-bordered table-hover table-sm table-all table-broker">
-        <caption>
-          <%= t('views.brokers.attached_products') %>
-        </caption>
-        <tbody>
-          <tr>
-            <td>
-              <%= link_to t("views.brokers.manage_attachable"), admin_attached_products_path %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div><div class="card shadow-sm">
-  <div class="row">
-    <div class="col-md-6">
-      <table class="table-bordered table-hover table-sm table-all table-broker">
-        <caption>
-          <%= t('suppliers.without_approved') %>
-        </caption>
-        <thead>
-          <tr>
-            <th><div class="cell-resumen">
-              <%= Supplier.human_attribute_name("identifier") %>
+              <%= t("models.attributes.supplier.identifier") %>
             </div></th>
             <th><div class="cell-resumen">
-              <%= Supplier.human_attribute_name("email") %>
+              <%= t("models.attributes.supplier.email") %>
             </div></th>
             <th class="table-icons" colspan="3"></th>
           </tr>
@@ -82,21 +27,21 @@
               <td><div class="cell-resumen">
                 <%= supplier.email %>
               </div></td>
-              <td><%= link_to icon('fas', 'fa-eye'), supplier, title: t("show") %></td>
+              <td><%= link_to icon('fas', 'fa-eye'), supplier, title: t("views.show") %></td>
               <td><%= link_to icon('fas', 'fa-edit'),
-                edit_supplier_path( supplier), title: t("edit") %></td>
+                edit_supplier_path( supplier), title: t("views.edit") %></td>
               <td><%= link_to icon('fas', 'fa-trash'), supplier,
-                title: t("destroy"), method: :delete,
+                title: t("views.destroy"), method: :delete,
                 data: { confirm: t(:are_you_sure) } %></td>
-            </tr>
+              </tr>
           <% end %>
         </tbody>
       </table>
-      <%= link_to t("suppliers.new"), new_supplier_registration_url %>
+      <%= link_to t("views.new"), path_for(user: "supplier", path: "new_user") %>
       <br>
-      <%= link_to t("suppliers.list"), suppliers_path %>
+      <%= link_to t("views.index"), suppliers_path %>
     </div>
-    <div class="col-md-6">
+    <div class="card col-md-6">
       <table class="table-bordered table-hover table-sm table-all table-broker">
         <caption>
           <%= t('offers.without_approved') %>
@@ -104,13 +49,13 @@
         <thead>
           <tr>
             <th><div class="cell-resumen">
-              <%= Offer.human_attribute_name("product") %>
+              <%= t("models.attributes.offer.product") %>
             </div></th>
             <th><div class="cell-resumen">
-              <%= Offer.human_attribute_name("quantity") %>
+              <%= t("models.attributes.offer.quantity") %>
             </div></th>
             <th><div class="cell-resumen">
-              <%= Offer.human_attribute_name("unit_price_supplier") %>
+              <%= t("models.attributes.offer.unit_price_supplier") %>
             </div></th>
             <th class="table-icons" colspan="3"></th>
           </tr>
@@ -131,42 +76,40 @@
               </div></td>
               <td>
                 <%= link_to icon('fas', 'fa-eye'),
-                 offer_show_path(offer), title: t("show") %>
+                 offer_show_path(offer), title: t("views.show") %>
               </td>
               <td>
                 <%= link_to icon('fas', 'fa-edit'),
-                 offer_edit_path(offer), title: t("edit") %>
+                 offer_edit_path(offer), title: t("views.edit") %>
               </td>
               <td>
                 <%= link_to icon('fas', 'fa-trash'),
-                 offer_show_path(offer), title: t("destroy"),
+                 offer_show_path(offer), title: t("views.destroy"),
                  method: :delete, data: { confirm: t(:are_you_sure) } %>
               </td>
             </tr>
           <% end %>
         </tbody>
       </table>
-      <%= link_to t("offers.new"), new_offer_path %>
+      <%= link_to t("views.offers.new"), path_for(user: current_user, path: "new_offer") %>
       <br>
-      <%= link_to t("offers.list"), offers_path %>
+      <%= link_to t("views.offers.list"), path_for(user: current_user, path: "offers") %>
     </div>
   </div>
-</div>
-<br>
-<div class="card">
+  <br>
   <div class="row">
-    <div class="col-md-4">
+    <div class="card col-md-4">
       <table class="table-bordered table-hover table-sm table-all table-broker">
         <caption>
-          <%= t('customers.without_approved') %>
+          <%= t('views.customers.without_approved') %>
         </caption>
         <thead>
           <tr>
             <th><div class="cell-resumen">
-              <%= Customer.human_attribute_name("identifier") %>
+              <%= t("models.attributes.customer.identifier") %>
             </div></th>
             <th><div class="cell-resumen">
-              <%= Customer.human_attribute_name("email") %>
+              <%= t("models.attributes.customer.email") %>
             </div></th>
             <th class="table-icons" colspan="3"></th>
           </tr>
@@ -180,32 +123,32 @@
               <td><div class="cell-resumen">
                 <%= customer.email %>
               </div></td>
-              <td><%= link_to icon('fas', 'fa-eye'), customer, title: t("show") %></td>
+              <td><%= link_to icon('fas', 'fa-eye'), customer, title: t("views.show") %></td>
               <td><%= link_to icon('fas', 'fa-edit'),
-                edit_customer_path( customer), title: t("edit") %></td>
+                edit_customer_path( customer), title: t("views.edit") %></td>
               <td><%= link_to icon('fas', 'fa-trash'), customer,
-                title: t("destroy"), method: :delete,
+                title: t("views.destroy"), method: :delete,
                 data: { confirm: t(:are_you_sure) } %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
-      <%= link_to t("customers.new"), new_customer_path %>
+      <%= link_to t("views.customers.new"), new_customer_path %>
       <br>
-      <%= link_to t("customers.list"), customers_path %>
+      <%= link_to t("views.customers.list"), customers_path %>
     </div>
-    <div class="col-md-4">
+    <div class="card col-md-4">
       <table class="table-bordered table-hover table-sm table-all table-broker">
         <caption>
-          <%= t('orders.without_approved') %>
+          <%= t("views.orders.without_approved") %>
         </caption>
         <thead>
           <tr>
             <th><div class="cell-resumen">
-              <%= Product.human_attribute_name("name") %>
+              <%= t("models.attributes.product.name") %>
             </div></th>
             <th><div class="cell-resumen">
-              <%= Order.human_attribute_name("quantity") %>
+                <%= t("models.attributes.order.quantity") %>
             </div></th>
             <th class="table-icons" colspan="3"></th>
           </tr>
@@ -220,79 +163,28 @@
                 <%= order.quantity %>
               </div></td>
               <td>
-                <%= link_to icon('fas', 'fa-eye'), order, title: t("show") %>
+                <%= link_to icon('fas', 'fa-eye'), order, title: t("views.show") %>
               </td>
               <td>
                 <%= link_to icon('fas', 'fa-edit'), edit_order_path(order),
-                 title: t("edit") %>
+                 title: t("views.edit") %>
               </td>
               <td>
-                <%= link_to icon('fas', 'fa-trash'), order, title: t("destroy"),
+                <%= link_to icon('fas', 'fa-trash'), order, title: t("views.destroy"),
                  method: :delete, data: { confirm: t(:are_you_sure) } %>
               </td>
             </tr>
           <% end %>
         </tbody>
       </table>
-      <%= link_to t("orders.new"), new_order_path %>
+      <%= link_to t("views.orders.new"), path_for(user: current_user, path: "new_order") %>
       <br>
-      <%= link_to t("orders.list"), orders_path %>
-    </div>
-    <div class="col-md-4">
-      <table class="table-bordered table-hover table-sm table-all table-broker">
-        <caption>
-          <%= t('tenders.without_approved') %>
-        </caption>
-        <thead>
-          <tr>
-            <th><div class="cell-resumen">
-              <%= Tender.human_attribute_name("date_start") %>
-            </div></th>
-            <th><div class="cell-resumen">
-              <%= Tender.human_attribute_name("date_end") %>
-            </div></th>
-            <th><div class="cell-resumen">
-              <%= Tender.human_attribute_name("total") %>
-            </div></th>
-            <th class="table-icons" colspan="3"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @tenders_without_approved.each do |tender| %>
-            <tr>
-              <td><div class="cell-resumen">
-                <%= tender.date_start %>
-              </div></td>
-              <td><div class="cell-resumen">
-                <%= tender.date_end %>
-              </div></td>
-              <td><div class="cell-resumen">
-                <%= tender.total %>
-              </div></td>
-              <td>
-                <%= link_to icon('fas', 'fa-eye'), tender, title: t("show") %>
-              </td>
-              <td>
-                <%= link_to icon('fas', 'fa-edit'), edit_tender_path(tender),
-                 title: t("edit") %>
-              </td>
-              <td>
-                <%= link_to icon('fas', 'fa-trash'), tender,
-                 title: t("destroy"), method: :delete,
-                 data: { confirm: t(:are_you_sure) } %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%= link_to t("tenders.new"), new_tender_path %>
-      <br>
-      <%= link_to t("tenders.list"), tenders_path %>
+      <%= link_to t("views.orders.list"), path_for(user: current_user, path: "orders") %>
     </div>
   </div>
 </div>
 <br>
 
 <div class="card card-without-border">
-  <%= link_to t("brokers.list"), brokers_path %>
+  <%= link_to t("views.brokers.list"), brokers_path %>
 </div>

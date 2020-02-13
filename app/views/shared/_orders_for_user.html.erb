@@ -1,0 +1,49 @@
+<div class="row small-font">
+  <div class="card">
+    <div class="card-header text-center text-uppercase">
+      <b><%= t("models.order.name") + t("with_count", count: @orders.count) %></b>
+    </div>
+    <% if @orders.count > 0 %>
+    <table class="table table-responsive table-hover table-all">
+      <thead>
+        <tr>
+          <th scope="col" class="text-truncate"
+            title="<%= t("models.attributes.offer.product") %>">
+            <%= t("models.attributes.offer.product") %>
+          </th>
+          <th scope="col" class="text-truncate"
+            title="<%= t("models.attributes.order.quantity") %>">
+            <%= t("models.attributes.order.quantity") %>
+          </th>
+          <th scope="col" class="text-truncate"
+            title="<%= t("models.attributes.offer.unit_price_broker") %>">
+            <%= t("models.attributes.offer.unit_price_broker") %>
+          </th>
+          <th scope="col" colspan="1"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @orders.each do |order| %>
+          <tr>
+            <td class="text-truncate" title="<%= order.offer.product.name %>">
+              <%= order.offer.product.name %>
+            </td>
+            <td class="text-truncate" title="<%= order.quantity %>">
+              <%= order.quantity.to_s + " " + order.offer.supplier.unit_type %>
+            </td>
+            <td class="text-truncate" title="<%= order.offer.unit_price_broker %>">
+              <%= order.offer.unit_price_broker.to_s  + " " +
+                  order.offer.supplier.currency %>
+            </td>
+            <td><%= link_to icon('fas', 'fa-eye'), title: t("show"),
+              path_for(user: current_user, path: "show_order",
+                       options: {object_id: order.id}) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% end %>
+  </div>
+</div>

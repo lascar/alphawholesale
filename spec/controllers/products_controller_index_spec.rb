@@ -19,7 +19,7 @@ RSpec.describe ProductsController, type: :controller do
       end
 
       it "assigns all products" do
-        expect(assigns(:products).sort).to eq(Product.with_approved(true).sort)
+        expect(assigns(:products).sort).to eq(Product.all.sort)
       end
 
       it "renders the index" do
@@ -38,45 +38,45 @@ RSpec.describe ProductsController, type: :controller do
       end
 
       it "assigns all products" do
-        expect(assigns(:products).sort).to eq(Product.with_approved(true).sort)
+          expect(assigns(:products).sort).to eq(Product.all.sort)
+        end
+
+        it "renders the index" do
+          expect(response).to render_template(:index)
+        end
       end
 
-      it "renders the index" do
-        expect(response).to render_template(:index)
-      end
-    end
+      # TEST as a logged supplier
+      # TEST when the list of products is asked for
+      # TEST then all the products are assigned
+      # TEST and it renders the index
+      describe "as a logged supplier" do
+        before :each do
+          sign_in(supplier1)
+          get :index
+        end
 
-    # TEST as a logged supplier
-    # TEST when the list of products is asked for
-    # TEST then all the products are assigned
-    # TEST and it renders the index
-    describe "as a logged supplier" do
-      before :each do
-        sign_in(supplier1)
-        get :index
-      end
+        it "assigns all products" do
+          expect(assigns(:products).sort).to eq(Product.all.sort)
+        end
 
-      it "assigns all products" do
-        expect(assigns(:products).sort).to eq(Product.with_approved(true).sort)
-      end
-
-      it "renders the index" do
-        expect(response).to render_template(:index)
-      end
-    end
-
-    # TEST as a logged broker
-    # TEST when the list of products is asked for
-    # TEST then all the products are assigned
-    # TEST and it renders the index
-    describe "as a logged broker" do
-      before :each do
-        sign_in(broker1)
-        get :index
+        it "renders the index" do
+          expect(response).to render_template(:index)
+        end
       end
 
-      it "assigns all products" do
-        expect(assigns(:products).sort).to eq(Product.with_approved(true).sort)
+      # TEST as a logged broker
+      # TEST when the list of products is asked for
+      # TEST then all the products are assigned
+      # TEST and it renders the index
+      describe "as a logged broker" do
+        before :each do
+          sign_in(broker1)
+          get :index
+        end
+
+        it "assigns all products" do
+          expect(assigns(:products).sort).to eq(Product.all.sort)
       end
 
       it "renders the index" do

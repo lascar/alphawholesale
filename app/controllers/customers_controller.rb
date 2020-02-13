@@ -14,8 +14,9 @@ class CustomersController < ApplicationController
   def show
     authorize @customer
     @orders = @customer.orders
-    @attached_products = make_attached_products_hash(@customer.attached_products)
+    @attached_products = AttachedProduct.where(attachable: @supplier)
     @offers = Offer.where(approved: true).select{|o| o.date_end >= Time.now}
+    @user_products = @customer.user_product.products
   end
 
   # GET /customers/new

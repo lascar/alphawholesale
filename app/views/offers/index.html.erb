@@ -1,16 +1,16 @@
-<h1><%= Offer.model_name.human(count: 2) %></h1>
+<h1><%= t("models.offer.name") + t("with_count", count: @offers.count) %></h1>
 
 <div class="card">
   <table class="table-all table-bordered table-responsive">
     <thead>
       <tr>
-        <th><%= Offer.human_attribute_name("product") %></th>
-        <th><%= Offer.human_attribute_name("quantity") %></th>
+        <th><%= t("models.attributes.offer.product") %></th>
+        <th><%= t("models.attributes.offer.quantity") %></th>
         <% if !customer_signed_in? %>
-          <th><%= Offer.human_attribute_name("unit_price_supplier") %></th>
+          <th><%= t("models.attributes.offer.unit_price_supplier") %></th>
         <% end %>
         <% if !supplier_signed_in? %>
-          <th><%= Offer.human_attribute_name("unit_price_broker") %></th>
+          <th><%= t("models.attributes.offer.unit_price_broker") %></th>
         <% end %>
         <th colspan="3"></th>
       </tr>
@@ -19,7 +19,6 @@
     <tbody>
       <% @offers.each do |offer| %>
         <tr>
-          <%# binding.pry %>
           <td><%= offer[:product_name] %></td>
           <td><%= offer[:quantity] %></td>
           <% if !customer_signed_in? %>
@@ -33,15 +32,16 @@
             </td>
           <% end %>
           <td>
-            <%= link_to icon('fas', 'fa-eye'), offer_show_path(offer[:id]),
-                                            title: t("show") %>
+            <%= link_to icon('fas', 'fa-eye'), path_for(user: @user || current_user,
+             path: "show_offer", options: {object_id: offer.id}), title: t("show") %>
           </td>
           <td>
-            <%= link_to icon('fas', 'fa-edit'), offer_edit_path(offer[:id]),
-                                            title: t("edit") %>
+            <%= link_to icon('fas', 'fa-edit'), path_for(user: @user,
+             path: "edit_offer", options: {object_id: offer.id}), title: t("edit") %>
           </td>
           <td>
-            <%= link_to icon('fas', 'fa-trash'), offer_show_path(offer[:id]),
+            <%= link_to icon('fas', 'fa-trash'), path_for(user: @user,
+             path: "offers", options: {objet_id: offer.id}),
               method: :delete, data: { confirm: t(:are_you_sure) },
               title: t("destroy") %>
           </td>
@@ -53,7 +53,8 @@
 <br>
 
 <% if !customer_signed_in? %>
-  <%= link_to t("offers.new"), offer_new_path, {title: t("offers.new")} %>
+  <%= link_to t("offers.new"), path_for(user: @user, path: "offer_new"),
+    title: t("offers.new") %>
 <% end %>
 <% if @supplier_id %>
   <br>

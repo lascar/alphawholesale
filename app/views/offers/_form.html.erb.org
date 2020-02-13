@@ -1,4 +1,3 @@
-<%# binding.pry %>
 <%= form_with(offer_form_hash(@supplier_id, @offer)) do |form| %>
   <% if offer.errors.any? %>
     <div id="error_explanation">

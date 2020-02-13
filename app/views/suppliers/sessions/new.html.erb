@@ -2,11 +2,11 @@
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
-    <%= f.text_field :identifier, autofocus: true, autocomplete: "identifier", placeholder: t("activerecord.attributes.supplier.identifier") %>
+    <%= f.text_field :identifier, autofocus: true, autocomplete: "identifier", placeholder: t("models.attributes.supplier.identifier") %>
   </div>
 
   <div class="field">
-    <%= f.password_field :password, autocomplete: "current-password", placeholder: t("activerecord.attributes.supplier.password") %>
+    <%= f.password_field :password, autocomplete: "current-password", placeholder: t("models.attributes.supplier.password") %>
   </div>
 
   <% if devise_mapping.rememberable? -%>

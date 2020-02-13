@@ -1,8 +1,7 @@
 class SuppliersController < ApplicationController
   include Utilities
   before_action :authenticate_user!
-  before_action :set_supplier,
-   only: [:show, :edit, :update, :destroy]
+  before_action :set_supplier, only: [:show, :edit, :update, :destroy]
 
   # GET /suppliers
   def index
@@ -14,7 +13,9 @@ class SuppliersController < ApplicationController
   def show
     authorize @supplier
     @offers = @supplier.offers.includes(:product)
-    @attached_products = make_attached_products_hash(@supplier.attached_products)
+    @orders = @offers.map{|offer| offer.orders}.compact.flatten
+    @attached_products = AttachedProduct.where(attachable: @supplier)
+    @user_products = @supplier.user_product.products
   end
 
   # GET /suppliers/new

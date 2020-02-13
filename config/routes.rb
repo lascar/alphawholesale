@@ -1,12 +1,5 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
-  authenticate :broker do
-    resources :admin_attached_products, only: [:index]
-    resource :admin_attached_products, only: [ :new, :create, :update]
-  end
-  get 'attached_products', to: 'attached_products#index'
-  get 'edit_attached_products', to: 'attached_products#edit'
-  put 'attached_products', to: 'attached_products#update'
   root 'welcome#home'
 
   devise_for :suppliers, controllers: {
@@ -21,46 +14,49 @@ Rails.application.routes.draw do
     sessions: 'customers/sessions'
   }
 
-  concern :offertable do
-    resources :offers
-  end
-
-  concern :orderable do
-    resources :orders
-  end
-
-  concern :tenderable do
-    resources :tenders
-    resources :tender_lines
-  end
+  resources :products, only: [:index, :show]
+  get 'products/get_names', to: 'products#get_names', as: :products_get_names
+  resources :offers, only: [:index, :show]
 
   concern :productable do
     resources :products
-    resources :packagings
-    resources :aspects
-    resources :sizes
-    resources :varieties
+    resources :attached_products
     get 'products/get_names', to: 'products#get_names', as: :products_get_names
   end
 
-  resources :brokers
+  concern :user_productable do
+    resources :user_products, only: [:index, :update]
+  end
+
   authenticated :broker do
-    resources :offers
-    resources :packagings
-    resources :aspects
-    resources :sizes
-    resources :varieties
-    get 'products/get_names', to: 'products#get_names', as: :products_get_names
-    resources :products
-    resources :orders
-    resources :tenders
-    resources :tender_lines
+    resources :suppliers
+    resources :customers
+    resources :brokers, concerns: [:productable] do
+      resources :offers, controller: 'broker_offers'
+      resources :orders, controller: 'broker_orders'
+      resources :customers, concerns: [:productable, :user_productable] do
+        resources :orders, controller: 'broker_orders'
+      end
+      resources :suppliers, concerns: [:productable, :user_productable] do
+        resources :offers, controller: 'broker_offers'
+      end
+      resources :brokers
+    end
+    mount Sidekiq::Web => '/sidekiq'
   end
 
-  resources :suppliers, concerns: [:offertable, :orderable, :productable, :tenderable]
+  authenticated :supplier do
+    resources :suppliers, concerns: [:productable, :user_productable] do
+      resources :suppliers
+      resources :offers
+      resources :orders, only: [:index, :show]
+    end
+  end
 
-  resources :customers, concerns: [:offertable, :orderable, :tenderable, :productable]
-  authenticate :broker do
-    mount Sidekiq::Web => '/sidekiq'
+  authenticated :customer do
+    resources :customers, concerns: [:productable, :user_productable] do
+      resources :offers, only: [:index, :show]
+      resources :orders
+    end
   end
 end

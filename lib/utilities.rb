@@ -1,21 +1,5 @@
 # for tools generals
 module Utilities
-  def make_attached_products_hash(attached_products)
-    attached_products.inject(Set[]) do |hash, attached_product|
-      # binding.pry
-      hash << {id: attached_product.id,
-               product_name: attached_product.product.name,
-               product_id: attached_product.product.id,
-               variety_name: attached_product.variety&.name || '',
-               variety_id: attached_product.variety&.id || 0,
-               aspect_name: attached_product.aspect&.name || '',
-               aspect_id: attached_product.aspect&.id || 0,
-               packaging_name: attached_product.packaging&.name || '',
-               packaging_id: attached_product.packaging&.id || 0,
-               }
-      hash
-    end
-  end
 
   def make_offers_new_products(products)
     product_names = products.map do |product|
@@ -96,6 +80,6 @@ module Utilities
   def make_offer_nested(offer)
     {product_name: offer.product_name, variety_name: offer.variety_name,
      aspect_name: offer.aspect_name, packaging_name: offer.packaging_name,
-    supplier_currency: offer.supplier_currency}
+    supplier_currency: offer.supplier.currency}
   end
 end
