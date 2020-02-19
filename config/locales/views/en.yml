@@ -92,3 +92,5 @@ en:
       editing: "Editing Order"
       without_approved: "orders without approved"
       list: "Orders list"
+      supplier_observation: "Supplier observation"
+      customer_observation: "Customer observation"

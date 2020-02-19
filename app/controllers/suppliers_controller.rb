@@ -44,7 +44,7 @@ class SuppliersController < ApplicationController
     else
       flash[:alert] = helper_activerecord_error_message('supplier',
                                                   @supplier.errors.messages)
-      redirect_to supplier_new_path
+      redirect_to path_for(user: @user, path: 'new_supplier')
     end
   end
 
@@ -60,7 +60,7 @@ class SuppliersController < ApplicationController
     else
       flash[:alert] = helper_activerecord_error_message('supplier',
                                                   @supplier.errors.messages)
-      redirect_to supplier_edit_path
+      redirect_to path_for(user: @user, path: 'edit_supplier')
     end
   end
 

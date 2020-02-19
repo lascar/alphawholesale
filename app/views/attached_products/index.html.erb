@@ -32,7 +32,7 @@
           <%= t("products." + product + "." + ".calibers." + attached_product.caliber) %>
         </td>
         <%= render current_user.class.name.downcase + "_delete",
-          locals: {id: attached_product.id} %>
+          id: attached_product.id %>
       </tr>
     <% end %>
   </tbody>
@@ -46,7 +46,7 @@
         <%= t("views.attached_products.select_product") %>
       </div>
       <div class="card-body">
-        <% path = path_for(user: @user, path: "new_attached_product") %>
+          <% path = path_for(user: @user, path: "new_attached_product") %>
         <%= form_with(url: path, method: 'get', local: true,
             authenticity_token: true, id: "form_new_attach_product") do |form| %>
           <div class="field">

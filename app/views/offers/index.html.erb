@@ -19,21 +19,21 @@
     <tbody>
       <% @offers.each do |offer| %>
         <tr>
-          <td><%= offer[:product_name] %></td>
-          <td><%= offer[:quantity] %></td>
+          <td><%= offer.product_name %></td>
+          <td><%= offer.quantity %></td>
           <% if !customer_signed_in? %>
             <td>
-              <%= offer[:supplier_price] %>
+              <%= offer.unit_price_supplier %>
             </td>
           <% end %>
           <% if !supplier_signed_in? %>
             <td>
-              <%= offer[:broker_price] %>
+              <%= offer.unit_price_broker %>
             </td>
           <% end %>
           <td>
-            <%= link_to icon('fas', 'fa-eye'), path_for(user: @user || current_user,
-             path: "show_offer", options: {object_id: offer.id}), title: t("show") %>
+            <%= link_to icon('fas', 'fa-eye'), path_for(user: @user,
+             path: "offer", options: {object_id: offer.id}), title: t("show") %>
           </td>
           <td>
             <%= link_to icon('fas', 'fa-edit'), path_for(user: @user,
@@ -55,8 +55,4 @@
 <% if !customer_signed_in? %>
   <%= link_to t("offers.new"), path_for(user: @user, path: "offer_new"),
     title: t("offers.new") %>
-<% end %>
-<% if @supplier_id %>
-  <br>
-  <%= link_to t("supplier.page"), supplier_path(@supplier_id) %>
 <% end %>

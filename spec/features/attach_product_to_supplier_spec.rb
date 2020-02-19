@@ -36,7 +36,7 @@ RSpec.describe 'Suppliers Feature new', type: :feature do
         end
         expect(page).to have_content(I18n.t("products." + product2.name + ".name"))
         expect(page).to have_xpath("//form[@action='/suppliers/" +
-          supplier1.id.to_s + "/attached_products' and @method='post']")
+          supplier1.id.to_s + "/attached_products/' and @method='post']")
         within("#radios_varieties") do
           choose "create_attached_product[variety]_" + variety1
         end

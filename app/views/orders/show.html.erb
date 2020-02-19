@@ -2,33 +2,33 @@
   <div class="row">
     <div class="col-3">
       <strong><%= t("models.attributes.offer.product") %>:</strong>
-      <%= @offer.product_name %>
+      <%= @order.product_name %>
     </div>
 
     <div class="col-3">
       <strong><%= t("models.attributes.product.variety") %>:</strong>
-      <%= @offer.variety_name %>
+      <%= @order.variety_name %>
     </div>
 
     <div class="col-3">
       <strong><%= t("models.attributes.offer.aspect") %>:</strong>
-      <%= @offer.aspect_name %>
+      <%= @order.aspect_name %>
     </div>
   </div>
   <div class="row">
     <div class="col-3">
       <strong><%= t("models.attributes.offer.packaging") %>:</strong>
-      <%= @offer.packaging_name%>
+      <%= @order.packaging_name%>
     </div>
 
     <div class="col-3">
       <strong><%= t("models.attributes.product.size") %>:</strong>
-      <%= @offer.size_name %>
+      <%= @order.size_name %>
     </div>
 
     <div class="col-3">
       <strong><%= t("models.attributes.offer.caliber") %>:</strong>
-      <%= @offer.caliber_name %>
+      <%= @order.caliber_name %>
     </div>
   </div>
 </div>
@@ -37,7 +37,7 @@
   <div class="row">
     <div class="col-3">
       <strong><%= t("models.attributes.order.quantity") %>:</strong>
-      <%= @order.quantity.to_s + " " + t("unit_types." + @offer.supplier.unit_type +
+      <%= @order.quantity.to_s + " " + t("unit_types." + @order.unit_type +
           ".symbol")%>
     </div>
 
@@ -48,16 +48,16 @@
       </div>
       <div class="col-3">
         <strong><%= t("models.attributes.offer.unit_price_supplier") %>:</strong>
-        <%= @offer.unit_price_supplier.to_s + " " +
-          t("currencies." + @offer.supplier.currency + ".symbol") %>
+        <%= @order.unit_price_supplier.to_s + " " +
+          t("currencies." + @order.currency + ".symbol") %>
       </div>
     <% end %>
 
     <% if !supplier_signed_in? %>
       <div class="col-3">
         <strong><%= t("models.attributes.offer.unit_price_broker") %>:</strong>
-        <%= @offer.unit_price_broker.to_s + " " +
-          t("currencies." + @offer.supplier.currency + ".symbol") %>
+        <%= @order.unit_price_broker.to_s + " " +
+          t("currencies." + @order.currency + ".symbol") %>
       </div>
     <% end %>
 
@@ -69,20 +69,20 @@
   <div class="row">
     <div class="col-3">
       <strong><%= t("models.attributes.offer.incoterm") %>:</strong>
-      <%= @offer.incoterm %>
+      <%= @order.incoterm %>
     </div>
 
     <% if !customer_signed_in? %>
       <div class="col-3">
         <strong><%= t("models.attributes.offer.localisation_supplier") %>:</strong>
-        <%= @offer.localisation_supplier %>
+        <%= @order.localisation_supplier %>
       </div>
     <% end %>
 
     <% if !supplier_signed_in? %>
       <div class="col-3">
         <strong><%= t("models.attributes.offer.localisation_broker") %>:</strong>
-        <%= @offer.localisation_broker %>
+        <%= @order.localisation_broker %>
       </div>
     <% end %>
 
@@ -97,8 +97,8 @@
 <div class="card">
   <div class="row">
     <div class="col">
-      <strong><%= t("models.attributes.offer.observation") %>:</strong>
-      <%= simple_format(@offer.observation) %>
+      <strong><%= t("views.orders.supplier_observation") %>:</strong>
+      <%= simple_format(@order.supplier_observation) %>
     </div>
   </div>
 </div>
@@ -106,7 +106,7 @@
 <div class="card">
   <div class="row">
     <div class="col">
-      <strong><%= t("models.attributes.order.customer_observation") %>:</strong>
+      <strong><%= t("views.orders.customer_observation") %>:</strong>
       <%= simple_format(@order.customer_observation) %>
     </div>
   </div>

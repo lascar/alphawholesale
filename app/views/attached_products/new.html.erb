@@ -3,7 +3,7 @@
          t("products." + @product + ".name") %></h3>
 </br>
 
-<%= form_with(url: path_for(user: @user, path: "attached_products"), authenticity_token: true,
+<%= form_with(url: path_for(user: @user, path: "attached_product"), authenticity_token: true,
     id: "form_create_attach_product", method: :post, local: true) do |form| -%>
   <%= hidden_field_tag "create_attached_product[product]", @product %>
   <%= hidden_field_tag "#{user_type(@user)}_id", @user.id.to_s %>
@@ -123,4 +123,4 @@
   <div><%= submit_tag t("views.create") %></div>
 <% end -%>
 
-<%= link_to t("views.back"), path %>
+<%= link_to t("views.back"), :back %>

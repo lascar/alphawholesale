@@ -49,7 +49,7 @@ class AttachedProductsController < ApplicationController
                                         aspect_id: aspect_id == "0" ? nil : aspect_id,
                                         packaging_id: packaging_id == "0" ? nil : packaging_id)
     end
-    redirect_to attached_products_path,
+    redirect_to path_for(user: @user, path: 'attached_products'),
       notice: I18n.t('controllers.attached_products.update.succefully')
   end
 

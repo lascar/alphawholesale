@@ -1,4 +1,5 @@
-<%= link_to t("views.brokers.edit"), path_for(user: current_user, path: "edit_broker"),
+<%= link_to t("views.brokers.edit"), path_for(user: "broker", path: "edit_broker",
+                                              options: {object_id: @broker.id}),
     class: "btn btn-info btn-sm give-me-some-space" %>
 <div class="card shadow-sm">
   <div class="row">
@@ -27,10 +28,10 @@
               <td><div class="cell-resumen">
                 <%= supplier.email %>
               </div></td>
-              <td><%= link_to icon('fas', 'fa-eye'), supplier, title: t("views.show") %></td>
+              <td><%= link_to icon('fas', 'fa-eye'), path_for(user: supplier, path: "user"), title: t("views.show") %></td>
               <td><%= link_to icon('fas', 'fa-edit'),
-                edit_supplier_path( supplier), title: t("views.edit") %></td>
-              <td><%= link_to icon('fas', 'fa-trash'), supplier,
+                path_for(path: "edit_supplier", options: {object_id: supplier.id}), title: t("views.edit") %></td>
+              <td><%= link_to icon('fas', 'fa-trash'), path_for(user: supplier, path: "user"),
                 title: t("views.destroy"), method: :delete,
                 data: { confirm: t(:are_you_sure) } %></td>
               </tr>
@@ -39,7 +40,7 @@
       </table>
       <%= link_to t("views.new"), path_for(user: "supplier", path: "new_user") %>
       <br>
-      <%= link_to t("views.index"), suppliers_path %>
+      <%= link_to t("views.suppliers.list"), path_for(user: "supplier", path: "users") %>
     </div>
     <div class="card col-md-6">
       <table class="table-bordered table-hover table-sm table-all table-broker">
@@ -75,25 +76,25 @@
                 <%= offer.unit_price_supplier.to_s + " " + offer.supplier.currency %>
               </div></td>
               <td>
-                <%= link_to icon('fas', 'fa-eye'),
-                 offer_show_path(offer), title: t("views.show") %>
+                <%= link_to icon('fas', 'fa-eye'), path_for(path: 'offer',
+                  options: {object_id: offer.id}), title: t("views.show") %>
               </td>
               <td>
-                <%= link_to icon('fas', 'fa-edit'),
-                 offer_edit_path(offer), title: t("views.edit") %>
+                <%= link_to icon('fas', 'fa-edit'), path_for(path: 'edit_offer',
+                  options: {object_id: offer.id}), title: t("views.edit") %>
               </td>
               <td>
-                <%= link_to icon('fas', 'fa-trash'),
-                 offer_show_path(offer), title: t("views.destroy"),
-                 method: :delete, data: { confirm: t(:are_you_sure) } %>
+                <%= link_to icon('fas', 'fa-trash'), path_for(path: 'offer',
+                  options: {object_id: offer.id}), title: t("views.destroy"),
+                  method: :delete, data: { confirm: t(:are_you_sure) } %>
               </td>
             </tr>
           <% end %>
         </tbody>
       </table>
-      <%= link_to t("views.offers.new"), path_for(user: current_user, path: "new_offer") %>
+      <%= link_to t("views.offers.new"), path_for(path: "new_offer") %>
       <br>
-      <%= link_to t("views.offers.list"), path_for(user: current_user, path: "offers") %>
+      <%= link_to t("views.offers.list"), path_for(path: "offers") %>
     </div>
   </div>
   <br>
@@ -123,19 +124,30 @@
               <td><div class="cell-resumen">
                 <%= customer.email %>
               </div></td>
-              <td><%= link_to icon('fas', 'fa-eye'), customer, title: t("views.show") %></td>
-              <td><%= link_to icon('fas', 'fa-edit'),
-                edit_customer_path( customer), title: t("views.edit") %></td>
-              <td><%= link_to icon('fas', 'fa-trash'), customer,
-                title: t("views.destroy"), method: :delete,
-                data: { confirm: t(:are_you_sure) } %></td>
+              <td>
+                <%= link_to icon('fas', 'fa-eye'), path_for(user: customer,
+                    path: "user"), title: t("views.show") %>
+              </td>
+              <td>
+                <%= link_to icon('fas', 'fa-edit'), path_for(user: customer,
+                    path: "edit_user", options: {object_id: customer.id}),
+                    title: t("views.edit") %>
+              </td>
+              <td>
+                <%= link_to icon('fas', 'fa-trash'), path_for(user: customer,
+                    path: "user", options: {object_id: customer.id}),
+                    title: t("views.destroy"), method: :delete,
+                    data: { confirm: t(:are_you_sure) } %>
+              </td>
             </tr>
           <% end %>
         </tbody>
       </table>
-      <%= link_to t("views.customers.new"), new_customer_path %>
+      <%= link_to t("views.customers.new"), path_for(user: "customer",
+                                                     path: "new_user") %>
       <br>
-      <%= link_to t("views.customers.list"), customers_path %>
+      <%= link_to t("views.customers.list"), path_for(user: "customer",
+                                                      path: "users") %>
     </div>
     <div class="card col-md-4">
       <table class="table-bordered table-hover table-sm table-all table-broker">
@@ -163,23 +175,27 @@
                 <%= order.quantity %>
               </div></td>
               <td>
-                <%= link_to icon('fas', 'fa-eye'), order, title: t("views.show") %>
+                <%= link_to icon('fas', 'fa-eye'),
+                  path_for(path: "order", options: {object_id: order.id}),
+                  title: t("views.show") %>
               </td>
               <td>
-                <%= link_to icon('fas', 'fa-edit'), edit_order_path(order),
-                 title: t("views.edit") %>
+                <%= link_to icon('fas', 'fa-edit'),
+                  path_for(path: "edit_order", options: {object_id: order.id}),
+                  title: t("views.edit") %>
               </td>
               <td>
-                <%= link_to icon('fas', 'fa-trash'), order, title: t("views.destroy"),
-                 method: :delete, data: { confirm: t(:are_you_sure) } %>
+                <%= link_to icon('fas', 'fa-trash'),
+                  path_for(path: "order", options: {object_id: order.id}),
+                  title: t("views.destroy"),
+                  method: :delete, data: { confirm: t(:are_you_sure) } %>
               </td>
             </tr>
           <% end %>
         </tbody>
       </table>
-      <%= link_to t("views.orders.new"), path_for(user: current_user, path: "new_order") %>
       <br>
-      <%= link_to t("views.orders.list"), path_for(user: current_user, path: "orders") %>
+      <%= link_to t("views.orders.list"), path_for(path: "orders") %>
     </div>
   </div>
 </div>

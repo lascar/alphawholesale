@@ -43,11 +43,12 @@ class ProductsController < ApplicationController
     authorize @product
     if @product.save
        message = I18n.t('controllers.products.successfully_created')
-       redirect_to @product, notice: message
+       redirect_to path_for(user: @user, path: 'product',
+        options: {object_id: @product.id}), notice: message
     else
       message = helper_activerecord_error_message('product',
                                                   @product.errors.messages)
-      path = products_get_names_path
+      path = path_for(user: @user, path: 'new_product')
       redirect_to path, alert: message
     end
   end
@@ -61,7 +62,7 @@ class ProductsController < ApplicationController
     else
       message = helper_activerecord_error_message('product',
                                                   @product.errors.messages)
-      path = edit_product_path
+      path = path_for(user: @user, path: 'edit_product', options: {object_id: @product.id})
       redirect_to path, alert: message
     end
   end

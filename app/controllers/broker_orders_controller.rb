@@ -1,27 +1,30 @@
-class OrdersController < ApplicationController
-  include Utilities
-  include OrdersHelper
-  before_action :authenticate_user!
+class BrokerOrdersController < ApplicationController
+  before_action :set_context_prefixe, except: [:create, :update, :destroy]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
   def index
-    authorize :order, :index?
-    if current_broker
-      orders = Order.with_approved(true).includes(:offer)
-    elsif customer_signed_in?
-      @customer_id = current_customer.id
-      orders = Order.where(customer_id: @customer_id).includes(:offer)
-    elsif supplier_signed_in?
-      @supplier_id = current_supplier.id
-      orders = Order.joins(:offer).where('offers.supplier_id = ?', @supplier_id).
-        with_approved(true).includes(:offer)
+    lookup_context.prefixes << 'orders'
+    @customer_id = params[:customer_id]
+    @supplier_id = params[:supplier_id]
+    @orders = Order.includes(:offer)
+    if @customer_id
+      @orders = @order.where(customer_id: @customer_id)
     end
-    @orders = map_orders_for_index(orders)
+    if @supplier_id
+      @orders = @orders.joins(:offer).where('offers.supplier_id = ?', @supplier_id)
+    end
+    unless params[:not_approved_too]
+      @orders = @orders.where(approved: true)
+    end
+    unless params[:expired_too]
+      @orders = @orders.not_expired
+    end
   end
 
   # GET /orders/1
   def show
+    lookup_context.prefixes << 'orders'
     authorize @order
     @offer = @order.offer
     @customer_id = customer_signed_in? ? current_customer.id : params[:customer_id]
@@ -31,11 +34,8 @@ class OrdersController < ApplicationController
   def new
     customer_id = customer_signed_in? ? current_customer.id :
      params['customer_id']
-    if broker_signed_in?
-      @customers = Customer.all.pluck(:identifier, :id)
-    end
+    @customers = Customer.all.pluck(:identifier, :id)
     @offer = Offer.find(params[:offer_id])
-    @offer_nested = make_offer_nested(@offer)
     @order = Order.new(customer_id: customer_id, offer_id: @offer.id)
     authorize @order
   end
@@ -43,39 +43,35 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
     authorize @order
-    if broker_signed_in?
-      @customers = Customer.all.pluck(:identifier, :id)
-    end
+    @customers = Customer.all.pluck(:identifier, :id)
     @customer_id = @order.customer_id
-    @order.customer_id = @customer_id
     @offer = @order.offer
-    @offer_nested = make_offer_nested(@offer)
   end
 
   # POST /orders
   def create
     @order = Order.new(order_params)
-    authorize @order
     @order.customer_id = customer_signed_in? ? current_customer.id :
       order_params['customer_id']
     if @order.save
       flash[:notice] = I18n.t('controllers.orders.successfully_created')
-      redirect_to order_show_path(@order)
+      redirect_to path_for(path: 'order', options: {object_id: @order.id})
+      return
     else
       flash[:alert] = helper_activerecord_error_message('order', @order.errors.messages)
-      redirect_to order_new_path(order_params[:offer_id])
+      redirect_to path_for(path: 'new_order')
     end
   end
 
   # PATCH/PUT /orders/1
   def update
-    authorize @order
     if @order.update(order_params)
       flash[:notice] = I18n.t('controllers.orders.successfully_updated')
-      redirect_to order_show_path
+      redirect_to path_for(path: 'order', options: {object_id: @order.id})
+      return
     else
       flash[:alert] = helper_activerecord_error_message('order', @order.errors.messages)
-      redirect_to order_edit_path
+      redirect_to path_for(user: @user, path: 'edit_order', options: {object_id: @order.id})
     end
   end
 
@@ -84,10 +80,14 @@ class OrdersController < ApplicationController
     authorize @order
     @order.destroy
     flash[:notice] = I18n.t('controllers.orders.successfully_destroyed')
-    redirect_to order_index_path
+    redirect_to path_for(user: @user, path: 'orders')
   end
 
   private
+  def set_context_prefixe
+    lookup_context.prefixes << 'orders'
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_order
     @order = Order.find(params[:id])
@@ -95,10 +95,7 @@ class OrdersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def order_params
-    base = [:customer_id, :offer_id, :quantity, :customer_observation]
-    if broker_signed_in?
-      base.push(:approved)
-    end
+    base = [:customer_id, :offer_id, :quantity, :customer_observation, :approved]
     params.require(:order).permit(base)
   end
 

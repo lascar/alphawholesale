@@ -120,6 +120,12 @@ en:
         approved: "approved"
         date_start: "Date Start"
         date_end: "Date End"
+        variety: "Variety"
+        aspect: "Aspect"
+        packaging: "Packaging"
+        size: "Size"
+        caliber: "Caliber"
+        approved: "approved"
       order:
         customer: "Customer"
         customer_observation: "Customer Observation"

@@ -61,9 +61,16 @@ class ApplicationController < ActionController::Base
   end
 
   def set_user
-    @user = current_supplier || current_customer ||
-      Supplier.find_by(id: params[:supplier_id]) ||
-      Customer.find_by(id: params[:customer_id])
+    user = nil
+    supplier_or_customer_regex = %r{(?<user_type>(suppliers|customers))/(?<id>\d+)}
+    match = request.path.match supplier_or_customer_regex
+    user_type = match ? match[:user_type] : nil
+    if user_type
+      id = match[:id]
+      class_user = user_type ? match[:user_type].singularize.capitalize : nil
+      user = class_user.constantize.find_by(id: id)
+    end
+    @user = current_supplier || current_customer || user
   end
 
   private

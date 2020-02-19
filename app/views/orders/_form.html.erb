@@ -1,18 +1,5 @@
-<%= form_with(order_form_hash(@order)) do |form| %>
-  <% if @order.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@order.errors.count, "error") %>
-        prohibited this order from being saved:
-      </h2>
-
-      <ul>
-        <% @order.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_with(model: @order, url: path_for(user: @user, path: "order",
+              options: {object_id: @order.id}), local: true) do |form| %>
   <% if broker_signed_in? %>
     <div class="field">
       <%= form.label :customer %>
@@ -26,30 +13,7 @@
   <% end %>
 
   <div class="card">
-    <div class="row">
-      <div class="col-3">
-        <strong><%= t("models.attributes.offer.product") %>:</strong>
-        <%= t("product.name." + @offer_nested[:product_name]) %>
-      </div>
-
-      <div class="col-3">
-        <strong><%= t("models.attributes.product.variety") %>:</strong>
-        <%= @offer_nested[:variety_name] ? t("product.variety." + @offer_nested[:product_name] +
-                               "." + @offer_nested[:variety_name]) : "" %>
-      </div>
-
-      <div class="col-3">
-        <strong><%= t("models.attributes.offer.aspect") %>:</strong>
-        <%= @offer_nested[:aspect_name] ? t("product.aspect." + @offer_nested[:product_name] +
-                              "." + @offer_nested[:aspect_name]) : "" %>
-      </div>
-
-      <div class="col-3">
-        <strong><%= t("models.attributes.offer.packaging") %>:</strong>
-        <%= @offer_nested[:packaging_name] ? t("product.packaging." + @offer_nested[:product_name] +
-                                 "." + @offer_nested[:packaging_name]) : "" %>
-      </div>
-    </div>
+    <%= render "shared/table_attached_product_for_offer", offer: @offer %>
   </div>
 
   <div class="card">
@@ -64,16 +28,16 @@
       <% if !customer_signed_in? %>
         <div class="col-3">
           <strong><%= t("models.attributes.offer.unit_price_supplier") %>:</strong>
-          <%= @offer.unit_price_supplier.to_s + " " + t("currencies." +
-              @offer_nested[:supplier_currency] + ".symbol") %>
+          <%= @offer.unit_price_supplier.to_s + " " +
+            t("currencies." + @offer.supplier.currency + ".symbol") %>
         </div>
       <% end %>
 
       <% if !supplier_signed_in? %>
         <div class="col-3">
           <strong><%= t("models.attributes.offer.unit_price_broker") %>:</strong>
-          <%= @offer.unit_price_broker.to_s + " " + t("currencies." +
-              @offer_nested[:supplier_currency] + ".symbol") %>
+          <%= @offer.unit_price_broker.to_s + " " +
+            t("currencies." + @offer.supplier.currency + ".symbol") %>
         </div>
       <% end %>
     </div>

@@ -20,7 +20,7 @@ RSpec.describe 'Suppliers feature show', type: :feature do
     it "has a link edit for the supplier and
      shows the last supplier's offer price" do
       expect(page).to have_link ({href:
-       "/suppliers/#{supplier1.id.to_s}/suppliers/#{supplier1.id.to_s}/edit"})
+       "/suppliers/#{supplier1.id.to_s}/edit"})
       expect(page).to have_content (
        supplier1.offers.last.unit_price_supplier.to_s)
     end

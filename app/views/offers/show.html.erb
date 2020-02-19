@@ -1,37 +1,5 @@
 <div class="card">
-  <% attached_product = @offer.attached_product %>
-  <div class="row">
-    <div class="col-4">
-      <strong><%= t("models.attributes.attached_product.product") %>:</strong>
-      <%= attached_product.product %>
-    </div>
-
-    <div class="col-4">
-      <strong><%= t("models.attributes.attached_product.variety") %>:</strong>
-      <%= attached_product.variety.to_s %>
-    </div>
-    <div class="col-4">
-      <strong><%= t("models.attributes.attached_product.aspect") %>:</strong>
-      <%= attached_product.aspect.to_s %>
-    </div>
-
-  </div>
-  <div class="row">
-    <div class="col-4">
-      <strong><%= t("models.attributes.attached_product.packaging") %>:</strong>
-      <%= attached_product.packaging.to_s %>
-    </div>
-    <div class="col-4">
-      <strong><%= t("models.attributes.attached_product.size") %>:</strong>
-      <%= attached_product.size.to_s %>
-    </div>
-
-    <div class="col-4">
-      <strong><%= t("models.attributes.attached_product.caliber") %>:</strong>
-      <%= attached_product.caliber.to_s %>
-    </div>
-
-  </div>
+  <%= render "shared/table_attached_product_for_offer", offer: @offer %>
 </div>
 
 <div class="card">
@@ -121,13 +89,13 @@
 </div>
 <% if broker_signed_in? || customer_signed_in? %>
   <%= link_to t("views.orders.new"), path_for(user: current_user, path: "new_order",
-                             options: {offer_id: @offer.id}), method: :get %> |
+                             options: {object_id: @offer.id}), method: :get %> |
 <% end %>
 <% if supplier_signed_in? || broker_signed_in? %>
   <%= link_to t("views.offers.new"),
-    path_for(user: current_user, path: "new_offer"), method: :get %> |
+    path_for(user: @user, path: "new_offer"), method: :get %> |
   <%= link_to t("views.offers.edit"),
-    path_for(user: current_user, path: "edit_offer", options: {offer_id: @offer.id}),
+    path_for(user: @user, path: "edit_offer", options: {offer_id: @offer.id}),
     method: :get %>
 <% end %>
  | <%= link_to t("back"), :back %>

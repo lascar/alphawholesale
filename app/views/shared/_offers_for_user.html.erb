@@ -52,9 +52,9 @@
               <%= offer.unit_price_broker.to_s  + " " + offer.supplier.currency %>
           <% end %>
           </td>
-          <td><%= link_to icon('fas', 'fa-eye'), title: t("show"),
-            path_for(user: current_user, path: "show_offer",
-                     options: {object_id: offer.id}) %>
+          <td><%= link_to icon('fas', 'fa-eye'),
+            path_for(user: current_user, path: "offer",
+                     options: {object_id: offer.id}), title: t("show") %>
           </td>
         </tr>
       <% end %>

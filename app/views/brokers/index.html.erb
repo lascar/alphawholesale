@@ -15,8 +15,13 @@
         <td><%= broker.identifier %></td>
         <td><%= broker.email %></td>
         <td><%= link_to t("show"), broker %></td>
-        <td><%= link_to t("edit"), edit_broker_path(broker) %></td>
-        <td><%= link_to t("destroy"), broker, method: :delete, data: { confirm: t(:are_you_sure) } %></td>
+        <td>
+          <%= link_to t("edit"), path_for(user: broker, path: 'edit_broker'),
+            options: {object_id: broker.id}) %></td>
+        <td>
+          <%= link_to t("destroy"), broker, method: :delete,
+           data: { confirm: t(:are_you_sure) } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +29,4 @@
 
 <br>
 
-<%= link_to t("brokers.new"), new_broker_path %>
+<%= link_to t("brokers.new"), path_for(path: 'new_broker')) %>

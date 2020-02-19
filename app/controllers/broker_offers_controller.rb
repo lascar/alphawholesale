@@ -1,23 +1,21 @@
   class BrokerOffersController < ApplicationController
-  include OffersHelper
   include Utilities
-  before_action :authenticate_user!
+  before_action :set_context_prefixe, except: [:create, :update, :destroy]
   before_action :set_offer, only: [:show, :edit, :update, :destroy]
 
   # GET /offers
   def index
-    lookup_context.prefixes << 'offers'
     @supplier_id = params[:supplier_id]
-    @supplier_id = params[:supplier_id]
+    @customer_id = params[:customer_id]
     @offers = Offer.includes(:attached_product)
-    unless params[:approved]
+    unless params[:not_approved_to]
       @offers = @offers.where(approved: true)
     end
     unless params[:expired_too]
       @offers = @offers.not_expired
     end
     if @customer_id
-      @offers = @offers.where(attached_product: { id: current_customer.attached_products.pluck(:id) })
+      @offers = @offers.joins(:orders).where('order.customer_id = ?', @customer_id)
     end
     if @supplier_id
       @offers = @offers.where(supplier_id: @supplier_id)
@@ -26,13 +24,11 @@
 
   # GET /offers/1
   def show
-    lookup_context.prefixes << 'offers'
     authorize @offer
   end
 
   # GET /offers/new
   def new
-    lookup_context.prefixes << 'offers'
     @offer = Offer.new
     authorize @offer
     @suppliers = Supplier.all.pluck(:identifier, :id)
@@ -44,7 +40,6 @@
 
   # GET /offers/1/edit
   def edit
-    lookup_context.prefixes << 'offers'
     authorize @offer
     @suppliers = Supplier.all.pluck(:identifier, :id)
     @supplier_id = params[:supplier_id]
@@ -61,7 +56,7 @@
     authorize @offer
     if @offer.save
       flash[:notice] = I18n.t('controllers.offers.successfully_created')
-      redirect_to path_for(user: @offer.supplier, path: 'show_offer')
+      redirect_to path_for(user: @offer.supplier, path: 'offer')
     else
       flash[:alert] = helper_activerecord_error_message('offer',
                                                   @offer.errors.messages)
@@ -75,7 +70,7 @@
     @incoterms = INCOTERMS
     if @offer.update(offer_params)
       flash[:notice] = I18n.t('controllers.offers.successfully_updated')
-      redirect_to path_for(user: @offer.supplier, path: 'show_offer')
+      redirect_to path_for(user: @offer.supplier, path: 'offer')
     else
       @offer = Offer.find(params[:id])
       flash[:alert] = helper_activerecord_error_message('offer',
@@ -94,6 +89,10 @@
 
   private
   # Use callbacks to share common setup or constraints between actions.
+  def set_context_prefixe
+    lookup_context.prefixes << 'offers'
+  end
+
   def set_offer
     offer = Offer.find(params[:id])
     @offer = offer

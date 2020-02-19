@@ -21,7 +21,8 @@
         </td>
         <% if broker_signed_in? %>
           <td>
-            <%= link_to icon('fas', 'fa-edit'), edit_product_path(product),
+            <%= link_to icon('fas', 'fa-edit'), path_for(user: @user,
+             path: 'edit_product'), options: {object_id: product.id}),
              title: t("edit") %>
           </td>
           <td>
@@ -36,4 +37,4 @@
 
 <br>
 
-<%= link_to t("products.new"), products_get_names_path %>
+<%= link_to t("products.new"), path_for(user: @user, path: 'new_product') %>

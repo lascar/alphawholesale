@@ -1,23 +1,22 @@
 class OrdersController < ApplicationController
   include Utilities
-  include OrdersHelper
   before_action :authenticate_user!
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
   def index
     authorize :order, :index?
-    if current_broker
-      orders = Order.with_approved(true).includes(:offer)
-    elsif customer_signed_in?
+    @orders = Order.includes(:offer)
+    if customer_signed_in?
       @customer_id = current_customer.id
-      orders = Order.where(customer_id: @customer_id).includes(:offer)
+      @orders = @orders.where(customer_id: @customer_id)
     elsif supplier_signed_in?
       @supplier_id = current_supplier.id
-      orders = Order.joins(:offer).where('offers.supplier_id = ?', @supplier_id).
-        with_approved(true).includes(:offer)
+      @orders = @orders.where('offers.supplier_id = ?', @supplier_id)
     end
-    @orders = map_orders_for_index(orders)
+    unless params[:expired_too]
+      @orders = @orders.not_expired
+    end
   end
 
   # GET /orders/1
@@ -43,9 +42,6 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
     authorize @order
-    if broker_signed_in?
-      @customers = Customer.all.pluck(:identifier, :id)
-    end
     @customer_id = @order.customer_id
     @order.customer_id = @customer_id
     @offer = @order.offer
@@ -60,10 +56,10 @@ class OrdersController < ApplicationController
       order_params['customer_id']
     if @order.save
       flash[:notice] = I18n.t('controllers.orders.successfully_created')
-      redirect_to order_show_path(@order)
+      redirect_to path_for(user: @user, path: 'order', options: {object_id: @order.id})
     else
       flash[:alert] = helper_activerecord_error_message('order', @order.errors.messages)
-      redirect_to order_new_path(order_params[:offer_id])
+      redirect_to path_for(user: @user, path: 'new_order', options: {object_id: order_params[:offer_id]})
     end
   end
 
@@ -72,10 +68,10 @@ class OrdersController < ApplicationController
     authorize @order
     if @order.update(order_params)
       flash[:notice] = I18n.t('controllers.orders.successfully_updated')
-      redirect_to order_show_path
+      redirect_to path_for(user: @user, path: 'order', options: {object_id: order_params[:offer_id]})
     else
       flash[:alert] = helper_activerecord_error_message('order', @order.errors.messages)
-      redirect_to order_edit_path
+      redirect_to path_for(user: @user, path: 'edit_order', options: {object_id: order_params[:offer_id]})
     end
   end
 
@@ -84,7 +80,7 @@ class OrdersController < ApplicationController
     authorize @order
     @order.destroy
     flash[:notice] = I18n.t('controllers.orders.successfully_destroyed')
-    redirect_to order_index_path
+    redirect_to path_for(user: @user, path: 'orders')
   end
 
   private
@@ -96,9 +92,6 @@ class OrdersController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def order_params
     base = [:customer_id, :offer_id, :quantity, :customer_observation]
-    if broker_signed_in?
-      base.push(:approved)
-    end
     params.require(:order).permit(base)
   end
 

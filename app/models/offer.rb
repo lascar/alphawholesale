@@ -31,6 +31,14 @@ class Offer < ApplicationRecord
     attached_product.caliber
   end
 
+  def currency
+    supplier.currency
+  end
+
+  def unit_type
+    supplier.unit_type
+  end
+
   def self.not_expired
     where('date_end >= ?', Time.now)
   end

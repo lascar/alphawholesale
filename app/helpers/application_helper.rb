@@ -1,94 +1,143 @@
 module ApplicationHelper
-  path_products = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/#{id.to_s}/products"
+  path_products = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}products"
   end
 
-  path_attached_products = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/#{id.to_s}/attached_products"
+  path_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}products/#{options[:object_id].to_s}"
   end
 
-  path_new_attached_product = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/#{id.to_s}/attached_products/new"
+  path_new_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}products/new"
   end
 
-  path_offers = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/#{id.to_s}/offers/"
+  path_edit_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}products/#{options[:object_id].to_s}/edit"
   end
 
-  path_show_offer = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/#{id.to_s}/offers/#{options[:object_id].to_s}"
+  path_attached_products = -> (options:) do
+      "/#{options[:pre]}#{options[:post]}attached_products"
   end
 
-  path_new_offer = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/#{id.to_s}/offers/new"
+  path_attached_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}attached_products/#{options[:object_id].to_s}"
+  end
+
+  path_new_attached_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}attached_products/new"
+  end
+
+  path_edit_attached_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}attached_products/#{options[:object_id].to_s}/edit"
+  end
+
+  path_offers = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}offers/"
+  end
+
+  path_offer = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}offers/#{options[:object_id].to_s}"
+  end
+
+  path_new_offer = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}offers/new"
   end
   
-  path_edit_offer = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/#{id.to_s}/offers/#{options[:object_id].to_s}/edit"
+  path_edit_offer = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}offers/#{options[:object_id].to_s}/edit"
   end
 
-  path_update_offer = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/#{id.to_s}/offers/#{options[:object_id].to_s}"
+  path_orders = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}orders/"
   end
 
-  path_orders = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/#{id.to_s}/orders/"
+  path_order = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}orders/#{options[:object_id].to_s}"
   end
 
-  path_show_order = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/#{id.to_s}/orders/#{options[:object_id].to_s}"
-  end
-
-  path_new_order = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/#{id.to_s}/orders/new?object_id=#{options[:offer_id]}"
+  path_new_order = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}orders/new?offer_id=#{options[:object_id]}"
   end
   
-  path_edit_order = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/#{id.to_s}/orders/#{option[object_id].to_s}/edit"
+  path_edit_order = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}orders/#{options[:object_id].to_s}/edit"
   end
 
-  path_update_order = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/#{id.to_s}/orders/#{option[object_id].to_s}"
+  path_user_products = -> (options:) do
+    "/#{options[:post]}user_products/"
   end
 
-  path_user_products = -> (id:, user_type:, options:) do
-    "/#{user_type}s/#{id.to_s}/user_products/"
+  path_user_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}user_products/#{options[:object_id].to_s}"
   end
 
-  path_update_user_products = -> (id:, user_type:, options:) do
-    "/#{user_type}s/#{id.to_s}/user_products/#{id.to_s}"
+  path_new_user_product = -> (options:) do
+    "/#{options[:post]}user_products/new"
   end
 
-  path_new_user = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/new"
+  path_edit_user_product = -> (options:) do
+    "/#{options[:post]}user_products/#{options[:object_id].to_s}/edit"
   end
 
-  path_edit_user = -> (id:, user_type:, options:) do
-    "#{options[:pre]}/#{user_type}s/#{id.to_s}/edit"
+  path_users = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}"
   end
 
-  path_edit_broker = -> (id:, user_type:, options:) do
-    "/#{user_type}s/#{id.to_s}/edit"
+  path_user = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}"
+  end
+
+  path_new_user = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}new"
+  end
+
+  path_edit_user = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}#{options[:object_id].to_s}/edit"
+  end
+
+  path_brokers = -> (options:) do
+    "/#{options[:post]}"
+  end
+
+  path_broker = -> (options:) do
+    "/#{options[:pre]}#{options[:object_id].to_s}"
+  end
+
+  path_new_broker = -> (options:) do
+    "/#{options[:pre]}new"
+  end
+
+  path_edit_broker = -> (options:) do
+    "/#{options[:post]}#{options[:object_id].to_s}/edit"
   end
 
   PATH = {
     path_for_products: path_products,
+    path_for_product: path_product,
+    path_for_new_product: path_new_product,
+    path_for_edit_product: path_edit_product,
     path_for_attached_products: path_attached_products,
-    path_for_new_attached_product: path_new_attached_product,
+    path_for_attached_product: path_attached_product,
+      path_for_new_attached_product: path_new_attached_product,
     path_for_offers: path_offers,
-    path_for_show_offer: path_show_offer,
+    path_for_offer: path_offer,
     path_for_new_offer: path_new_offer,
     path_for_edit_offer: path_edit_offer,
-    path_for_update_offer: path_update_offer,
     path_for_orders: path_orders,
-    path_for_show_order: path_show_order,
+    path_for_order: path_order,
     path_for_new_order: path_new_order,
     path_for_edit_order: path_edit_order,
-    path_for_update_order: path_update_order,
     path_for_user_products: path_user_products,
-    path_for_update_user_products: path_update_user_products,
+    path_for_user_product: path_user_product,
+    path_for_new_user_product: path_new_user_product,
+    path_for_edit_user_product: path_edit_user_product,
+    path_for_users: path_users,
+    path_for_user: path_user,
     path_for_new_user: path_new_user,
     path_for_edit_user: path_edit_user,
+    path_for_brokers: path_brokers,
+    path_for_broker: path_broker,
+    path_for_new_broker: path_new_broker,
     path_for_edit_broker: path_edit_broker,
   }
 
@@ -96,9 +145,14 @@ module ApplicationHelper
     path_for = PATH["path_for_#{path}".to_sym]
     if path_for
       if broker_signed_in? && user.class.name != 'Broker'
-        options[:pre] = "/brokers/#{current_broker.id.to_s}"
+        options[:pre] = "brokers/#{current_broker.id.to_s}/"
       end
-      path_for.call(id: user.try(:id), user_type: user_type(user), options: options)
+      if user
+        id = user.is_a?(String) ? nil : user.id
+        binding.pry if options[:debug]
+        options[:post] ="#{user_type(user)}s/#{id ? id.to_s + '/' : ''}"
+      end
+      path_for.call(options: options)
     end
   end
 
@@ -153,20 +207,11 @@ module ApplicationHelper
   end
 
   def user_logged(user_type)
-    case user_type
-    when 'supplier'
-     user = current_supplier
-     path = supplier_path(user)
-    when 'customer'
-     user = current_customer
-     path = customer_path(user)
-    when 'broker'
-     user = current_broker
-     path = broker_path(user)
-    end
-    identifier = user ? user.identifier : ''
     string = ''
     if !user_type.blank?
+			path = {broker: broker_path(current_user),
+							supplier: supplier_path(current_user),
+							customer: customer_path(current_user)}
       string += <<-HERE
           <li>
             #{link_to t('views.control_panel'), path, class: 'btn btn-gris btn-sm'}

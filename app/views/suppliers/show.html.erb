@@ -2,7 +2,7 @@
   <strong><%= t("views.identifier") %></strong>
   <%= @supplier.identifier %>
 </p>
-<%= link_to t("suppliers.edit"), path_for(user: @user, path: "edit_user"),
+<%= link_to t("views.suppliers.edit"), path_for(user: "supplier", path: "edit_user", options: {object_id: @user.id}),
   class: "btn btn-danger btn-sm give-me-some-space" %>
 <%= render "shared/products_for_user" %>
 <br>

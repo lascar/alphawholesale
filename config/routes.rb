@@ -15,13 +15,11 @@ Rails.application.routes.draw do
   }
 
   resources :products, only: [:index, :show]
-  get 'products/get_names', to: 'products#get_names', as: :products_get_names
   resources :offers, only: [:index, :show]
 
   concern :productable do
     resources :products
     resources :attached_products
-    get 'products/get_names', to: 'products#get_names', as: :products_get_names
   end
 
   concern :user_productable do

@@ -35,10 +35,8 @@ RSpec.describe "Orders Feature", type: :feature do
 
       it "can create an order from an offer" do
         click_link(I18n.t("views.orders.new"))
-        expect(page).to have_xpath("//form[@action='/orders'
-                                   and @method='post']")
         select_customer = find('select[name="order[customer_id]"]')
-        expect(select_customer.find("option[value='" + customer1.id.to_s + "']").
+        expect(select_customer.find("option[value='#{customer1.id.to_s}']").
           text).to eq(customer1.identifier)
         select(customer2.identifier, :from => 'order[customer_id]')
         check('order[approved]')
@@ -49,10 +47,10 @@ RSpec.describe "Orders Feature", type: :feature do
         expect(page).to have_content(
           I18n.t('controllers.orders.successfully_created'))
         expect(page.current_url).to eq(
-          'http://www.example.com/orders/' + Order.last.id.to_s)
+          "http://www.example.com/brokers/#{broker1.id.to_s}/orders/#{Order.last.id.to_s}")
         expect(page).to have_content(customer2.identifier)
         expect(page).to have_content(
-          '5 ' + I18n.t('unit_types.' + supplier1.unit_type + '.symbol'))
+          '5 ' + I18n.t("unit_types.#{supplier1.unit_type}.symbol"))
         expect(page).to have_content(
           "a customer's observation")
         expect(page.find('input[name="approved"]').checked?).to be(true)

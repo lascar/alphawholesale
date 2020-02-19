@@ -1,6 +1,7 @@
 <h1><%= t("views.attached_products.edit") %></h1>
 </br>
-<%= form_tag(attached_products_path, authenticity_token: true, method: :put) do -%>
+<%= form_tag(path_for(user: @user, path: 'attached_products'),
+  authenticity_token: true, method: :put) do -%>
   <%= label_tag :product %>
   <div class="row">
       <div class="card">
@@ -52,4 +53,4 @@
 <% end -%>
 
 <%= link_to 'Show', @attached_product %> |
-<%= link_to 'Back', attached_products_path %>
+<%= link_to 'Back', :back %>

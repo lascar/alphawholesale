@@ -1,4 +1,4 @@
-<h1><%= t("models.customer.name") + t("count", count: @customers.count) %></h1>
+<h1><%= t("models.customer.name") + t("with_count", count: @customers.count) %></h1>
 
 <table class="table-all table-bordered table-hover">
   <thead>
@@ -14,12 +14,19 @@
       <tr>
         <td><%= customer.identifier %></td>
         <td><%= customer.email %></td>
-        <td><%= link_to icon('fas', 'fa-eye'), customer, title: t("show") %></td>
-        <td><%= link_to icon('fas', 'fa-edit'), edit_customer_path(customer),
-          title: t("edit") %></td>
-        <td><%= link_to icon('fas', 'fa-trash'), customer,
-         title: t("destroy"), method: :delete,
-         data: { confirm: t(:are_you_sure) } %></td>
+        <td>
+          <%= link_to icon('fas', 'fa-eye'), path_for(user: "customer",
+          path: "user", options: {debug: true, object_id: customer.id}), title: t("show") %>
+        </td>
+        <td>
+          <%= link_to icon('fas', 'fa-edit'), path_for(user: "customer",
+          path: 'edit_user', options: {object_id: customer.id}), title: t("edit") %>
+        </td>
+        <td>
+          <%= link_to icon('fas', 'fa-trash'), path_for(user: "customer",
+          path: "user", options: {object_id: customer.id}), title: t("destroy"),
+          method: :delete, data: { confirm: t(:are_you_sure) } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -27,4 +34,4 @@
 
 <br>
 
-<%= link_to t("customer.new"), new_customer_path %>
+<%= link_to t("customer.new"), path_for(user: "customer", path: "new_user") %>

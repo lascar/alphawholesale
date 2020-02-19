@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe AttachedProductsController, type: :controller do
   let!(:product1) {create(:product)}
-  let!(:variety1) {create(:variety, product_id: product1.id)}
-  let!(:aspect1) {create(:aspect, product_id: product1.id)}
+  let!(:variety1) {product1.varieties.first}
+  let!(:aspect1) {product1.aspects.first}
   let(:attached_product_hash) {{definition:{product: product1.name,
                                             variety: variety1.name,
                                             aspect: aspect1.name }}}

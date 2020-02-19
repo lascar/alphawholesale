@@ -15,8 +15,8 @@
         </thead>
 
         <tbody>
-          <%= form_with(url: path_for(user: @user, path: "update_user_products"),
-                        method: :patch) do |form| %>
+          <%= form_with(url: path_for(user: @user, path: "user_product",
+                  options: {object_id: @user.id}), method: :patch) do |form| %>
             <% @products.each do |product| %>
               <tr>
                 <td class="text-truncate"

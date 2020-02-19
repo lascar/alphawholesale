@@ -1,5 +1,4 @@
 class OffersController < ApplicationController
-  include OffersHelper
   include Utilities
   before_action :authenticate_user!
   before_action :set_offer, only: [:show, :edit, :update, :destroy]
@@ -10,7 +9,7 @@ class OffersController < ApplicationController
     @offers = Offer.includes(:attached_product).not_expired
     if current_customer
       @offers = @offers.where(approved: true).
-        where(attached_product: { id: current_customer.attached_products.pluck(:id) })
+        where(attached_products: { id: current_customer.attached_products.pluck(:id) })
     end
     if @supplier_id
       @offers = @offers.where(supplier_id: @supplier_id)
@@ -50,7 +49,8 @@ class OffersController < ApplicationController
     @offer.supplier_id = current_supplier.id
     if @offer.save
       flash[:notice] = I18n.t('controllers.offers.successfully_created')
-      redirect_to path_for(user: @offer.supplier, path: 'show_offer')
+      redirect_to path_for(user: @offer.supplier, path: 'offer',
+                           options: {object_id: @offer.id})
     else
       flash[:alert] = helper_activerecord_error_message('offer',
                                                   @offer.errors.messages)
@@ -67,7 +67,7 @@ class OffersController < ApplicationController
     @incoterms = INCOTERMS
     if @offer.update(offer_params)
       flash[:notice] = I18n.t('controllers.offers.successfully_updated')
-      redirect_to path_for(user: @supplier, path: 'show_offer', options: {object_id: @offer.id})
+      redirect_to path_for(user: @supplier, path: 'offer', options: {object_id: @offer.id})
     else
       @offer = Offer.find(params[:id])
       flash[:alert] = helper_activerecord_error_message('offer',
