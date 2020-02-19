@@ -30,11 +30,7 @@ class OrdersController < ApplicationController
   def new
     customer_id = customer_signed_in? ? current_customer.id :
      params['customer_id']
-    if broker_signed_in?
-      @customers = Customer.all.pluck(:identifier, :id)
-    end
     @offer = Offer.find(params[:offer_id])
-    @offer_nested = make_offer_nested(@offer)
     @order = Order.new(customer_id: customer_id, offer_id: @offer.id)
     authorize @order
   end
@@ -45,7 +41,6 @@ class OrdersController < ApplicationController
     @customer_id = @order.customer_id
     @order.customer_id = @customer_id
     @offer = @order.offer
-    @offer_nested = make_offer_nested(@offer)
   end
 
   # POST /orders
@@ -68,10 +63,10 @@ class OrdersController < ApplicationController
     authorize @order
     if @order.update(order_params)
       flash[:notice] = I18n.t('controllers.orders.successfully_updated')
-      redirect_to path_for(user: @user, path: 'order', options: {object_id: order_params[:offer_id]})
+      redirect_to path_for(user: @user, path: 'order', options: {object_id: @order.id})
     else
       flash[:alert] = helper_activerecord_error_message('order', @order.errors.messages)
-      redirect_to path_for(user: @user, path: 'edit_order', options: {object_id: order_params[:offer_id]})
+      redirect_to path_for(user: @user, path: 'edit_order', options: {object_id: @order.id})
     end
   end
 

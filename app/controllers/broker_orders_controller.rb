@@ -59,7 +59,7 @@ class BrokerOrdersController < ApplicationController
       return
     else
       flash[:alert] = helper_activerecord_error_message('order', @order.errors.messages)
-      redirect_to path_for(path: 'new_order')
+      redirect_to path_for(path: 'new_order', options: {object_id: order_params[:offer_id]})
     end
   end
 

@@ -50,8 +50,8 @@ RSpec.describe ProductsController, type: :controller do
     end
 
     # TEST as a logged supplier
-    # TEST when a product is asked for edit that is not owned
-    # TEST then the customer's page is returned
+    # TEST when a product is asked for edit
+    # TEST then the supplier's page is returned
     # TEST and a message of unauthorized is send
     describe "as a logged supplier" do
       before :each do
@@ -67,27 +67,6 @@ RSpec.describe ProductsController, type: :controller do
       it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
-      end
-    end
-
-    # TEST as a logged customer
-    # TEST when a product that he owns is asked for edit
-    # TEST then the asked product is assigned
-    # TEST then the product's edit page is rendered
-    describe "as a logged broker" do
-      before :each do
-        product1.supplier = supplier1
-        product1.save
-        sign_in(supplier1)
-        get :edit, params: {id: product1.to_param}
-      end
-
-      it "assigns the product" do
-        expect(assigns(:product)).to eq(product1)
-      end
-
-      it "render the edit template" do
-        expect(response).to render_template(:edit)
       end
     end
 

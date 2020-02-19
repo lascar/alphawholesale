@@ -35,8 +35,6 @@ RSpec.describe 'Customers Feature new', type: :feature do
 					find('input[name="commit"]').click
         end
         expect(page).to have_content(I18n.t("products." + product2.name + ".name"))
-        expect(page).to have_xpath("//form[@action='/customers/" +
-          customer1.id.to_s + "/attached_products' and @method='post']")
         within("#radios_varieties") do
           choose "create_attached_product[variety]_" + variety1
         end

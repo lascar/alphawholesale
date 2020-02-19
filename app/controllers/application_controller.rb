@@ -74,6 +74,7 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
   def user_not_authorized
     if current_user
       user_type = current_user.class.name.downcase

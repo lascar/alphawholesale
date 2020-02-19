@@ -8,8 +8,6 @@ class AttachedProductsController < ApplicationController
 
   # GET /attached_products/new
   def new
-    @user = params[:supplier_id] ? Supplier.find(params[:supplier_id]) :
-      Customer.find(params[customer_id])
     product = Product.find_by(name: params_new["product"])
     @product = product.name
     @varieties = product.assortments['varieties']
@@ -21,8 +19,6 @@ class AttachedProductsController < ApplicationController
 
   # POST /attached_products/create
   def create 
-    @user = params[:supplier_id] ? Supplier.find(params[:supplier_id]) :
-      Customer.find(params[customer_id])
     definition = params_create.to_h.symbolize_keys
     definition.delete(:product)
     attached_product = AttachedProduct.find_or_create_by(product: params_create[:product],

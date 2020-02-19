@@ -118,7 +118,7 @@ module ApplicationHelper
     path_for_edit_product: path_edit_product,
     path_for_attached_products: path_attached_products,
     path_for_attached_product: path_attached_product,
-      path_for_new_attached_product: path_new_attached_product,
+    path_for_new_attached_product: path_new_attached_product,
     path_for_offers: path_offers,
     path_for_offer: path_offer,
     path_for_new_offer: path_new_offer,
@@ -214,7 +214,7 @@ module ApplicationHelper
 							customer: customer_path(current_user)}
       string += <<-HERE
           <li>
-            #{link_to t('views.control_panel'), path, class: 'btn btn-gris btn-sm'}
+      #{link_to t('views.control_panel'), path[user_type.to_sym], class: 'btn btn-gris btn-sm'}
           </li>
 HERE
     end

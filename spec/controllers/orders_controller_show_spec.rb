@@ -13,25 +13,6 @@ RSpec.describe OrdersController, type: :controller do
 
   describe "GET #show" do
 
-    # TEST as a guest user
-    # TEST when a order is asked for showing
-    # TEST then the 'welcome' page is returned
-    # TEST and a message of unauthenticated is send
-    describe "as guest user" do
-      before :each do
-        get :show, params: {id: order1.to_param}
-      end
-
-      it "returns the root page" do
-        expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authorized message" do
-        expect(flash.alert).to match(I18n.t(
-         'devise.failure.unauthenticated'))
-      end
-    end
-
     # TEST as a logged supplier
     # TEST when a order from an other supplier's offer is asked for showing
     # TEST then the supplier's page is returned
@@ -39,7 +20,7 @@ RSpec.describe OrdersController, type: :controller do
     describe "as a logged supplier" do
       before :each do
         sign_in(supplier2)
-        get :show, params: {id: order1.to_param}
+        get :show, params: {supplier_id: supplier1.id, id: order1.to_param}
       end
 
       it "returns the supplier's page" do
@@ -60,7 +41,7 @@ RSpec.describe OrdersController, type: :controller do
     describe "as a logged supplier asking for an order's page" do
       before :each do
         sign_in(supplier1)
-        get :show, params: {id: order1.to_param}
+        get :show, params: {supplier_id: supplier1.id, id: order1.to_param}
       end
 
       it "assigns the order" do
@@ -79,7 +60,7 @@ RSpec.describe OrdersController, type: :controller do
     describe "as a logged customer" do
       before :each do
         sign_in(customer2)
-        get :show, params: {id: order1.to_param}
+        get :show, params: {customer_id: customer1.id, id: order1.to_param}
       end
 
       it "returns the customer's page" do
@@ -100,7 +81,7 @@ RSpec.describe OrdersController, type: :controller do
     describe "as a logged customer asking for his page" do
       before :each do
         sign_in(customer1)
-        get :show, params: {id: order1.to_param}
+        get :show, params: {customer_id: customer1.id, id: order1.to_param}
       end
 
       it "assigns the order" do
@@ -108,25 +89,6 @@ RSpec.describe OrdersController, type: :controller do
       end
 
       it "returns the order's page" do
-        expect(response).to render_template(:show)
-      end
-    end
-
-    # TEST as a logged broker
-    # TEST when a order is asked for showing
-    # TEST then the order is assigned
-    # TEST then the order's show page is rendered
-    describe "as a logged broker asking for a order's page" do
-      before :each do
-        sign_in(broker1)
-        get :show, params: {id: order1.to_param}
-      end
-
-      it "assigns the order" do
-        expect(assigns(:order)).to eq(order1)
-      end
-
-      it "render the show template" do
         expect(response).to render_template(:show)
       end
     end

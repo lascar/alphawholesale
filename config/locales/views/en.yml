@@ -1,6 +1,6 @@
 en:
   views:
-    control_panel: "Control Pannel"
+    control_panel: "Control Panel"
     required_fields: "* The required fields are followed by a star"
     index: "List"
     show: "Show"

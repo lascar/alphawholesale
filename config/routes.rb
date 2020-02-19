@@ -17,8 +17,7 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show]
   resources :offers, only: [:index, :show]
 
-  concern :productable do
-    resources :products
+  concern :attached_productable do
     resources :attached_products
   end
 
@@ -29,13 +28,14 @@ Rails.application.routes.draw do
   authenticated :broker do
     resources :suppliers
     resources :customers
-    resources :brokers, concerns: [:productable] do
+    resources :products
+    resources :brokers, concerns: [:attached_productable] do
       resources :offers, controller: 'broker_offers'
       resources :orders, controller: 'broker_orders'
-      resources :customers, concerns: [:productable, :user_productable] do
+      resources :customers, concerns: [:attached_productable, :user_productable] do
         resources :orders, controller: 'broker_orders'
       end
-      resources :suppliers, concerns: [:productable, :user_productable] do
+      resources :suppliers, concerns: [:attached_productable, :user_productable] do
         resources :offers, controller: 'broker_offers'
       end
       resources :brokers
@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   end
 
   authenticated :supplier do
-    resources :suppliers, concerns: [:productable, :user_productable] do
+    resources :suppliers, concerns: [:attached_productable, :user_productable] do
       resources :suppliers
       resources :offers
       resources :orders, only: [:index, :show]
@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   end
 
   authenticated :customer do
-    resources :customers, concerns: [:productable, :user_productable] do
+    resources :customers, concerns: [:attached_productable, :user_productable] do
       resources :offers, only: [:index, :show]
       resources :orders
     end
