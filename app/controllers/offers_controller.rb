@@ -25,7 +25,6 @@ class OffersController < ApplicationController
   def new
     @offer = Offer.new
     authorize @offer
-    products = current_supplier.attached_products
     @supplier_id = @offer.supplier_id = current_supplier.id
     attached_products = current_supplier.attached_products
     @attached_products = attached_products
@@ -36,14 +35,12 @@ class OffersController < ApplicationController
   def edit
     authorize @offer
     @supplier_id = @offer.supplier_id = current_supplier.id
-    product = @offer.product
     @incoterms = INCOTERMS
   end
 
   # POST /offers
   def create
     params_offer = offer_params
-    product = Product.find_by_name(params_offer['product'])
     @offer = Offer.new(offer_params)
     authorize @offer
     @offer.supplier_id = current_supplier.id
@@ -88,6 +85,10 @@ class OffersController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_offer
+    if params[:id] == 'new'
+      render status: 404
+      return
+    end
     offer = Offer.find(params[:id])
     @offer = offer
   end
@@ -96,7 +97,7 @@ class OffersController < ApplicationController
   def offer_params
     base = [:supplier_id, :date_start, :date_end, :quantity,
                    :unit_price_supplier, :localisation_supplier, :observation,
-                   :incoterm, :product_id, :attached_product_id]
+                   :incoterm, :attached_product_id]
     params.require(:offer).permit(base)
   end
 end

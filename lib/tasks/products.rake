@@ -74,8 +74,8 @@ namespace :products do
       end
     end
     attached_product1 = AttachedProduct.first
-    offer1 = Offer.find_or_create_by(supplier_id: supplier.id, product_id: product1.id, attached_product_id: attached_product1.id, quantity: 4, unit_price_supplier: 11.4, unit_price_broker: 12, localisation_supplier: "Granada", localisation_broker: "Salobreña", incoterm: "EXW", observation: "text", date_start: Time.now, date_end: Time.now + 5.years, approved: true)
-    offer2 = Offer.find_or_create_by(supplier_id: supplier.id, product_id: product1.id, attached_product_id: attached_product1.id, quantity: 5, unit_price_supplier: 11.4, unit_price_broker: 12, localisation_supplier: "Granada", localisation_broker: "Salobreña", incoterm: "EXW", observation: "text", date_start: Time.now, date_end: Time.now + 5.years, approved: true)
+    offer1 = Offer.find_or_create_by(supplier_id: supplier.id, attached_product_id: attached_product1.id, quantity: 4, unit_price_supplier: 11.4, unit_price_broker: 12, localisation_supplier: "Granada", localisation_broker: "Salobreña", incoterm: "EXW", observation: "text", date_start: Time.now, date_end: Time.now + 5.years, approved: true)
+    offer2 = Offer.find_or_create_by(supplier_id: supplier.id, attached_product_id: attached_product1.id, quantity: 5, unit_price_supplier: 11.4, unit_price_broker: 12, localisation_supplier: "Granada", localisation_broker: "Salobreña", incoterm: "EXW", observation: "text", date_start: Time.now, date_end: Time.now + 5.years, approved: true)
     Order.find_or_create_by(customer_id: customer.id, offer_id: offer1.id, customer_observation: "text", quantity: 3, approved: true)
   end
 end

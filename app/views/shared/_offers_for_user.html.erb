@@ -33,7 +33,7 @@
 
     <tbody>
       <% @offers.each do |offer| %>
-        <% product_name = offer.product.name %>
+        <% product_name = offer.product_name %>
         <tr>
           <td class="text-truncate"
               title="<%= t('views.product_name') + ' ' +

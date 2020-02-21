@@ -50,7 +50,7 @@
         <thead>
           <tr>
             <th><div class="cell-resumen">
-              <%= t("models.attributes.offer.product") %>
+              <%= t("models.attributes.offer.product_name") %>
             </div></th>
             <th><div class="cell-resumen">
               <%= t("models.attributes.offer.quantity") %>
@@ -65,9 +65,9 @@
           <% @offers_without_approved.each do |offer| %>
             <tr>
               <td><div class="cell-resumen">
-                <%= offer.product.name + " " +
-                 (offer.variety ? offer.variety.name : "") %>
-                <%= offer.product.name %>
+                <%= offer.product_name + " " +
+                 (offer.variety_name ? offer.variety_name : "") %>
+                <%= offer.product_name %>
               </div></td>
               <td><div class="cell-resumen">
                 <%= offer.quantity.to_s + " " + offer.supplier.unit_type %>
@@ -169,7 +169,7 @@
           <% @orders_without_approved.each do |order| %>
             <tr>
               <td><div class="cell-resumen">
-                <%= order.offer.product.name %>
+                <%= order.product_name %>
               </div></td>
               <td><div class="cell-resumen">
                 <%= order.quantity %>

@@ -149,9 +149,9 @@ module ApplicationHelper
       end
       if user
         id = user.is_a?(String) ? nil : user.id
-        binding.pry if options[:debug]
         options[:post] ="#{user_type(user)}s/#{id ? id.to_s + '/' : ''}"
       end
+      # binding.pry if options[:debug]
       path_for.call(options: options)
     end
   end

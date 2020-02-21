@@ -32,7 +32,6 @@
     @offer = Offer.new
     authorize @offer
     @suppliers = Supplier.all.pluck(:identifier, :id)
-    products = Product.all
     @supplier_id = params[:supplier_id]
     @attached_products = AttachedProduct.all
     @incoterms = INCOTERMS
@@ -43,7 +42,6 @@
     authorize @offer
     @suppliers = Supplier.all.pluck(:identifier, :id)
     @supplier_id = params[:supplier_id]
-    product = @offer.product
     @incoterms = INCOTERMS
   end
 
@@ -51,16 +49,15 @@
   def create
     params_offer = offer_params
     attached_product = AttachedProduct.find params_offer[:attached_product_id]
-    params_offer[:product_id] = Product.find_by_name(attached_product.product).id
     @offer = Offer.new(params_offer)
     authorize @offer
     if @offer.save
       flash[:notice] = I18n.t('controllers.offers.successfully_created')
-      redirect_to path_for(user: @offer.supplier, path: 'offer')
+      redirect_to path_for(user: @offer.supplier, path: 'offer', options: {object_id: @offer.id})
     else
       flash[:alert] = helper_activerecord_error_message('offer',
                                                   @offer.errors.messages)
-      redirect_to path_for(user: @offer.supplier, path: 'new_offer')
+      redirect_to path_for( path: 'new_offer')
     end
   end
 
@@ -70,12 +67,12 @@
     @incoterms = INCOTERMS
     if @offer.update(offer_params)
       flash[:notice] = I18n.t('controllers.offers.successfully_updated')
-      redirect_to path_for(user: @offer.supplier, path: 'offer')
+      redirect_to path_for(user: @offer.supplier, path: 'offer', options: {object_id: @offer.id})
     else
       @offer = Offer.find(params[:id])
       flash[:alert] = helper_activerecord_error_message('offer',
                                                   @offer.errors.messages)
-      redirect_to path_for(user: @offer.supplier, path: 'new_offer')
+      redirect_to path_for(path: 'new_offer')
     end
   end
 

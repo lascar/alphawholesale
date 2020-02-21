@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 2020_02_03_144825) do
 
   create_table "offers", force: :cascade do |t|
     t.bigint "supplier_id"
-    t.bigint "product_id"
     t.bigint "attached_product_id"
     t.integer "quantity"
     t.decimal "unit_price_supplier", precision: 8, scale: 2, default: "0.0", null: false
@@ -84,7 +83,6 @@ ActiveRecord::Schema.define(version: 2020_02_03_144825) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["attached_product_id"], name: "index_offers_on_attached_product_id"
-    t.index ["product_id"], name: "index_offers_on_product_id"
     t.index ["supplier_id"], name: "index_offers_on_supplier_id"
   end
 

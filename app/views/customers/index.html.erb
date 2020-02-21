@@ -16,7 +16,7 @@
         <td><%= customer.email %></td>
         <td>
           <%= link_to icon('fas', 'fa-eye'), path_for(user: "customer",
-          path: "user", options: {debug: true, object_id: customer.id}), title: t("show") %>
+          path: "user", options: {object_id: customer.id}), title: t("show") %>
         </td>
         <td>
           <%= link_to icon('fas', 'fa-edit'), path_for(user: "customer",

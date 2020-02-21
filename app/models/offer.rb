@@ -1,10 +1,8 @@
 class Offer < ApplicationRecord
   belongs_to :supplier
   belongs_to :attached_product
-  belongs_to :product
   has_many :orders
   validates :supplier, presence: true
-  validates :product, presence: true
   validates :attached_product, presence: true
  
   def product_name

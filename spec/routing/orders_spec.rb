@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 # type controller for sign_in to work
-RSpec.describe "routing to orders", type: :controller do
+RSpec.describe OrdersController, type: :controller do
   let(:supplier1) {create(:supplier)}
   let(:customer1) {create(:customer)}
 
@@ -41,7 +41,6 @@ RSpec.describe "routing to orders", type: :controller do
   end
 
   xit "does not routes /suppliers/1/orders/new to orders#new" do
-    @controller = OrdersController.new
     sign_in(supplier1)
     expect(:get => "/suppliers/#{supplier1.id.to_s}/orders/new").not_to be_routable
   end

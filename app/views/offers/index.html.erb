@@ -4,7 +4,7 @@
   <table class="table-all table-bordered table-responsive">
     <thead>
       <tr>
-        <th><%= t("models.attributes.offer.product") %></th>
+        <th><%= t("models.attributes.offer.product_name") %></th>
         <th><%= t("models.attributes.offer.quantity") %></th>
         <% if !customer_signed_in? %>
           <th><%= t("models.attributes.offer.unit_price_supplier") %></th>
@@ -53,6 +53,6 @@
 <br>
 
 <% if !customer_signed_in? %>
-  <%= link_to t("offers.new"), path_for(user: @user, path: "offer_new"),
+  <%= link_to t("views.offers.new"), path_for(user: @user, path: "new_offer"),
     title: t("offers.new") %>
 <% end %>

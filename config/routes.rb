@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   }
 
   resources :products, only: [:index, :show]
-  resources :offers, only: [:index, :show]
+  resources :offers, only: [:index, :show], constraints: {id: /[0-9]*/}
 
   concern :attached_productable do
     resources :attached_products
@@ -57,4 +57,5 @@ Rails.application.routes.draw do
       resources :orders
     end
   end
+  match "/(*url)", to: 'welcome#routing_error', via: :all
 end

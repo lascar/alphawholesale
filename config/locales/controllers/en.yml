@@ -1,5 +1,7 @@
 en:
   controllers:
+    action_not_allowed: 'Not allowed'
+    unauthenticated: "You need to sign in or sign up before continuing."
     user_products:
       update:
         succefully: "User products were successfully updated."
