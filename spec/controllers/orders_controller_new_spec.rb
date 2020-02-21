@@ -10,6 +10,26 @@ RSpec.describe OrdersController, type: :controller do
   let!(:order2) {create(:order, customer: customer2, offer: offer1)}
 
   describe "GET #new" do
+    # TEST as a guest user
+    # TEST when order is asked for new
+    # TEST then it is routed to routing error
+    it "does not routes /orders/new to orders#new" do
+      expect(:get => "/orders/new").to route_to(controller: 'welcome',
+                                                 action: 'routing_error',
+                                                   url: 'orders/new')
+    end
+
+    # TEST as a logged supplier
+    # TEST when order is asked for new
+    # TEST then it is routed to routing error
+    xit "does not routes get /suppliers/1/orders/new to orders#new" do
+      # failed undefined method `authenticate?' for nil:NilClass
+      sign_in(supplier1)
+      expect(:get => "/suppliers/#{supplier1.id.to_s}/orders/new").to route_to(
+        controller: 'welcome', action: 'routing_error',
+        url: "suppliers/#{supplier1.id.to_s}/orders/1")
+    end
+
 
     # TEST as a logged customer
     # TEST when order is asked for new

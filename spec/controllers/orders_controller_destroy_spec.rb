@@ -9,6 +9,25 @@ RSpec.describe OrdersController, type: :controller do
   let!(:order2) {create(:order, customer_id: customer2.id)}
 
   describe "DELETE #destroy" do
+    # TEST as a guest user
+    # TEST when order is asked for destroying
+    # TEST then it is routed to routing error
+    it "does not routes delete /orders/1 to orders#destroy" do
+      expect(:delete => "/orders/1").to route_to(controller: 'welcome',
+                                                 action: 'routing_error',
+                                                   url: 'orders/1')
+    end
+
+    # TEST as a logged supplier
+    # TEST when order is asked for destroying
+    # TEST then it is routed to routing error
+    it "does not routes delete /orders/1 to orders#destroy" do
+      sign_in(supplier1)
+      expect(:delete => "/suppliers/#{supplier1.id.to_s}/orders/1").to route_to(
+        controller: 'welcome', action: 'routing_error',
+        url: "suppliers/#{supplier1.id.to_s}/orders/1")
+    end
+
     # TEST as a logged customer
     # TEST when a order that not belongs to the customer is asked for destroying
     # TEST then the customer's page is returned

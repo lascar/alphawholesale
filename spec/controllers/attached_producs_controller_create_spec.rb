@@ -5,8 +5,8 @@ RSpec.describe AttachedProductsController, type: :controller do
   let!(:variety1) {product1.varieties.first}
   let!(:aspect1) {product1.aspects.first}
   let(:attached_product_hash) {{definition:{product: product1.name,
-                                            variety: variety1.name,
-                                            aspect: aspect1.name }}}
+                                            variety: variety1,
+                                            aspect: aspect1 }}}
   let(:customer1) {create(:customer)}
   let(:supplier1) {create(:supplier)}
   let(:broker1) {create(:broker)}
@@ -14,29 +14,13 @@ RSpec.describe AttachedProductsController, type: :controller do
   describe "POST #create" do
 
     # TEST as a guest user
-    # TEST when an attached product is asked for creating
-    # TEST then the 'welcome' page is returned
-    # TEST and a message of unauthenticated is send
-    describe "as guest user" do
-      before :each do
-        post :create, params: {attached_product: attached_product_hash}
-      end
-
-      it "returns 302 status" do
-        expect(response.status).to eq(302)
-      end
-
-      it "returns a non authorized message" do
-        expect(flash.alert).to match(I18n.t(
-         'devise.failure.unauthenticated'))
-      end
-
-      it "redirect to the root page" do
-        expect(response.redirect_url).to match("http://test.host/")
-      end
-
+    # TEST when attached_product is asked for creating
+    # TEST then it is routed to routing error
+    it "does not routes post /attached_products to attached_products#create" do
+      expect(:post => "/attached_products/").to route_to(controller: 'welcome',
+                                                         action: 'routing_error',
+                                                         url: 'attached_products')
     end
-
 
     # TEST as a logged customer
     # TEST when an attached product is asked for creating
@@ -54,7 +38,7 @@ RSpec.describe AttachedProductsController, type: :controller do
       end
 
       it "redirect to the newly created aspect" do
-        expect(response.redirect_url).to eq("http://test.host/attached_products")
+        expect(response.redirect_url).to eq("http://test.host/customers/#{customer1.id.to_s}/attached_products")
       end
     end
 
@@ -66,7 +50,7 @@ RSpec.describe AttachedProductsController, type: :controller do
       before :each do
         @count = AttachedProduct.where(attachable: supplier1).count
         sign_in(supplier1)
-        post :create, params: {attached_product: attached_product_hash}
+        post :create, params: {supplier_id: supplier1.id, attached_product: attached_product_hash}
       end
 
       it "assigns a new attached product" do
@@ -74,7 +58,7 @@ RSpec.describe AttachedProductsController, type: :controller do
       end
 
       it "redirect to the newly created aspect" do
-        expect(response.redirect_url).to eq("http://test.host/attached_products")
+        expect(response.redirect_url).to eq("http://test.host/suppliers/#{supplier1.id.to_s}/attached_products")
       end
     end
 
@@ -84,17 +68,17 @@ RSpec.describe AttachedProductsController, type: :controller do
     # TEST and the aspect's create page is rendered
     describe "as a logged broker" do
       before :each do
-        @count = AttachedProduct.where(attachable: broker1).count
+        @count = AttachedProduct.where(attachable: supplier1).count
         sign_in(broker1)
-        post :create, params: {attached_product: attached_product_hash}
+        post :create, params: {broker_id: broker1.id, attached_product: attached_product_hash.merge({attachable: supplier1})}
       end
 
       it "assigns a new attached product" do
-        expect(AttachedProduct.where(attachable: broker1).count).to eq(@count + 1)
+        expect(AttachedProduct.where(attachable: supplier1).count).to eq(@count + 1)
       end
 
       it "redirect to the newly created aspect" do
-        expect(response.redirect_url).to eq("http://test.host/attached_products")
+        expect(response.redirect_url).to eq("http://test.host/brokers/#{broker1.id.to_s}/attached_products")
       end
     end
   end

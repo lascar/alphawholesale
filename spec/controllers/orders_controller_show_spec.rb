@@ -12,6 +12,14 @@ RSpec.describe OrdersController, type: :controller do
   let!(:order2) {create(:order, customer: customer2)}
 
   describe "GET #show" do
+    # TEST as a guest user
+    # TEST when order is asked for showing
+    # TEST then it is routed to routing error
+    it "does not routes /orders/1 to orders#show" do
+      expect(:get => "/orders/1").to route_to(controller: 'welcome',
+                                              action: 'routing_error',
+                                              url: 'orders/1')
+    end
 
     # TEST as a logged supplier
     # TEST when a order from an other supplier's offer is asked for showing

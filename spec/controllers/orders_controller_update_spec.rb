@@ -13,6 +13,25 @@ RSpec.describe OrdersController, type: :controller do
   let!(:order_hash) {{ customer_id: customer1.id, offer_id: offer1.id, quantity: 3}}
 
   describe "PUT #update" do
+    # TEST as a guest user
+    # TEST when order is asked for updating
+    # TEST then it is routed to routing error
+    it "does not routes /orders/1 to orders#update" do
+      expect(:put => "/orders/1").to route_to(controller: 'welcome',
+                                                 action: 'routing_error',
+                                                   url: 'orders/1')
+    end
+
+    # TEST as a logged supplier
+    # TEST when order is asked for updating
+    # TEST then it is routed to routing error
+    it "does not routes /suppliers/1/orders/1 to orders#update" do
+      sign_in(supplier1)
+      expect(:put => "/suppliers/#{supplier1.id.to_s}/orders/1").to route_to(
+        controller: 'welcome', action: 'routing_error',
+        url: "suppliers/#{supplier1.id.to_s}/orders/1")
+    end
+
 
     # TEST as a logged customer
     # TEST when an other customer's order is asked for updating
