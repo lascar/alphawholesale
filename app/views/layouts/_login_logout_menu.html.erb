@@ -1,10 +1,9 @@
-<%# binding.pry %>
 <ul class="nav nav-pills pull-right">
   <%= user_logged(user_type) %>
   <% if !user_type.empty? %>
     <li>
       <%= link_to icon('fas', 'fa-sign-out-alt', class: "icon-white") + " " +
-          t("activerecord.models." + user_type + ".name"), session_destroy_path(user_type.to_sym),
+          t("models." + user_type + ".name"), session_destroy_path(user_type.to_sym),
           method: :delete, title: t("devise.action.signout"),
           class: "btn btn-primary btn-sm" %>
     </li>
@@ -12,14 +11,14 @@
     <% ["supplier", "customer"].each do |type| %>
       <li>
         <%= link_to icon('fas', 'fa-sign-in-alt', 'icon-white') + " " +
-            t("activerecord.models." + type + ".name"),
+            t("models." + type + ".name"),
             session_new_path(type.to_sym),
             title: t("devise.action." + type + ".signin"),
             class: "btn btn-primary btn-sm" %>
       </li>
       <li>
         <%= link_to icon('fas', 'fa-user-plus') + " " +
-            t("activerecord.models." + type + ".name"),
+            t("models." + type + ".name"),
             no_session_registration_path(type.to_sym),
             title: t("devise.action." + type + ".signup"),
             class: "btn btn-secondary btn-sm" %>

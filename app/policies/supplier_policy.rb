@@ -23,11 +23,11 @@ class SupplierPolicy
   end
 
   def update?
-    @user.class.name == "Broker"
+    record == user or @user.class.name == "Broker"
   end
 
   def edit?
-    @user.class.name == "Broker"
+    record == user or @user.class.name == "Broker"
   end
 
   def destroy?

@@ -10,38 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_12_083320) do
+ActiveRecord::Schema.define(version: 2020_02_03_144825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
 
-  create_table "aspects", force: :cascade do |t|
-    t.bigint "supplier_id"
-    t.bigint "product_id"
-    t.string "name"
-    t.boolean "approved", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_aspects_on_product_id"
-    t.index ["supplier_id"], name: "index_aspects_on_supplier_id"
-  end
-
   create_table "attached_products", force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.bigint "variety_id"
-    t.bigint "aspect_id"
-    t.bigint "packaging_id"
+    t.string "product"
+    t.jsonb "definition", default: {}, null: false
     t.string "attachable_type", null: false
     t.bigint "attachable_id", null: false
     t.boolean "mailing", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["aspect_id"], name: "index_attached_products_on_aspect_id"
     t.index ["attachable_type", "attachable_id"], name: "index_attached_products_on_attachable_type_and_attachable_id"
-    t.index ["packaging_id"], name: "index_attached_products_on_packaging_id"
-    t.index ["product_id"], name: "index_attached_products_on_product_id"
-    t.index ["variety_id"], name: "index_attached_products_on_variety_id"
+    t.index ["definition"], name: "index_attached_products_on_definition", using: :gin
   end
 
   create_table "brokers", force: :cascade do |t|
@@ -58,7 +42,6 @@ ActiveRecord::Schema.define(version: 2019_09_12_083320) do
   end
 
   create_table "customers", force: :cascade do |t|
-    t.boolean "approved", default: false
     t.string "entreprise_name"
     t.string "email"
     t.string "tin"
@@ -76,6 +59,7 @@ ActiveRecord::Schema.define(version: 2019_09_12_083320) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.boolean "approved", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["approved"], name: "index_customers_on_approved"
@@ -85,12 +69,7 @@ ActiveRecord::Schema.define(version: 2019_09_12_083320) do
 
   create_table "offers", force: :cascade do |t|
     t.bigint "supplier_id"
-    t.bigint "product_id"
-    t.bigint "variety_id"
-    t.bigint "aspect_id"
-    t.bigint "size_id"
-    t.bigint "packaging_id"
-    t.boolean "approved", default: false
+    t.bigint "attached_product_id"
     t.integer "quantity"
     t.decimal "unit_price_supplier", precision: 8, scale: 2, default: "0.0", null: false
     t.decimal "unit_price_broker", precision: 8, scale: 2, default: "0.0", null: false
@@ -100,14 +79,11 @@ ActiveRecord::Schema.define(version: 2019_09_12_083320) do
     t.text "observation"
     t.date "date_start"
     t.date "date_end"
+    t.boolean "approved", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["aspect_id"], name: "index_offers_on_aspect_id"
-    t.index ["packaging_id"], name: "index_offers_on_packaging_id"
-    t.index ["product_id"], name: "index_offers_on_product_id"
-    t.index ["size_id"], name: "index_offers_on_size_id"
+    t.index ["attached_product_id"], name: "index_offers_on_attached_product_id"
     t.index ["supplier_id"], name: "index_offers_on_supplier_id"
-    t.index ["variety_id"], name: "index_offers_on_variety_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -122,50 +98,14 @@ ActiveRecord::Schema.define(version: 2019_09_12_083320) do
     t.index ["offer_id"], name: "index_orders_on_offer_id"
   end
 
-  create_table "packagings", force: :cascade do |t|
-    t.bigint "supplier_id"
-    t.bigint "product_id"
-    t.string "name"
-    t.boolean "approved", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_packagings_on_product_id"
-    t.index ["supplier_id"], name: "index_packagings_on_supplier_id"
-  end
-
-  create_table "product_customers", force: :cascade do |t|
-    t.bigint "customer_id"
-    t.bigint "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_product_customers_on_customer_id"
-    t.index ["product_id"], name: "index_product_customers_on_product_id"
-  end
-
   create_table "products", force: :cascade do |t|
-    t.bigint "supplier_id"
-    t.string "reference"
     t.string "name"
-    t.string "variety"
-    t.boolean "approved", default: false
+    t.jsonb "assortments", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["supplier_id"], name: "index_products_on_supplier_id"
-  end
-
-  create_table "sizes", force: :cascade do |t|
-    t.bigint "supplier_id"
-    t.bigint "product_id"
-    t.string "name"
-    t.boolean "approved", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_sizes_on_product_id"
-    t.index ["supplier_id"], name: "index_sizes_on_supplier_id"
   end
 
   create_table "suppliers", force: :cascade do |t|
-    t.boolean "approved", default: false
     t.string "entreprise_name"
     t.string "email"
     t.string "tin"
@@ -183,6 +123,7 @@ ActiveRecord::Schema.define(version: 2019_09_12_083320) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.boolean "approved", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["approved"], name: "index_suppliers_on_approved"
@@ -190,49 +131,14 @@ ActiveRecord::Schema.define(version: 2019_09_12_083320) do
     t.index ["reset_password_token"], name: "index_suppliers_on_reset_password_token", unique: true
   end
 
-  create_table "tender_lines", force: :cascade do |t|
-    t.bigint "tender_id"
-    t.bigint "product_id"
-    t.bigint "variety_id"
-    t.bigint "aspect_id"
-    t.bigint "size_id"
-    t.bigint "packaging_id"
-    t.integer "unit"
-    t.integer "unit_price"
-    t.text "observation"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["aspect_id"], name: "index_tender_lines_on_aspect_id"
-    t.index ["packaging_id"], name: "index_tender_lines_on_packaging_id"
-    t.index ["product_id"], name: "index_tender_lines_on_product_id"
-    t.index ["size_id"], name: "index_tender_lines_on_size_id"
-    t.index ["tender_id"], name: "index_tender_lines_on_tender_id"
-    t.index ["variety_id"], name: "index_tender_lines_on_variety_id"
+  create_table "user_products", force: :cascade do |t|
+    t.string "user_type", null: false
+    t.bigint "user_id", null: false
+    t.jsonb "products", default: []
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["products"], name: "index_user_products_on_products", using: :gin
+    t.index ["user_type", "user_id"], name: "index_user_products_on_user_type_and_user_id"
   end
 
-  create_table "tenders", force: :cascade do |t|
-    t.bigint "customer_id"
-    t.boolean "approved", default: false
-    t.datetime "date_start"
-    t.datetime "date_end"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_tenders_on_customer_id"
-  end
-
-  create_table "varieties", force: :cascade do |t|
-    t.bigint "product_id"
-    t.bigint "supplier_id"
-    t.string "name"
-    t.boolean "approved", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_varieties_on_product_id"
-    t.index ["supplier_id"], name: "index_varieties_on_supplier_id"
-  end
-
-  add_foreign_key "attached_products", "aspects"
-  add_foreign_key "attached_products", "packagings"
-  add_foreign_key "attached_products", "products"
-  add_foreign_key "attached_products", "varieties"
 end

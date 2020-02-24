@@ -52,29 +52,25 @@ RSpec.describe ProductsController, type: :controller do
 
     # TEST as a logged supplier
     # TEST when product is asked for creating
-    # TEST then the newly created product is assigned
-    # TEST and the supplier owns the product
-    # TEST and it's redirected to the newly created product's page
+    # TEST then the supplier's page is returned
+    # TEST and a message of unauthorized is send
     describe "as a logged supplier" do
       before :each do
         sign_in(supplier1)
         post :create, params: {product: product_hash}
       end
 
-      it "assigns a new product" do
-        expect(assigns(:product).persisted?).to be(true)
+      it "returns the supplier's page" do
+        expect(response.redirect_url).to eq(
+         "http://test.host/suppliers/" + supplier1.id.to_s)
       end
 
-      it "attributes the newly created product to the supplier" do
-        expect(assigns(:product).supplier_id).to be(supplier1.id)
-      end
-
-      it "redirect to the newly created product" do
-        product_id = assigns(:product).id.to_s
-        expect(response.redirect_url).to eq("http://test.host/suppliers/" +
-         supplier1.id.to_s + "/products/" + product_id)
+      it "returns a non authorized message" do
+        expect(flash.alert).to match(
+         I18n.t('devise.errors.messages.not_authorized'))
       end
     end
+
     # TEST as a logged broker
     # TEST when product is asked for creating
     # TEST then a create product is assigned
@@ -91,7 +87,7 @@ RSpec.describe ProductsController, type: :controller do
 
       it "redirect to the newly created product" do
         product_id = assigns(:product).id.to_s
-        expect(response.redirect_url).to eq("http://test.host/products/" + product_id)
+        expect(response.redirect_url).to eq("http://test.host/brokers/#{broker1.id.to_s}/products/#{product_id}")
       end
     end
   end

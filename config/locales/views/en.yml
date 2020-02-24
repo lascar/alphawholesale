@@ -1,126 +1,97 @@
 en:
-  required_fields: "* The required fields are followed by a star"
-  control_panel: "Control Pannel"
   views:
-    create: 'Create'
-    edit: 'Edit'
-    update: 'Update'
-    broker_name: 'Broker'
-    supplier_name: 'Supplier'
-    customer_name: 'Customer'
-    product_name: 'Product'
-    variety_name: 'Variety'
-    aspect_name: 'Aspect'
-    packaging_name: 'Packaging'
-    identifier: 'Identifier'
-    approved: 'Approved'
-    email: 'Email'
-    quantity: 'Quantity'
-    unit_price_supplier: 'Unit Price'
-    unit_price_customer: 'Unit Price'
-    suppliers:
-      show:
-        attached_products: 'Attached Products: %{count}'
-    customers:
-      show:
-        attached_products: 'Attached Products: %{count}'
-    admin_attached_products:
-      index:
-        title: "Attachable Products"
-        attached_products: 'Attached products'
-        new_attached: 'New attached products'
-      new:
-        title: "New attachable products"
-      edit:
-        title: "Edit attachable products"
-        product_name: "Product"
-        variety_name: "Variety"
-        aspect_name: "Aspect"
-        packaging_name: "Packaging"
-        checked: 'checked'
+    control_panel: "Control Panel"
+    required_fields: "* The required fields are followed by a star"
+    index: "List"
+    show: "Show"
+    new: "New"
+    create: "Create"
+    edit: "Edit"
+    update: "Update"
+    destroy: "Destroy"
+    back: "Back"
+    broker_name: "Broker"
+    supplier_name: "Supplier"
+    customer_name: "Customer"
+    product_name: "Product"
+    variety_name: "Variety"
+    aspect_name: "Aspect"
+    packaging_name: "Packaging"
+    size_name: "Size"
+    caliber_name: "Caliber"
+    quantity_name: "Quantity"
+    identifier: "Identifier"
+    approved: "Approved"
+    email: "Email"
+    quantity: "Quantity"
+    unit_price_supplier: "Unit Price"
+    unit_price_broker: "Total Unit Price"
+    user_products:
+      name: "Products of interest"
+      update: "Update Products of interest"
+    attached_products:
+      name: "Attached Products"
+      new: "New attached products"
+      detach_product: "Detach Product"
+      attached_products: "Attached Products"
+      select_product: "Select a product for a new attached product"
     brokers:
-      attached_products: 'Attachable products'
-      manage_attachable: 'Manage attachable products'
-  attached_products:
-    edit: 'Edit attached products'
-    detach_product: "Detach Product"
-    attached_products: "Attached Products"
-  brokers:
-    new: "New Broker"
-    editing: "Editing Broker"
-    edit: "Edit Broker"
-    prohibited_broker_saved: "prohibited this broker from being saved"
-    list: "Brokers list"
-  suppliers:
-    new: "New Supplier"
-    editing: "Editing Supplier"
-    edit: "Edit Supplier"
-    prohibited_supplier_saved: "prohibited this supplier from being saved"
-    without_approved: "Suppliers without approved"
-    list: "Suppliers list"
-  customers:
-    new: "New Customer"
-    editing: "Editing Customer"
-    edit: "Edit Customer"
-    prohibited_customer_saved: "prohibited this customer from being saved"
-    without_approved: "Customers without approved"
-    list: "Customers list"
-  products:
-    get_names: "Get Product Names"
-    new: "New Product"
-    prohibited_product_saved: "prohibited this product from being saved"
-    editing: "Editing Product"
-    name_not_in_list: "Name not in the list"
-    name_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
-    variety_not_in_list: "Variety not in the list"
-    variety_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
-    origin_not_in_list: "Origin not in the list"
-    origin_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
-    aspect_not_in_list: "Aspect not in the list"
-    aspect_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
-    size_not_in_list: "Calibre not in the list"
-    size_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
-    packaging_not_in_list: "Packaging not in the list"
-    packaging_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
-    without_approved: "Products without approved"
-    list: "Products list"
-  packagings:
-    list: "Packaging list"
-    new: "New Packaging"
-    without_approved: "Packaging without approved"
-  origins:
-    list: "Origin list"
-    new: "New Origin"
-    without_approved: "Origin without approved"
-  aspects:
-    list: "Aspect list"
-    new: "New Aspect"
-    without_approved: "Aspect without approved"
-  aspect_sizes:
-    list: "Size list"
-    new: "New Size"
-    without_approved: "Size without approved"
-  offers:
-    new: "New Offer"
-    prohibited_offer_saved: "prohibited this offer from being saved"
-    editing: "Editing Offer"
-    without_approved: "offers without approved"
-    list: "Offers list"
-    make_order: "Make an Order"
-  orders:
-    new: "Place Order"
-    prohibited_order_saved: "prohibited this order from being saved"
-    editing: "Editing Order"
-    without_approved: "orders without approved"
-    list: "Orders list"
-  tenders:
-    new: "New Tender"
-    prohibited_tender_saved: "prohibited this tender from being saved"
-    editing: "Editing Tender"
-    without_approved: "tenders without approved"
-    list: "Tenders list"
-  tender_lines:
-    new: "New Tender Line"
-    prohibited_tender_line_saved: "prohibited this tender line from being saved"
-    editing: "Editing Tender Line"
-    lines_list: "Tender Lines list"
+      new: "New Broker"
+      editing: "Editing Broker"
+      edit: "Edit Broker"
+      prohibited_broker_saved: "prohibited this broker from being saved"
+      list: "Brokers list"
+      attached_products: "Attachable products"
+      manage_attachable: "Manage attachable products"
+    users:
+      user_products_list: "List of products of interest"
+      attached_products: "Attached Products"
+    suppliers:
+      new: "New Supplier"
+      editing: "Editing Supplier"
+      edit: "Edit Supplier"
+      prohibited_supplier_saved: "prohibited this supplier from being saved"
+      without_approved: "Suppliers not yet approved"
+      list: "Suppliers list"
+    customers:
+      new: "New Customer"
+      editing: "Editing Customer"
+      edit: "Edit Customer"
+      prohibited_customer_saved: "prohibited this customer from being saved"
+      without_approved: "Customers without approved"
+      list: "Customers list"
+    products:
+      name: "Products"
+      get_names: "Get Product Names"
+      new: "New Product"
+      prohibited_product_saved: "prohibited this product from being saved"
+      editing: "Editing Product"
+      name_not_in_list: "Name not in the list"
+      name_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
+      variety_not_in_list: "Variety not in the list"
+      variety_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
+      origin_not_in_list: "Origin not in the list"
+      origin_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
+      aspect_not_in_list: "Aspect not in the list"
+      aspect_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
+      size_not_in_list: "Calibre not in the list"
+      size_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
+      packaging_not_in_list: "Packaging not in the list"
+      packaging_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
+      list: "Products list"
+    offers:
+      new: "New Offer"
+      prohibited_offer_saved: "prohibited this offer from being saved"
+      edit: "Edit Offer"
+      editing: "Editing Offer"
+      without_approved: "offers without approved"
+      list: "Offers list"
+      make_order: "Make an Order"
+    orders:
+      new: "Place Order"
+      prohibited_order_saved: "prohibited this order from being saved"
+      editing: "Editing Order"
+      without_approved: "orders without approved"
+      list: "Orders list"
+      supplier_observation: "Supplier observation"
+      customer_observation: "Customer observation"

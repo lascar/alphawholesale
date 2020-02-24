@@ -1,8 +1,7 @@
 class SuppliersController < ApplicationController
   include Utilities
   before_action :authenticate_user!
-  before_action :set_supplier,
-   only: [:show, :edit, :update, :destroy]
+  before_action :set_supplier, only: [:show, :edit, :update, :destroy]
 
   # GET /suppliers
   def index
@@ -13,8 +12,10 @@ class SuppliersController < ApplicationController
   # GET /suppliers/1
   def show
     authorize @supplier
-    @offers = @supplier.offers.includes(:product)
-    @attached_products = make_attached_products_hash(@supplier.attached_products)
+    @offers = @supplier.offers
+    @orders = @offers.map{|offer| offer.orders}.compact.flatten
+    @attached_products = AttachedProduct.where(attachable: @supplier)
+    @user_products = @supplier.user_product.products
   end
 
   # GET /suppliers/new
@@ -43,7 +44,7 @@ class SuppliersController < ApplicationController
     else
       flash[:alert] = helper_activerecord_error_message('supplier',
                                                   @supplier.errors.messages)
-      redirect_to supplier_new_path
+      redirect_to path_for(user: @user, path: 'new_supplier')
     end
   end
 
@@ -59,7 +60,7 @@ class SuppliersController < ApplicationController
     else
       flash[:alert] = helper_activerecord_error_message('supplier',
                                                   @supplier.errors.messages)
-      redirect_to supplier_edit_path
+      redirect_to path_for(user: @user, path: 'edit_supplier')
     end
   end
 

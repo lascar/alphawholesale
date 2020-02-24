@@ -4,19 +4,19 @@ For wholesale online.
 
 A Broker is as a man on the middle; everything occurs with his approval.
 
-A Supplier can place an offer, or respond to a tender.
+A Supplier can place an offer, or respond to a request (todo).
 
-A Customer can command, or put out a tender.
+A Customer can command, or put a request (todo).
 
-A Product can have a size, an aspect or a packaging.
+A Complete Product can have a size, an aspect, a packaging, a size or a calibre.
 
-An Offer has a price for supplier and a price for customer; in the middle... the broker.
+An Offer has a complete product, price for supplier and a price for customer; in the middle... the broker.
 
 * Ruby version
 ruby 2.6.5
 
 * System dependencies
-rails 6.0.0
+rails 6.0.2.1
 
 * Database
 postgresql
@@ -28,11 +28,6 @@ It was write in rails 5.2 and used 'delayed_job_active_record' but now it use si
 
 It use rspec 4 because the 3 has given problems too
 
-## CLOUDFRONT
-
-It uses AWS cloudfront in production for the 'assets' (packs as it uses webpack).
-
-You have to deblock mix content in your browser (in firefox, the icon padlock in the address bar) as https is not used.
 
 ## INSTALATION IN DEVELOPMENT
 
@@ -42,14 +37,13 @@ You have to deblock mix content in your browser (in firefox, the icon padlock in
 
 * For use of the webpack server in dev you have to run in a console apart <code>./bin/webpack-dev-server</code>.
 
-You will obtain 3 users (broker1, supplier1, customer1, password 'passwordi83')
+You will obtain 3 users (broker1, supplier1, customer1, password 'password83')
 
 and a list of fake products and 3 offers the second time seed is run.
 
-The products are based on 'config/locales/products/fr.yml' (<code>rake nb:make_products</code>).
+The products are based on 'config/locales/products/en.yml' (<code>rake nb:make_products</code>).
 
-For production you have to change this list accordingly to his simple sintax
-and change the products/es and en too.
+For production you have to change this list accordingly to his simple syntax.
 
 If you want to add a product, simply add it in the file (product, variety, aspect and/or packaging);
 the task is idempotent, no problem.
@@ -59,6 +53,12 @@ So you can login as customer or supplier, do not forget to attach product before
 doing an offer or order.
 
 You can login as broker at /brokers/sign_in and approve the offer or the order
+
+If you want some examples of attached product, you can run
+
+<code>rails products:make_attached_products_list_examples</code>
+
+You will obtains 8 attached products build on the 2 first products of config/locals/products/en.yml
 
 ## RESILIENT NATURE
 
@@ -73,9 +73,11 @@ the application still works!
 
 ## TODO
 
-Customer can put a tender. Supplier can respond to a tender.
+Customer can put a request. Supplier can respond to a request.
 
 ## DOCKER
+
+Todo actualize docker
 
 The application is 'dokerized'. It is using docker-compose.
 
@@ -125,7 +127,7 @@ capybara syntax, highly simplified thanks to the 'resilient' nature of the appli
 
 It is too a wip.
 
-I use reek allthrough i am not so strict.
+I use reek allthrough I am not so strict.
 
 And bullet to try to get ride of misuse of activerecord.
 

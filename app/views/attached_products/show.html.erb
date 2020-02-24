@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_attached_product_path(@attached_product) %> |
-<%= link_to 'Back', attached_products_path %>
+<%= link_to 'Edit', path_for(user: @user, path: 'edit_attached_product',
+  options: {object_id: @attached_product.id}) %> |
+<%= link_to 'Back', path_for(user: @user, path: 'attached_products') %>

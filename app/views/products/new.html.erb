@@ -3,4 +3,4 @@
 <%= render 'form', product: @product %>
 
 <%= link_to t("back"), :back %>
-<%= link_to t("products.list"), list_products_path %>
+<%= link_to t("products.list"), path_for(user: @user, path: 'products') %>

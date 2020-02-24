@@ -12,52 +12,23 @@ RSpec.describe OffersController, type: :controller do
 
     # TEST as a guest user
     # TEST when an offer is asked for destroying
-    # TEST then the root page is returned
-    # TEST and a message of unauthenticated is send
-    # TEST and the offer is not destroyed
+    # TEST then 404 is returned
     describe "as guest user" do
-      before :each do
-        delete :destroy, params: {id: offer1.to_param}
-      end
-
-      it "returns the root page" do
-        expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authorized message" do
-        expect(flash.alert).to match(I18n.t(
-         'devise.failure.unauthenticated'))
-      end
-
-      it "does not destroy the offer" do
-        expect(Offer.find_by_id(offer1.id)).to eq(offer1)
-      end
+			it "does not routes get /offers/1/edit to offers#edit" do
+        expect{ delete :destroy, params: {offer_id: offer1.id} }.
+         to raise_error(ActionController::UrlGenerationError)
+			end
     end
 
     # TEST as a logged customer
     # TEST when a offer is asked for destroying
-    # TEST then the customer's page is returned
-    # TEST and a message of unauthorized is send
-    # TEST and the offer is not destroyed
+    # TEST then 404 is returned
     describe "as a logged customer" do
-      before :each do
+			it "does not routes delete /customers/1/offers/1 to offers#destroy" do
         sign_in(customer1)
-        delete :destroy, params: {id: offer1.to_param}
-      end
-
-      it "returns the customer's page" do
-        expect(response.redirect_url).to eq(
-         "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
-        expect(flash.alert).to match(
-         I18n.t('devise.errors.messages.not_authorized'))
-      end
-
-      it "does not destroy the offer" do
-        expect(Offer.find_by_id(offer1.id)).to eq(offer1)
-      end
+        expect{ delete :destroy, params: {customer_id: customer1.id, offer_id: offer1.id} }.
+         to raise_error(ActionController::UrlGenerationError)
+			end
     end
 
     # TEST as a logged supplier
@@ -68,7 +39,8 @@ RSpec.describe OffersController, type: :controller do
     describe "as a logged supplier" do
       before :each do
         sign_in(supplier1)
-        delete :destroy, params: {id: offer2.to_param}
+        # tested with supplier2.id too
+        delete :destroy, params: {supplier_id: supplier1.id, id: offer2.to_param}
       end
 
       it "returns the supplier's page" do
@@ -94,38 +66,12 @@ RSpec.describe OffersController, type: :controller do
     describe "as a logged supplier" do
       before :each do
         sign_in(supplier1)
-        delete :destroy, params: {id: offer1.to_param}
+        delete :destroy, params: {supplier_id: supplier1.id, id: offer1.to_param}
       end
 
       it "returns the list of the supplier's offers" do
         expect(response.redirect_url).to eq(
-         "http://test.host/suppliers/" + supplier1.id.to_s + "/offers")
-      end
-
-      it "returns a success message" do
-        expect(flash.notice).to match(
-         I18n.t('controllers.offers.successfully_destroyed'))
-      end
-
-      it "destroys the offer" do
-        expect(Offer.find_by_id(offer1.id)).to be(nil)
-      end
-    end
-
-
-    # TEST as a logged broker
-    # TEST when a offer  is asked for destroying
-    # TEST then the list of offers is returned
-    # TEST and a message of success in destroying is send
-    # TEST and the offer is destroyed
-    describe "as a logged broker" do
-      before :each do
-        sign_in(broker1)
-        delete :destroy, params: {id: offer1.to_param}
-      end
-
-      it "returns the list of offers" do
-        expect(response.redirect_url).to eq("http://test.host/offers")
+         "http://test.host/suppliers/" + supplier1.id.to_s + "/offers/")
       end
 
       it "returns a success message" do

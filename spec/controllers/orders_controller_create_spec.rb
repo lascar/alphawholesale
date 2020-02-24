@@ -13,40 +13,25 @@ RSpec.describe OrdersController, type: :controller do
   let!(:order_hash) {{ customer_id: customer1.id, offer_id: offer1.id, quantity: 3}}
 
   describe "POST #create" do
-
     # TEST as a guest user
     # TEST when order is asked for creating
-    # TEST then the 'welcome' page is returned
-    # TEST and a message of unauthenticated is send
-    describe "as guest user" do
-      before :each do
-        post :create, params: {order: order_hash}
-      end
-
-      it "returns the root page and returns a non authorized message" do
-        expect(response.redirect_url).to eq("http://test.host/")
-        expect(flash.alert).to match(I18n.t(
-         'devise.failure.unauthenticated'))
-      end
+    # TEST then it is routed to routing error
+    it "does not routes post /orders to orders#create" do
+      expect(:post => "/orders/").to route_to(controller: 'welcome',
+                                                 action: 'routing_error',
+                                                   url: 'orders')
     end
 
     # TEST as a logged supplier
     # TEST when order is asked for creating
-    # TEST then the supplier's page is returned
-    # TEST and a message of unauthorized is send
-    describe "as a logged supplier" do
-      before :each do
-        sign_in(supplier1)
-        post :create, params: {order: order_hash}
-      end
-
-      it "returns the supplier's page and returns a non authorized message" do
-        expect(response.redirect_url).to eq(
-         "http://test.host/suppliers/" + supplier1.id.to_s)
-        expect(flash.alert).to match(
-         I18n.t('devise.errors.messages.not_authorized'))
-      end
+    # TEST then it is routed to routing error
+    it "does not routes post /suppliers/1/orders to orders#create" do
+      sign_in(supplier1)
+      expect(:put => "/suppliers/#{supplier1.id.to_s}/orders").to route_to(
+        controller: 'welcome', action: 'routing_error',
+        url: "suppliers/#{supplier1.id.to_s}/orders")
     end
+
 
     # TEST as a logged customer
     # TEST when order is asked for creating with approved
@@ -58,7 +43,7 @@ RSpec.describe OrdersController, type: :controller do
       before :each do
         sign_in(customer1)
         order_hash[:customer_id] = customer1.id
-        post :create, params: {order: order_hash}
+        post :create, params: {customer_id: customer1.id, order: order_hash}
       end
 
       it "assigns the updated order and updated the attributes and
@@ -72,24 +57,5 @@ RSpec.describe OrdersController, type: :controller do
         expect(Order.last.approved).to be(false)
       end
     end
-
-    # TEST as a logged broker
-    # TEST when order is asked for creating without customer
-    # TEST then the attributes are not changed
-    # TEST and the edit template is rendered
-    describe "as a logged broker" do
-      before :each do
-        sign_in(broker1)
-        order_hash[:customer_id] = nil
-        post :create, params: {order: order_hash}
-      end
-
-      it "does not change the attributes and renders the edit template" do
-        expect(assigns(:order).persisted?).to be(false)
-        expect(response.redirect_url).to eq(
-         "http://test.host/orders/new?offer_id=" + offer1.id.to_s)
-      end
-    end
-
   end
 end

@@ -1,6 +1,5 @@
 class CustomersController < ApplicationController
   include Utilities
-  include SuppliersHelper
   before_action :authenticate_user!
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
@@ -14,8 +13,9 @@ class CustomersController < ApplicationController
   def show
     authorize @customer
     @orders = @customer.orders
-    @attached_products = make_attached_products_hash(@customer.attached_products)
+    @attached_products = AttachedProduct.where(attachable: @supplier)
     @offers = Offer.where(approved: true).select{|o| o.date_end >= Time.now}
+    @user_products = @customer.user_product.products
   end
 
   # GET /customers/new
@@ -43,7 +43,7 @@ class CustomersController < ApplicationController
     else
       flash[:alert] = helper_activerecord_error_message('customer',
                                                   @customer.errors.messages)
-      redirect_to customer_new_path
+      redirect_to path_for(user: @user, path: 'new_customer')
     end
   end
 
@@ -59,7 +59,7 @@ class CustomersController < ApplicationController
     else
       flash[:alert] = helper_activerecord_error_message('customer',
                                                   @customer.errors.messages)
-      redirect_to customer_edit_path
+      redirect_to path_for(user: @user, path: 'edit_customer')
     end
   end
 
@@ -67,14 +67,14 @@ class CustomersController < ApplicationController
   def destroy
     authorize @customer
     @customer.destroy
-    redirect_to customers_url,
+    redirect_to path_for(user: 'customer', path: 'users'),
      notice: I18n.t('controllers.customers.successfully_destroyed')
   end
 
  private
   # Use callbacks to share common setup or constraints between actions.
   def set_customer
-    @customer = Customer.find(params[:id])
+    @customer = Customer.find_by(id: params[:id] || params[:customer_id])
   end
 
   # Only allow a trusted parameter "white list" through.

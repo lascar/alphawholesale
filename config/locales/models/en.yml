@@ -1,4 +1,144 @@
 en:
+  models:
+    broker:
+      name: "Broker"
+      zero: "No Broker"
+      one: "Broker"
+      other: "Brokers"
+    supplier:
+      name: "Supplier"
+      zero: "No Supplier"
+      one: "Supplier"
+      other: "Suppliers"
+    customer:
+      name: "Customer"
+      zero: "No Customer"
+      one: "Customer"
+      other: "Customers"
+    product:
+      name: "Product"
+      zero: "No Product"
+      one: "Product"
+      other: "Products"
+    offer:
+      name: "Offer"
+      zero: "No Offer"
+      one: "Offer"
+      other: "Offers"
+      show: "Show offer"
+    order:
+      name: "Order"
+      zero: "No Order"
+      one: "Order"
+      other: "Orders"
+      show: "Show order"
+    order_line:
+      name: "Order Line"
+      zero: "No Order Line"
+      one: "Order Line"
+      other: "Order Lines"
+    attached_product:
+      name: 'Attached Product'
+      attributes:
+        product: "Product"
+        definition: "Definition"
+      errors:
+        definition:
+          taken: "The definition of the attached product exists already."
+    attributes:
+      attached_product:
+        product: "Product"
+        variety: "Variety"
+        aspect: "Aspect"
+        packaging: "Packaging"
+        size: "Size"
+        caliber: "Caliber"
+      broker:
+        identifier: "identifier"
+        email: "email"
+        password: "password"
+        remember_me: "remember me"
+        password_confirmation: "password confirmation"
+        current_password: "current password"
+        locale: "locale"
+      supplier:
+        identifier: "identifier"
+        entreprise_name: "Entreprise Name"
+        email: "email"
+        tin: "tin"
+        street_and_number: "street and number"
+        city: "city"
+        postal_code: "postal code"
+        state: "state"
+        country: "country"
+        telephone_number1: "telephone number 1"
+        telephone_number2: "telephone number 2"
+        password: "password"
+        remember_me: "remember me"
+        password_confirmation: "password confirmation"
+        current_password: "current password"
+        currency: "Currency"
+        unit_type: "Unit Type"
+        approved: "approved"
+      customer:
+        identifier: "identifier"
+        entreprise_name: "Entreprise Name"
+        email: "email"
+        tin: "tin"
+        street_and_number: "street and number"
+        city: "city"
+        postal_code: "postal code"
+        state: "state"
+        country: "country"
+        telephone_number1: "telephone number 1"
+        telephone_number2: "telephone number 2"
+        password: "password"
+        remember_me: "remember me"
+        password_confirmation: "password confirmation"
+        current_password: "current password"
+        currency: "Currency"
+        unit_type: "Unit Type"
+        approved: "approved"
+      product:
+        name: "name"
+        variety: "variety"
+        aspect: "aspect"
+        packaging: "packaging"
+        size: "size"
+        caliber: "caliber"
+      offer:
+        supplier: "Supplier"
+        attached_product: "Attached Product"
+        quantity: "Quantity"
+        unit_price_supplier: "Unit price"
+        unit_price_broker: "Unit price"
+        localisation_supplier: "Stock Localisation Supplier"
+        localisation_broker: "Stock Localisation"
+        incoterm: "INCOTERM"
+        observation: "Supplier Observation"
+        approved: "approved"
+        date_start: "Date Start"
+        date_end: "Date End"
+        product_name: "Product"
+        variety_name: "Variety"
+        aspect_name: "Aspect"
+        packaging_name: "Packaging"
+        size_name: "Size"
+        caliber_name: "Caliber"
+        approved: "approved"
+      order:
+        customer: "Customer"
+        customer_observation: "Customer Observation"
+        offer: "Offer"
+        quantity: "Quantity"
+        approved: "approved"
+      order_line:
+        order: "Order"
+        product: "Product"
+        quantity: "Quantity"
+        unit: "Unit"
+        unit_price: "Unit price"
+
   activerecord:
     models:
       broker:
@@ -51,16 +191,6 @@ en:
         zero: "No Order Line"
         one: "Order Line"
         other: "Order Lines"
-      tender:
-        name: "Tender"
-        zero: "No Tender"
-        one: "Tender"
-        other: "Tenders"
-      tender_line:
-        name: "Tender Line"
-        zero: "No Tender Line"
-        one: "Tender Line"
-        other: "Tender Lines"
     attributes:
       broker:
         identifier: "identifier"
@@ -160,24 +290,9 @@ en:
         quantity: "Quantity"
         unit: "Unit"
         unit_price: "Unit price"
-      tender:
-        customer: "Customer"
-        date_start: "Date Start"
-        date_end: "Date End"
-        approved: "approved"
-      tender_line:
-        tender: "Tender"
-        product: "Product"
-        quantity: "Quantity"
-        unit: "Unit"
-        unit_price: "Unit price"
     errors:
       models:
         attached_product:
-          uniqueness: "is already attached"
-          not_attachable: 'no attachable'
-          product:
-            not_approved: "%{product} is not approved"
         broker:
           attributes:
             identifier:
@@ -229,10 +344,6 @@ en:
             offer:
               blank: "can't be blank"
               required: "is required"
-        tender:
-          attributes:
-            customer:
-              blank: "can't be blank"
         product:
           attributes:
             name:

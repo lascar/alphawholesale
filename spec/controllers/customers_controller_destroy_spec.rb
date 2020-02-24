@@ -106,7 +106,7 @@ RSpec.describe CustomersController, type: :controller do
 
       it "returns the list of customers and returns the list of customers and
        returns the list of customers" do
-        expect(response.redirect_url).to eq("http://test.host/customers")
+        expect(response.redirect_url).to eq("http://test.host/brokers/#{broker1.id.to_s}/customers/")
         expect(flash.notice).to match(
          I18n.t('controllers.customers.successfully_destroyed'))
         expect(Customer.find_by_id(customer1.id)).to be(nil)

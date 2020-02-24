@@ -16,13 +16,6 @@
     <%= form.text_field :name %>
   </div>
 
-  <% if broker_signed_in? %>
-    <div class="field">
-      <%= form.label :approved %>
-      <%= form.check_box :approved %>
-    </div>
-  <% end %>
-
   <div class="actions">
     <%= form.submit %>
   </div>
