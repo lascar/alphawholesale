@@ -1,8 +1,10 @@
 # TODO
 
-- possibility to fix % fee up to supplier
+- refactor traduction
 
 - refactor front end (stylesheet more inherents)
+
+- possibility to fix % fee up to supplier
 
 - refactor test
 
@@ -19,4 +21,4 @@
     - request
     - response to request
 
-- refactor permission (from class to role?)
+- eliminate path_for with routes restructuring
