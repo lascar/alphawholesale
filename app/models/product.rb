@@ -1,35 +1,24 @@
 class Product < ApplicationRecord
-  after_create :generate_reference
-  belongs_to :supplier, optional: true
-  has_many :offers
-  has_many :order_lines
-  has_many :tender_lines
-  has_many :attached_products, dependent: :delete_all
-  has_many :customers, through: :attached_products
-  validates :name, presence: true, allow_blank: false
-  validates :name, uniqueness: true
-  has_many :varieties
-  has_many :packagings
-  has_many :aspects
-  has_many :sizes
+  validates :name, presence: true, uniqueness: true, allow_blank: false
 
-  def generate_reference
-    self.update_column(:reference, id.to_s.rjust(9, '0'))
+  def varieties
+    assortments['varieties']
   end
 
-  def name_complete
-    name.to_s + ' ' + variety.to_s
+  def aspects
+    assortments['aspects']
   end
 
-  def self.get_names
-    Product.pluck(:name).uniq
+  def packagings
+    assortments['packagings']
   end
 
-  def self.not_owned_by_other_supplier(supplier_id)
-    Product.where(supplier_id: nil) + Product.where(supplier_id: supplier_id)
+  def sizes
+    assortments['sizes']
   end
 
-  def self.with_approved(approved)
-    where(approved: approved)
+  def calibers
+    assortments['calibers']
   end
+
 end

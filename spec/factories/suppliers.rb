@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :supplier do
-    sequence(:identifier) {|n| "Supplier #{n}"}
-    sequence(:email) {|n| "supplier#{n}@example.com"}
+    identifier { generate :identifier }
+    email { generate :email }
     password { "password" }
     approved { true }
     tin { "heoduo" }

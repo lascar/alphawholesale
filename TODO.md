@@ -6,9 +6,9 @@
 
 - refactor test
 
-- tender for customer
+- request for customer
 
-- response to tender for supplier
+- response to request for supplier
 
 - email
   - on approval for supplier
@@ -16,7 +16,7 @@
   - on approval
     - offer
     - order
-    - tender
-    - response to tender
+    - request
+    - response to request
 
 - refactor permission (from class to role?)

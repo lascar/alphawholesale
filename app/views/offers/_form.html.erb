@@ -1,58 +1,33 @@
-<%# binding.pry %>
-<%= form_with(offer_form_hash(@supplier_id, @offer)) do |form| %>
-  <% if offer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
-
-      <ul>
-        <% offer.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_with(model: offer,
+              url: path_for(user: current_user,path: "offer",
+                            options: {object_id: offer.id})) do |form| %>
   <% if broker_signed_in? %>
-    <div class="field">
-      <%= form.label :supplier %>
-      <%= form.select :supplier_id, @suppliers%>
+    <div class="row">
+      <div class="col-4">
+        <div class="field">
+          <%= label_tag t("models.attributes.offer.supplier") %>
+          <%= form.select :supplier_id, @suppliers, selected: offer.supplier_id%>
+        </div>
+      </div>
+
+      <div class="col-2">
+        <div class="field">
+          <%= label_tag t("models.attributes.offer.approved") %>
+          <%= form.check_box :approved %>
+        </div>
+      </div>
     </div>
   <% end %>
 
   <div class="card">
-    <div class="row">
-      <div class="col-3">
-        <div class="field">
-          <%= form.label :product %>
-          <%= form.text_field :product, value: form.object.product.name, disabled: true%>
-        </div>
-      </div>
-
-      <div class="col-3">
-        <div class="field">
-          <%= form.label :variety %>
-          <%= form.select :variety_id, @varieties %>
-        </div>
-      </div>
-
-      <div class="col-3">
-        <div class="field">
-          <%= form.label :aspect %>
-          <%= form.select :aspect_id, @aspects %>
-        </div>
-      </div>
-
-      <div class="col-3">
-        <div class="field">
-          <%= form.label :packaging %>
-          <%= form.select :packaging_id, @packagings %>
-        </div>
-      </div>
+    <div class="row mt-3">
+      <%= render "shared/table_attached_product_for_offer", offer: offer %>
     </div>
-
-    <div class="row">
+    <br>
+    <div class="row mt-3">
       <div class="col-3">
         <div class="field">
-          <%= form.label :quantity %>
+          <%= label_tag t("models.attributes.offer.quantity") %>
           <%= form.number_field :quantity %>
         </div>
       </div>
@@ -60,7 +35,7 @@
       <% if !customer_signed_in? %>
         <div class="col-3">
           <div class="field">
-            <%= form.label :unit_price_supplier %>
+            <%= label_tag t("models.attributes.offer.unit_price_supplier") %>
             <%= monetary_field 'offer', 'unit_price_supplier', offer.unit_price_supplier %>
           </div>
         </div>
@@ -69,7 +44,7 @@
       <% if !supplier_signed_in? %>
         <div class="col-3">
           <div class="field">
-            <%= form.label :unit_price_broker %>
+            <%= label_tag t("models.attributes.offer.unit_price_broker") %>
             <%= monetary_field 'offer', 'unit_price_broker', offer.unit_price_broker %>
           </div>
         </div>
@@ -79,7 +54,7 @@
     <div class="row">
       <div class="col-3">
         <div class="field">
-          <%= form.label :incoterms %>
+          <%= label_tag t("models.attributes.offer.incoterm") %>
           <%= form.select :incoterm, @incoterms %>
         </div>
       </div>
@@ -87,7 +62,7 @@
       <% if !customer_signed_in? %>
         <div class="col-3">
           <div class="field">
-            <%= form.label :localisation_supplier %>
+            <%= label_tag t("models.attributes.offer.localisation_supplier") %>
             <%= form.text_field :localisation_supplier %>
           </div>
         </div>
@@ -96,7 +71,7 @@
       <% if !supplier_signed_in? %>
         <div class="col-3">
           <div class="field">
-            <%= form.label :localisation_broker %>
+            <%= label_tag t("models.attributes.offer.localisation_broker") %>
             <%= form.text_field :localisation_broker %>
           </div>
         </div>
@@ -106,27 +81,15 @@
     <div class="row">
       <div class="col-9">
         <div class="field">
-          <%= form.label :observation %>
+          <%= label_tag t("models.attributes.offer.observation") %>
           <div style="clear: both;"></div>
           <%= form.text_area :observation, :rows => 10, style: 'width:100%;' %>
         </div>
       </div>
     </div>
+  </div>
 
-    <% if broker_signed_in? %>
-      <div class="row">
-        <div class="col-3">
-          <div class="field">
-            <%= form.label :approved %>
-            <%= form.check_box :approved %>
-          </div>
-        </div>
-      <% end %>
-      </div>
-    </div>
-
-    <div class="actions">
-      <%= form.submit class: "btn btn-primary" %>
-    </div>
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

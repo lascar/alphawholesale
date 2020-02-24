@@ -1,31 +1,11 @@
 <div class="card">
-  <div class="row">
-    <div class="col-3">
-      <strong><%= Offer.human_attribute_name("product") %>:</strong>
-      <%= @offer.product.name %>
-    </div>
-
-    <div class="col-3">
-      <strong><%= Product.human_attribute_name("variety") %>:</strong>
-      <%= @offer.variety ? @offer.variety.name : "" %>
-    </div>
-
-    <div class="col-3">
-      <strong><%= Offer.human_attribute_name("aspect") %>:</strong>
-      <%= @offer.aspect ? @offer.aspect.name : "" %>
-    </div>
-
-    <div class="col-3">
-      <strong><%= Offer.human_attribute_name("packaging") %>:</strong>
-      <%= @offer.packaging ? @offer.packaging.name : "" %>
-    </div>
-  </div>
+  <%= render "shared/table_attached_product_for_offer", offer: @offer %>
 </div>
 
 <div class="card">
   <div class="row">
     <div class="col-3">
-      <strong><%= Offer.human_attribute_name("quantity") %>:</strong>
+      <strong><%= t("models.attributes.offer.quantity") %>:</strong>
       <% quantity_string = @offer.quantity && @offer.supplier.unit_type  ?
         (@offer.quantity.to_s + " " + t("unit_types." +
          @offer.supplier.unit_type + ".symbol")) : "-" %>
@@ -34,7 +14,7 @@
 
     <% if !customer_signed_in? %>
       <div class="col-3">
-        <strong><%= Offer.human_attribute_name("unit_price_supplier") %>:</strong>
+        <strong><%= t("models.attributes.offer.unit_price_supplier") %>:</strong>
         <% price_supplier_string = @offer.unit_price_supplier &&
           @offer.supplier.currency ? (@offer.unit_price_supplier.to_s + " " +
           t("currencies." + @offer.supplier.currency + ".symbol")) : "-" %>
@@ -44,7 +24,7 @@
 
     <% if !supplier_signed_in? %>
       <div class="col-3">
-        <strong><%= Offer.human_attribute_name("unit_price_broker") %>:</strong>
+        <strong><%= t("models.attributes.offer.unit_price_broker") %>:</strong>
         <% price_broker_string = @offer.unit_price_broker &&
           @offer.supplier.currency ? (@offer.unit_price_broker.to_s + " " +
           t("currencies." + @offer.supplier.currency + ".symbol")) : "-" %>
@@ -59,26 +39,26 @@
 <div class="card">
   <div class="row">
     <div class="col-3">
-      <strong><%= Offer.human_attribute_name("incoterm") %>:</strong>
+      <strong><%= t("models.attributes.offer.incoterm") %>:</strong>
       <%= @offer.incoterm %>
     </div>
 
     <% if !customer_signed_in? %>
       <div class="col-3">
-        <strong><%= Offer.human_attribute_name("localisation_supplier") %>:</strong>
+        <strong><%= t("models.attributes.offer.localisation_supplier") %>:</strong>
         <%= @offer.localisation_supplier %>
       </div>
     <% end %>
 
     <% if !supplier_signed_in? %>
       <div class="col-3">
-        <strong><%= Offer.human_attribute_name("localisation_broker") %>:</strong>
+        <strong><%= t("models.attributes.offer.localisation_broker") %>:</strong>
         <%= @offer.localisation_broker %>
       </div>
     <% end %>
 
     <div class="col-3">
-      <strong><%= Offer.human_attribute_name("approved") %></strong>
+      <strong><%= t("models.attributes.offer.approved") %></strong>
       <%= check_box_tag :approved, '', @offer.approved, disabled: true %>
     </div>
 
@@ -87,17 +67,35 @@
 
 <div class="card">
   <div class="row">
+    <div class="col-3">
+      <strong><%= t("models.attributes.offer.date_start") %>:</strong>
+      <%= @offer.date_start %>
+    </div>
+
+    <div class="col-3">
+      <strong><%= t("models.attributes.offer.date_end") %>:</strong>
+      <%= @offer.date_end %>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="row">
     <div class="col">
-      <strong><%= Offer.human_attribute_name("observation") %>:</strong>
+      <strong><%= t("models.attributes.offer.observation") %>:</strong>
       <%= simple_format(@offer.observation) %>
     </div>
   </div>
 </div>
-<%# binding.pry %>
 <% if broker_signed_in? || customer_signed_in? %>
-  <%= link_to t("orders.new"), order_new_path(@offer.id), method: :get %> |
+  <%= link_to t("views.orders.new"), path_for(user: current_user, path: "new_order",
+                             options: {object_id: @offer.id}), method: :get %> |
 <% end %>
-<% if supplier_signed_in? || broker_signed_in?%>
-  <%= link_to t("edit"), offer_edit_path(@offer) %> |
+<% if supplier_signed_in? || broker_signed_in? %>
+  <%= link_to t("views.offers.new"),
+    path_for(user: @user, path: "new_offer"), method: :get %> |
+  <%= link_to t("views.offers.edit"),
+    path_for(user: @user, path: "edit_offer", options: {offer_id: @offer.id}),
+    method: :get %>
 <% end %>
-<%= link_to t("back"), :back %>
+ | <%= link_to t("back"), :back %>

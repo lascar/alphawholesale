@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   protect_from_forgery
 
-  before_action :set_locale
+  before_action :set_locale, :set_user
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   protected
   # !important for devise
@@ -23,14 +23,19 @@ class ApplicationController < ActionController::Base
       opts = {scope: scope}
       warden.authenticate!(opts) if !devise_controller? || opts.delete(:force)
     else
-      redirect_to "/", alert: I18n.t('devise.failure.unauthenticated')
-      return
+      unless ["products"].include? controller_name
+        redirect_to "/", alert: I18n.t('devise.failure.unauthenticated')
+        return
+      end
     end
   end
 
   def current_user
-    current_user_type(user_type)
+    current_broker || current_supplier || current_customer
+    # current_user_type(user_type)
   end
+
+  helper_method :current_user
 
   def extract_locale_from_domain
     if !request.domain.nil? && request.domain !~ /localhost/
@@ -55,7 +60,21 @@ class ApplicationController < ActionController::Base
      extract_locale_from_subdomain
   end
 
+  def set_user
+    user = nil
+    supplier_or_customer_regex = %r{(?<user_type>(suppliers|customers))/(?<id>\d+)}
+    match = request.path.match supplier_or_customer_regex
+    user_type = match ? match[:user_type] : nil
+    if user_type
+      id = match[:id]
+      class_user = user_type ? match[:user_type].singularize.capitalize : nil
+      user = class_user.constantize.find_by(id: id)
+    end
+    @user = current_supplier || current_customer || user
+  end
+
   private
+
   def user_not_authorized
     if current_user
       user_type = current_user.class.name.downcase

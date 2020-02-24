@@ -51,8 +51,8 @@ RSpec.describe ProductsController, type: :controller do
     end
 
     # TEST as a logged supplier
-    # TEST when a product not owned by the supplier is asked for updating
-    # TEST then the customer's page is returned
+    # TEST when a product is asked for updating
+    # TEST then the supplier's page is returned
     # TEST and a message of unauthorized is send
     describe "as a logged supplier" do
       before :each do
@@ -68,28 +68,6 @@ RSpec.describe ProductsController, type: :controller do
       it "returns a non authorized message" do
         expect(flash.alert).to match(
          I18n.t('devise.errors.messages.not_authorized'))
-      end
-    end
-
-    # TEST as a logged supplier
-    # TEST when a product owned by the supplier is asked for updating
-    # TEST then a update product is assigned
-    # TEST then the product's update page is rendered
-    describe "as a logged supplier" do
-      before :each do
-        product1.supplier = supplier1
-        product1.save
-        sign_in(supplier1)
-        put :update, params: {id: product1.to_param, product: product_hash}
-      end
-
-      it "changes the product" do
-        expect(assigns(:product).name).to eq(product_hash[:name])
-      end
-
-      it "redirect to the newly updated product" do
-        expect(response.redirect_url).to eq("http://test.host/products/" +
-                                            product1.id.to_s)
       end
     end
 

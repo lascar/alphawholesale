@@ -1,0 +1,33 @@
+<table class="table-all table-bordered table-responsive">
+  <thead>
+    <tr>
+      <th><%= t("models.attributes.attached_product.product") %></th>
+      <th><%= t("models.attributes.attached_product.variety") %></th>
+      <th><%= t("models.attributes.attached_product.aspect") %></th>
+      <th><%= t("models.attributes.attached_product.packaging") %></th>
+      <th><%= t("models.attributes.attached_product.size") %></th>
+      <th><%= t("models.attributes.attached_product.caliber") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= t("products.#{offer.product_name}.name") %>
+      </td>
+      <td>
+        <%= t("products.#{offer.product_name}.varieties.#{offer.variety_name}") %>
+      </td>
+      <td>
+        <%= t("products.#{offer.product_name}.aspects.#{offer.aspect_name}") %>
+      </td>
+      <td>
+        <%= t("products.#{offer.product_name}.packagings.#{offer.packaging_name}") %>
+      </td>
+      <td>
+        <%= t("products.#{offer.product_name}.sizes.#{offer.size_name}") %>
+      </td>
+      <td>
+        <%= t("products.#{offer.product_name}.calibers.#{offer.caliber_name}") %>
+        </td>
+    </tr>
+</table>

@@ -21,7 +21,7 @@ RSpec.describe 'Suppliers Feature new', type: :feature do
     # TEST then a message of success is sent
     scenario "broker creates a new supplier" do
       sign_in(broker1)
-      visit new_supplier_path
+      visit new_broker_supplier_path(broker_id: broker1.id)
       expect(page).to have_xpath("//form[@action='/suppliers'
                                  and @method='post']")
       expect(page).to have_field({name: 'supplier[approved]'})

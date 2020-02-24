@@ -1,5 +1,4 @@
 class BrokersController < ApplicationController
-  include BrokersHelper
   before_action :authenticate_user!
   before_action :set_broker, only: [:show, :edit, :update, :destroy]
 
@@ -14,11 +13,9 @@ class BrokersController < ApplicationController
     authorize @broker
     @suppliers_without_approved = Supplier.with_approved(false)
     @customers_without_approved = Customer.with_approved(false)
-    @products_without_approved = Product.with_approved(false)
-    @offers_without_approved = Offer.with_approved(false)
-    @tenders_without_approved = Tender.with_approved(false)
-    @orders_without_approved = Order.with_approved(false)
-    @packagings_without_approved = Packaging.with_approved(false)
+    @offers_without_approved = Offer.where(approved: false).
+      select{|o| o.date_end >= Time.now}
+    @orders_without_approved = Order.where(approved: false)
   end
 
   # GET /brokers/new
@@ -42,7 +39,7 @@ class BrokersController < ApplicationController
     else
       flash[:alert] = helper_activerecord_error_message('broker',
                                                   @broker.errors.messages)
-      redirect_to broker_new_path
+      redirect_to path_for(user: @user, path: 'new_broker')
     end
   end
 
@@ -54,7 +51,7 @@ class BrokersController < ApplicationController
     else
       flash[:alert] = helper_activerecord_error_message('broker',
                                                   @broker.errors.messages)
-      redirect_to broker_edit_path
+      redirect_to path_for(user: @user, path: 'edit_broker', options: {object_id: @broker.id})
     end
   end
 

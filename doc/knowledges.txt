@@ -1,0 +1,1 @@
+# @offers = @offers.where(attached_product: { id: current_customer.attached_products.pluck(:id) })

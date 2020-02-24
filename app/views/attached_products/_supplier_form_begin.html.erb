@@ -1,0 +1,3 @@
+<%= form_tag(path_for(user: @user, path: 'attached_product',
+  options: {object_id: @attached_product.id}), authenticity_token: true,
+  method: :post) do -%>
