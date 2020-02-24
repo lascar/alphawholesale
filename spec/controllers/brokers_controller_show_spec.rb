@@ -85,9 +85,8 @@ RSpec.describe BrokersController, type: :controller do
         expect(assigns(:broker)).to eq(broker1)
         expect(assigns(:suppliers_without_approved)).to eq(Supplier.with_approved(false))
         expect(assigns(:customers_without_approved)).to eq(Customer.with_approved(false))
-        expect(assigns(:products)).to eq(Product.all)
-        expect(assigns(:offers_without_approved)).to eq(Offer.with_approved(false))
-        expect(assigns(:orders_without_approved)).to eq(Order.with_approved(false))
+        expect(assigns(:offers_without_approved)).to eq(Offer.where(approved: false ))
+        expect(assigns(:orders_without_approved)).to eq(Order.where(approved: false))
         expect(response).to render_template(:show)
       end
     end

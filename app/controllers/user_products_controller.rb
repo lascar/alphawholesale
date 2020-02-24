@@ -18,8 +18,8 @@ class UserProductsController < ApplicationController
     current_user.user_product.products = products
     current_user.user_product.save
     path = path_for(user: current_user, path: 'user_products')
-    message = I18n.t('controllers.user_products.update.succefully')
-    redirect_to path, notice: message
+    flash[:notice] = I18n.t('controllers.user_products.update.succefully')
+    redirect_to path
   end
 
   private

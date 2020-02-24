@@ -61,25 +61,5 @@ RSpec.describe AttachedProductsController, type: :controller do
         expect(response.redirect_url).to eq("http://test.host/suppliers/#{supplier1.id.to_s}/attached_products")
       end
     end
-
-    # TEST as a logged broker
-    # TEST when an attached product is asked for creating
-    # TEST then a create aspect is created
-    # TEST and the aspect's create page is rendered
-    describe "as a logged broker" do
-      before :each do
-        @count = AttachedProduct.where(attachable: supplier1).count
-        sign_in(broker1)
-        post :create, params: {broker_id: broker1.id, attached_product: attached_product_hash.merge({attachable: supplier1})}
-      end
-
-      it "assigns a new attached product" do
-        expect(AttachedProduct.where(attachable: supplier1).count).to eq(@count + 1)
-      end
-
-      it "redirect to the newly created aspect" do
-        expect(response.redirect_url).to eq("http://test.host/brokers/#{broker1.id.to_s}/attached_products")
-      end
-    end
   end
 end

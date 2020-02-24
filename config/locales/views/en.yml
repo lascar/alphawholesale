@@ -28,6 +28,7 @@ en:
     unit_price_broker: "Total Unit Price"
     user_products:
       name: "Products of interest"
+      update: "Update Products of interest"
     attached_products:
       name: "Attached Products"
       new: "New attached products"
