@@ -3,7 +3,8 @@ class AttachedProductsController < ApplicationController
   # GET /attached_products
   def index
     @attached_products = @user.attached_products
-    @products = Product.all.pluck(:name, :name)
+    @products = broker_signed_in? ? Product.all.pluck(:name, :name) :
+      current_user.user_product.products
   end
 
   # GET /attached_products/new

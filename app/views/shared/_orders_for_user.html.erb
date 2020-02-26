@@ -37,7 +37,7 @@
               <%= order.quantity.to_s + " " + order.unit_type %>
             </td>
             <td class="text-truncate" title="<%= t("views.orders.unit_price_broker") +
-                                       " : " + order.unit_price_broker %>">
+                                       " : " + order.unit_price_broker.to_s %>">
               <%= order.unit_price_broker.to_s  + " " +
                   order.currency %>
             </td>

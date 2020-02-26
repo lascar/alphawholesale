@@ -11,7 +11,7 @@ en:
     about_us_emails_html: "Informations : pascal.carrie@gmail.com"
     with_count: " count %{count}"
     back: 'Back'
-    are_you_sure: 'are you sure'
+    are_you_sure: 'are you sure?'
     control_panel: 'Control panel'
     required_fields: '* The required fields are followed by a star'
     user_products:
