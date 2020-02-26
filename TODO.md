@@ -1,16 +1,10 @@
 # TODO
 
-- refactor traduction
-
 - refactor front end (stylesheet more inherents)
-
-- possibility to fix % fee up to supplier
 
 - refactor test
 
-- request for customer
-
-- response to request for supplier
+- eliminate path_for with routes restructuring
 
 - email
   - on approval for supplier
@@ -18,7 +12,10 @@
   - on approval
     - offer
     - order
-    - request
-    - response to request
 
-- eliminate path_for with routes restructuring
+- possibility to fix % fee up to supplier
+
+- request for customer
+
+- response to request for supplier
+
