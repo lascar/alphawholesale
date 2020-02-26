@@ -1,8 +1,8 @@
 <p>
-  <strong><%= t("views.identifier") %></strong>
+  <strong><%= t("views.customers.identifier") %></strong>
   <%= @customer.identifier %>
 </p>
-<%= link_to t("customers.edit"), path_for(user: current_user, path: "edit_user"),
+<%= link_to t("views.customers.edit"), path_for(user: current_user, path: "edit_user"),
   class: "btn btn-info btn-sm give-me-some-space" %>
 <%= render "shared/products_for_user" %>
 <br>

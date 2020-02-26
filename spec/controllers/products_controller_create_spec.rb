@@ -16,7 +16,7 @@ RSpec.describe ProductsController, type: :controller do
     # TEST and a message of unauthenticated is send
     describe "as guest user" do
       before :each do
-        post :create, params: {product: product_hash}
+        post :create, params: {broker_id: broker1.id, product: product_hash}
       end
 
       it "returns the root page" do
@@ -36,7 +36,7 @@ RSpec.describe ProductsController, type: :controller do
     describe "as a logged customer" do
       before :each do
         sign_in(customer1)
-        post :create, params: {product: product_hash}
+        post :create, params: {broker_id: broker1.id, product: product_hash}
       end
 
       it "returns the customer's page" do
@@ -57,7 +57,7 @@ RSpec.describe ProductsController, type: :controller do
     describe "as a logged supplier" do
       before :each do
         sign_in(supplier1)
-        post :create, params: {product: product_hash}
+        post :create, params: {broker_id: broker1.id, product: product_hash}
       end
 
       it "returns the supplier's page" do
@@ -78,7 +78,7 @@ RSpec.describe ProductsController, type: :controller do
     describe "as a logged broker" do
       before :each do
         sign_in(broker1)
-        post :create, params: {product: product_hash}
+        post :create, params: {broker_id: broker1.id, product: product_hash}
       end
 
       it "assigns a new product" do

@@ -1,5 +1,5 @@
 <td>
   <%= link_to icon('fas', 'fa-trash'), path_for(user: @user,
     path: 'attached_product', options: {object_id: id}),
-    title: t("destroy"), method: :delete, data: { confirm: t(:are_you_sure) } %>
+    title: t("views.attached_products.destroy"), method: :delete, data: { confirm: t(:are_you_sure) } %>
 </td>

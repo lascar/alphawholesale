@@ -28,8 +28,8 @@ Rails.application.routes.draw do
   authenticated :broker do
     resources :suppliers
     resources :customers
-    resources :products
     resources :brokers, concerns: [:attached_productable] do
+      resources :products, constraints: {id: /[0-9]*/}
       resources :offers, controller: 'broker_offers'
       resources :orders, controller: 'broker_orders'
       resources :customers, concerns: [:attached_productable, :user_productable] do

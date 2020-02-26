@@ -1,10 +1,10 @@
-h1><%= t("models.supplier.name") + t("with_count", count: @suppliers.count) %></h1>
+h1><%= t("views.suppliers.names") + t("views.with_count", count: @suppliers.count) %></h1>
 
 <table class="table-all table-bordered table-hover">
   <thead>
     <tr>
-      <th><%= t("views.identifier") %></th>
-      <th><%= t("views.email") %></th>
+      <th><%= t("views.suppliers.identifier") %></th>
+      <th><%= t("views.suppliers.email") %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,14 +14,14 @@ h1><%= t("models.supplier.name") + t("with_count", count: @suppliers.count) %></
       <tr>
         <td><%= supplier.identifier %></td>
         <td><%= supplier.email %></td>
-        <td><%= link_to icon('fas', 'fa-eye'), supplier, title: t("show") %></td>
+        <td><%= link_to icon('fas', 'fa-eye'), supplier, title: t("views.suppliers.show") %></td>
         <td>
           <%= link_to icon('fas', 'fa-edit'),
           path_for(user: @user, path: 'edit_supplier',
-          options: {object_id: supplier.id}), title: t("edit") %>
+          options: {object_id: supplier.id}), title: t("views.suppliers.edit") %>
         </td>
         <td><%= link_to icon('fas', 'fa-trash'), supplier,
-         title: t("destroy"), method: :delete,
+         title: t("views.suppliers.destroy"), method: :delete,
          data: { confirm: t(:are_you_sure) } %></td>
       </tr>
     <% end %>
@@ -29,4 +29,4 @@ h1><%= t("models.supplier.name") + t("with_count", count: @suppliers.count) %></
 </table>
 
 <br>
-<%= link_to t("suppliers.new"), new_supplier_registration_url %>
+<%= link_to t("views.suppliers.new"), new_supplier_registration_url %>

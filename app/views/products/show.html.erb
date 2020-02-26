@@ -1,15 +1,15 @@
 <p>
-  <strong><%= t("models.attributes.product.name") %></strong>
-  <%= t("product.name." + @product.name) %>
+  <strong><%= t("views.products.product_name") %></strong>
+  <%= t("products." + @product.name + ".name") %>
 </p>
 
 <div class="row small-font">
-  <div class="col-2">
+  <div class="col-4">
     <div class="card">
       <div class="card-header text-center text-uppercase">
         <b>
-          <%= t("models.attributes.product.variety") +
-            t("with_count", count: @product.varieties.count) %>
+          <%= t("views.products.variety_names") +
+            t("views.with_count", count: @product.varieties.count) %>
         </b>
       </div>
       <table class="table table-responsive table-hover table-all">
@@ -23,5 +23,89 @@
       </table>
     </div>
   </div>
+
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <b>
+          <%= t("views.products.aspect_names") +
+            t("views.with_count", count: @product.aspects.count) %>
+        </b>
+      </div>
+      <table class="table table-responsive table-hover table-all">
+        <tbody>
+          <% for aspect in @product.aspects %>
+            <tr>
+              <td><%= t("products." + @product.name + ".aspects." + aspect) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <b>
+          <%= t("views.products.packaging_names") +
+            t("views.with_count", count: @product.packagings.count) %>
+        </b>
+      </div>
+      <table class="table table-responsive table-hover table-all">
+        <tbody>
+          <% for packaging in @product.packagings %>
+            <tr>
+              <td><%= t("products." + @product.name + ".packagings." + packaging) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
-<%= link_to t("back"), path_for(user: current_user, path: "products") %>
+<br>
+<div class="row small-font">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <b>
+          <%= t("views.products.size_names") +
+            t("views.with_count", count: @product.sizes.count) %>
+        </b>
+      </div>
+      <table class="table table-responsive table-hover table-all">
+        <tbody>
+          <% for size in @product.sizes %>
+            <tr>
+              <td><%= t("products." + @product.name + ".sizes." + size) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <b>
+          <%= t("views.products.caliber_names") +
+            t("views.with_count", count: @product.calibers.count) %>
+        </b>
+      </div>
+      <table class="table table-responsive table-hover table-all">
+        <tbody>
+          <% for caliber in @product.calibers %>
+            <tr>
+              <td><%= t("products." + @product.name + ".calibers." + caliber) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<br>
+<%= link_to t("views.back"), path_for(user: current_user, path: "products") %>

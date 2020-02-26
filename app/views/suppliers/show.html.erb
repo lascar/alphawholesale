@@ -1,5 +1,5 @@
 <p>
-  <strong><%= t("views.identifier") %></strong>
+  <strong><%= t("views.suppliers.identifier") %></strong>
   <%= @supplier.identifier %>
 </p>
 <%= link_to t("views.suppliers.edit"), path_for(user: "supplier", path: "edit_user", options: {object_id: @user.id}),
@@ -9,5 +9,5 @@
 <%= render "shared/offers_for_user" %>
 <%= render "shared/orders_for_user" %>
 <% if broker_signed_in? %>
-  <%= link_to t("suppliers.list"), path_for(user: @user, path: "suppliers") %>
+  <%= link_to t("views.suppliers.index"), path_for(user: @user, path: "suppliers") %>
 <% end %>

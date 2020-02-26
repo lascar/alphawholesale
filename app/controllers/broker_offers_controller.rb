@@ -99,7 +99,7 @@
   def offer_params
     base = [:approved, :supplier_id, :date_start, :date_end, :quantity,
             :unit_price_supplier, :unit_price_broker, :localisation_supplier,
-            :localisation_broker, :observation, :incoterm, :attached_product_id]
+            :localisation_broker, :supplier_observation, :incoterm, :attached_product_id]
     params.require(:offer).permit(base)
   end
 

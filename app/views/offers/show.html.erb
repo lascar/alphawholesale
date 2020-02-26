@@ -5,7 +5,7 @@
 <div class="card">
   <div class="row">
     <div class="col-3">
-      <strong><%= t("models.attributes.offer.quantity") %>:</strong>
+      <strong><%= t("views.offers.quantity") %>:</strong>
       <% quantity_string = @offer.quantity && @offer.supplier.unit_type  ?
         (@offer.quantity.to_s + " " + t("unit_types." +
          @offer.supplier.unit_type + ".symbol")) : "-" %>
@@ -14,7 +14,7 @@
 
     <% if !customer_signed_in? %>
       <div class="col-3">
-        <strong><%= t("models.attributes.offer.unit_price_supplier") %>:</strong>
+        <strong><%= t("views.offers.unit_price_supplier") %>:</strong>
         <% price_supplier_string = @offer.unit_price_supplier &&
           @offer.supplier.currency ? (@offer.unit_price_supplier.to_s + " " +
           t("currencies." + @offer.supplier.currency + ".symbol")) : "-" %>
@@ -24,7 +24,7 @@
 
     <% if !supplier_signed_in? %>
       <div class="col-3">
-        <strong><%= t("models.attributes.offer.unit_price_broker") %>:</strong>
+        <strong><%= t("views.offers.unit_price_broker") %>:</strong>
         <% price_broker_string = @offer.unit_price_broker &&
           @offer.supplier.currency ? (@offer.unit_price_broker.to_s + " " +
           t("currencies." + @offer.supplier.currency + ".symbol")) : "-" %>
@@ -39,26 +39,26 @@
 <div class="card">
   <div class="row">
     <div class="col-3">
-      <strong><%= t("models.attributes.offer.incoterm") %>:</strong>
+      <strong><%= t("views.offers.incoterm") %>:</strong>
       <%= @offer.incoterm %>
     </div>
 
     <% if !customer_signed_in? %>
       <div class="col-3">
-        <strong><%= t("models.attributes.offer.localisation_supplier") %>:</strong>
+        <strong><%= t("views.offers.localisation_supplier") %>:</strong>
         <%= @offer.localisation_supplier %>
       </div>
     <% end %>
 
     <% if !supplier_signed_in? %>
       <div class="col-3">
-        <strong><%= t("models.attributes.offer.localisation_broker") %>:</strong>
+        <strong><%= t("views.offers.localisation_broker") %>:</strong>
         <%= @offer.localisation_broker %>
       </div>
     <% end %>
 
     <div class="col-3">
-      <strong><%= t("models.attributes.offer.approved") %></strong>
+      <strong><%= t("views.offers.approved") %></strong>
       <%= check_box_tag :approved, '', @offer.approved, disabled: true %>
     </div>
 
@@ -68,12 +68,12 @@
 <div class="card">
   <div class="row">
     <div class="col-3">
-      <strong><%= t("models.attributes.offer.date_start") %>:</strong>
+      <strong><%= t("views.offers.date_start") %>:</strong>
       <%= @offer.date_start %>
     </div>
 
     <div class="col-3">
-      <strong><%= t("models.attributes.offer.date_end") %>:</strong>
+      <strong><%= t("views.offers.date_end") %>:</strong>
       <%= @offer.date_end %>
     </div>
   </div>
@@ -82,8 +82,8 @@
 <div class="card">
   <div class="row">
     <div class="col">
-      <strong><%= t("models.attributes.offer.observation") %>:</strong>
-      <%= simple_format(@offer.observation) %>
+      <strong><%= t("views.offers.supplier_observation") %>:</strong>
+      <%= simple_format(@offer.supplier_observation) %>
     </div>
   </div>
 </div>
@@ -98,4 +98,4 @@
     path_for(user: @user, path: "edit_offer", options: {offer_id: @offer.id}),
     method: :get %>
 <% end %>
- | <%= link_to t("back"), :back %>
+ | <%= link_to t("views.back"), :back %>

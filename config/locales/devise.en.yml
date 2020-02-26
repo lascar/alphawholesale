@@ -1,5 +1,6 @@
 en:
   devise:
+    remember_me: "remembre me"
     action:
       login: "Login"
       logout: "Logout"

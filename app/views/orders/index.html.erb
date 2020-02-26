@@ -1,19 +1,19 @@
-<h1><%= t("models.order.name") + t("with_count", count: @orders.count) %></h1>
+<h1><%= t("views.orders.names") + t("views.with_count", count: @orders.count) %></h1>
 
 <div class="card">
   <table class="table-all table-bordered table-responsive">
     <thead>
       <tr>
-        <th colspan="3"><%= t("models.attributes.order.quantity") %></th>
+        <th colspan="3"><%= t("views.orders.quantity") %></th>
         <% if !supplier_signed_in? %>
-          <th colspan="3"><%= t("models.attributes.offer.unit_price_broker") %></th>
-          <th colspan="3"><%= t("models.attributes.offer.localisation_broker") %></th>
+          <th colspan="3"><%= t("views.orders.unit_price_broker") %></th>
+          <th colspan="3"><%= t("views.orders.localisation_broker") %></th>
         <% end %>
         <% if !customer_signed_in? %>
-          <th colspan="3"><%= t("models.attributes.offer.unit_price_supplier") %></th>
-          <th colspan="3"><%= t("models.attributes.offer.localisation_supplier") %></th>
+          <th colspan="3"><%= t("views.orders.unit_price_supplier") %></th>
+          <th colspan="3"><%= t("views.orders.localisation_supplier") %></th>
         <% end %>
-        <th colspan="1"><%= t("models.attributes.order.approved") %></th>
+        <th colspan="1"><%= t("views.orders.approved") %></th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -55,16 +55,16 @@
           <td colspan="1">
             <%= check_box_tag :approved, nil, order.approved %>
           <td>
-            <%= link_to t("show"), path_for(user: @user, path: "order",
+            <%= link_to t("views.orders.show"), path_for(user: @user, path: "order",
                                             options: {object_id: order.id}) %>
           </td>
           <td>
-            <%= link_to t("edit"), path_for(user: @user, path: "edit_order",
+            <%= link_to t("views.orders.edit"), path_for(user: @user, path: "edit_order",
                                             options: {object_id: order.id}) %></td>
           <td>
-            <%= link_to t("destroy"), path_for(user: @user, path: "destroy_order",
+            <%= link_to t("views.orders.destroy"), path_for(user: @user, path: "destroy_order",
                                                options: {object_id: order.id}),
-                method: :delete, data: { confirm: t(:are_you_sure) } %>
+                method: :delete, data: { confirm: t("views.are_you_sure") } %>
           </td>
         </tr>
       <% end %>

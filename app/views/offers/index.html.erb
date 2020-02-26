@@ -1,16 +1,16 @@
-<h1><%= t("models.offer.name") + t("with_count", count: @offers.count) %></h1>
+<h1><%= t("views.offers.names") + " : " + t("views.with_count", count: @offers.count) %></h1>
 
 <div class="card">
   <table class="table-all table-bordered table-responsive">
     <thead>
       <tr>
-        <th><%= t("models.attributes.offer.product_name") %></th>
-        <th><%= t("models.attributes.offer.quantity") %></th>
+        <th><%= t("views.offers.product_name") %></th>
+        <th><%= t("views.offers.quantity") %></th>
         <% if !customer_signed_in? %>
-          <th><%= t("models.attributes.offer.unit_price_supplier") %></th>
+          <th><%= t("views.offers.unit_price_supplier") %></th>
         <% end %>
         <% if !supplier_signed_in? %>
-          <th><%= t("models.attributes.offer.unit_price_broker") %></th>
+          <th><%= t("views.offers.unit_price_broker") %></th>
         <% end %>
         <th colspan="3"></th>
       </tr>
@@ -33,17 +33,17 @@
           <% end %>
           <td>
             <%= link_to icon('fas', 'fa-eye'), path_for(user: @user,
-             path: "offer", options: {object_id: offer.id}), title: t("show") %>
+             path: "offer", options: {object_id: offer.id}), title: t("views.offers.show") %>
           </td>
           <td>
             <%= link_to icon('fas', 'fa-edit'), path_for(user: @user,
-             path: "edit_offer", options: {object_id: offer.id}), title: t("edit") %>
+             path: "edit_offer", options: {object_id: offer.id}), title: t("views.offers.edit") %>
           </td>
           <td>
             <%= link_to icon('fas', 'fa-trash'), path_for(user: @user,
              path: "offers", options: {objet_id: offer.id}),
-              method: :delete, data: { confirm: t(:are_you_sure) },
-              title: t("destroy") %>
+              method: :delete, data: { confirm: t("views.are_you_sure") },
+              title: t("views.offers.destroy") %>
           </td>
         </tr>
       <% end %>
@@ -54,5 +54,5 @@
 
 <% if !customer_signed_in? %>
   <%= link_to t("views.offers.new"), path_for(user: @user, path: "new_offer"),
-    title: t("offers.new") %>
+    title: t("views.offers.new") %>
 <% end %>

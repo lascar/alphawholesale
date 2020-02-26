@@ -9,7 +9,7 @@ class CreateOffers < ActiveRecord::Migration[5.2]
       t.string :localisation_supplier
       t.string :localisation_broker
       t.string :incoterm
-      t.text :observation
+      t.text :supplier_observation
       t.date :date_start
       t.date :date_end
       t.boolean :approved,         default: false

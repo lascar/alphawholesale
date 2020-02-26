@@ -1,5 +1,5 @@
 <h1><%= t("views.attached_products.new") %></h1>
- <h3><%= t("views.product_name") + " : " +
+ <h3><%= t("views.attached_products.product_name") + " : " +
          t("products." + @product + ".name") %></h3>
 </br>
 
@@ -12,7 +12,7 @@
         <table class="table-all table-bordered table-responsive">
           <thead>
             <tr>
-              <th><%= t('views.variety_name') %></th>
+              <th><%= t('views.attached_products.variety_name') %></th>
             </tr>
           </thead>
 
@@ -34,7 +34,7 @@
         <table class="table-all table-bordered table-responsive">
           <thead>
             <tr>
-              <th><%= t('views.aspect_name') %></th>
+              <th><%= t('views.attached_products.aspect_name') %></th>
             </tr>
           </thead>
 
@@ -56,7 +56,7 @@
         <table class="table-all table-bordered table-responsive">
           <thead>
             <tr>
-              <th><%= t('views.packaging_name') %></th>
+              <th><%= t('views.attached_products.packaging_name') %></th>
             </tr>
           </thead>
 
@@ -78,7 +78,7 @@
         <table class="table-all table-bordered table-responsive">
           <thead>
             <tr>
-              <th><%= t('views.size_name') %></th>
+              <th><%= t('views.attached_products.size_name') %></th>
             </tr>
           </thead>
 
@@ -100,7 +100,7 @@
         <table class="table-all table-bordered table-responsive">
           <thead>
             <tr>
-              <th><%= t('views.caliber_name') %></th>
+              <th><%= t('views.attached_products.caliber_name') %></th>
             </tr>
           </thead>
 
@@ -120,7 +120,7 @@
       </div>
   </div>
 
-  <div><%= submit_tag t("views.create") %></div>
+  <div><%= submit_tag t("views.attached_products.create") %></div>
 <% end -%>
 
 <%= link_to t("views.back"), :back %>

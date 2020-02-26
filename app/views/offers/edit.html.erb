@@ -1,6 +1,6 @@
-<h1><%= t("offer.editing") %></h1>
+<h1><%= t("views.offers.edit") %></h1>
 
 <%= render 'form', offer: @offer, supplier_id: @supplier_id %>
-<%= link_to t("show"), path_for(user: @user, path: "offer",
+<%= link_to t("views.offers.show"), path_for(user: @user, path: "offer",
                                 options: {object_id: @offer.id}) %> |
-<%= link_to t("back"), :back %>
+<%= link_to t("views.back"), :back %>

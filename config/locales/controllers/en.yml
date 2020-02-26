@@ -28,22 +28,6 @@ en:
       successfully_created: "Product was successfully created."
       successfully_updated: "Product was successfully updated."
       successfully_destroyed: "Product was successfully destroyed."
-    packagings:
-      successfully_created: "Packaging was successfully created."
-      successfully_updated: "Packaging was successfully updated."
-      successfully_destroyed: "Packaging was successfully destroyed."
-    origins:
-      successfully_created: "Origin was successfully created."
-      successfully_updated: "Origin was successfully updated."
-      successfully_destroyed: "Origin was successfully destroyed."
-    aspects:
-      successfully_created: "Aspect was successfully created."
-      successfully_updated: "Aspect was successfully updated."
-      successfully_destroyed: "Aspect was successfully destroyed."
-    sizes:
-      successfully_created: "Size was successfully created."
-      successfully_updated: "Size was successfully updated."
-      successfully_destroyed: "Size was successfully destroyed."
     offers:
       successfully_created: "Offer was successfully created."
       successfully_updated: "Offer was successfully updated."

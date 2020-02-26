@@ -1,23 +1,25 @@
 <div class="row small-font">
   <div class="card">
     <div class="card-header text-center text-uppercase">
-      <b><%= t("models.order.name") + t("with_count", count: @orders.count) %></b>
+      <b>
+        <%= t("views.orders.names") + t("views.with_count", count: @orders.count) %>
+      </b>
     </div>
     <% if @orders.count > 0 %>
     <table class="table table-responsive table-hover table-all">
       <thead>
         <tr>
           <th scope="col" class="text-truncate"
-            title="<%= t("models.attributes.offer.product_name") %>">
-            <%= t("models.attributes.offer.product_name") %>
+            title="<%= t("views.orders.product_name") %>">
+            <%= t("views.orders.product_name") %>
           </th>
           <th scope="col" class="text-truncate"
-            title="<%= t("models.attributes.order.quantity") %>">
-            <%= t("models.attributes.order.quantity") %>
+            title="<%= t("views.orders.quantity") %>">
+            <%= t("views.orders.quantity") %>
           </th>
           <th scope="col" class="text-truncate"
-            title="<%= t("models.attributes.offer.unit_price_broker") %>">
-            <%= t("models.attributes.offer.unit_price_broker") %>
+            title="<%= t("views.orders.unit_price_broker") %>">
+            <%= t("views.orders.unit_price_broker") %>
           </th>
           <th scope="col" colspan="1"></th>
         </tr>
@@ -26,19 +28,22 @@
       <tbody>
         <% @orders.each do |order| %>
           <tr>
-            <td class="text-truncate" title="<%= order.product_name %>">
-              <%= order.product_name %>
+            <td class="text-truncate" title="<%= t("products." +
+                                            order.product_name + ".name") %>">
+              <%= t("products." + order.product_name + ".name") %>
             </td>
-            <td class="text-truncate" title="<%= order.quantity %>">
-              <%= order.quantity.to_s + " " + order.offer.supplier.unit_type %>
+            <td class="text-truncate" title="<%= t("views.orders.quantity") +
+              " : " + order.quantity.to_s + " " + order.unit_type  %>">
+              <%= order.quantity.to_s + " " + order.unit_type %>
             </td>
-            <td class="text-truncate" title="<%= order.offer.unit_price_broker %>">
-              <%= order.offer.unit_price_broker.to_s  + " " +
-                  order.offer.supplier.currency %>
+            <td class="text-truncate" title="<%= t("views.orders.unit_price_broker") +
+                                       " : " + order.unit_price_broker %>">
+              <%= order.unit_price_broker.to_s  + " " +
+                  order.currency %>
             </td>
             <td><%= link_to icon('fas', 'fa-eye'),
               path_for(user: current_user, path: "order",
-                       options: {object_id: order.id}), title: t("show") %>
+                       options: {object_id: order.id}), title: t("views.orders.show") %>
             </td>
           </tr>
         <% end %>

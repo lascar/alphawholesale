@@ -1,19 +1,8 @@
 <%= form_with(model: offer, url: path_for(user: current_user, path: "offer"),
              local: true) do |form| %>
-  <% if offer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(offer.errors.count, "error") %> <%= t(
-        "views.offers.prohibited_offer_saved") %>:</h2>
-      <ul>
-        <% offer.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
   <% if broker_signed_in? %>
     <div class="field">
-      <%= form.label :supplier %>
+      <%= form.label :supplier, t("views.offers.supplier") %>
       <%= form.select :supplier_id, @suppliers%>
     </div>
   <% end %>
@@ -22,12 +11,12 @@
       <thead>
         <tr>
           <th colspan="1"></th>
-          <th><%= t("models.attributes.attached_product.product") %></th>
-          <th><%= t("models.attributes.attached_product.variety") %></th>
-          <th><%= t("models.attributes.attached_product.aspect") %></th>
-          <th><%= t("models.attributes.attached_product.packaging") %></th>
-          <th><%= t("models.attributes.attached_product.size") %></th>
-          <th><%= t("models.attributes.attached_product.caliber") %></th>
+          <th><%= t("views.offers.product_name") %></th>
+          <th><%= t("views.offers.variety_name") %></th>
+          <th><%= t("views.offers.aspect_name") %></th>
+          <th><%= t("views.offers.packaging_name") %></th>
+          <th><%= t("views.offers.size_name") %></th>
+          <th><%= t("views.offers.caliber_name") %></th>
         </tr>
       </thead>
       <tbody>
@@ -64,13 +53,13 @@
   <div class="card">
     <div class="row">
       <div class="col-3">
-        <%= label_tag t('models.attributes.offer.quantity') %>
+        <%= label_tag t('views.offers.quantity') %>
         <div style="clear: both;"></div>
         <%= form.number_field :quantity %>
         &nbsp;
       </div>
       <div class="col-3">
-        <%= label_tag t('models.attributes.offer.unit_price_supplier') %>
+        <%= label_tag t('views.offers.unit_price_supplier') %>
         <div style="clear: both;"></div>
         <%= monetary_field 'offer', 'unit_price_supplier', 0 %>
         &nbsp;
@@ -79,28 +68,28 @@
 
     <div class="row row_offer">
       <div class="col-3">
-        <%= label_tag t('models.attributes.offer.incoterm') %>
+        <%= label_tag t('views.offers.incoterm') %>
         <div style="clear: both;"></div>
         <%= form.select :incoterm, @incoterms%>
         &nbsp;
       </div>
 
       <div class="col-3">
-        <%= label_tag t('models.attributes.offer.localisation_supplier') %>
+        <%= label_tag t('views.offers.localisation_supplier') %>
         <div style="clear: both;"></div>
         <%= form.text_field :localisation_supplier %>
         &nbsp;
       </div>
 
       <div class="col-3">
-        <%= label_tag t('models.attributes.offer.date_start') %>
+        <%= label_tag t('views.offers.date_start') %>
         <div style="clear: both;"></div>
         <%= form.text_field :date_start, value: Time.now.strftime("%d/%m/%Y") %>
         &nbsp;
       </div>
 
       <div class="col-3">
-        <%= label_tag t('models.attributes.offer.date_end') %>
+        <%= label_tag t('views.offers.date_end') %>
         <div style="clear: both;"></div>
         <%= form.date_field :date_end, min:  Time.now.strftime("%d/%m/%Y") %>
         &nbsp;
@@ -109,9 +98,9 @@
 
     <div class="row row_offer">
       <div class="col-9">
-        <%= label_tag t('models.attributes.offer.observation') %>
+        <%= label_tag t('views.offers.supplier_observation') %>
         <div style="clear: both;"></div>
-          <%= form.text_area :observation, :rows => 10, style: 'width:100%;' %>
+          <%= form.text_area :supplier_observation, :rows => 10, style: 'width:100%;' %>
         &nbsp;
       </div>
     </div>
@@ -121,13 +110,13 @@
     <div class="card">
       <div class="row">
         <div class="col">
-          <%= label_tag t('models.attributes.offer.unit_price_broker') %>
+          <%= label_tag t('views.offers.unit_price_broker') %>
           <div style="clear: both;"></div>
           <%= monetary_field 'offer', 'unit_price_broker', 0 %>
           &nbsp;
         </div>
         <div class="col">
-          <%= label_tag t('models.attributes.offer.localisation_broker') %>
+          <%= label_tag t('views.offers.localisation_broker') %>
           <div style="clear: both;"></div>
           <%= form.text_field :localisation_broker %>
           &nbsp;
@@ -135,7 +124,7 @@
 
         &nbsp;
         <div class="col">
-          <%= label_tag t('models.attributes.offer.approved') %>
+          <%= label_tag t('views.offers.approved') %>
           <div style="clear: both;"></div>
           <%= form.check_box :approved %>
         </div>

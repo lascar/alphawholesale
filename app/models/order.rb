@@ -57,7 +57,7 @@ class Order < ApplicationRecord
   end
 
   def supplier_observation
-    offer.observation
+    offer.supplier_observation
   end
 
   def self.not_expired

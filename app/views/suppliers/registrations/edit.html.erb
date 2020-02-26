@@ -1,4 +1,4 @@
-<h2><%= t("edit") %> <%= t("models.supplier.name") %></h2>
+<h2><%= t("views.suppliers.edit") %> <%= ("views.suppliers.identifier") %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <% if !devise_error_messages!.empty? %>
@@ -7,68 +7,68 @@
 
   <% if broker_signed_in? %>
     <div class="field">
-      <%= f.label :identifier %><br />
+      <%= f.label t("views.suppliers.identifier") %><br />
       <%= f.text_field :identifier, autofocus: true, autocomplete: "identifier" %>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :email %>
+    <%= f.label t("views.suppliers.email") %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <%= f.label :entreprise_name %>*
+    <%= f.label t("views.suppliers.entreprise_name") %>*
     <%= f.text_field :entreprise_name, required: true %>
   </div>
 
   <div class="field">
-    <%= f.label :tin %>*
+    <%= f.label t("views.suppliers.tin") %>*
     <%= f.text_field :tin, required: true %>
   </div>
 
   <div class="field">
-    <%= f.label :street_and_number %>
+    <%= f.label t("views.suppliers.street_and_number") %>
     <%= f.text_field :street_and_number %>
   </div>
 
   <div class="field">
-    <%= f.label :city %>
+    <%= f.label t("views.suppliers.city") %>
     <%= f.text_field :city %>
   </div>
 
   <div class="field">
-    <%= f.label :postal_code %>
+    <%= f.label t("views.suppliers.postal_code") %>
     <%= f.text_field :postal_code %>
   </div>
 
   <div class="field">
-    <%= f.label :state %>
+    <%= f.label t("views.suppliers.state") %>
     <%= f.text_field :state %>
   </div>
 
   <div class="field">
-    <%= f.label :country %>*
+    <%= f.label t("views.suppliers.country") %>*
     <%= f.text_field :country, required: true %>
   </div>
 
   <div class="field">
-    <%= f.label :telephone_number1 %>
+    <%= f.label t("views.suppliers.telephone_number")1 %>
     <%= f.text_field :telephone_number1 %>
   </div>
 
   <div class="field">
-    <%= f.label :telephone_number2 %>
+    <%= f.label t("views.suppliers.telephone_number")2 %>
     <%= f.text_field :telephone_number2 %>
   </div>
 
   <div class="field">
-    <%= f.label :currency %>
+    <%= f.label t("views.suppliers.currency") %>
     <%= f.select :currency, @currencies %>
   </div>
 
   <div class="field">
-    <%= f.label :unit_type %>
+    <%= f.label t("views.suppliers.unit_type") %>
     <%= f.select :unit_type, @unit_types %>
   </div>
 
@@ -77,7 +77,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(<%= t("devise.messages.leave_blank_if_not_change") %>)</i><br />
+    <%= f.label t("views.suppliers.password") %> <i>(<%= t("devise.messages.leave_blank_if_not_change") %>)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
     <% if @minimum_password_length %>
       <br />
@@ -86,23 +86,23 @@
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label t("views.suppliers.password_confirmation") %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(<%= t("devise.messages.need_password_confirm_change") %>)</i><br />
+    <%= f.label t("views.suppliers.current_password") %> <i>(<%= t("devise.messages.need_password_confirm_change") %>)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
   <div class="actions">
-    <%= f.submit t("update") %>
+    <%= f.submit t("views.suppliers.update") %>
   </div>
 <% end %>
 
 <h3><%= t("devise.messages.cancel_account") %></h3>
 
-<%= link_to t("back"), :back %>
-<p><%= t("devise.messages.unhappy") %>? <%= button_to t("devise.messages.cancel_account"), registration_path(resource_name), data: { confirm: t("are_you_sure") }, method: :delete %></p>
+<%= link_to t("views.back"), :back %>
+<p><%= t("devise.messages.unhappy") %>? <%= button_to t("devise.messages.cancel_account"), registration_path(resource_name), data: { confirm: t("views.are_you_sure") }, method: :delete %></p>
 
-<%= link_to t("back"), :back %>
+<%= link_to t("views.back"), :back %>

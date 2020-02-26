@@ -2,17 +2,17 @@
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
-    <%= f.text_field :identifier, autofocus: true, autocomplete: "identifier", placeholder: t("models.attributes.customer.identifier") %>
+    <%= f.text_field :identifier, autofocus: true, autocomplete: "identifier", placeholder: t("views.customers.identifier") %>
   </div>
 
   <div class="field">
-    <%= f.password_field :password, autocomplete: "current-password", placeholder: t("models.attributes.customer.password") %>
+    <%= f.password_field :password, autocomplete: "current-password", placeholder: t("views.customers.password") %>
   </div>
 
   <% if devise_mapping.rememberable? -%>
     <div class="field">
       <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <%= f.label t("devise.remember_me") %>
     </div>
   <% end -%>
 

@@ -1,97 +1,168 @@
 en:
   views:
-    control_panel: "Control Panel"
-    required_fields: "* The required fields are followed by a star"
-    index: "List"
-    show: "Show"
-    new: "New"
-    create: "Create"
-    edit: "Edit"
-    update: "Update"
-    destroy: "Destroy"
-    back: "Back"
-    broker_name: "Broker"
-    supplier_name: "Supplier"
-    customer_name: "Customer"
-    product_name: "Product"
-    variety_name: "Variety"
-    aspect_name: "Aspect"
-    packaging_name: "Packaging"
-    size_name: "Size"
-    caliber_name: "Caliber"
-    quantity_name: "Quantity"
-    identifier: "Identifier"
-    approved: "Approved"
-    email: "Email"
-    quantity: "Quantity"
-    unit_price_supplier: "Unit Price"
-    unit_price_broker: "Total Unit Price"
+    choose_lang_html: "<span class='flag-icon flag-icon-gb'></span> choose the language"
+    english_html: "<br>English"
+    french_html: "<br>French"
+    spanish_html: "<br>Spanish"
+    available_locales: "Available locales"
+    about_us: "About us"
+    about_us_html: "Alphawholesale is a brokerage website.<br>It is a free software.<br>The goal is to network suppliers and purchasers in order to facilitate their business transactions.<br>Suppliers upload an offer of their products and customers can browse and order online."
+    about_us_contact_html: ""
+    about_us_emails_html: "Informations : pascal.carrie@gmail.com"
+    with_count: " count %{count}"
+    back: 'Back'
+    are_you_sure: 'are you sure'
+    control_panel: 'Control panel'
+    required_fields: '* The required fields are followed by a star'
     user_products:
-      name: "Products of interest"
-      update: "Update Products of interest"
-    attached_products:
-      name: "Attached Products"
-      new: "New attached products"
-      detach_product: "Detach Product"
-      attached_products: "Attached Products"
-      select_product: "Select a product for a new attached product"
-    brokers:
-      new: "New Broker"
-      editing: "Editing Broker"
-      edit: "Edit Broker"
-      prohibited_broker_saved: "prohibited this broker from being saved"
-      list: "Brokers list"
-      attached_products: "Attachable products"
-      manage_attachable: "Manage attachable products"
-    users:
-      user_products_list: "List of products of interest"
-      attached_products: "Attached Products"
-    suppliers:
-      new: "New Supplier"
-      editing: "Editing Supplier"
-      edit: "Edit Supplier"
-      prohibited_supplier_saved: "prohibited this supplier from being saved"
-      without_approved: "Suppliers not yet approved"
-      list: "Suppliers list"
-    customers:
-      new: "New Customer"
-      editing: "Editing Customer"
-      edit: "Edit Customer"
-      prohibited_customer_saved: "prohibited this customer from being saved"
-      without_approved: "Customers without approved"
-      list: "Customers list"
-    products:
-      name: "Products"
-      get_names: "Get Product Names"
-      new: "New Product"
-      prohibited_product_saved: "prohibited this product from being saved"
-      editing: "Editing Product"
-      name_not_in_list: "Name not in the list"
-      name_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
-      variety_not_in_list: "Variety not in the list"
-      variety_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
-      origin_not_in_list: "Origin not in the list"
-      origin_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
-      aspect_not_in_list: "Aspect not in the list"
-      aspect_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
-      size_not_in_list: "Calibre not in the list"
-      size_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
-      packaging_not_in_list: "Packaging not in the list"
-      packaging_only_allowed: "(Only letter without accent, number, underscore, slash and hyphen allowed)"
-      list: "Products list"
-    offers:
-      new: "New Offer"
-      prohibited_offer_saved: "prohibited this offer from being saved"
-      edit: "Edit Offer"
-      editing: "Editing Offer"
-      without_approved: "offers without approved"
-      list: "Offers list"
-      make_order: "Make an Order"
+      names: 'Products of interest'
+      product_name: 'Product'
+      index: 'List of products of interest'
+      update: 'Update products of interest'
     orders:
-      new: "Place Order"
-      prohibited_order_saved: "prohibited this order from being saved"
-      editing: "Editing Order"
-      without_approved: "orders without approved"
-      list: "Orders list"
-      supplier_observation: "Supplier observation"
-      customer_observation: "Customer observation"
+      names: 'Orders'
+      product_name: 'Product name'
+      variety_name: 'Variety name'
+      aspect_name: 'Aspect name'
+      packaging_name: 'Packaging name'
+      size_name: 'Size name'
+      caliber_name: 'Caliber name'
+      quantity: 'Quantity'
+      unit_price_broker: 'Unit price broker'
+      unit_price_supplier: 'Unit price supplier'
+      localisation_broker: 'Localisation broker'
+      localisation_supplier: 'Localisation supplier'
+      incoterm: 'Incoterm'
+      approved: 'approved'
+      supplier_observation: "Supplier's observation"
+      customer_observation: "Customer's observation"
+      show: 'Show order'
+      edit: 'Edit order'
+      destroy: 'Destroy order'
+    offers:
+      names: 'Offers'
+      product_name: 'Product name'
+      variety_name: 'Variety name'
+      aspect_name: 'Aspect name'
+      packaging_name: 'Packaging name'
+      size_name: 'Size name'
+      caliber_name: 'Caliber name'
+      quantity: 'Quantity'
+      unit_price_supplier: 'Unit price supplier'
+      unit_price_broker: 'Unit price broker'
+      incoterm: 'Incoterm'
+      localisation_broker: 'Localisation broker'
+      localisation_supplier: 'Localisation supplier'
+      approved: 'approved'
+      date_start: 'date start'
+      date_end: 'date end'
+      supplier_observation: "Supplier's observation"
+      supplier: "Supplier"
+      show: 'Show offer'
+      new: 'New offer'
+      edit: 'Edit offer'
+      destroy: 'Destroy offer'
+    brokers:
+      name: 'Broker'
+      names: 'Brokers'
+      identifier: 'Identifier'
+      current_password: 'Current password'
+      password: 'Password'
+      password_confirmation: 'password confirmation'
+      email: 'Email'
+      suppliers_not_approved: 'Suppliers not approved'
+      offers_not_approved: 'Offers not approved'
+      orders_not_approved: 'Orders not approved'
+      customers_not_approved: 'Customers not approved'
+      index: 'List of brokers'
+      show: 'Show broker'
+      new: 'New broker'
+      edit: 'Edit broker'
+      destroy: 'Destroy broker'
+    customers:
+      names: 'Customers'
+      name: 'Customer'
+      identifier: 'Identifier'
+      password: 'Password'
+      current_password: 'Current password'
+      password_confirmation: 'password confirmation'
+      email: 'Email'
+      entreprise_name: 'Entreprise name'
+      tin: 'tin'
+      street_and_number: 'street and number'
+      city: 'city'
+      postal_code: 'postal code'
+      state: 'state'
+      country: 'country'
+      telephone_number1: 'telephone_number1'
+      telephone_number2: 'telephone_number2'
+      currency: 'currency'
+      unit_type: 'unit_type'
+      edit: 'Edit customer'
+      update: 'Update customer'
+      show: 'Show customer'
+      destroy: 'Destroy customer'
+      new: 'New customer'
+    suppliers:
+      index: 'List suppliers'
+      show: 'Show supplier'
+      new: 'New supplier'
+      edit: 'Edit supplier'
+      update: 'Update attached products'
+      destroy: 'Destroy supplier'
+      names: 'Suppliers'
+      name: 'Supplier'
+      identifier: 'Identifier'
+      password: 'Password'
+      current_password: 'Current password'
+      password_confirmation: 'password confirmation'
+      email: 'email'
+      entreprise_name: 'Entreprise name'
+      tin: 'tin'
+      street_and_number: 'street and number'
+      city: 'city'
+      postal_code: 'postal code'
+      state: 'state'
+      country: 'country'
+      telephone_number1: 'telephone_number1'
+      telephone_number2: 'telephone_number2'
+      currency: 'currency'
+      unit_type: 'unit_type'
+      approved: 'approved'
+    attached_products:
+      names: 'Attached products'
+      index: 'List attached products'
+      show: 'Show attached products'
+      new: 'New attached product'
+      edit: 'Edit attached product'
+      create: 'Create attached product'
+      destroy: 'Delete attached product'
+      save: 'Save attached products'
+      name: 'Attached products'
+      product_name: 'Product name'
+      variety_name: 'Variety name'
+      aspect_name: 'Aspect name'
+      packaging_name: 'Packaging name'
+      size_name: 'Size name'
+      caliber_name: 'Caliber name'
+      select_product: 'Select a product'
+    products:
+      names: 'Products'
+      product_name: 'Product name'
+      variety_names: 'Varieties'
+      aspect_names: 'Aspects'
+      packaging_names: 'Packaging'
+      size_names: 'Sizes'
+      caliber_names: 'Calibers'
+      variety_name: 'Variety name'
+      aspect_name: 'Aspect name'
+      packaging_name: 'Packaging name'
+      size_name: 'Size name'
+      caliber_name: 'Caliber name'
+      index: 'List of products'
+      show: 'Show product'
+      new: 'New product'
+      edit: 'Edit product'
+      destroy: 'Destroy product'
+      save: 'Save product'
+

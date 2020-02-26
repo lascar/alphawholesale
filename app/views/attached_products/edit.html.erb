@@ -8,10 +8,10 @@
         <table class="table-all table-bordered table-responsive">
           <thead>
             <tr>
-              <th><%= t('views.product_name') %></th>
-              <th><%= t('views.variety_name') %></th>
-              <th><%= t('views.aspect_name') %></th>
-              <th><%= t('views.packaging_name') %></th>
+              <th><%= t('views.attached_products.product_name') %></th>
+              <th><%= t('views.attached_products.variety_name') %></th>
+              <th><%= t('views.attached_products.aspect_name') %></th>
+              <th><%= t('views.attached_products.packaging_name') %></th>
               <th class="table-icons-1" colspan="1"></th>
             </tr>
           </thead>
@@ -22,16 +22,16 @@
                 <% product_name = attached_product[:product_name] %>
                 <% variety_name = attached_product[:variety_name] ?
                   t("product.variety." + product_name + "." + attached_product[:variety_name].to_s,
-                    default: t("product.variety.none")) :
-                   t("product.variety.none") %>
+                    default: t("product.variety.nil")) :
+                   t("product.variety.nil") %>
                 <% aspect_name = attached_product[:aspect_name] ?
                   t("product.aspect." + product_name + "." + attached_product[:aspect_name].to_s,
-                    default: t("product.aspect.none")) :
-                   t("product.aspect.none") %>
+                    default: t("product.aspect.nil")) :
+                   t("product.aspect.nil") %>
                 <% packaging_name = attached_product[:packaging_name] ?
                   t("product.packaging." + product_name + "." + attached_product[:packaging_name].to_s,
-                    default: t("product.packaging.none")) :
-                   t("product.packaging.none") %>
+                    default: t("product.packaging.nil")) :
+                   t("product.packaging.nil") %>
                 <td><%= t("product.name." + product_name) %></td>
                 <td><%= variety_name %></td>
                 <td><%= aspect_name %></td>
@@ -49,8 +49,8 @@
       </div>
   </div>
 
-  <div><%= submit_tag 'Save' %></div>
+  <div><%= submit_tag t("views.attached_products.save") %></div>
 <% end -%>
 
-<%= link_to 'Show', @attached_product %> |
-<%= link_to 'Back', :back %>
+<%= link_to t("views.attached_products.show"), @attached_product %> |
+<%= link_to t("views.back"), :back %>

@@ -1,4 +1,4 @@
-<h1><%= t("supplier.editing") %></h1>
+<h1><%= t("views.suppliers.edit") %></h1>
 <%= form_with(model: @supplier, local: true) do |form| %>
   <% if @supplier.errors.any? %>
     <div id="error_explanation">
@@ -14,73 +14,73 @@
 
   <% if broker_signed_in? %>
     <div class="field">
-      <%= form.label :identifier %><br />
+      <%= form.label t("views.suppliers.identifier") %><br />
       <%= form.text_field :identifier, autofocus: true, autocomplete: "identifier" %>
     </div>
   <% end %>
 
   <div class="field">
-    <%= form.label :email %><br />
+    <%= form.label t("views.suppliers.email") %><br />
     <%= form.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <%= form.label :entreprise_name %>*
+    <%= form.label t("views.suppliers.entreprise_name") %>*
     <%= form.text_field :entreprise_name, required: true %>
   </div>
 
   <div class="field">
-    <%= form.label :tin %>*
+    <%= form.label t("views.suppliers.tin") %>*
     <%= form.text_field :tin, required: true %>
   </div>
 
   <div class="field">
-    <%= form.label :street_and_number %>
+    <%= form.label t("views.suppliers.street_and_number") %>
     <%= form.text_field :street_and_number %>
   </div>
 
   <div class="field">
-    <%= form.label :city %>
+    <%= form.label t("views.suppliers.city") %>
     <%= form.text_field :city %>
   </div>
 
   <div class="field">
-    <%= form.label :postal_code %>
+    <%= form.label t("views.suppliers.postal_code") %>
     <%= form.text_field :postal_code %>
   </div>
 
   <div class="field">
-    <%= form.label :state %>
+    <%= form.label t("views.suppliers.state") %>
     <%= form.text_field :state %>
   </div>
 
   <div class="field">
-    <%= form.label :country %>*
+    <%= form.label t("views.suppliers.country") %>*
     <%= form.text_field :country, required: true %>
   </div>
 
   <div class="field">
-    <%= form.label :telephone_number1 %>
+    <%= form.label t("views.suppliers.telephone_number1") %>
     <%= form.text_field :telephone_number1 %>
   </div>
 
   <div class="field">
-    <%= form.label :telephone_number2 %>
+    <%= form.label t("views.suppliers.telephone_number2") %>
     <%= form.text_field :telephone_number2 %>
   </div>
 
   <div class="field">
-    <%= form.label :currency %>
+    <%= form.label t("views.suppliers.currency") %>
     <%= form.select :currency, @currencies %>
   </div>
 
   <div class="field">
-    <%= form.label :unit_type %>
+    <%= form.label t("views.suppliers.unit_type") %>
     <%= form.select :unit_type, @unit_types %>
   </div>
 
   <div class="field">
-    <%= form.label :password %>*
+    <%= form.label t("views.suppliers.password") %>*
     <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> <%= t("devise.messages.password_minimum_length") %>)</em>
     <% end %><br />
@@ -88,27 +88,27 @@
   </div>
 
   <div class="field">
-    <%= form.label :password_confirmation %>*<br />
+    <%= form.label t("views.suppliers.password_confirmation") %>*<br />
     <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
   <% unless broker_signed_in? %>
     <div class="field">
-      <%= form.label :current_password %> <i>(<%= t("devise.messages.need_password_confirm_change") %>)</i><br />
+      <%= form.label t("views.suppliers.current_password") %> <i>(<%= t("devise.messages.need_password_confirm_change") %>)</i><br />
       <%= form.password_field :current_password, autocomplete: "current-password" %>
     </div>
   <% end %>
 
   <% if broker_signed_in? %>
     <div class="field">
-      <%= form.label :approved %>
+      <%= form.label t("views.suppliers.approved") %>
       <%= form.check_box :approved %>
     </div>
   <% end %>
 
   <div class="actions">
-    <%= form.submit t("update") %>
+    <%= form.submit t("views.suppliers.update") %>
   </div>
 <% end %>
 
-<%= link_to t("back"), :back %>
+<%= link_to t("views.back"), :back %>

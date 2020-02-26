@@ -1,81 +1,69 @@
-<h1><%= t("customer.editing") %></h1>
+<h1><%= t("views.customers.edit") %></h1>
 <%= form_with(model: @customer, local: true) do |form| %>
-  <% if @customer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@customer.errors.count, "error") %> <%= t("customers.prohibited_customer_saved") %></h2>
-
-      <ul>
-      <% @customer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <% if broker_signed_in? %>
     <div class="field">
-      <%= form.label :identifier %><br />
+      <%= form.label :identifier, t("views.customers.identifier") %><br />
       <%= form.text_field :identifier, autofocus: true, autocomplete: "identifier" %>
     </div>
   <% end %>
 
   <div class="field">
-    <%= form.label :email %><br />
+    <%= form.label :email, t("views.customers.email") %><br />
     <%= form.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <%= form.label :entreprise_name %>*
+    <%= form.label :entreprise_name, t("views.customers.entreprise_name") %>*
     <%= form.text_field :entreprise_name, required: true %>
   </div>
 
   <div class="field">
-    <%= form.label :tin %>*
+    <%= form.label :tin, t("views.customers.tin") %>*
     <%= form.text_field :tin, required: true %>
   </div>
 
   <div class="field">
-    <%= form.label :street_and_number %>
+    <%= form.label :street_and_number, t("views.customers.street_and_number") %>
     <%= form.text_field :street_and_number %>
   </div>
 
   <div class="field">
-    <%= form.label :city %>
+    <%= form.label :city, t("views.customers.city") %>
     <%= form.text_field :city %>
   </div>
 
   <div class="field">
-    <%= form.label :postal_code %>
+    <%= form.label :postal_code, t("views.customers.postal_code") %>
     <%= form.text_field :postal_code %>
   </div>
 
   <div class="field">
-    <%= form.label :state %>
+    <%= form.label :state, t("views.customers.state") %>
     <%= form.text_field :state %>
   </div>
 
   <div class="field">
-    <%= form.label :country %>*
+    <%= form.label :country, t("views.customers.country") %>*
     <%= form.text_field :country, required: true %>
   </div>
 
   <div class="field">
-    <%= form.label :telephone_number1 %>
+    <%= form.label :telephone_number1, t("views.customers.telephone_number1") %>
     <%= form.text_field :telephone_number1 %>
   </div>
 
   <div class="field">
-    <%= form.label :telephone_number2 %>
+    <%= form.label :telephone_number2, t("views.customers.telephone_number2") %>
     <%= form.text_field :telephone_number2 %>
   </div>
 
   <div class="field">
-    <%= form.label :currency %>
+    <%= form.label :currency, t("views.customers.currency") %>
     <%= form.select :currency, @currencies %>
   </div>
 
   <div class="field">
-    <%= form.label :unit_type %>
+    <%= form.label :unit_type, t("views.customers.unit_type") %>
     <%= form.select :unit_type, @unit_types %>
   </div>
 
@@ -107,8 +95,8 @@
   <% end %>
 
   <div class="actions">
-    <%= form.submit t("update") %>
+    <%= form.submit t("views.customers.update") %>
   </div>
 <% end %>
 
-<%= link_to t("back"), :back %>
+<%= link_to t("views.back"), :back %>

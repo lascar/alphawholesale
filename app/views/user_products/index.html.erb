@@ -1,15 +1,15 @@
 <div class="row small-font">
   <div class="card col-4">
     <div class="card-header text-center text-uppercase">
-      <%= t("views.user_products.name") + t("with_count", count: @user_products.count) %> :
+      <%= t("views.user_products.names") + t("views.with_count", count: @user_products.count) %> :
     </div>
     <div class="card-body">
       <table class="table table-responsive table-hover table-all">
         <thead>
           <tr>
             <th scope="col" class="text-truncate"
-             title="<%= t('views.product_name') %>">
-              <%= t("views.product_name") %>
+             title="<%= t('views.user_products.product_name') %>">
+              <%= t("views.user_products.product_name") %>
             </th>
             <th colspan="1"></th>
           </tr>
@@ -21,7 +21,7 @@
             <% @products.each do |product| %>
               <tr>
                 <td class="text-truncate"
-                    title="<%= t("views.product_name") + " " +
+                    title="<%= t("views.user_products.product_name") + " " +
                       t("products." + product + ".name") %>">
                   <%= t("products." + product + ".name") %>
                 </td>
