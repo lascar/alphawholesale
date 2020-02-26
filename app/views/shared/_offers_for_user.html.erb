@@ -1,65 +1,59 @@
-<div class="row small-font">
-  <div class="card">
-    <div class="card-header text-center text-uppercase">
-      <b>
-        <%= t("views.offers.names") + t("views.with_count", count: @offers.count) %> :
-      </b>
-    </div>
-    <table class="table table-responsive table-hover table-all">
-      <thead>
-        <tr>
-          <th scope="col" class="text-truncate"
-            title="<%= t('views.offers.product_name') %>">
-            <%= t("views.offers.product_name") %>
-          </th>
-          <th scope="col" class="text-truncate"
-            title="<%= t('views.offers.quantity') %>">
-            <%= t("views.offers.quantity") %>
-          </th>
-          <% if supplier_signed_in? || broker_signed_in? %>
-            <th scope="col" class="text-truncate"
-              title="<%= t('views.offers.unit_price_supplier') %>">
-              <%= t("views.offers.unit_price_supplier") %>
-          <% end %>
-          <% if !supplier_signed_in? %>
-            <th scope="col" class="text-truncate"
-              title="<%= t('views.offers.unit_price_broker') %>">
-              <%= t("views.offers.unit_price_broker") %>
-          <% end %>
+<table class="table table-responsive table-hover table-all">
+  <thead>
+    <tr>
+      <th scope="col" class="text-truncate"
+                      title="<%= t('views.offers.product_name') %>">
+        <%= t("views.offers.product_name") %>
+      </th>
+      <th scope="col" class="text-truncate"
+                      title="<%= t('views.offers.quantity') %>">
+        <%= t("views.offers.quantity") %>
+      </th>
+      <% if supplier_signed_in? || broker_signed_in? %>
+        <th scope="col" class="text-truncate"
+                        title="<%= t('views.offers.unit_price_supplier') %>">
+          <%= t("views.offers.unit_price_supplier") %>
         </th>
-        <th scope="col" colspan="1"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @offers.each do |offer| %>
-        <% product_name = offer.product_name %>
-        <tr>
-          <td class="text-truncate"
-              title="<%= t('views.offers.product_name') + ' ' +
-                t('products.' + product_name + '.name') %>">
-            <%= t('products.' + product_name + ".name") %>
-          </td>
-          <td class="text-truncate" title="<%= t('views.offers.quantity' +
-                                          ' : ' + offer.quantity.to_s %>">
-            <%= offer.quantity.to_s + " " + offer.unit_type %>
-          </td>
-          <% if supplier_signed_in? || broker_signed_in?%>
-            <td class="text-truncate" title="<%= t('views.offers.unit_price_supplier') +
-                                       ' : ' + offer.unit_price_supplier.to_s %>">
-              <%= offer.unit_price_supplier.to_s  + " " + offer.supplier.currency %>
-          <% end %>
-          <% if !supplier_signed_in? %>
-            <td class="text-truncate" title="<%= offer.unit_price_broker %>">
-              <%= offer.unit_price_broker.to_s  + " " + offer.supplier.currency %>
-          <% end %>
-          </td>
-          <td><%= link_to icon('fas', 'fa-eye'),
-            path_for(user: current_user, path: "offer",
-                     options: {object_id: offer.id}), title: t("views.offers.show")) %>
-          </td>
-        </tr>
       <% end %>
-    </tbody>
-  </table>
-</div>
+      <% if !supplier_signed_in? %>
+        <th scope="col" class="text-truncate"
+                title="<%= t('views.offers.unit_price_broker') %>">
+          <%= t("views.offers.unit_price_broker") %>
+        </th>
+      <% end %>
+      <th scope="col" colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @offers.each do |offer| %>
+      <% product_name = offer.product_name %>
+      <tr>
+        <td class="text-truncate"
+            title="<%= t('views.offers.product_name') + ' ' +
+              t('products.' + product_name + '.name') %>">
+          <%= t('products.' + product_name + ".name") %>
+        </td>
+        <td class="text-truncate" title="<%= t('views.offers.quantity') +
+                                               ' : ' + offer.quantity.to_s %>">
+          <%= offer.quantity.to_s + " " + offer.unit_type %>
+        </td>
+        <% if supplier_signed_in? || broker_signed_in?%>
+          <td class="text-truncate" title="<%= t('views.offers.unit_price_supplier') +
+            ' : ' + offer.unit_price_supplier.to_s %>">
+            <%= offer.unit_price_supplier.to_s  + " " + offer.supplier.currency %>
+          </td>
+        <% end %>
+        <% if !supplier_signed_in? %>
+          <td class="text-truncate" title="<%= offer.unit_price_broker %>">
+            <%= offer.unit_price_broker.to_s  + " " + offer.supplier.currency %>
+          </td>
+        <% end %>
+        <td>
+          <%= link_to icon('fas', 'fa-eye'), path_for(user: current_user, path: "offer",
+                       options: {object_id: offer.id}), title: t("views.offers.show") %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -35,6 +35,7 @@ en:
       incoterm: 'Incoterm'
       approved: 'approved'
       supplier_observation: "Supplier's observation"
+      index: 'List of orders'
       customer_observation: "Customer's observation"
       show: 'Show order'
       edit: 'Edit order'
@@ -58,6 +59,7 @@ en:
       date_end: 'date end'
       supplier_observation: "Supplier's observation"
       supplier: "Supplier"
+      index: 'List of offers'
       show: 'Show offer'
       new: 'New offer'
       edit: 'Edit offer'

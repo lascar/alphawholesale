@@ -2,9 +2,36 @@
   <strong><%= t("views.customers.identifier") %></strong>
   <%= @customer.identifier %>
 </p>
-<%= link_to t("views.customers.edit"), path_for(user: current_user, path: "edit_user"),
+<%= link_to t("views.customers.edit"), path_for(user: "customer", path: "edit_user", options: {object_id: @user.id}),
   class: "btn btn-info btn-sm give-me-some-space" %>
 <%= render "shared/products_for_user" %>
 <br>
-<%= render "shared/offers_for_user" %>
-<%= render "shared/orders_for_user" %>
+<div class="row small-font">
+  <div class="card col-5">
+    <div class="card-header text-center text-uppercase">
+      <%= t("views.offers.names") + t("views.with_count", count: @offers.count) %> :
+    </div>
+    <div class="card-body">
+      <%= render "shared/offers_for_user" %>
+    </div>
+    <br>
+    <%= link_to t("views.offers.index"), path_for(user: @user, path: "offers"),
+        class: "btn btn-primary btn-sm" %>
+  </div>
+  <div class="col-2">
+  </div>
+  <div class="card col-5">
+    <div class="card-header text-center text-uppercase">
+      <%= t("views.offers.names") + t("views.with_count", count: @offers.count) %> :
+    </div>
+    <div class="card-body">
+    <%= render "shared/orders_for_user" %>
+    </div>
+    <br>
+    <%= link_to t("views.orders.index"), path_for(user: @user, path: "orders"),
+        class: "btn btn-primary btn-sm" %>
+  </div>
+</div>
+<% if broker_signed_in? %>
+  <%= link_to t("views.customers.index"), path_for(user: @user, path: "customers") %>
+<% end %>
