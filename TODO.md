@@ -1,6 +1,6 @@
 # TODO
 
-- refactor front end (stylesheet more inherents)
+- refactor views
 
 - refactor test
 
