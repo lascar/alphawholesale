@@ -55,30 +55,6 @@ div {
   background-color: red;
   display: table;
 }
-
-#error_explanation {
-  width: 37.5em;
-  border: 0.167em solid red;
-  padding: 0.583em 0.583em 0;
-  margin-bottom: 1.667em;
-  background-color: #f0f0f0;
-
-  h2 {
-    text-align: left;
-    font-weight: bold;
-    padding: 0.417em 0.417em 0.417em 1.25em;
-    font-size: 1em;
-    margin: -0.583em -0.583em 0;
-    background-color: #c00;
-    color: #fff;
-  }
-
-  ul li {
-    font-size: 1em;
-    list-style: square;
-  }
-}
-
 label {
   display: block;
 }
@@ -96,10 +72,6 @@ label {
 footer {
   font-size: 0.8em;
 }
-.user_in_list {
-  list-style-type: none;
-}
-
 .table-all {
   width: 100%;
 }
@@ -155,11 +127,4 @@ a:visited{
 }
 #notice, .alert, .notice {
   color: $color-second;
-}
-#error_explanation {
-  border: 0.167em solid $color-second;
-  h2 {
-    background-color: $color-second;
-    border: $color-second;
-  }
 }
