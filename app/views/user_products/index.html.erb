@@ -16,8 +16,8 @@
         </thead>
 
         <tbody>
-          <%= form_with(url: path_for(user: @user, path: "user_product",
-                  options: {object_id: @user.id}), method: :patch, local: true) do |form| %>
+          <%= form_with(url: path_for(user: @user, path: "user_product"),
+                        method: :patch, local: true) do |form| %>
             <% @products.each do |product| %>
               <tr>
                 <td class="text-truncate"
@@ -41,6 +41,10 @@
           <% end %>
         </tbody>
       </table>
+      <br>
+      <%= link_to t("views.attached_products.index"),
+        path_for(user: @user, path: "attached_products"),
+        id: "attached_products", class:  "btn btn-primary btn-sm" %>
     </div>
   </div>
 </div>

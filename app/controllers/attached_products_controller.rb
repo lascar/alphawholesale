@@ -9,8 +9,10 @@ class AttachedProductsController < ApplicationController
 
   # GET /attached_products/new
   def new
-    product = Product.find_by(name: params_new["product"])
-    @product = product.name
+    @products = broker_signed_in? ? Product.all.pluck(:name, :name) :
+      current_user.user_product.products
+    product = Product.find_by(name: params_new[:product])
+    @product_name = product.name
     @varieties = product.assortments['varieties']
     @aspects = product.assortments['aspects']
     @packagings = product.assortments['packagings']

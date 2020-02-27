@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
                 :broker
               end
       opts = {scope: scope}
-      warden.authenticate!(opts) if !devise_controller? || opts.delete(:force)
+      warden.authenticate!(opts) if (!devise_controller? || opts.delete(:force))
     else
       unless ["products"].include? controller_name
         redirect_to "/", alert: I18n.t('devise.failure.unauthenticated')
