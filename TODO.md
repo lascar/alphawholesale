@@ -1,5 +1,7 @@
 # TODO
 
+- refactor auth
+
 - refactor views
 
 - refactor test
