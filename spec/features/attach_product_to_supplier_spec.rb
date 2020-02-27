@@ -21,6 +21,8 @@ RSpec.describe 'Suppliers Feature new', type: :feature do
     # TEST and can create a new one
     describe 'as a supplier' do
       before :each do
+        supplier1.user_product.products = [product1.name, product2.name]
+        supplier1.user_product.save
         sign_in(supplier1)
       end
 

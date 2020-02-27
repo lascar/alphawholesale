@@ -4,7 +4,8 @@ class UserProductsController < ApplicationController
   # GET /user_products
   def index
     @products = Product.pluck(:name)
-    @user_products = current_user.user_product.products
+    @user_product = current_user.user_product
+    @user_products = @user_product.products
   end
 
   # PATCH/PUT /user_products/1

@@ -21,6 +21,8 @@ RSpec.describe 'Customers Feature new', type: :feature do
     # TEST and can create a new one
     describe 'as a customer' do
       before :each do
+        customer1.user_product.products = [product1.name, product2.name]
+        customer1.user_product.save
         sign_in(customer1)
       end
 
