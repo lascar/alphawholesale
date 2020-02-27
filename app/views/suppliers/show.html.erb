@@ -2,9 +2,39 @@
   <strong><%= t("views.suppliers.identifier") %></strong>
   <%= @supplier.identifier %>
 </p>
-<%= link_to t("views.suppliers.edit"), path_for(user: "supplier", path: "edit_user", options: {object_id: @user.id}),
+<%= link_to t("views.suppliers.edit"),
+  path_for(user: "supplier", path: "edit_user", options: {object_id: @user.id}),
   class: "btn btn-danger btn-sm give-me-some-space" %>
-<%= render "shared/products_for_user" %>
+<div class="row small-font">
+  <div class="card col-3">
+    <div class="card-header text-center text-uppercase">
+      <%= t("views.user_products.names") +
+        t("views.with_count", count: @user_products.count) %> :
+    </div>
+    <div class="card-body">
+      <%= render "shared/products_for_user" %>
+    </div>
+    <br>
+    <%= link_to t("views.user_products.index"),
+      path_for(user: @user, path: "user_products"),
+      id: "user_products", class:  "btn btn-primary btn-sm" %>
+  </div>
+  <div class="col-1">
+  </div>
+  <div class="card col-8">
+    <div class="card-header text-center text-uppercase">
+      <%= t("views.attached_products.names") +
+        t("views.with_count", count: @attached_products.count) %> :
+    </div>
+    <div class="card-body">
+      <%= render "shared/attached_products_for_user" %>
+    </div>
+    <br>
+    <%= link_to t("views.attached_products.index"),
+      path_for(user: @user, path: "attached_products"),
+      id: "attached_products", class:  "btn btn-primary btn-sm" %>
+  </div>
+</div>
 <br>
 <div class="row small-font">
   <div class="card col-5">

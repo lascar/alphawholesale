@@ -9,13 +9,13 @@
                       title="<%= t('views.offers.quantity') %>">
         <%= t("views.offers.quantity") %>
       </th>
-      <% if supplier_signed_in? || broker_signed_in? %>
+      <% unless customer_signed_in? %>
         <th scope="col" class="text-truncate"
                         title="<%= t('views.offers.unit_price_supplier') %>">
           <%= t("views.offers.unit_price_supplier") %>
         </th>
       <% end %>
-      <% if !supplier_signed_in? %>
+      <% unless supplier_signed_in? %>
         <th scope="col" class="text-truncate"
                 title="<%= t('views.offers.unit_price_broker') %>">
           <%= t("views.offers.unit_price_broker") %>
@@ -38,13 +38,13 @@
                                                ' : ' + offer.quantity.to_s %>">
           <%= offer.quantity.to_s + " " + offer.unit_type %>
         </td>
-        <% if supplier_signed_in? || broker_signed_in?%>
+        <% unless customer_signed_in? %>
           <td class="text-truncate" title="<%= t('views.offers.unit_price_supplier') +
             ' : ' + offer.unit_price_supplier.to_s %>">
             <%= offer.unit_price_supplier.to_s  + " " + offer.supplier.currency %>
           </td>
         <% end %>
-        <% if !supplier_signed_in? %>
+        <% unless supplier_signed_in? %>
           <td class="text-truncate" title="<%= offer.unit_price_broker %>">
             <%= offer.unit_price_broker.to_s  + " " + offer.supplier.currency %>
           </td>
