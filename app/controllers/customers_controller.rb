@@ -13,7 +13,7 @@ class CustomersController < ApplicationController
   def show
     authorize @customer
     @orders = @customer.orders
-    @attached_products = AttachedProduct.where(attachable: @supplier)
+    @attached_products = AttachedProduct.where(attachable: @customer)
     @offers = Offer.where(approved: true).select{|o| o.date_end >= Time.now}
     @user_products = @customer.user_product.products
   end
