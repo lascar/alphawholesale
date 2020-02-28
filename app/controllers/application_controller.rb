@@ -32,7 +32,6 @@ class ApplicationController < ActionController::Base
 
   def current_user
     current_broker || current_supplier || current_customer
-    # current_user_type(user_type)
   end
 
   helper_method :current_user
