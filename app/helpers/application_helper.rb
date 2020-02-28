@@ -157,11 +157,6 @@ module ApplicationHelper
   end
 
 
-  # http://www.socialmemorycomplex.net/2007/09/16/text_field-and-currency-values/
-  def flag_icon(country_sym)
-      "<span class=\"flag-icon flag-icon-#{country_sym.to_s}\"></span>".html_safe
-  end
-
   def icon(class1, class2, *classes)
     clases = "#{class1} #{class2} " + classes.join(' ')
     "<i class=\"#{clases}\"></i>".html_safe
@@ -193,12 +188,6 @@ module ApplicationHelper
       end
       'http://alphawholesales.' + locale_string
     end
-  end
-
-  def current_user_type(user_type)
-    (user_type == 'broker' && current_broker) ||
-    (user_type == 'supplier' && current_supplier) ||
-    (user_type == 'customer' && current_customer)
   end
 
   def user_type(user=current_user)
