@@ -3,10 +3,8 @@ class Customer < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable
-  after_create :make_user_product
   has_many :orders
   has_many :attached_products, as: :attachable, dependent: :delete_all
-  has_one :user_product, as: :user, dependent: :delete
   validates :identifier, presence: true, allow_blank: false, uniqueness: true
   validates :email, presence: true, allow_blank: false
   validates :tin, presence: true, allow_blank: false
@@ -35,9 +33,5 @@ class Customer < ApplicationRecord
       recoverable.send_reset_password_instructions
     end
     recoverable
-  end
-
-  def make_user_product
-    UserProduct.create(user: self, products: [])
   end
 end

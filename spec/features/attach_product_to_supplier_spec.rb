@@ -10,7 +10,7 @@ RSpec.describe 'Suppliers Feature new', type: :feature do
   let(:packaging1) {product2.assortments["packagings"].first}
   let(:size1) {product2.assortments["sizes"].first}
   let(:caliber1) {product2.assortments["calibers"].first}
-  let(:supplier1) {create(:supplier)}
+  let(:supplier1) {create(:supplier, products: [product1.name, product2.name])}
   let!(:attached_product1) {create(:attached_product, attachable: supplier1,
                                   product: product1.name)}
 
@@ -21,8 +21,6 @@ RSpec.describe 'Suppliers Feature new', type: :feature do
     # TEST and can create a new one
     describe 'as a supplier' do
       before :each do
-        supplier1.user_product.products = [product1.name, product2.name]
-        supplier1.user_product.save
         sign_in(supplier1)
       end
 

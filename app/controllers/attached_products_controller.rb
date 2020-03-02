@@ -4,13 +4,13 @@ class AttachedProductsController < ApplicationController
   def index
     @attached_products = @user.attached_products
     @products = broker_signed_in? ? Product.all.pluck(:name, :name) :
-      current_user.user_product.products
+      current_user.products
   end
 
   # GET /attached_products/new
   def new
     @products = broker_signed_in? ? Product.all.pluck(:name, :name) :
-      current_user.user_product.products
+      current_user.products
     product = Product.find_by(name: params_new[:product])
     @product_name = product.name
     @varieties = product.assortments['varieties']

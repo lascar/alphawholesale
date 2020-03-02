@@ -15,7 +15,7 @@ class CustomersController < ApplicationController
     @orders = @customer.orders
     @attached_products = AttachedProduct.where(attachable: @customer)
     @offers = Offer.where(approved: true).select{|o| o.date_end >= Time.now}
-    @user_products = @customer.user_product.products
+    @user_products = @customer.products
   end
 
   # GET /customers/new

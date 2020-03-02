@@ -15,6 +15,7 @@ class CreateSuppliers < ActiveRecord::Migration[5.2]
       t.string :identifier,              null: false, default: ""
       t.string :currency
       t.string :unit_type
+      t.jsonb :products, default: []
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable
@@ -52,5 +53,6 @@ class CreateSuppliers < ActiveRecord::Migration[5.2]
     add_index :suppliers, :identifier,                unique: true
     add_index :suppliers, :reset_password_token, unique: true
     add_index  :suppliers, :approved
+    add_index :suppliers, :products, using: :gin
   end
 end

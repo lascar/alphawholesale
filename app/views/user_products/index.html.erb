@@ -17,7 +17,7 @@
 
         <tbody>
           <%= form_with(url: path_for(user: @user, path: "user_product",
-                                      options: {object_id: @user_product.id}),
+                                      options: {object_id: @user.id}),
                         method: :patch, local: true) do |form| %>
             <% @products.each do |product| %>
               <tr>

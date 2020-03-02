@@ -4,8 +4,7 @@ class UserProductsController < ApplicationController
   # GET /user_products
   def index
     @products = Product.pluck(:name)
-    @user_product = current_user.user_product
-    @user_products = @user_product.products
+    @user_products = current_user.products
   end
 
   # PATCH/PUT /user_products/1
@@ -16,13 +15,12 @@ class UserProductsController < ApplicationController
         products << name
       end
     end
-    user_product = current_user.user_product
-    user_product.products = products
-    if user_product.save
+    current_user.products = products
+    if current_user.save
       flash[:notice] = I18n.t('controllers.user_products.update.succefully')
     else
       flash[:alert] = helper_activerecord_error_message('user_product',
-       user_product.errors.messages)
+       current_user.errors.messages)
     end
     redirect_to path_for(user: current_user, path: 'user_products')
   end

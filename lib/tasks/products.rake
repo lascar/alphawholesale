@@ -57,6 +57,10 @@ namespace :products do
     product_1 = Product.first.name
     product1 = Product.first
     product_2 = Product.first(2).last.name
+    supplier.products = [product_1, product_2]
+    supplier.save
+    customer.products = [product_1, product_2]
+    customer.save
     [product_1, product_2].each do |product|
       varieties_keys = hash["en"]["products"][product]["varieties"].keys
       aspects_keys = hash["en"]["products"][product]["aspects"].keys

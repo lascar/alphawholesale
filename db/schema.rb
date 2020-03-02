@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_03_144825) do
+ActiveRecord::Schema.define(version: 2019_09_06_142530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2020_02_03_144825) do
     t.string "identifier", default: "", null: false
     t.string "currency"
     t.string "unit_type"
+    t.jsonb "products", default: []
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -64,6 +65,7 @@ ActiveRecord::Schema.define(version: 2020_02_03_144825) do
     t.datetime "updated_at", null: false
     t.index ["approved"], name: "index_customers_on_approved"
     t.index ["identifier"], name: "index_customers_on_identifier", unique: true
+    t.index ["products"], name: "index_customers_on_products", using: :gin
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
@@ -119,6 +121,7 @@ ActiveRecord::Schema.define(version: 2020_02_03_144825) do
     t.string "identifier", default: "", null: false
     t.string "currency"
     t.string "unit_type"
+    t.jsonb "products", default: []
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -128,17 +131,8 @@ ActiveRecord::Schema.define(version: 2020_02_03_144825) do
     t.datetime "updated_at", null: false
     t.index ["approved"], name: "index_suppliers_on_approved"
     t.index ["identifier"], name: "index_suppliers_on_identifier", unique: true
+    t.index ["products"], name: "index_suppliers_on_products", using: :gin
     t.index ["reset_password_token"], name: "index_suppliers_on_reset_password_token", unique: true
-  end
-
-  create_table "user_products", force: :cascade do |t|
-    t.string "user_type", null: false
-    t.bigint "user_id", null: false
-    t.jsonb "products", default: []
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["products"], name: "index_user_products_on_products", using: :gin
-    t.index ["user_type", "user_id"], name: "index_user_products_on_user_type_and_user_id"
   end
 
 end
