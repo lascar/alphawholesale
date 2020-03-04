@@ -110,7 +110,7 @@ en:
       show: 'Show supplier'
       new: 'New supplier'
       edit: 'Edit supplier'
-      update: 'Update attached products'
+      update: 'Update supplier'
       destroy: 'Destroy supplier'
       names: 'Suppliers'
       name: 'Supplier'
