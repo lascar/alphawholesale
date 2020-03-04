@@ -3,14 +3,12 @@ class AttachedProductsController < ApplicationController
   # GET /attached_products
   def index
     @attached_products = @user.attached_products
-    @products = broker_signed_in? ? Product.all.pluck(:name, :name) :
-      current_user.products
+    @products = @user.products
   end
 
   # GET /attached_products/new
   def new
-    @products = broker_signed_in? ? Product.all.pluck(:name, :name) :
-      current_user.products
+    @products = @user.products
     product = Product.find_by(name: params_new[:product])
     @product_name = product.name
     @varieties = product.assortments['varieties']
@@ -22,34 +20,27 @@ class AttachedProductsController < ApplicationController
 
   # POST /attached_products/create
   def create 
-    definition = params_create.to_h.symbolize_keys
-    definition.delete(:product)
-    attached_product = AttachedProduct.find_or_create_by(product: params_create[:product],
-                                           definition: definition,
-                                           attachable: @user)
-    message = attached_product.save ?
-      I18n.t('controllers.attached_products.create.succefully') :
-      helper_activerecord_error_message('attached_product',
-                                        attached_product.errors)
-    redirect_to path_for(user: @user, path: 'attached_products'), notice: message
+    definition = verif_def_attach_prd (params_ate.to_h.symbolize_keys)
+    attached_product = AttachedProduct.find_or_create_by(definition)
+    if attached_product.save
+      @user.attached_products << attached_product
+      flash[:notice] = I18n.t('controllers.attached_products.create.succefully')
+    else
+      flash[:alert] = helper_activerecord_error_message('attached_product',
+                                                        attached_product.errors)
+    end
+    redirect_to path_for(user: @user, path: 'attached_products')
   end
 
-  def update
-    AttachedProduct.where(attachable_type: 'Broker').destroy_all
-    array_attached_products = params_update[:attached_products].each do |attached_product|
-      matches = attached_product.match(/(?<product_id>\d+)_(?<variety_id>\d*)_(?<aspect_id>\d*)_(?<packaging_id>\d*)/)
-      variety_id = matches[:variety_id]
-      aspect_id = matches[:aspect_id]
-      packaging_id = matches[:packaging_id]
-      AttachedProduct.find_or_create_by(attachable_type: 'Broker',
-                                        attachable_id: current_broker.id,
-                                        product_id: matches[:product_id],
-                                        variety_id: variety_id == "0" ? nil : variety_id,
-                                        aspect_id: aspect_id == "0" ? nil : aspect_id,
-                                        packaging_id: packaging_id == "0" ? nil : packaging_id)
+  def destroy
+    attached_product = AttachedProduct.find (params[:id])
+    if user_type(@user) == 'supplier'
+      attached_product.suppliers.delete(@user)
+    else
+      attached_product.customers.delete(@user)
     end
-    redirect_to path_for(user: @user, path: 'attached_products'),
-      notice: I18n.t('controllers.attached_products.update.succefully')
+    flash[:notice] = I18n.t('controllers.attached_products.destroy.succefully')
+    redirect_to path_for(user: @user, path: 'attached_products')
   end
 
   private
@@ -58,13 +49,8 @@ class AttachedProductsController < ApplicationController
     params.fetch(:new_attached_product, {}).permit(base)
   end
 
-  def params_create
+  def params_ate
     base = [:product, :variety, :aspect, :packaging, :size, :caliber]
-    params.fetch(:create_attached_product, {}).permit(base)
-  end
-
-  def params_update
-    base = [:attached_products => []]
-    params.fetch(:update, {}).permit(base)
+    params.fetch(:attached_product, {}).permit(base)
   end
 end

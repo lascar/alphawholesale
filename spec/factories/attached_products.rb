@@ -1,6 +1,10 @@
 FactoryBot.define do
   factory :attached_product do
-    product {"product_test"} 
-    sequence(:definition) { |n| {variety: "variety_test#{n}", aspect: "aspect_test#{n}", packaging: "packaging_test#{n}", size: "size_test#{n}", caliber: "calibre_test#{n}"}}
+    sequence(:product) { |n| "product_test#{n}"}
+    sequence(:variety) { |n| "variety_test#{n}"}
+    sequence(:aspect) { |n| "aspect_test#{n}"}
+    sequence(:packaging) { |n| "packaging_test#{n}"}
+    sequence(:size) { |n| "size_test#{n}"}
+    sequence(:caliber) { |n| "caliber_test#{n}"}
   end
 end

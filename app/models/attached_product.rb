@@ -1,25 +1,7 @@
 class AttachedProduct < ApplicationRecord
-  belongs_to :attachable, polymorphic: true
-  validates :definition, uniqueness: { scope: :attachable }
-
-  def variety
-    definition["variety"]
-  end
-
-  def aspect
-    definition["aspect"]
-  end
-
-  def packaging
-    definition["packaging"]
-  end
-
-  def size
-    definition["size"]
-  end
-
-  def caliber
-    definition["caliber"]
-  end
-
+  has_many :user_attached_products
+  has_many :customers, through: :user_attached_products, source: :user, source_type: 'Customer'
+  has_many :suppliers, through: :user_attached_products, source: :user, source_type: 'Supplier'
+  
+  validates :product, uniqueness: {scope: [:variety, :aspect, :packaging, :size, :caliber]}
 end

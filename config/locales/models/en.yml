@@ -1,5 +1,8 @@
 en:
   models:
+    attached_product_definition:
+      prod_nil_exception: "Product can't be blank"
+      prod_not_reg_exception: 'Product not registred'
     broker:
       name: "Broker"
       zero: "No Broker"

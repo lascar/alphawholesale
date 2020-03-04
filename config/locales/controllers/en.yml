@@ -8,8 +8,8 @@ en:
     attached_products:
       create:
         succefully: "Attached product was successfully created."
-      update:
-        succefully: "Attached products were successfully updated."
+      destroy:
+        succefully: "Attached product were successfully eliminated."
     customers:
       successfully_created: "Customer was successfully created."
       successfully_updated: "Customer was successfully updated."

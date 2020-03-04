@@ -4,9 +4,8 @@ RSpec.describe AttachedProductsController, type: :controller do
   let!(:product1) {create(:product)}
   let!(:variety1) {product1.varieties.first}
   let!(:aspect1) {product1.aspects.first}
-  let(:attached_product_hash) {{definition:{product: product1.name,
-                                            variety: variety1,
-                                            aspect: aspect1 }}}
+  let(:attached_product_hash) {{product: product1.name, variety: variety1,
+                               aspect: aspect1}}
   let(:customer1) {create(:customer)}
   let(:supplier1) {create(:supplier)}
   let(:broker1) {create(:broker)}
@@ -28,13 +27,13 @@ RSpec.describe AttachedProductsController, type: :controller do
     # TEST and the aspect's create page is rendered
     describe "as a logged customer" do
       before :each do
-        @count = AttachedProduct.where(attachable: customer1).count
+        @count = customer1.attached_products.count
         sign_in(customer1)
         post :create, params: {customer_id: customer1.id, attached_product: attached_product_hash}
       end
 
       it "assigns a new attached product" do
-        expect(AttachedProduct.where(attachable: customer1).count).to eq(@count + 1)
+        expect(customer1.attached_products.count).to eq(@count + 1)
       end
 
       it "redirect to the newly created aspect" do
@@ -48,13 +47,13 @@ RSpec.describe AttachedProductsController, type: :controller do
     # TEST and the aspect's create page is rendered
     describe "as a logged supplier" do
       before :each do
-        @count = AttachedProduct.where(attachable: supplier1).count
+        @count = supplier1.attached_products.count
         sign_in(supplier1)
         post :create, params: {supplier_id: supplier1.id, attached_product: attached_product_hash}
       end
 
       it "assigns a new attached product" do
-        expect(AttachedProduct.where(attachable: supplier1).count).to eq(@count + 1)
+        expect(supplier1.attached_products.count).to eq(@count + 1)
       end
 
       it "redirect to the newly created aspect" do

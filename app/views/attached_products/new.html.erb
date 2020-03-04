@@ -5,7 +5,7 @@
 
 <%= form_with(url: path_for(user: @user, path: "attached_product"), authenticity_token: true,
     id: "form_create_attach_product", method: :post, local: true) do |form| -%>
-  <%= hidden_field_tag "create_attached_product[product]", @product_name %>
+  <%= hidden_field_tag "attached_product[product]", @product_name %>
   <%= hidden_field_tag "#{user_type(@user)}_id", @user.id.to_s %>
   <div class="row">
       <div class="card col-4">
@@ -20,9 +20,9 @@
             <% for variety in @varieties %>
               <tr>
                 <td>
-                  <%= form.radio_button "create_attached_product[variety]", variety,
-                      checked: variety == "nil", autocomplete: :off %>
-                  <%= form.label "create_attached_product[" + variety + "]",
+                  <%= form.radio_button "attached_product[variety]", variety,
+                      checked: variety == "not_specified", autocomplete: :off %>
+                  <%= form.label "attached_product[" + variety + "]",
                       t("products." + @product_name + ".varieties." + variety) %>
                 </td>
               </tr>
@@ -42,9 +42,9 @@
             <% for aspect in @aspects %>
               <tr>
                 <td>
-                  <%= form.radio_button "create_attached_product[aspect]", aspect,
-                      checked: aspect == "nil", autocomplete: :off %>
-                  <%= form.label "create_attached_product[" + aspect + "]",
+                  <%= form.radio_button "attached_product[aspect]", aspect,
+                      checked: aspect == "not_specified", autocomplete: :off %>
+                  <%= form.label "attached_product[" + aspect + "]",
                       t("products." + @product_name + ".aspects." + aspect) %>
                 </td>
               </tr>
@@ -64,9 +64,9 @@
             <% for packaging in @packagings %>
               <tr>
                 <td>
-                  <%= form.radio_button "create_attached_product[packaging]", packaging,
-                      checked: packaging == "nil", autocomplete: :off %>
-                  <%= form.label "create_attached_product[" + packaging + "]",
+                  <%= form.radio_button "attached_product[packaging]", packaging,
+                      checked: packaging == "not_specified", autocomplete: :off %>
+                  <%= form.label "attached_product[" + packaging + "]",
                       t("products." + @product_name + ".packagings." + packaging) %>
                 </td>
               </tr>
@@ -86,9 +86,9 @@
             <% for size in @sizes %>
               <tr>
                 <td>
-                  <%= form.radio_button "create_attached_product[size]", size,
-                      checked: size == "nil", autocomplete: :off %>
-                  <%= form.label "create_attached_product[" + size + "]",
+                  <%= form.radio_button "attached_product[size]", size,
+                      checked: size == "not_specified", autocomplete: :off %>
+                  <%= form.label "attached_product[" + size + "]",
                       t("products." + @product_name + ".sizes." + size) %>
                 </td>
               </tr>
@@ -108,9 +108,9 @@
             <% for caliber in @calibers %>
               <tr>
                 <td>
-                  <%= form.radio_button "create_attached_product[caliber]", caliber,
-                      checked: caliber == "nil", autocomplete: :off %>
-                  <%= form.label "create_attached_product[" + caliber + "]",
+                  <%= form.radio_button "attached_product[caliber]", caliber,
+                      checked: caliber == "not_specified", autocomplete: :off %>
+                  <%= form.label "attached_product[" + caliber + "]",
                       t("products." + @product_name + ".calibers." + caliber) %>
                 </td>
               </tr>

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe OffersController, type: :controller do
   let(:customer1) {create(:customer)}
   let(:supplier1) {create(:supplier); }
-  let(:attached_product1) {create(:attached_product, attachable: supplier1)}
+  let(:attached_product1) {create(:attached_product, suppliers: [supplier1])}
   let(:supplier2) {create(:supplier)}
   let(:broker1) {create(:broker)}
   let(:product1) {create(:product)}

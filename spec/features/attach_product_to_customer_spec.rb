@@ -11,7 +11,7 @@ RSpec.describe 'Customers Feature new', type: :feature do
   let(:size1) {product2.assortments["sizes"].first}
   let(:caliber1) {product2.assortments["calibers"].first}
   let(:customer1) {create(:customer, products: [product1.name, product2.name])}
-  let!(:attached_product1) {create(:attached_product, attachable: customer1,
+  let!(:attached_product1) {create(:attached_product, customers: [customer1],
                                    product: product1.name)}
 
   describe 'GET #attach_products' do
@@ -29,29 +29,29 @@ RSpec.describe 'Customers Feature new', type: :feature do
         find('#attached_products').click
         expect(page).to have_selector(
           "#attached_product_variety_#{attached_product1[:id].to_s}")
-        expect(AttachedProduct.where(attachable: customer1).count).to eq(1)
+        expect(customer1.attached_products.count).to eq(1)
         within("#form_new_attach_product") do
 					select product2.name
 					find('input[name="commit"]').click
         end
         expect(page).to have_content(I18n.t("products." + product2.name + ".name"))
         within("#radios_varieties") do
-          choose "create_attached_product[variety]_" + variety1
+          choose "attached_product[variety]_" + variety1
         end
         within("#radios_aspects") do
-          choose "create_attached_product[aspect]_" + aspect1
+          choose "attached_product[aspect]_" + aspect1
         end
         within("#radios_packagings") do
-          choose "create_attached_product[packaging]_" + packaging1
+          choose "attached_product[packaging]_" + packaging1
         end
         within("#radios_sizes") do
-          choose "create_attached_product[size]_" + size1
+          choose "attached_product[size]_" + size1
         end
         within("#radios_calibers") do
-          choose "create_attached_product[caliber]_" + caliber1
+          choose "attached_product[caliber]_" + caliber1
         end
 				find('input[name="commit"]').click
-        expect(AttachedProduct.where(attachable: customer1).count).to eq(2)
+        expect(customer1.attached_products.count).to eq(2)
         new_attached_product = AttachedProduct.last
         expect(page).to have_selector(
           "#attached_product_variety_#{new_attached_product[:id].to_s}")

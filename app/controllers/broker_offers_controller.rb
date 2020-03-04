@@ -48,7 +48,6 @@
   # POST /offers
   def create
     params_offer = offer_params
-    attached_product = AttachedProduct.find params_offer[:attached_product_id]
     @offer = Offer.new(params_offer)
     authorize @offer
     if @offer.save

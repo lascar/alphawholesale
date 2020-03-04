@@ -14,7 +14,7 @@ class SuppliersController < ApplicationController
     authorize @supplier
     @offers = @supplier.offers
     @orders = @offers.map{|offer| offer.orders}.compact.flatten
-    @attached_products = AttachedProduct.where(attachable: @supplier)
+    @attached_products = @supplier.attached_products
     @user_products = @supplier.products
   end
 

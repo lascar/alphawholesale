@@ -4,9 +4,8 @@ RSpec.describe "Offers Feature", type: :feature do
   let!(:product1) {create(:product)}
   let!(:product2) {create(:product)}
   let!(:broker1) {create(:broker)}
-  let!(:attached_product1) {create(:attached_product, attachable: broker1, product: product1)}
   let(:supplier1) {create(:supplier)}
-  let!(:attached_product2) {create(:attached_product, attachable: supplier1, product: product1)}
+  let!(:attached_product) {create(:attached_product, suppliers: [supplier1], product: product1)}
   let!(:supplier2) {create(:supplier)}
 
   describe "GET #new" do

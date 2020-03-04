@@ -26,8 +26,7 @@ class OffersController < ApplicationController
     @offer = Offer.new
     authorize @offer
     @supplier_id = @offer.supplier_id = current_supplier.id
-    attached_products = current_supplier.attached_products
-    @attached_products = attached_products
+    @attached_products = current_supplier.attached_products
     @incoterms = INCOTERMS
   end
 

@@ -68,13 +68,11 @@ namespace :products do
       sizes_keys = hash["en"]["products"][product]["sizes"].keys
       calibers_keys = hash["en"]["products"][product]["calibers"].keys
       (1..2).each do |index|
-        definition = {variety: varieties_keys[index],
-                      aspect: aspects_keys[index], packaging: packagings_keys[index],
-                      size: sizes_keys[index], caliber: calibers_keys[index]}
-        AttachedProduct.find_or_create_by(
-          product: product,definition: definition, attachable: supplier)
-        AttachedProduct.find_or_create_by(
-          product: product, definition: definition, attachable: customer)
+        attached_product = AttachedProduct.find_or_create_by(
+          product: product, variety: varieties_keys[index], aspect: aspects_keys[index],
+          packaging: packagings_keys[index], size: sizes_keys[index], caliber: calibers_keys[index])
+        supplier.attached_products << attached_product
+        customer.attached_products << attached_product
       end
     end
     attached_product1 = AttachedProduct.first

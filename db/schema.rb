@@ -10,22 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_06_142530) do
+ActiveRecord::Schema.define(version: 2020_02_03_144825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
 
   create_table "attached_products", force: :cascade do |t|
-    t.string "product"
-    t.jsonb "definition", default: {}, null: false
-    t.string "attachable_type", null: false
-    t.bigint "attachable_id", null: false
-    t.boolean "mailing", default: false
+    t.string "product", null: false
+    t.string "variety"
+    t.string "aspect"
+    t.string "packaging"
+    t.string "size"
+    t.string "caliber"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["attachable_type", "attachable_id"], name: "index_attached_products_on_attachable_type_and_attachable_id"
-    t.index ["definition"], name: "index_attached_products_on_definition", using: :gin
+    t.index ["product"], name: "index_attached_products_on_product"
   end
 
   create_table "brokers", force: :cascade do |t|
@@ -133,6 +133,17 @@ ActiveRecord::Schema.define(version: 2019_09_06_142530) do
     t.index ["identifier"], name: "index_suppliers_on_identifier", unique: true
     t.index ["products"], name: "index_suppliers_on_products", using: :gin
     t.index ["reset_password_token"], name: "index_suppliers_on_reset_password_token", unique: true
+  end
+
+  create_table "user_attached_products", force: :cascade do |t|
+    t.string "user_type"
+    t.bigint "user_id"
+    t.bigint "attached_product_id"
+    t.boolean "mailing", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["attached_product_id"], name: "index_user_attached_products_on_attached_product_id"
+    t.index ["user_type", "user_id"], name: "index_user_attached_products_on_user_type_and_user_id"
   end
 
 end

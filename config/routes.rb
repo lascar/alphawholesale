@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resources :offers, only: [:index, :show], constraints: {id: /[0-9]*/}
 
   concern :attached_productable do
-    resources :attached_products
+    resources :attached_products, only: [:index, :new, :create, :destroy]
   end
 
   concern :user_productable do

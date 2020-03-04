@@ -4,6 +4,6 @@ FactoryBot.define do
     quantity { 1 }
     unit_price_supplier { 1 }
     unit_price_broker { 0 }
-    attached_product {create(:attached_product, attachable: supplier)}
+    attached_product {create(:attached_product, suppliers: [supplier])}
   end
 end
