@@ -52,10 +52,7 @@ class SuppliersController < ApplicationController
   def update
     authorize @supplier
     if @supplier.update(supplier_params)
-      if @supplier.previous_changes["approved"] == [false, true]
-        SendUserApprovalJob.perform_later(@supplier)
-      end
-        redirect_to( path_for(user: @supplier, path: 'user'),
+      redirect_to( path_for(user: @supplier, path: 'user'),
        notice: I18n.t('controllers.suppliers.successfully_updated')) and return
     else
       flash[:alert] = helper_activerecord_error_message('supplier',

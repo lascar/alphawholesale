@@ -152,3 +152,30 @@ Of course, a wip!
 It use sidekiq
 
 For now, just in case a supplier is approved a job is run that sends a mail.
+
+All the mail config is expect in config/credentials.yml
+
+````
+mail:                                                                           
+  development:                                                                  
+    HOST: localhost                                                             
+    HOST_PORT: 3000                                                             
+    ADDRESS: "smtp.gmail.com"                                                   
+    PORT: 587                                                                   
+    USER_NAME: "pascal.carrie@gmail.com"                                        
+    PASSWORD: "uuuurynruwgrdaaa"                                                
+    AUTHENTICATION: "plain"                                                     
+    ENABLE_STARTTLS_AUTO: true                                                  
+  production:                                                                   
+    HOST: wholesale.lascar.me                                                   
+    HOST_PORT: 80                                                               
+    ADDRESS: "smtp.gmail.com"                                                   
+    PORT: 587                                                                   
+    USER_NAME: "pascal.carrie@gmail.com"                                        
+    PASSWORD: "telohascreido!"                                                       
+    AUTHENTICATION: "plain"                                                     
+    ENABLE_STARTTLS_AUTO: true
+````
+If you use a mecanism like '2-Step Verification' in gmail, you need to create an application password:
+
+https://support.google.com/accounts/answer/185833

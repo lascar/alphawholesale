@@ -8,6 +8,7 @@ gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'sidekiq'
+gem 'redis-namespace'
 group :production do
   gem 'puma', '~> 4.3'
   # for heroku

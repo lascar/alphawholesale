@@ -33,6 +33,7 @@ Rails.application.configure do
 
   # mail
   config.active_job.queue_adapter = :sidekiq
+  config.action_mailer.perform_deliveries = true
   # care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options =

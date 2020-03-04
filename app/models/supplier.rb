@@ -13,6 +13,7 @@ class Supplier < ApplicationRecord
   validates :entreprise_name, presence: true, allow_blank: false
   validates :password, presence: true, allow_blank: false,
    length: {minimum: 6}, on: :create
+  after_save :send_welcome_mail_if_approved
 
   def self.with_approved(approved)
     where(approved: approved)
@@ -34,5 +35,12 @@ class Supplier < ApplicationRecord
       recoverable.send_reset_password_instructions
     end
     recoverable
+  end
+
+  private
+  def send_welcome_mail_if_approved
+    if previous_changes["approved"] == [false, true]
+      SendUserApprovalJob.perform_later(self)
+    end
   end
 end

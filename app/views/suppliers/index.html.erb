@@ -14,13 +14,15 @@ h1><%= t("views.suppliers.names") + t("views.with_count", count: @suppliers.coun
       <tr>
         <td><%= supplier.identifier %></td>
         <td><%= supplier.email %></td>
-        <td><%= link_to icon('fas', 'fa-eye'), supplier, title: t("views.suppliers.show") %></td>
+        <td>
+          <%= link_to icon('fas', 'fa-eye'), path_for(user: supplier, path: "user"),
+            title: t("views.suppliers.show") %>
+        </td>
         <td>
           <%= link_to icon('fas', 'fa-edit'),
-          path_for(user: @user, path: 'edit_supplier',
-          options: {object_id: supplier.id}), title: t("views.suppliers.edit") %>
+            path_for(user: supplier, path: 'edit_user'), title: t("views.suppliers.edit") %>
         </td>
-        <td><%= link_to icon('fas', 'fa-trash'), supplier,
+        <td><%= link_to icon('fas', 'fa-trash'), path_for(user: supplier, path: "user"),
          title: t("views.suppliers.destroy"), method: :delete,
          data: { confirm: t(:are_you_sure) } %></td>
       </tr>
