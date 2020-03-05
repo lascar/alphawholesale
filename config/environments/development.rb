@@ -36,17 +36,30 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   # care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options =
-   { host: Rails.application.credentials.mail[:development][:HOST],
-     port: Rails.application.credentials.mail[:development][:HOST_PORT] }
   config.action_mailer.delivery_method = :smtp
-	config.action_mailer.smtp_settings = {
-    address: Rails.application.credentials.mail[:development][:ADDRESS],
-		user_name: Rails.application.credentials.mail[:development][:USER_NAME],
-		password: Rails.application.credentials.mail[:development][:PASSWORD],
-		authentication: Rails.application.credentials.mail[:development][:AUTHENTICATION],
-		enable_starttls_auto: Rails.application.credentials.mail[:development][:ENABLE_STARTTLS_AUTO],
-	}
+  if Rails.application.credentials.mail[:development]
+    config.action_mailer.default_url_options =
+      { host: Rails.application.credentials.mail[:development][:HOST],
+        port: Rails.application.credentials.mail[:development][:HOST_PORT] }
+	  config.action_mailer.smtp_settings = {
+      address: Rails.application.credentials.mail[:development][:ADDRESS],
+		  user_name: Rails.application.credentials.mail[:development][:USER_NAME],
+		  password: Rails.application.credentials.mail[:development][:PASSWORD],
+		  authentication: Rails.application.credentials.mail[:development][:AUTHENTICATION],
+		  enable_starttls_auto: Rails.application.credentials.mail[:development][:ENABLE_STARTTLS_AUTO],
+	  }
+  else
+    config.action_mailer.default_url_options =
+     { host: ["HOST"],
+       port: ["HOST_PORT"] }
+    config.action_mailer.smtp_settings = {
+      address: ["ADDRESS"],
+      user_name: ["USER_NAME"],
+      password: ["PASSWORD"],
+      authentication: ["AUTHENTICATION"],
+      enable_starttls_auto: ["ENABLE_STARTTLS_AUTO"],
+    }
+  end
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
