@@ -64,6 +64,7 @@ en:
       new: 'New offer'
       edit: 'Edit offer'
       destroy: 'Destroy offer'
+      attached_product_not_in_list: "create first an appropriate attached product if you can see it in the list"
     brokers:
       name: 'Broker'
       names: 'Brokers'

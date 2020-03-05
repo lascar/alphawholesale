@@ -18,11 +18,11 @@ ActiveRecord::Schema.define(version: 2020_02_03_144825) do
 
   create_table "attached_products", force: :cascade do |t|
     t.string "product", null: false
-    t.string "variety"
-    t.string "aspect"
-    t.string "packaging"
-    t.string "size"
-    t.string "caliber"
+    t.string "variety", default: "not_specified"
+    t.string "aspect", default: "not_specified"
+    t.string "packaging", default: "not_specified"
+    t.string "size", default: "not_specified"
+    t.string "caliber", default: "not_specified"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product"], name: "index_attached_products_on_product"

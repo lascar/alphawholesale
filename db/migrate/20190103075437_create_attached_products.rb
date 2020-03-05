@@ -2,11 +2,11 @@ class CreateAttachedProducts < ActiveRecord::Migration[6.0]
   def change
     create_table :attached_products do |t|
       t.string :product, null: false
-      t.string :variety
-      t.string :aspect
-      t.string :packaging
-      t.string :size
-      t.string :caliber
+      t.string :variety, default: 'not_specified'
+      t.string :aspect, default: 'not_specified'
+      t.string :packaging, default: 'not_specified'
+      t.string :size, default: 'not_specified'
+      t.string :caliber, default: 'not_specified'
 
       t.timestamps
     end

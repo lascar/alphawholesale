@@ -49,6 +49,19 @@
       </tbody>
     </table>
   </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+              <%= t("views.offers.attached_product_not_in_list") %>
+              <br>
+              <%= link_to t("views.attached_products.index"),
+                path_for(user: @user, path: "attached_products"),
+                class:  "btn btn-primary btn-sm" %>
+          </div>
+        </div>
+      </div>
+    </div>
   <br>
   <div class="card">
     <div class="row">
