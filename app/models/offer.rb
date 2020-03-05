@@ -4,6 +4,7 @@ class Offer < ApplicationRecord
   has_many :orders
   validates :supplier, presence: true
   validates :attached_product, presence: true
+  after_save :send_offer_approval_if_approved
  
   def product_name
     attached_product.product
@@ -41,4 +42,10 @@ class Offer < ApplicationRecord
     where('date_end >= ?', Time.now)
   end
 
+  private
+  def send_offer_approval_if_approved
+    if previous_changes["approved"] == [false, true]
+      SendSupplierOfferApprovalJob.perform_later(self)
+    end
+  end
 end

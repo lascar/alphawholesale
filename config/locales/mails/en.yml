@@ -3,6 +3,26 @@ en:
     welcome:
       subject: 'Welcome to alphawholesale'
       title: 'Welcome to alphawholesale'
-      approved: 'Your user %{identifier} has been approved'
-      follow_url: 'To login to the site, just follow this link: %{url}'
+      approved: "Your user %{identifier} has been approved"
+      follow_url: "To login to the site, just follow this link: %{url}"
       thanks: 'Thanks for joining and have a great day'
+    offer_approval:
+      subject: 'An offer approved'
+      title: 'An offer approved'
+      offer_detail: 'This offer'
+      product: "with product : "
+      variety: "with variety : "
+      aspect: "with aspect : "
+      packaging: "with packaging : "
+      size: "with size : "
+      caliber: "with caliber : "
+      quantity: "with quantity : %{quantity}"
+      unit_price_supplier: "with unit_price_supplier : %{unit_price_supplier}"
+      localisation_supplier: "with localisation_supplier : %{localisation_supplier}"
+      incoterm: "with incoterm : %{incoterm}"
+      supplier_observation: "with supplier_observation : %{supplier_observation}"
+      date_start: "with date_start : %{date_start}"
+      date_end: "with date_end : %{date_end}"
+      approved: 'has been approved'
+      follow_url: "You can see it at %{url}"
+      thanks: 'Thanks for offering and have a great day'

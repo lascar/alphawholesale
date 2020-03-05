@@ -95,7 +95,7 @@
   <%= link_to t("views.offers.new"),
     path_for(user: @user, path: "new_offer"), method: :get %> |
   <%= link_to t("views.offers.edit"),
-    path_for(user: @user, path: "edit_offer", options: {offer_id: @offer.id}),
+    path_for(user: @user, path: "edit_offer", options: {object_id: @offer.id}),
     method: :get %>
 <% end %>
  | <%= link_to t("views.back"), :back %>

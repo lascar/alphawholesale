@@ -1,6 +1,5 @@
-<%= form_with(model: offer,
-              url: path_for(user: current_user,path: "offer",
-                            options: {object_id: offer.id})) do |form| %>
+<%= form_with(model: offer, url: path_for(user: current_user,path: "offer",
+              options: {object_id: offer.id}), local: true) do |form| %>
   <% if broker_signed_in? %>
     <div class="row">
       <div class="col-4">

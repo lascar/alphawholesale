@@ -71,7 +71,7 @@
       @offer = Offer.find(params[:id])
       flash[:alert] = helper_activerecord_error_message('offer',
                                                   @offer.errors.messages)
-      redirect_to path_for(path: 'new_offer')
+      redirect_to path_for(path: 'offers')
     end
   end
 
