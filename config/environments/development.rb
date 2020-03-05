@@ -37,7 +37,7 @@ Rails.application.configure do
   # care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  if Rails.application.credentials && Rails.application.credentials.mail[:development]
+  if Rails.application.credentials && Rails.application.credentials.mail && Rails.application.credentials.mail[:development]
     config.action_mailer.default_url_options =
       { host: Rails.application.credentials.mail[:development][:HOST],
         port: Rails.application.credentials.mail[:development][:HOST_PORT] }
