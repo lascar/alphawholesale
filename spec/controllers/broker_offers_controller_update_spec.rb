@@ -22,7 +22,7 @@ RSpec.describe BrokerOffersController, type: :controller do
 
       it "renders the edit template" do
         expect(response.redirect_url).to eq(
-          "http://test.host/brokers/#{broker1.id.to_s}/offers/new")
+          "http://test.host/brokers/#{broker1.id.to_s}/offers/")
       end
     end
 
