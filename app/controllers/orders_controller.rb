@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
   # GET /orders
   def index
     authorize :order, :index?
-    @orders = Order.includes(:offer)
+    @orders = Order.includes(offer: [:attached_product, :supplier])
     if customer_signed_in?
       @customer_id = current_customer.id
       @orders = @orders.where(customer_id: @customer_id)

@@ -12,7 +12,7 @@ class SuppliersController < ApplicationController
   # GET /suppliers/1
   def show
     authorize @supplier
-    @offers = @supplier.offers
+    @offers = @supplier.offers.includes(:orders, :attached_product)
     @orders = @offers.map{|offer| offer.orders}.compact.flatten
     @attached_products = @supplier.attached_products
     @user_products = @supplier.products
