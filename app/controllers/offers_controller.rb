@@ -5,28 +5,33 @@ class OffersController < ApplicationController
 
   # GET /offers
   def index
-    @supplier_id = current_supplier&.id || params[:supplier_id]
+    supplier = current_supplier
     @offers = Offer.includes(:attached_product).not_expired
     if current_customer
       @offers = @offers.where(approved: true).
         where(attached_products: { id: current_customer.attached_products.pluck(:id) })
     end
-    if @supplier_id
-      @offers = @offers.where(supplier_id: @supplier_id)
+    if supplier
+      @products = set_supplier_products(supplier)
+      @offers = @offers.where(supplier_id: supplier.id)
     end
   end
 
   # GET /offers/1
   def show
     authorize @offer
+    if current_supplier
+      @products = set_supplier_products(current_supplier)
+    end
   end
 
   # GET /offers/new
   def new
+    regexp = /\A[0-9A-Za-z_-]*\z/
     @offer = Offer.new
     authorize @offer
     @supplier_id = @offer.supplier_id = current_supplier.id
-    @attached_products = current_supplier.attached_products
+    @product = Product.find_by(name: params_new[:product].scan(regexp).first)
     @incoterms = INCOTERMS
   end
 
@@ -40,9 +45,12 @@ class OffersController < ApplicationController
   # POST /offers
   def create
     params_offer = offer_params
-    @offer = Offer.new(offer_params)
+    params_offer.delete("attached_product")
+    @offer = Offer.new(params_offer)
     authorize @offer
     @offer.supplier_id = current_supplier.id
+    attached_product = AttachedProduct.find_or_create_by (offer_params["attached_product"])
+    @offer.attached_product = attached_product
     if @offer.save
       flash[:notice] = I18n.t('controllers.offers.successfully_created')
       redirect_to path_for(user: @offer.supplier, path: 'offer',
@@ -92,11 +100,22 @@ class OffersController < ApplicationController
     @offer = offer
   end
 
+  def set_supplier_products(supplier)
+    products = supplier.products
+    products.map{|product| [I18n.t('products.' + (product).to_s + '.name'), product]}
+  end
+
+
   # Only allow a trusted parameter "white list" through.
+  def params_new
+    base = [:product]
+    params.require(:new_offer).permit(base)
+  end
+
   def offer_params
-    base = [:supplier_id, :date_start, :date_end, :quantity,
-                   :unit_price_supplier, :localisation_supplier, :supplier_observation,
-                   :incoterm, :attached_product_id]
+    base = [:date_start, :date_end, :quantity,:incoterm,
+            :unit_price_supplier, :localisation_supplier, :supplier_observation,
+            attached_product: [:product, :variety, :aspect, :packaging, :size, :caliber]]
     params.require(:offer).permit(base)
   end
 end

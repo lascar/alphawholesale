@@ -59,13 +59,13 @@
               <%= form.submit t("views.attached_products.new") %>
             </div>
           <% end %>
-          <%= t("views.attached_products.have_to_update_products_of_interest") %>
+          <%= t("views.suppliers.have_to_update_products_of_interest") %>
           <br>
           <%= link_to t("views.user_products.index"),
             path_for(user: @user, path: "user_products"),
             id: "user_products", class:  "btn btn-primary btn-sm" %>
         <% else %>
-          <%= t("views.attached_products.have_no_products_of_interest") %>
+          <%= t("views.suppliers.have_no_products_of_interest") %>
           <br>
           <%= link_to t("views.user_products.index"),
             path_for(user: @user, path: "user_products"),

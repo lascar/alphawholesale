@@ -1,4 +1,4 @@
-  class BrokerOffersController < ApplicationController
+class BrokerOffersController < ApplicationController
   include Utilities
   before_action :set_context_prefixe, except: [:create, :update, :destroy]
   before_action :set_offer, only: [:show, :edit, :update, :destroy]
@@ -7,6 +7,7 @@
   def index
     @supplier_id = params[:supplier_id]
     @customer_id = params[:customer_id]
+    @products = set_products
     @offers = Offer.includes(:attached_product)
     unless params[:not_approved_to]
       @offers = @offers.where(approved: true)
@@ -25,12 +26,15 @@
   # GET /offers/1
   def show
     authorize @offer
+    @products = set_products
   end
 
   # GET /offers/new
   def new
     @offer = Offer.new
     authorize @offer
+    regexp = /\A[0-9A-Za-z_-]*\z/
+    @product = Product.find_by(name: new_offer_params[:product].scan(regexp).first)
     @suppliers = Supplier.all.pluck(:identifier, :id)
     @supplier_id = params[:supplier_id]
     @attached_products = AttachedProduct.all
@@ -48,15 +52,18 @@
   # POST /offers
   def create
     params_offer = offer_params
+    params_offer.delete("attached_product")
     @offer = Offer.new(params_offer)
     authorize @offer
+    attached_product = AttachedProduct.find_or_create_by (offer_params["attached_product"])
+    @offer.attached_product = attached_product
     if @offer.save
       flash[:notice] = I18n.t('controllers.offers.successfully_created')
       redirect_to path_for(user: @offer.supplier, path: 'offer', options: {object_id: @offer.id})
     else
       flash[:alert] = helper_activerecord_error_message('offer',
                                                   @offer.errors.messages)
-      redirect_to path_for( path: 'new_offer')
+      redirect_to path_for( path: 'new_offer'), product: attached_product.product
     end
   end
 
@@ -84,6 +91,11 @@
   end
 
   private
+  def set_products
+    products = Product.pluck(:name)
+    products.map{|product| [I18n.t('products.' + (product).to_s + '.name'), product]}
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_context_prefixe
     lookup_context.prefixes << 'offers'
@@ -95,10 +107,15 @@
   end
 
   # Only allow a trusted parameter "white list" through.
+  def new_offer_params
+    base = [:product]
+    params.require(:new_offer).permit(base)
+  end
+
   def offer_params
-    base = [:approved, :supplier_id, :date_start, :date_end, :quantity,
-            :unit_price_supplier, :unit_price_broker, :localisation_supplier,
-            :localisation_broker, :supplier_observation, :incoterm, :attached_product_id]
+    base = [:supplier_id, :date_start, :date_end, :quantity,:incoterm,
+            :unit_price_supplier, :localisation_supplier, :supplier_observation,
+            attached_product: [:product, :variety, :aspect, :packaging, :size, :caliber]]
     params.require(:offer).permit(base)
   end
 

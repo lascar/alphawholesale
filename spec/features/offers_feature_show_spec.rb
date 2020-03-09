@@ -2,6 +2,7 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe "Offers Feature", type: :feature do
+  let(:product1) {create(:product)}
   let(:customer1) {create(:customer)}
   let(:supplier1) {create(:supplier)}
   let(:supplier2) {create(:supplier)}
@@ -52,7 +53,7 @@ RSpec.describe "Offers Feature", type: :feature do
     describe "as a logged broker asking for a offer's page" do
       before :each do
         sign_in(broker1)
-        visit offer_url(id: offer1.id)
+        visit broker_offer_url(broker_id: broker1.id, id: offer1.id)
       end
 
       it "presents the supplier and the broker unit price" do
