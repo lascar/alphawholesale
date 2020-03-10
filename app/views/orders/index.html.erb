@@ -53,7 +53,7 @@
             <td colspan="3"><%= order.localisation_supplier %></th>
           <% end %>
           <td colspan="1">
-            <%= check_box_tag :approved, nil, order.approved %>
+            <%= check_box_tag :approved, nil, order.approved, disabled: true %>
           <td>
             <%= link_to t("views.orders.show"), path_for(user: @user, path: "order",
                                             options: {object_id: order.id}) %>
