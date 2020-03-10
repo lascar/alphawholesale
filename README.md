@@ -1,4 +1,4 @@
-[![Build Status](https://semaphoreci.com/api/v1/pascal/alphawholesale/branches/master/badge.svg)](https://semaphoreci.com/pascal/alphawholesale)
+### Semaphare status : [![Build Status](https://semaphoreci.com/api/v1/pascal/alphawholesale/branches/master/badge.svg)](https://semaphoreci.com/pascal/alphawholesale)
 
 # README
 
