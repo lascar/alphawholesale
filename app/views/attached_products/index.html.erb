@@ -8,12 +8,15 @@
     <th><%= t("views.attached_products.packaging_name") %></th>
     <th><%= t("views.attached_products.size_name") %></th>
     <th><%= t("views.attached_products.caliber_name") %></th>
+    <th><%= t("views.attached_products.mailing") %></th>
     <th class="table-icons" colspan="1"></th>
   </thead>
 
   <tbody>
     <% @attached_products.each do |attached_product| %>
       <% product = attached_product.product %>
+      <% user_attached_product = @user_attached_products.
+            where(attached_product_id: attached_product.id).first %>
       <tr id="attached_product_<%= attached_product.id.to_s %>">
         <td><%= t("products." + product + ".name") %></td>
         <td id="<%= 'attached_product_variety_' + attached_product.id.to_s %>">
@@ -30,6 +33,9 @@
         </td>
         <td id="<%= 'attached_product_caliber_' + attached_product.id.to_s %>">
           <%= t("products." + product + "." + ".calibers." + attached_product.caliber) %>
+        </td>
+        <td id="<%= 'attached_product_mailing_' + attached_product.id.to_s %>">
+          <%= t("views.#{user_attached_product.mailing.to_s}") %>
         </td>
         <%= render current_user.class.name.downcase + "_delete",
           id: attached_product.id %>

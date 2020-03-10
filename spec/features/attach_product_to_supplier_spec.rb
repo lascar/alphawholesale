@@ -10,7 +10,8 @@ RSpec.describe 'Suppliers Feature new', type: :feature do
   let(:packaging1) {product2.assortments["packagings"].first}
   let(:size1) {product2.assortments["sizes"].first}
   let(:caliber1) {product2.assortments["calibers"].first}
-  let!(:attached_product1) {create(:attached_product, product: product2.name, variety: variety1, aspect: aspect1, packaging: packaging1, size: size1, caliber: caliber1)}
+  let!(:attached_product1) {create(:attached_product, product: product1.name, variety: variety1, aspect: aspect1, packaging: packaging1, size: size1, caliber: caliber1)}
+  let!(:attached_product2) {create(:attached_product, product: product2.name, variety: variety1, aspect: aspect1, packaging: packaging1, size: size1, caliber: caliber1)}
   let(:supplier1) {create(:supplier, products: [product1.name, product2.name])}
 
   describe 'GET #attach_products' do
@@ -53,7 +54,7 @@ RSpec.describe 'Suppliers Feature new', type: :feature do
           choose "attached_product[caliber]_" + caliber1
         end
 				find('input[name="commit"]').click
-          expect(supplier1.attached_products.count).to eq(2)
+        expect(supplier1.attached_products.count).to eq(2)
         new_attached_product = AttachedProduct.last
         expect(page).to have_selector(
           "#attached_product_variety_#{new_attached_product[:id].to_s}")

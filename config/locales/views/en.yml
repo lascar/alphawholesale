@@ -1,5 +1,7 @@
 en:
   views:
+    'true': 'yes'
+    'false': 'no'
     choose_lang_html: "<span class='flag-icon flag-icon-gb'></span> choose the language"
     english_html: "<br>English"
     french_html: "<br>French"
@@ -152,6 +154,7 @@ en:
       size_name: 'Size name'
       caliber_name: 'Caliber name'
       select_product: 'Select a product'
+      mailing: 'Mailing?'
     products:
       names: 'Products'
       product_name: 'Product name'

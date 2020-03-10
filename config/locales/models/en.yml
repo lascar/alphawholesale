@@ -49,6 +49,9 @@ en:
         definition:
           taken: "The definition of the attached product exists already."
     attributes:
+      user_attached_product:
+        user_id: 'User'
+        attached_product: 'Attached product'
       attached_product:
         product: "Product"
         variety: "Variety"
@@ -295,6 +298,13 @@ en:
         unit_price: "Unit price"
     errors:
       models:
+        user_attached_product:
+          attributes:
+            user_id:
+              taken: 'has already been taken'
+            attached_product:
+              blank: 'must exist toto'
+              taken: 'has already been taken'
         attached_product:
         broker:
           attributes:

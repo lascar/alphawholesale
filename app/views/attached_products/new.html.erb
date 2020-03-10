@@ -8,116 +8,124 @@
   <%= hidden_field_tag "attached_product[product]", @product_name %>
   <%= hidden_field_tag "#{user_type(@user)}_id", @user.id.to_s %>
   <div class="row">
-      <div class="card col-4">
-        <table class="table-all table-bordered table-responsive">
-          <thead>
-            <tr>
-              <th><%= t('views.attached_products.variety_name') %></th>
-            </tr>
-          </thead>
+    <div class="card col-4">
+      <table class="table-all table-bordered table-responsive">
+        <thead>
+          <tr>
+            <th><%= t('views.attached_products.variety_name') %></th>
+          </tr>
+        </thead>
 
-          <tbody id="radios_varieties">
-            <% for variety in @varieties %>
-              <tr>
-                <td>
-                  <%= form.radio_button "attached_product[variety]", variety,
-                      checked: variety == "not_specified", autocomplete: :off %>
-                  <%= form.label "attached_product[" + variety + "]",
-                      t("products." + @product_name + ".varieties." + variety) %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-      <div class="card col-4">
-        <table class="table-all table-bordered table-responsive">
-          <thead>
+        <tbody id="radios_varieties">
+          <% for variety in @varieties %>
             <tr>
-              <th><%= t('views.attached_products.aspect_name') %></th>
+              <td>
+                <%= form.radio_button "attached_product[variety]", variety,
+                    checked: variety == "not_specified", autocomplete: :off %>
+                <%= form.label "attached_product[" + variety + "]",
+                    t("products." + @product_name + ".varieties." + variety) %>
+              </td>
             </tr>
-          </thead>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="card col-4">
+      <table class="table-all table-bordered table-responsive">
+        <thead>
+          <tr>
+            <th><%= t('views.attached_products.aspect_name') %></th>
+          </tr>
+        </thead>
 
-          <tbody id="radios_aspects">
-            <% for aspect in @aspects %>
-              <tr>
-                <td>
-                  <%= form.radio_button "attached_product[aspect]", aspect,
-                      checked: aspect == "not_specified", autocomplete: :off %>
-                  <%= form.label "attached_product[" + aspect + "]",
-                      t("products." + @product_name + ".aspects." + aspect) %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-      <div class="card col-4">
-        <table class="table-all table-bordered table-responsive">
-          <thead>
+        <tbody id="radios_aspects">
+          <% for aspect in @aspects %>
             <tr>
-              <th><%= t('views.attached_products.packaging_name') %></th>
+              <td>
+                <%= form.radio_button "attached_product[aspect]", aspect,
+                    checked: aspect == "not_specified", autocomplete: :off %>
+                <%= form.label "attached_product[" + aspect + "]",
+                    t("products." + @product_name + ".aspects." + aspect) %>
+              </td>
             </tr>
-          </thead>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="card col-4">
+      <table class="table-all table-bordered table-responsive">
+        <thead>
+          <tr>
+            <th><%= t('views.attached_products.packaging_name') %></th>
+          </tr>
+        </thead>
 
-          <tbody id="radios_packagings">
-            <% for packaging in @packagings %>
-              <tr>
-                <td>
-                  <%= form.radio_button "attached_product[packaging]", packaging,
-                      checked: packaging == "not_specified", autocomplete: :off %>
-                  <%= form.label "attached_product[" + packaging + "]",
-                      t("products." + @product_name + ".packagings." + packaging) %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-      <div class="card col-4">
-        <table class="table-all table-bordered table-responsive">
-          <thead>
+        <tbody id="radios_packagings">
+          <% for packaging in @packagings %>
             <tr>
-              <th><%= t('views.attached_products.size_name') %></th>
+              <td>
+                <%= form.radio_button "attached_product[packaging]", packaging,
+                    checked: packaging == "not_specified", autocomplete: :off %>
+                <%= form.label "attached_product[" + packaging + "]",
+                    t("products." + @product_name + ".packagings." + packaging) %>
+              </td>
             </tr>
-          </thead>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card col-4">
+      <table class="table-all table-bordered table-responsive">
+        <thead>
+          <tr>
+            <th><%= t('views.attached_products.size_name') %></th>
+          </tr>
+        </thead>
 
-          <tbody id="radios_sizes">
-            <% for size in @sizes %>
-              <tr>
-                <td>
-                  <%= form.radio_button "attached_product[size]", size,
-                      checked: size == "not_specified", autocomplete: :off %>
-                  <%= form.label "attached_product[" + size + "]",
-                      t("products." + @product_name + ".sizes." + size) %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-      <div class="card col-4">
-        <table class="table-all table-bordered table-responsive">
-          <thead>
+        <tbody id="radios_sizes">
+          <% for size in @sizes %>
             <tr>
-              <th><%= t('views.attached_products.caliber_name') %></th>
+              <td>
+                <%= form.radio_button "attached_product[size]", size,
+                    checked: size == "not_specified", autocomplete: :off %>
+                <%= form.label "attached_product[" + size + "]",
+                    t("products." + @product_name + ".sizes." + size) %>
+              </td>
             </tr>
-          </thead>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="card col-4">
+      <table class="table-all table-bordered table-responsive">
+        <thead>
+          <tr>
+            <th><%= t('views.attached_products.caliber_name') %></th>
+          </tr>
+        </thead>
 
-          <tbody id="radios_calibers">
-            <% for caliber in @calibers %>
-              <tr>
-                <td>
-                  <%= form.radio_button "attached_product[caliber]", caliber,
-                      checked: caliber == "not_specified", autocomplete: :off %>
-                  <%= form.label "attached_product[" + caliber + "]",
-                      t("products." + @product_name + ".calibers." + caliber) %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+        <tbody id="radios_calibers">
+          <% for caliber in @calibers %>
+            <tr>
+              <td>
+                <%= form.radio_button "attached_product[caliber]", caliber,
+                    checked: caliber == "not_specified", autocomplete: :off %>
+                <%= form.label "attached_product[" + caliber + "]",
+                    t("products." + @product_name + ".calibers." + caliber) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="card col-4">
+      <div id="check_box_mailing">
+        <%= check_box_tag "attached_product[mailing]", true, false %>
+        <%= label_tag t("views.attached_products.mailing") %>
       </div>
+    </div>
   </div>
 
   <div><%= submit_tag t("views.attached_products.create") %></div>

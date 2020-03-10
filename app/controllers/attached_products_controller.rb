@@ -2,6 +2,7 @@ class AttachedProductsController < ApplicationController
   include Utilities
   # GET /attached_products
   def index
+    @user_attached_products = @user.user_attached_products
     @attached_products = @user.attached_products
     @products = @user.products
   end
@@ -19,12 +20,19 @@ class AttachedProductsController < ApplicationController
   end
 
   # POST /attached_products/create
-  def create 
+  def create
     definition = verif_def_attach_prd (params_ate.to_h.symbolize_keys)
     attached_product = AttachedProduct.find_or_create_by(definition)
     if attached_product.save
-      @user.attached_products << attached_product
-      flash[:notice] = I18n.t('controllers.attached_products.create.succefully')
+      user_attached_product = UserAttachedProduct.find_or_create_by(user: @user,
+                                       attached_product_id: attached_product.id)
+      user_attached_product.mailing = params_ate[:mailing] || false
+      if user_attached_product.save
+        flash[:notice] = I18n.t('controllers.attached_products.create.succefully')
+      else
+        flash[:alert] = helper_activerecord_error_message('user_attached_product',
+                                                          user_attached_product.errors)
+      end
     else
       flash[:alert] = helper_activerecord_error_message('attached_product',
                                                         attached_product.errors)
@@ -50,7 +58,7 @@ class AttachedProductsController < ApplicationController
   end
 
   def params_ate
-    base = [:product, :variety, :aspect, :packaging, :size, :caliber]
+    base = [:product, :variety, :aspect, :packaging, :size, :caliber, :mailing]
     params.fetch(:attached_product, {}).permit(base)
   end
 end
