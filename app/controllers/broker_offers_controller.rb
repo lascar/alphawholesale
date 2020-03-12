@@ -115,6 +115,7 @@ class BrokerOffersController < ApplicationController
   def offer_params
     base = [:supplier_id, :date_start, :date_end, :quantity,:incoterm,
             :unit_price_supplier, :localisation_supplier, :supplier_observation,
+            :approved, :unit_price_broker, :localisation_broker,
             attached_product: [:product, :variety, :aspect, :packaging, :size, :caliber]]
     params.require(:offer).permit(base)
   end

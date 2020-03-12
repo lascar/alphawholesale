@@ -36,14 +36,19 @@
              path: "offer", options: {object_id: offer.id}), title: t("views.offers.show") %>
           </td>
           <td>
-            <%= link_to icon('fas', 'fa-edit'), path_for(user: @user,
-             path: "edit_offer", options: {object_id: offer.id}), title: t("views.offers.edit") %>
+            <% unless customer_signed_in? %>
+              <%= link_to icon('fas', 'fa-edit'), path_for(user: @user,
+                  path: "edit_offer", options: {object_id: offer.id}),
+                  title: t("views.offers.edit") %>
+            <% end %>
           </td>
           <td>
-            <%= link_to icon('fas', 'fa-trash'), path_for(user: @user,
-             path: "offers", options: {objet_id: offer.id}),
-              method: :delete, data: { confirm: t("views.are_you_sure") },
-              title: t("views.offers.destroy") %>
+            <% unless customer_signed_in? %>
+              <%= link_to icon('fas', 'fa-trash'), path_for(user: @user,
+               path: "offers", options: {objet_id: offer.id}),
+                method: :delete, data: { confirm: t("views.are_you_sure") },
+                title: t("views.offers.destroy") %>
+            <% end %>
           </td>
         </tr>
       <% end %>

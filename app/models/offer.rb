@@ -5,6 +5,7 @@ class Offer < ApplicationRecord
   validates :supplier, presence: true
   validates :attached_product, presence: true
   after_save :send_offer_approval_if_approved
+  after_update :warn_interested
  
   def product_name
     attached_product.product
@@ -48,4 +49,9 @@ class Offer < ApplicationRecord
       SendSupplierOfferApprovalJob.perform_later(self)
     end
   end
+
+  def warn_interested
+    WarnInterestedJob.perform_later(self)
+  end
+
 end

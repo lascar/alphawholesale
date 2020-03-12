@@ -35,4 +35,8 @@ class Customer < ApplicationRecord
     end
     recoverable
   end
+
+  def self.interested_in(attached_product)
+    Customer.select{|customer| customer.attached_products.include?(attached_product)}
+  end
 end

@@ -52,7 +52,7 @@ class CustomersController < ApplicationController
     authorize @customer
     if @customer.update(customer_params)
       if customer_params[:approved]
-        SupplierMailer.with(user: @customer).welcome_email.deliver_later
+        UserMailer.with(user: @customer).welcome_email.deliver_later
       end
       redirect_to @customer,
        notice: I18n.t('controllers.customers.successfully_updated') and return
