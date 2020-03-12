@@ -15,7 +15,7 @@ A Complete Product can have a size, an aspect, a packaging, a size or a calibre.
 An Offer has a complete product, price for supplier and a price for customer; in the middle... the broker.
 
 * Ruby version
-ruby 2.6.5
+ruby 2.6.3
 
 * System dependencies
 rails 6.0.2.1
