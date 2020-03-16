@@ -3,7 +3,6 @@ class WarnInterestedJob < ApplicationJob
 
   def perform(offer)
     list_interested = make_list_interested(offer.attached_product)
-    binding.pry
     list_interested.each do |user|
       UserMailer.with(user: user, offer: offer).offer_update.deliver_later
     end
