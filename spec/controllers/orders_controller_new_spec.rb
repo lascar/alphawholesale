@@ -19,18 +19,6 @@ RSpec.describe OrdersController, type: :controller do
                                                    url: 'orders/new')
     end
 
-    # TEST as a logged supplier
-    # TEST when order is asked for new
-    # TEST then it is routed to routing error
-    xit "does not routes get /suppliers/1/orders/new to orders#new" do
-      # failed undefined method `authenticate?' for nil:NilClass
-      sign_in(supplier1)
-      expect(:get => "/suppliers/#{supplier1.id.to_s}/orders/new").to route_to(
-        controller: 'welcome', action: 'routing_error',
-        url: "suppliers/#{supplier1.id.to_s}/orders/1")
-    end
-
-
     # TEST as a logged customer
     # TEST when order is asked for new
     # TEST then a new order is assigned

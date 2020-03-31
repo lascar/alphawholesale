@@ -64,23 +64,5 @@ RSpec.describe "Orders Feature", type: :feature do
       end
     end
 
-    # TEST as a logged broker
-    # TEST when the list of orders is asked for
-    # TEST then all the orders are listed
-    describe "as a logged broker" do
-      before :each do
-        sign_in(broker1)
-        visit broker_orders_path(broker1)
-      end
-
-      xit "presentes only approved orders; test failed in a rspec spec but not when run individualy" do
-        expect(page).to have_content(order1.quantity.to_s + " " +
-         I18n.t("unit_types." + order1.offer.supplier.unit_type + ".symbol"))
-        expect(page).to have_content(order2.quantity.to_s + " " +
-         I18n.t("unit_types." + order2.offer.supplier.unit_type + ".symbol"))
-          expect(page).to have_no_content(order3.quantity.to_s + " " +
-         I18n.t("unit_types." + order3.offer.supplier.unit_type + ".symbol"))
-      end
-    end
   end
 end
