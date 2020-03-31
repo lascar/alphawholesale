@@ -51,7 +51,7 @@ class Offer < ApplicationRecord
   end
 
   def warn_interested
-    WarnInterestedJob.perform_later(self)
+    WarnInterestedJob.perform_later(object: self, object_type: 'offer', user_class: 'Customer')
   end
 
 end
