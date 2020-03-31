@@ -45,7 +45,7 @@ class UserMailer < ApplicationMailer
     end
     @incoterm = object.incoterm
     @supplier_observation = object.supplier_observation
-    if @object_type = 'order'
+    if @object_type == 'order'
       @supplier_observation = object.supplier_observation
     end
     @date_start = object.date_start
