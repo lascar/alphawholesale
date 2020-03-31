@@ -36,10 +36,18 @@ class UserMailer < ApplicationMailer
     @size = object.size_name
     @caliber = object.caliber_name
     @quantity = object.quantity
-    @unit_price_supplier = object.unit_price_supplier
-    @localisation_supplier = object.localisation_supplier
+    if @object_type == 'offer'
+      @unit_price_broker = object.unit_price_broker
+      @localisation_broker = object.localisation_broker
+    else
+      @unit_price_supplier = object.unit_price_supplier
+      @localisation_supplier = object.localisation_supplier
+    end
     @incoterm = object.incoterm
     @supplier_observation = object.supplier_observation
+    if @object_type = 'order'
+      @supplier_observation = object.supplier_observation
+    end
     @date_start = object.date_start
     @date_end = object.date_end
     @url  = "#{root_url}/customers/#{user.id.to_s}/objects/#{object.id.to_s}"

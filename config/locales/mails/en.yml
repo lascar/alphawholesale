@@ -37,11 +37,31 @@ en:
       size: "with size : "
       caliber: "with caliber : "
       quantity: "with quantity : %{quantity}"
-      unit_price_broker: "with unit_price_broker : %{unit_price_broker}"
-      localisation_broker: "with localisation_broker : %{localisation_broker}"
+      unit_price_broker: "with unit price broker : %{unit_price_broker}"
+      localisation_broker: "with localisation broker : %{localisation_broker}"
       incoterm: "with incoterm : %{incoterm}"
-      supplier_observation: "with supplier_observation : %{supplier_observation}"
-      date_start: "with date_start : %{date_start}"
-      date_end: "with date_end : %{date_end}"
+      supplier_observation: "with supplier @observation : %{supplier_observation}"
+      date_start: "with date start : %{date_start}"
+      date_end: "with date end : %{date_end}"
+      follow_url: "You can see it at %{url}"
+      thanks: 'Thanks for your attention and have a great day'
+    order_update:
+      subject: 'An order that may be of your interest'
+      title: 'An order that may be of your interest'
+      offer_detail: 'This order'
+      product: "with product : "
+      variety: "with variety : "
+      aspect: "with aspect : "
+      packaging: "with packaging : "
+      size: "with size : "
+      caliber: "with caliber : "
+      quantity: "with quantity : %{quantity}"
+      unit_price_supplier: "with unit_price supplier : %{unit_price_supplier}"
+      localisation_supplier: "with localisation supplier : %{localisation_supplier}"
+      incoterm: "with incoterm : %{incoterm}"
+      supplier_observation: "with supplier observation : %{supplier_observation}"
+      customer_observation: "with customer observation : %{customer_observation}"
+      date_start: "with offer date start : %{date_start}"
+      date_end: "with offer date end : %{date_end}"
       follow_url: "You can see it at %{url}"
       thanks: 'Thanks for your attention and have a great day'

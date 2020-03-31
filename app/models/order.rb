@@ -3,6 +3,11 @@ class Order < ApplicationRecord
   validates :customer, presence: true
   belongs_to :offer
   validates :offer, presence: true
+  after_update :warn_interested
+
+  def attached_product
+    offer.attached_product
+  end
 
   def product_name
     offer.product_name
@@ -60,8 +65,20 @@ class Order < ApplicationRecord
     offer.supplier_observation
   end
 
+  def date_start
+    offer.date_start
+  end
+
+  def date_end
+    offer.date_end
+  end
+
   def self.not_expired
     joins(:offer).where('offers.date_end >= ?', Time.now)
+  end
+
+  def warn_interested
+    WarnInterestedJob.perform_later(object: self, object_type: 'order', user_class: 'Supplier')
   end
 
 end

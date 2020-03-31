@@ -17,10 +17,18 @@
     </p>
     <p>
       <%= t("mails.#{@object_type}_update.quantity", quantity: @quantity) %>.
-      <%= t("mails.#{@object_type}_update.unit_price_broker", unit_price_broker: @unit_price_broker) %>.
-      <%= t("mails.#{@object_type}_update.localisation_broker", localisation_broker: @localisation_broker) %>.
-      <%= t("mails.#{@object_type}_update.incoterm", incoterm: @incoterm) %>.
+      <% if @oject_type == "offer" %>
+        <%= t("mails.#{@object_type}_update.unit_price_broker", unit_price_broker: @unit_price_broker) %>.
+        <%= t("mails.#{@object_type}_update.localisation_broker", localisation_broker: @localisation_broker) %>.
+      <% else %>
+        <%= t("mails.#{@object_type}_update.unit_price_supplier", unit_price_supplier: @unit_price_supplier) %>.
+        <%= t("mails.#{@object_type}_update.localisation_supplier", localisation_supplier: @localisation_supplier) %>.
+      <% end %>
       <%= t("mails.#{@object_type}_update.supplier_observation", supplier_observation: @supplier_observation) %>.
+      <%= t("mails.#{@object_type}_update.incoterm", incoterm: @incoterm) %>.
+      <% if @oject_type == "order" %>
+        <%= t("mails.#{@object_type}_update.customer_observation", customer_observation: @customer_observation) %>.
+      <% end %>
       <%= t("mails.#{@object_type}_update.date_start", date_start: @date_start) %>.
       <%= t("mails.#{@object_type}_update.date_end", date_end: @date_end) %>.
     </p>
