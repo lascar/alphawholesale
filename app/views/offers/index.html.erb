@@ -65,7 +65,7 @@
           <%= t("views.offers.new") %>
         </div>
         <div class="card-body">
-          <% if !@products.empty? %>
+          <% if !@products.empty? && !customer_signed_in? %>
             <% path = path_for(user: @user, path: "new_offer") %>
             <%= form_with(url: path, method: 'get', local: true,
                 authenticity_token: true, id: "form_new_offer") do |form| %>
@@ -78,15 +78,15 @@
                 <%= form.submit t("views.offers.new") %>
               </div>
             <% end %>
-            <% if supplier_signed_in? %>
-              <%= t("views.suppliers.have_to_update_products_of_interest") %>
-              <br>
-              <%= link_to t("views.user_products.index"),
-                path_for(user: @user, path: "user_products"),
-                id: "user_products", class:  "btn btn-primary btn-sm" %>
-            <% end %>
-          <% elsif supplier_signed_in? %>
+          <% end %>
+          <% if @products.empty? %>
             <%= t("views.suppliers.have_no_products_of_interest") %>
+            <br>
+            <%= link_to t("views.user_products.index"),
+              path_for(user: @user, path: "user_products"),
+              id: "user_products", class:  "btn btn-primary btn-sm" %>
+          <% else %>
+            <%= t("views.suppliers.have_to_update_products_of_interest") %>
             <br>
             <%= link_to t("views.user_products.index"),
               path_for(user: @user, path: "user_products"),

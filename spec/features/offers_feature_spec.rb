@@ -13,23 +13,25 @@ RSpec.describe "Offers Feature", type: :feature do
                                   caliber: caliber1)}
   let(:customer1) {create(:customer)}
   let(:supplier1) {create(:supplier)}
-  let(:product1) {create(:product)}
   let!(:broker1) {create(:broker)}
 
   describe "offer use case" do
-    # TEST as a logged customer
-    # TEST when an offer is update
-    # TEST a mail is send to me
-    # TEST and I can place an order on it
+    # TEST as a logged supplier I can create a new non approved offer
+    # TEST as a logged broker I can appoved the newly created offer
+    # TEST then a interested supplier receives an email upon this offer
+    # TEST as a logged customer I can order on this offer
     describe "as a logged customer" do
 
-      it "presentes only approved offers that are product attached to the customer" do
+      it "goes through to the process offer/order" do
         supplier1.products = [product1.name]
         supplier1.attached_products << attached_product1
+        supplier1.save
         customer1.products = [product1.name]
         customer1.attached_products << attached_product1
+        customer1.save
         sign_in(supplier1)
-        visit supplier_offers_url(supplier1)
+        visit supplier_url(supplier1)
+        find("a[href='/suppliers/#{supplier1.id.to_s}/offers/']").click
         within('#form_new_offer') do
           select(product1.name, :from => 'new_offer[product]')
           find('[name=commit]').click
