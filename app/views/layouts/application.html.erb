@@ -16,8 +16,8 @@
       <div class="container-fluid">
         <div class="logo_wrapper">
           <a href="#">
-            <%= image_tag(asset_pack_path('packs/src/images/logoNB.svg'),
-                          alt: "logo", class: "img_responsive") %>
+            <%= image_pack_tag "media/packs/src/media/logoNB.svg",
+                          alt: "logo", class: "img_responsive" %>
         </a>
         </div>
         <%= render "layouts/login_logout_menu" %>
