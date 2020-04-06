@@ -15,20 +15,20 @@ module ApplicationHelper
     "/#{options[:pre]}#{options[:post]}products/#{options[:object_id].to_s}/edit"
   end
 
-  path_attached_products = -> (options:) do
-      "/#{options[:pre]}#{options[:post]}attached_products"
+  path_concrete_products = -> (options:) do
+      "/#{options[:pre]}#{options[:post]}concrete_products"
   end
 
-  path_attached_product = -> (options:) do
-    "/#{options[:pre]}#{options[:post]}attached_products/#{options[:object_id].to_s}"
+  path_concrete_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}concrete_products/#{options[:object_id].to_s}"
   end
 
-  path_new_attached_product = -> (options:) do
-    "/#{options[:pre]}#{options[:post]}attached_products/new"
+  path_new_concrete_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}concrete_products/new"
   end
 
-  path_edit_attached_product = -> (options:) do
-    "/#{options[:pre]}#{options[:post]}attached_products/#{options[:object_id].to_s}/edit"
+  path_edit_concrete_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}concrete_products/#{options[:object_id].to_s}/edit"
   end
 
   path_offers = -> (options:) do
@@ -116,9 +116,9 @@ module ApplicationHelper
     path_for_product: path_product,
     path_for_new_product: path_new_product,
     path_for_edit_product: path_edit_product,
-    path_for_attached_products: path_attached_products,
-    path_for_attached_product: path_attached_product,
-    path_for_new_attached_product: path_new_attached_product,
+    path_for_concrete_products: path_concrete_products,
+    path_for_concrete_product: path_concrete_product,
+    path_for_new_concrete_product: path_new_concrete_product,
     path_for_offers: path_offers,
     path_for_offer: path_offer,
     path_for_new_offer: path_new_offer,

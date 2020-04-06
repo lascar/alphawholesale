@@ -5,8 +5,8 @@ class Order < ApplicationRecord
   validates :offer, presence: true
   after_update :warn_interested
 
-  def attached_product
-    offer.attached_product
+  def concrete_product
+    offer.concrete_product
   end
 
   def product_name

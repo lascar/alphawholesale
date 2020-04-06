@@ -47,7 +47,7 @@ namespace :products do
     end
   end
 
-  desc "build an example attached_products list, offers, order,
+  desc "build an example concrete_products list, offers, order,
    attached to the first supplier and customer"
   task make_examples: :environment do
     hash = YAML.load_file("config/locales/products/en.yml")
@@ -67,16 +67,16 @@ namespace :products do
       sizes_keys = hash["en"]["products"][product.name]["sizes"].keys
       calibers_keys = hash["en"]["products"][product.name]["calibers"].keys
       (1..2).each do |index|
-        attached_product = AttachedProduct.find_or_create_by(
+        concrete_product = ConcreteProduct.find_or_create_by(
           product: product.name, variety: varieties_keys[index], aspect: aspects_keys[index],
           packaging: packagings_keys[index], size: sizes_keys[index], caliber: calibers_keys[index])
-        supplier.attached_products << attached_product
-        customer.attached_products << attached_product
+        supplier.concrete_products << concrete_product
+        customer.concrete_products << concrete_product
       end
     end
-    attached_product1 = AttachedProduct.first
-    offer1 = Offer.find_or_create_by(supplier_id: supplier.id, attached_product_id: attached_product1.id, quantity: 4, unit_price_supplier: 11.4, unit_price_broker: 12, localisation_supplier: "Granada", localisation_broker: "Salobreña", incoterm: "EXW", supplier_observation: "text", date_start: Time.now, date_end: Time.now + 5.years, approved: true)
-    offer2 = Offer.find_or_create_by(supplier_id: supplier.id, attached_product_id: attached_product1.id, quantity: 5, unit_price_supplier: 11.4, unit_price_broker: 12, localisation_supplier: "Granada", localisation_broker: "Salobreña", incoterm: "EXW", supplier_observation: "text", date_start: Time.now, date_end: Time.now + 5.years, approved: true)
+    concrete_product1 = ConcreteProduct.first
+    offer1 = Offer.find_or_create_by(supplier_id: supplier.id, concrete_product_id: concrete_product1.id, quantity: 4, unit_price_supplier: 11.4, unit_price_broker: 12, localisation_supplier: "Granada", localisation_broker: "Salobreña", incoterm: "EXW", supplier_observation: "text", date_start: Time.now, date_end: Time.now + 5.years, approved: true)
+    offer2 = Offer.find_or_create_by(supplier_id: supplier.id, concrete_product_id: concrete_product1.id, quantity: 5, unit_price_supplier: 11.4, unit_price_broker: 12, localisation_supplier: "Granada", localisation_broker: "Salobreña", incoterm: "EXW", supplier_observation: "text", date_start: Time.now, date_end: Time.now + 5.years, approved: true)
     Order.find_or_create_by(customer_id: customer.id, offer_id: offer1.id, customer_observation: "text", quantity: 3, approved: true)
   end
 end

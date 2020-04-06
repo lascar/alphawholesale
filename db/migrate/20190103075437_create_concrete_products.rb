@@ -1,6 +1,6 @@
-class CreateAttachedProducts < ActiveRecord::Migration[6.0]
+class CreateConcreteProducts < ActiveRecord::Migration[6.0]
   def change
-    create_table :attached_products do |t|
+    create_table :concrete_products do |t|
       t.string :product, null: false
       t.string :variety, default: 'not_specified'
       t.string :aspect, default: 'not_specified'
@@ -10,6 +10,6 @@ class CreateAttachedProducts < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    add_index :attached_products, :product
+    add_index :concrete_products, :product
   end
 end

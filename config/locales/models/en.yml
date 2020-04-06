@@ -1,6 +1,6 @@
 en:
   models:
-    attached_product_definition:
+    concrete_product_definition:
       prod_nil_exception: "Product can't be blank"
       prod_not_reg_exception: 'Product not registred'
     broker:
@@ -40,7 +40,7 @@ en:
       zero: "No Order Line"
       one: "Order Line"
       other: "Order Lines"
-    attached_product:
+    concrete_product:
       name: 'Attached Product'
       attributes:
         product: "Product"
@@ -49,10 +49,10 @@ en:
         definition:
           taken: "The definition of the attached product exists already."
     attributes:
-      user_attached_product:
+      user_concrete_product:
         user_id: 'User'
-        attached_product: 'Attached product'
-      attached_product:
+        concrete_product: 'Attached product'
+      concrete_product:
         product: "Product"
         variety: "Variety"
         aspect: "Aspect"
@@ -114,7 +114,7 @@ en:
         caliber: "caliber"
       offer:
         supplier: "Supplier"
-        attached_product: "Attached Product"
+        concrete_product: "Attached Product"
         quantity: "Quantity"
         unit_price_supplier: "Unit price"
         unit_price_broker: "Unit price"
@@ -298,14 +298,14 @@ en:
         unit_price: "Unit price"
     errors:
       models:
-        user_attached_product:
+        user_concrete_product:
           attributes:
             user_id:
               taken: 'has already been taken'
-            attached_product:
+            concrete_product:
               blank: 'must exist toto'
               taken: 'has already been taken'
-        attached_product:
+        concrete_product:
         broker:
           attributes:
             identifier:

@@ -17,8 +17,8 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show]
   resources :offers, only: [:index, :show], constraints: {id: /[0-9]*/}
 
-  concern :attached_productable do
-    resources :attached_products, only: [:index, :new, :create, :destroy]
+  concern :concrete_productable do
+    resources :concrete_products, only: [:index, :new, :create, :destroy]
   end
 
   concern :user_productable do
@@ -28,14 +28,14 @@ Rails.application.routes.draw do
   authenticated :broker do
     resources :suppliers
     resources :customers
-    resources :brokers, concerns: [:attached_productable] do
+    resources :brokers, concerns: [:concrete_productable] do
       resources :products, constraints: {id: /[0-9]*/}
       resources :offers, controller: 'broker_offers'
       resources :orders, controller: 'broker_orders'
-      resources :customers, concerns: [:attached_productable, :user_productable] do
+      resources :customers, concerns: [:concrete_productable, :user_productable] do
         resources :orders, controller: 'broker_orders'
       end
-      resources :suppliers, concerns: [:attached_productable, :user_productable] do
+      resources :suppliers, concerns: [:concrete_productable, :user_productable] do
         resources :offers, controller: 'broker_offers'
       end
       resources :brokers
@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   end
 
   authenticated :supplier do
-    resources :suppliers, concerns: [:attached_productable, :user_productable] do
+    resources :suppliers, concerns: [:concrete_productable, :user_productable] do
       resources :suppliers
       resources :offers
       resources :orders, only: [:index, :show]
@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   end
 
   authenticated :customer do
-    resources :customers, concerns: [:attached_productable, :user_productable] do
+    resources :customers, concerns: [:concrete_productable, :user_productable] do
       resources :offers, only: [:index, :show]
       resources :orders
     end

@@ -2,7 +2,7 @@ class CreateOffers < ActiveRecord::Migration[5.2]
   def change
     create_table :offers do |t|
       t.belongs_to :supplier
-      t.belongs_to :attached_product
+      t.belongs_to :concrete_product
       t.integer :quantity
       t.decimal :unit_price_supplier, :precision => 8, :scale => 2, :null => false, default: 0
       t.decimal :unit_price_broker, :precision => 8, :scale => 2, :null => false, default: 0

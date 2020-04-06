@@ -1,0 +1,83 @@
+<h1><%= t("views.concrete_products.name") %></h1>
+
+<table class="table-responsive">
+  <thead>
+    <th><%= t("views.concrete_products.product_name") %></th>
+    <th><%= t("views.concrete_products.variety_name") %></th>
+    <th><%= t("views.concrete_products.aspect_name") %></th>
+    <th><%= t("views.concrete_products.packaging_name") %></th>
+    <th><%= t("views.concrete_products.size_name") %></th>
+    <th><%= t("views.concrete_products.caliber_name") %></th>
+    <th><%= t("views.concrete_products.mailing") %></th>
+    <th class="table-icons" colspan="1"></th>
+  </thead>
+
+  <tbody>
+    <% @concrete_products.each do |concrete_product| %>
+      <% product = concrete_product.product %>
+      <% user_concrete_product = @user_concrete_products.
+            where(concrete_product_id: concrete_product.id).first %>
+      <tr id="concrete_product_<%= concrete_product.id.to_s %>">
+        <td><%= t("products." + product + ".name") %></td>
+        <td id="<%= 'concrete_product_variety_' + concrete_product.id.to_s %>">
+          <%= t("products." + product + "." + ".varieties." + concrete_product.variety) %>
+        </td>
+        <td id="<%= 'concrete_product_aspect_' + concrete_product.id.to_s %>">
+          <%= t("products." + product + "." + ".aspects." + concrete_product.aspect) %>
+        </td>
+        <td id="<%= 'concrete_product_packaging_' + concrete_product.id.to_s %>">
+          <%= t("products." + product + "." + ".packagings." + concrete_product.packaging) %>
+        </td>
+        <td id="<%= 'concrete_product_size_' + concrete_product.id.to_s %>">
+          <%= t("products." + product + "." + ".sizes." + concrete_product.size) %>
+        </td>
+        <td id="<%= 'concrete_product_caliber_' + concrete_product.id.to_s %>">
+          <%= t("products." + product + "." + ".calibers." + concrete_product.caliber) %>
+        </td>
+        <td id="<%= 'concrete_product_mailing_' + concrete_product.id.to_s %>">
+          <%= t("views.#{user_concrete_product.mailing.to_s}") %>
+        </td>
+        <%= render current_user.class.name.downcase + "_delete",
+          id: concrete_product.id %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <%= t("views.concrete_products.select_product") %>
+      </div>
+      <div class="card-body">
+        <% unless @products.empty? %>
+          <% path = path_for(user: @user, path: "new_concrete_product") %>
+          <%= form_with(url: path, method: 'get', local: true,
+              authenticity_token: true, id: "form_new_attach_product") do |form| %>
+            <div class="field">
+              <%= form.label "new_concrete_product[product]", t("views.concrete_products.product_name") %>
+              <%= form.select "new_concrete_product[product]", @products, {} %>
+            </div>
+
+            <div class="actions">
+              <%= form.submit t("views.concrete_products.new") %>
+            </div>
+          <% end %>
+          <%= t("views.suppliers.have_to_update_products_of_interest") %>
+          <br>
+          <%= link_to t("views.user_products.index"),
+            path_for(user: @user, path: "user_products"),
+            id: "user_products", class:  "btn btn-primary btn-sm" %>
+        <% else %>
+          <%= t("views.suppliers.have_no_products_of_interest") %>
+          <br>
+          <%= link_to t("views.user_products.index"),
+            path_for(user: @user, path: "user_products"),
+            id: "user_products", class:  "btn btn-primary btn-sm" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

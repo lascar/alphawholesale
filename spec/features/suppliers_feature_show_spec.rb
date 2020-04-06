@@ -45,9 +45,9 @@ RSpec.describe 'Suppliers feature show', type: :feature do
         "/brokers/#{broker1.id.to_s}/suppliers/" + supplier1.id.to_s + "/edit"})
       expect(page).to have_content ( supplier1.offers.last.unit_price_supplier.to_s)
       expect(page).to have_content ( supplier1.offers.last.unit_price_broker.to_s)
-      attached_product = supplier1.attached_products.last
-      expect(page).to have_selector ("#" + attached_product.product +
-                                     "_variety_" + attached_product.variety)
+      concrete_product = supplier1.concrete_products.last
+      expect(page).to have_selector ("#" + concrete_product.product +
+                                     "_variety_" + concrete_product.variety)
     end
   end
 end

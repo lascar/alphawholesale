@@ -6,10 +6,10 @@ class OffersController < ApplicationController
   # GET /offers
   def index
     supplier = current_supplier
-    @offers = Offer.includes(:attached_product).not_expired
+    @offers = Offer.includes(:concrete_product).not_expired
     if current_customer
       @offers = @offers.where(approved: true).
-        where(attached_products: { id: current_customer.attached_products.pluck(:id) })
+        where(concrete_products: { id: current_customer.concrete_products.pluck(:id) })
     end
     if supplier
       @products = set_supplier_products(supplier)
@@ -45,12 +45,12 @@ class OffersController < ApplicationController
   # POST /offers
   def create
     params_offer = offer_params
-    params_offer.delete("attached_product")
+    params_offer.delete("concrete_product")
     @offer = Offer.new(params_offer)
     authorize @offer
     @offer.supplier_id = current_supplier.id
-    attached_product = AttachedProduct.find_or_create_by (offer_params["attached_product"])
-    @offer.attached_product = attached_product
+    concrete_product = ConcreteProduct.find_or_create_by (offer_params["concrete_product"])
+    @offer.concrete_product = concrete_product
     if @offer.save
       flash[:notice] = I18n.t('controllers.offers.successfully_created')
       redirect_to path_for(user: @offer.supplier, path: 'offer',
@@ -115,7 +115,7 @@ class OffersController < ApplicationController
   def offer_params
     base = [:date_start, :date_end, :quantity,:incoterm,
             :unit_price_supplier, :localisation_supplier, :supplier_observation,
-            attached_product: [:product, :variety, :aspect, :packaging, :size, :caliber]]
+            concrete_product: [:product, :variety, :aspect, :packaging, :size, :caliber]]
     params.require(:offer).permit(base)
   end
 end

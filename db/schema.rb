@@ -16,18 +16,6 @@ ActiveRecord::Schema.define(version: 2020_04_03_081714) do
   enable_extension "hstore"
   enable_extension "plpgsql"
 
-  create_table "attached_products", force: :cascade do |t|
-    t.string "product", null: false
-    t.string "variety", default: "not_specified"
-    t.string "aspect", default: "not_specified"
-    t.string "packaging", default: "not_specified"
-    t.string "size", default: "not_specified"
-    t.string "caliber", default: "not_specified"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["product"], name: "index_attached_products_on_product"
-  end
-
   create_table "brokers", force: :cascade do |t|
     t.string "email"
     t.string "identifier", default: "", null: false
@@ -39,6 +27,18 @@ ActiveRecord::Schema.define(version: 2020_04_03_081714) do
     t.datetime "updated_at", null: false
     t.index ["identifier"], name: "index_brokers_on_identifier", unique: true
     t.index ["reset_password_token"], name: "index_brokers_on_reset_password_token", unique: true
+  end
+
+  create_table "concrete_products", force: :cascade do |t|
+    t.string "product", null: false
+    t.string "variety", default: "not_specified"
+    t.string "aspect", default: "not_specified"
+    t.string "packaging", default: "not_specified"
+    t.string "size", default: "not_specified"
+    t.string "caliber", default: "not_specified"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product"], name: "index_concrete_products_on_product"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2020_04_03_081714) do
 
   create_table "offers", force: :cascade do |t|
     t.bigint "supplier_id"
-    t.bigint "attached_product_id"
+    t.bigint "concrete_product_id"
     t.integer "quantity"
     t.decimal "unit_price_supplier", precision: 8, scale: 2, default: "0.0", null: false
     t.decimal "unit_price_broker", precision: 8, scale: 2, default: "0.0", null: false
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2020_04_03_081714) do
     t.boolean "approved", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["attached_product_id"], name: "index_offers_on_attached_product_id"
+    t.index ["concrete_product_id"], name: "index_offers_on_concrete_product_id"
     t.index ["supplier_id"], name: "index_offers_on_supplier_id"
   end
 
@@ -131,15 +131,15 @@ ActiveRecord::Schema.define(version: 2020_04_03_081714) do
     t.index ["reset_password_token"], name: "index_suppliers_on_reset_password_token", unique: true
   end
 
-  create_table "user_attached_products", force: :cascade do |t|
+  create_table "user_concrete_products", force: :cascade do |t|
     t.string "user_type"
     t.bigint "user_id"
-    t.bigint "attached_product_id"
+    t.bigint "concrete_product_id"
     t.boolean "mailing", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["attached_product_id"], name: "index_user_attached_products_on_attached_product_id"
-    t.index ["user_type", "user_id"], name: "index_user_attached_products_on_user_type_and_user_id"
+    t.index ["concrete_product_id"], name: "index_user_concrete_products_on_concrete_product_id"
+    t.index ["user_type", "user_id"], name: "index_user_concrete_products_on_user_type_and_user_id"
   end
 
   create_table "user_products", force: :cascade do |t|

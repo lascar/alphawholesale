@@ -1,0 +1,82 @@
+<table class="table table-responsive table-hover table-all">
+  <thead>
+    <tr>
+      <th scope="col" class="text-truncate"
+       title="<%= t('views.concrete_products.product_name') %>">
+        <%= t("views.concrete_products.product_name") %>
+      </th>
+      <th scope="col" class="text-truncate"
+       title="<%= t('views.concrete_products.variety_name') %>">
+        <%= t("views.variety_name") %>
+      </th>
+      <th scope="col" class="text-truncate"
+       title="<%= t('views.concrete_products.aspect_name') %>">
+        <%= t("views.concrete_products.aspect_name") %>
+      </th>
+      <th scope="col" class="text-truncate"
+       title="<%= t('views.concrete_products.packaging_name') %>">
+        <%= t("views.concrete_products.packaging_name") %>
+      </th>
+      <th scope="col" class="text-truncate"
+       title="<%= t('views.concrete_products.size_name') %>">
+        <%= t("views.concrete_products.size_name") %>
+      </th>
+      <th scope="col" class="text-truncate"
+       title="<%= t('views.concrete_products.caliber_name') %>">
+        <%= t("views.concrete_products.caliber_name") %>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @concrete_products.each do |concrete_product| %>
+      <tr>
+        <td class="text-truncate"
+            title="<%= t("views.concrete_products.product_name") + " " +
+              t("products." + concrete_product.product + ".name") %>">
+          <%= t("products." + concrete_product.product + ".name") %>
+        </td>
+        <td id="<%= concrete_product.product + '_variety_' +
+          concrete_product.variety %>"class="text-truncate"
+            title="<%= t('views.concrete_products.product_name') + ' ' +
+              t('products.' + concrete_product.product + ".varieties." +
+                concrete_product.variety) %>">
+          <%= t('products.' + concrete_product.product + ".varieties." +
+                concrete_product.variety) %>
+        </td>
+        <td id="<%= concrete_product.product + '_aspect_' +
+          concrete_product.aspect %>"class="text-truncate"
+            title="<%= t('views.concrete_products.product_name') + ' ' +
+              t('products.' + concrete_product.product + ".aspects." +
+                concrete_product.aspect) %>">
+          <%= t('products.' + concrete_product.product + ".aspects." +
+                concrete_product.aspect) %>
+        </td>
+        <td id="<%= concrete_product.product + '_packaging_' +
+          concrete_product.packaging %>"class="text-truncate"
+            title="<%= t('views.concrete_products.product_name') + ' ' +
+              t('products.' + concrete_product.product + ".packagings." +
+                concrete_product.packaging) %>">
+          <%= t('products.' + concrete_product.product + ".packagings." +
+                concrete_product.packaging) %>
+        </td>
+        <td id="<%= concrete_product.product + '_size_' +
+          concrete_product.size %>"class="text-truncate"
+            title="<%= t('views.concrete_products.product_name') + ' ' +
+              t('products.' + concrete_product.product + ".sizes." +
+                concrete_product.size) %>">
+          <%= t('products.' + concrete_product.product + ".sizes." +
+                concrete_product.size) %>
+        </td>
+        <td id="<%= concrete_product.product + '_caliber_' +
+          concrete_product.caliber %>"class="text-truncate"
+            title="<%= t('views.concrete_products.product_name') + ' ' +
+              t('products.' + concrete_product.product + ".calibers." +
+                concrete_product.caliber) %>">
+          <%= t('products.' + concrete_product.product + ".calibers." +
+                concrete_product.caliber) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

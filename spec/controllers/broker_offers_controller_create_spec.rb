@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe BrokerOffersController, type: :controller do
   let(:supplier1) {create(:supplier)}
   let(:broker1) {create(:broker)}
-  let(:attached_product1) {create(:attached_product, suppliers: [supplier1])}
-  let(:offer_hash) {{ quantity: 1, unit_price_supplier: 1, attached_product_id: attached_product1.id}}
+  let(:concrete_product1) {create(:concrete_product, suppliers: [supplier1])}
+  let(:offer_hash) {{ quantity: 1, unit_price_supplier: 1, concrete_product_id: concrete_product1.id}}
 
   describe "POST #create" do
 

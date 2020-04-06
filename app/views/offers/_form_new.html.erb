@@ -6,14 +6,14 @@
       <%= form.select :supplier_id, @suppliers%>
     </div>
   <% end %>
-  <%= hidden_field_tag "offer[attached_product[product]]", @product.name %>
+  <%= hidden_field_tag "offer[concrete_product[product]]", @product.name %>
   <div class="card">
     <div class="row">
       <div class="col-4">
         <table class="table-all table-bordered table-responsive">
           <thead>
             <tr>
-              <th><%= t('views.attached_products.variety_name') %></th>
+              <th><%= t('views.concrete_products.variety_name') %></th>
             </tr>
           </thead>
 
@@ -21,9 +21,9 @@
             <% for variety in @product.varieties %>
               <tr>
                 <td>
-                  <%= radio_button_tag "offer[attached_product[variety]]", variety,
+                  <%= radio_button_tag "offer[concrete_product[variety]]", variety,
                       variety == "not_specified", autocomplete: :off %>
-                  <%= form.label "attached_product[" + variety + "]",
+                  <%= form.label "concrete_product[" + variety + "]",
                       t("products." + @product.name + ".varieties." + variety) %>
                 </td>
               </tr>
@@ -35,7 +35,7 @@
         <table class="table-all table-bordered table-responsive">
           <thead>
             <tr>
-              <th><%= t('views.attached_products.aspect_name') %></th>
+              <th><%= t('views.concrete_products.aspect_name') %></th>
             </tr>
           </thead>
 
@@ -43,9 +43,9 @@
             <% for aspect in @product.aspects %>
               <tr>
                 <td>
-                  <%= radio_button_tag "offer[attached_product[aspect]]", aspect,
+                  <%= radio_button_tag "offer[concrete_product[aspect]]", aspect,
                       aspect == "not_specified", autocomplete: :off %>
-                  <%= form.label "attached_product[" + aspect + "]",
+                  <%= form.label "concrete_product[" + aspect + "]",
                       t("products." + @product.name + ".aspects." + aspect) %>
                 </td>
               </tr>
@@ -57,7 +57,7 @@
         <table class="table-all table-bordered table-responsive">
           <thead>
             <tr>
-              <th><%= t('views.attached_products.packaging_name') %></th>
+              <th><%= t('views.concrete_products.packaging_name') %></th>
             </tr>
           </thead>
 
@@ -65,9 +65,9 @@
             <% for packaging in @product.packagings %>
               <tr>
                 <td>
-                  <%= radio_button_tag "offer[attached_product[packaging]]", packaging,
+                  <%= radio_button_tag "offer[concrete_product[packaging]]", packaging,
                       packaging == "not_specified", autocomplete: :off %>
-                  <%= form.label "attached_product[" + packaging + "]",
+                  <%= form.label "concrete_product[" + packaging + "]",
                       t("products." + @product.name + ".packagings." + packaging) %>
                 </td>
               </tr>
@@ -82,7 +82,7 @@
         <table class="table-all table-bordered table-responsive">
           <thead>
             <tr>
-              <th><%= t('views.attached_products.size_name') %></th>
+              <th><%= t('views.concrete_products.size_name') %></th>
             </tr>
           </thead>
 
@@ -90,9 +90,9 @@
             <% for size in @product.sizes %>
               <tr>
                 <td>
-                  <%= radio_button_tag "offer[attached_product[size]]", size,
+                  <%= radio_button_tag "offer[concrete_product[size]]", size,
                       size == "not_specified", autocomplete: :off %>
-                  <%= form.label "attached_product[" + size + "]",
+                  <%= form.label "concrete_product[" + size + "]",
                       t("products." + @product.name + ".sizes." + size) %>
                 </td>
               </tr>
@@ -104,7 +104,7 @@
         <table class="table-all table-bordered table-responsive">
           <thead>
             <tr>
-              <th><%= t('views.attached_products.caliber_name') %></th>
+              <th><%= t('views.concrete_products.caliber_name') %></th>
             </tr>
           </thead>
 
@@ -112,9 +112,9 @@
             <% for caliber in @product.calibers %>
               <tr>
                 <td>
-                  <%= radio_button_tag "offer[attached_product[caliber]]", caliber,
+                  <%= radio_button_tag "offer[concrete_product[caliber]]", caliber,
                       caliber == "not_specified", autocomplete: :off %>
-                  <%= form.label "attached_product[" + caliber + "]",
+                  <%= form.label "concrete_product[" + caliber + "]",
                       t("products." + @product.name + ".calibers." + caliber) %>
                 </td>
               </tr>

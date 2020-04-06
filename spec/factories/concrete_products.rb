@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :attached_product do
+  factory :concrete_product do
     sequence(:product) { |n| "product_test#{n}"}
     sequence(:variety) { |n| "variety_test#{n}"}
     sequence(:aspect) { |n| "aspect_test#{n}"}

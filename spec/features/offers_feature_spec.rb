@@ -8,7 +8,7 @@ RSpec.describe "Offers Feature", type: :feature do
   let(:packaging1) {product1.assortments["packagings"].last}
   let(:size1) {product1.assortments["sizes"].last}
   let(:caliber1) {product1.assortments["calibers"].last}
-  let!(:attached_product1) {create(:attached_product, product: product1.name,
+  let!(:concrete_product1) {create(:concrete_product, product: product1.name,
     variety: variety1, aspect: aspect1, packaging: packaging1, size: size1,
                                   caliber: caliber1)}
   let(:customer1) {create(:customer)}
@@ -24,10 +24,10 @@ RSpec.describe "Offers Feature", type: :feature do
 
       it "goes through to the process offer/order" do
         supplier1.products = [product1]
-        supplier1.attached_products << attached_product1
+        supplier1.concrete_products << concrete_product1
         supplier1.save
         customer1.products = [product1]
-        customer1.attached_products << attached_product1
+        customer1.concrete_products << concrete_product1
         customer1.save
         sign_in(supplier1)
         visit supplier_url(supplier1)
@@ -38,7 +38,7 @@ RSpec.describe "Offers Feature", type: :feature do
         end
         within('#form_create_offer') do
           within('#radios_varieties') do
-            choose 'offer_attached_product_variety_' + variety1
+            choose 'offer_concrete_product_variety_' + variety1
           end
         end
         fill_in 'offer_quantity', :with => 2

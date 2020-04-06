@@ -1,34 +1,34 @@
 class Offer < ApplicationRecord
   belongs_to :supplier
-  belongs_to :attached_product
+  belongs_to :concrete_product
   has_many :orders
   validates :supplier, presence: true
-  validates :attached_product, presence: true
+  validates :concrete_product, presence: true
   after_save :send_offer_approval_if_approved
   after_update :warn_interested
  
   def product_name
-    attached_product.product
+    concrete_product.product
   end
 
   def variety_name
-    attached_product.variety
+    concrete_product.variety
   end
 
   def aspect_name
-    attached_product.aspect
+    concrete_product.aspect
   end
 
   def packaging_name
-    attached_product.packaging
+    concrete_product.packaging
   end
 
   def size_name
-    attached_product.size
+    concrete_product.size
   end
 
   def caliber_name
-    attached_product.caliber
+    concrete_product.caliber
   end
 
   def currency

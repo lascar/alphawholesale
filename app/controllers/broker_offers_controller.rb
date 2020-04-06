@@ -8,7 +8,7 @@ class BrokerOffersController < ApplicationController
     @supplier_id = params[:supplier_id]
     @customer_id = params[:customer_id]
     @products = set_products
-    @offers = Offer.includes(:attached_product)
+    @offers = Offer.includes(:concrete_product)
     unless params[:not_approved_to]
       @offers = @offers.where(approved: true)
     end
@@ -37,7 +37,7 @@ class BrokerOffersController < ApplicationController
     @product = Product.find_by(name: new_offer_params[:product].scan(regexp).first)
     @suppliers = Supplier.all.pluck(:identifier, :id)
     @supplier_id = params[:supplier_id]
-    @attached_products = AttachedProduct.all
+    @concrete_products = ConcreteProduct.all
     @incoterms = INCOTERMS
   end
 
@@ -52,18 +52,18 @@ class BrokerOffersController < ApplicationController
   # POST /offers
   def create
     params_offer = offer_params
-    params_offer.delete("attached_product")
+    params_offer.delete("concrete_product")
     @offer = Offer.new(params_offer)
     authorize @offer
-    attached_product = AttachedProduct.find_or_create_by (offer_params["attached_product"])
-    @offer.attached_product = attached_product
+    concrete_product = ConcreteProduct.find_or_create_by (offer_params["concrete_product"])
+    @offer.concrete_product = concrete_product
     if @offer.save
       flash[:notice] = I18n.t('controllers.offers.successfully_created')
       redirect_to path_for(user: @offer.supplier, path: 'offer', options: {object_id: @offer.id})
     else
       flash[:alert] = helper_activerecord_error_message('offer',
                                                   @offer.errors.messages)
-      redirect_to path_for( path: 'new_offer'), product: attached_product.product
+      redirect_to path_for( path: 'new_offer'), product: concrete_product.product
     end
   end
 
@@ -116,7 +116,7 @@ class BrokerOffersController < ApplicationController
     base = [:supplier_id, :date_start, :date_end, :quantity,:incoterm,
             :unit_price_supplier, :localisation_supplier, :supplier_observation,
             :approved, :unit_price_broker, :localisation_broker,
-            attached_product: [:product, :variety, :aspect, :packaging, :size, :caliber]]
+            concrete_product: [:product, :variety, :aspect, :packaging, :size, :caliber]]
     params.require(:offer).permit(base)
   end
 

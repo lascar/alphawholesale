@@ -23,16 +23,16 @@
   </div>
   <div class="card col-8">
     <div class="card-header text-center text-uppercase">
-      <%= t("views.attached_products.names") +
-        t("views.with_count", count: @attached_products.count) %> :
+      <%= t("views.concrete_products.names") +
+        t("views.with_count", count: @concrete_products.count) %> :
     </div>
     <div class="card-body">
-      <%= render "shared/attached_products_for_user" %>
+      <%= render "shared/concrete_products_for_user" %>
     </div>
     <br>
-    <%= link_to t("views.attached_products.index"),
-      path_for(user: @user, path: "attached_products"),
-      id: "attached_products", class:  "btn btn-primary btn-sm" %>
+    <%= link_to t("views.concrete_products.index"),
+      path_for(user: @user, path: "concrete_products"),
+      id: "concrete_products", class:  "btn btn-primary btn-sm" %>
   </div>
 </div>
 <br>
