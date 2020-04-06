@@ -41,17 +41,17 @@ en:
       one: "Order Line"
       other: "Order Lines"
     concrete_product:
-      name: 'Attached Product'
+      name: 'Concrete Product'
       attributes:
         product: "Product"
         definition: "Definition"
       errors:
         definition:
-          taken: "The definition of the attached product exists already."
+          taken: "The definition of the concrete product exists already."
     attributes:
       user_concrete_product:
         user_id: 'User'
-        concrete_product: 'Attached product'
+        concrete_product: 'Concrete product'
       concrete_product:
         product: "Product"
         variety: "Variety"
@@ -114,7 +114,7 @@ en:
         caliber: "caliber"
       offer:
         supplier: "Supplier"
-        concrete_product: "Attached Product"
+        concrete_product: "Concrete Product"
         quantity: "Quantity"
         unit_price_supplier: "Unit price"
         unit_price_broker: "Unit price"

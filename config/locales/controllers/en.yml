@@ -7,9 +7,9 @@ en:
         succefully: "User products were successfully updated."
     concrete_products:
       create:
-        succefully: "Attached product was successfully created."
+        succefully: "Concrete product was successfully created."
       destroy:
-        succefully: "Attached product were successfully eliminated."
+        succefully: "Concrete product were successfully eliminated."
     customers:
       successfully_created: "Customer was successfully created."
       successfully_updated: "Customer was successfully updated."

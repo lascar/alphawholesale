@@ -67,7 +67,7 @@ en:
       new: 'New offer'
       edit: 'Edit offer'
       destroy: 'Destroy offer'
-      concrete_product_not_in_list: "create first an appropriate attached product if you can see it in the list"
+      concrete_product_not_in_list: "create first an appropriate concrete product if you can see it in the list"
     brokers:
       name: 'Broker'
       names: 'Brokers'
@@ -138,15 +138,15 @@ en:
       have_no_products_of_interest: 'You must choose first your products of interest'
       have_to_update_products_of_interest: "If the product doesn't appear in the list, update first your products of interest"
     concrete_products:
-      names: 'Attached products'
-      index: 'List attached products'
-      show: 'Show attached products'
-      new: 'New attached product'
-      edit: 'Edit attached product'
-      create: 'Create attached product'
-      destroy: 'Delete attached product'
-      save: 'Save attached products'
-      name: 'Attached products'
+      names: 'Concrete products'
+      index: 'List concrete products'
+      show: 'Show concrete products'
+      new: 'New concrete product'
+      edit: 'Edit concrete product'
+      create: 'Create concrete product'
+      destroy: 'Delete concrete product'
+      save: 'Save concrete products'
+      name: 'Concrete products'
       product_name: 'Product name'
       variety_name: 'Variety name'
       aspect_name: 'Aspect name'
