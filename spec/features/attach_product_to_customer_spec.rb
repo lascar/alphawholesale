@@ -10,7 +10,7 @@ RSpec.describe 'Customers Feature new', type: :feature do
   let(:packaging1) {product2.assortments["packagings"].first}
   let(:size1) {product2.assortments["sizes"].first}
   let(:caliber1) {product2.assortments["calibers"].first}
-  let(:customer1) {create(:customer, products: [product1.name, product2.name])}
+  let(:customer1) {create(:customer, products: [product1, product2])}
   let!(:attached_product1) {create(:attached_product, customers: [customer1],
                                    product: product1.name)}
 

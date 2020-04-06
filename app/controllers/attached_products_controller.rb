@@ -4,12 +4,12 @@ class AttachedProductsController < ApplicationController
   def index
     @user_attached_products = @user.user_attached_products
     @attached_products = @user.attached_products
-    @products = @user.products
+    @products = @user.products.pluck(:name)
   end
 
   # GET /attached_products/new
   def new
-    @products = @user.products
+    @products = @user.products.pluck(:name)
     product = Product.find_by(name: params_new[:product])
     @product_name = product.name
     @varieties = product.assortments['varieties']

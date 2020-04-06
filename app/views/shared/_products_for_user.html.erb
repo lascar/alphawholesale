@@ -10,11 +10,12 @@
 
   <tbody>
     <% @user_products.each do |product| %>
+      <% product_name = product.name %>
       <tr>
         <td class="text-truncate"
             title="<%= t("views.user_products.product_name") + " " +
-              t("products." + product + ".name") %>">
-          <%= t("products." + product + ".name") %>
+              t("products." + product_name + ".name") %>">
+          <%= t("products." + product_name + ".name") %>
         </td>
       <% end %>
   </tbody>

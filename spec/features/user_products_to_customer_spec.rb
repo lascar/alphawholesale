@@ -6,7 +6,7 @@ RSpec.describe 'Customers Feature new', type: :feature do
   let!(:product1) {create(:product)}
   let!(:product2) {create(:product)}
   let!(:product3) {create(:product)}
-  let(:customer1) {create(:customer, products: [product1.name, product2.name])}
+  let(:customer1) {create(:customer, products: [product1, product2])}
 
   describe 'GET #attach_products' do
 

@@ -6,6 +6,8 @@ class Customer < ApplicationRecord
   has_many :orders
   has_many :user_attached_products, as: :user, dependent: :delete_all
   has_many :attached_products, through: :user_attached_products
+  has_many :user_products, as: :user, dependent: :delete_all
+  has_many :products, through: :user_products
   validates :identifier, presence: true, allow_blank: false, uniqueness: true
   validates :email, presence: true, allow_blank: false
   validates :tin, presence: true, allow_blank: false

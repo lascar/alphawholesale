@@ -15,7 +15,6 @@ class CreateCustomers < ActiveRecord::Migration[5.2]
       t.string :identifier,              null: false, default: ""
       t.string :currency
       t.string :unit_type
-      t.jsonb :products, default: []
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable
@@ -53,6 +52,5 @@ class CreateCustomers < ActiveRecord::Migration[5.2]
     add_index :customers, :identifier,                unique: true
     add_index :customers, :reset_password_token, unique: true
     add_index  :customers, :approved
-    add_index :customers, :products, using: :gin
   end
 end

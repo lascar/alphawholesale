@@ -4,7 +4,7 @@ class UserProductsController < ApplicationController
   # GET /user_products
   def index
     @products = Product.pluck(:name)
-    @user_products = current_user.products
+    @user_products = current_user.products.pluck(:name)
   end
 
   # PATCH/PUT /user_products/1
@@ -12,7 +12,8 @@ class UserProductsController < ApplicationController
     products = []
     params_update[:user_products].each do |name|
       if name.match(PRODUCT_REGEXP)
-        products << name
+        product = Product.find_by(name: name)
+        products << product
       end
     end
     current_user.products = products

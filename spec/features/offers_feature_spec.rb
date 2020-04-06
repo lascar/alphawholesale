@@ -23,10 +23,10 @@ RSpec.describe "Offers Feature", type: :feature do
     describe "as a logged customer" do
 
       it "goes through to the process offer/order" do
-        supplier1.products = [product1.name]
+        supplier1.products = [product1]
         supplier1.attached_products << attached_product1
         supplier1.save
-        customer1.products = [product1.name]
+        customer1.products = [product1]
         customer1.attached_products << attached_product1
         customer1.save
         sign_in(supplier1)

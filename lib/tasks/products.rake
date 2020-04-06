@@ -54,22 +54,21 @@ namespace :products do
     products = hash["en"]["products"]
     supplier = Supplier.first
     customer = Customer.first
-    product_1 = Product.first.name
     product1 = Product.first
-    product_2 = Product.first(2).last.name
-    supplier.products = [product_1, product_2]
+    product2 = Product.first(2).last
+    supplier.products = [product1, product2]
     supplier.save
-    customer.products = [product_1, product_2]
+    customer.products = [product1, product2]
     customer.save
-    [product_1, product_2].each do |product|
-      varieties_keys = hash["en"]["products"][product]["varieties"].keys
-      aspects_keys = hash["en"]["products"][product]["aspects"].keys
-      packagings_keys = hash["en"]["products"][product]["packagings"].keys
-      sizes_keys = hash["en"]["products"][product]["sizes"].keys
-      calibers_keys = hash["en"]["products"][product]["calibers"].keys
+    [product1, product2].each do |product|
+      varieties_keys = hash["en"]["products"][product.name]["varieties"].keys
+      aspects_keys = hash["en"]["products"][product.name]["aspects"].keys
+      packagings_keys = hash["en"]["products"][product.name]["packagings"].keys
+      sizes_keys = hash["en"]["products"][product.name]["sizes"].keys
+      calibers_keys = hash["en"]["products"][product.name]["calibers"].keys
       (1..2).each do |index|
         attached_product = AttachedProduct.find_or_create_by(
-          product: product, variety: varieties_keys[index], aspect: aspects_keys[index],
+          product: product.name, variety: varieties_keys[index], aspect: aspects_keys[index],
           packaging: packagings_keys[index], size: sizes_keys[index], caliber: calibers_keys[index])
         supplier.attached_products << attached_product
         customer.attached_products << attached_product

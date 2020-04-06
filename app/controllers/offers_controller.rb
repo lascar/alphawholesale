@@ -101,7 +101,7 @@ class OffersController < ApplicationController
   end
 
   def set_supplier_products(supplier)
-    products = supplier.products
+    products = supplier.products.pluck(:name)
     products.map{|product| [I18n.t('products.' + (product).to_s + '.name'), product]}
   end
 

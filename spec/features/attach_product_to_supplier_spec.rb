@@ -12,7 +12,7 @@ RSpec.describe 'Suppliers Feature new', type: :feature do
   let(:caliber1) {product2.assortments["calibers"].first}
   let!(:attached_product1) {create(:attached_product, product: product1.name, variety: variety1, aspect: aspect1, packaging: packaging1, size: size1, caliber: caliber1)}
   let!(:attached_product2) {create(:attached_product, product: product2.name, variety: variety1, aspect: aspect1, packaging: packaging1, size: size1, caliber: caliber1)}
-  let(:supplier1) {create(:supplier, products: [product1.name, product2.name])}
+  let(:supplier1) {create(:supplier, products: [product1, product2])}
 
   describe 'GET #attach_products' do
 
