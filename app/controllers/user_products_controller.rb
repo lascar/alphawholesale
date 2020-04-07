@@ -3,20 +3,12 @@ class UserProductsController < ApplicationController
   PRODUCT_REGEXP = /^[0-9a-zA-Z_\- ]+$/
   # GET /user_products
   def index
-    @products = Product.pluck(:name)
-    @user_products = current_user.products.pluck(:name)
+    @products = make_user_products_array
   end
 
   # PATCH/PUT /user_products/1
   def update
-    products = []
-    params_update[:user_products].each do |name|
-      if name.match(PRODUCT_REGEXP)
-        product = Product.find_by(name: name)
-        products << product
-      end
-    end
-    current_user.products = products
+    current_user.user_products = make_user_products
     if current_user.save
       flash[:notice] = I18n.t('controllers.user_products.update.succefully')
     else
@@ -27,7 +19,31 @@ class UserProductsController < ApplicationController
   end
 
   private
+  def make_user_products
+    user_products = []
+    params_update["user_products"].each do |user_product|
+      product = Product.find_by_id user_product["product_id"]
+      user_products << UserProduct.new({user_type: current_user.class.name,
+                                        user_id: current_user.id,
+                                        product_id: product.id,
+                                        mailing: !!user_product["mailing"]})
+    end
+    user_products
+  end
+
   def params_update
-    params.permit(:user_products => [])
+    base = [:product_id, :mailing]
+    params.permit(user_products: base)
+  end
+
+  def make_user_products_array
+    Product.all.inject([]) do |array_user_products, product|
+      user_product = UserProduct.find_by(user_type: @user.class.name,
+                                          user_id: @user.id,
+                                          product_id: product.id)
+      array_user_products << {id: product.id, name: product.name,
+                              user_product: !!user_product,
+                              mailing: !!user_product&.mailing}
+    end
   end
 end

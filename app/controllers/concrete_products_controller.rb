@@ -26,7 +26,6 @@ class ConcreteProductsController < ApplicationController
     if concrete_product.save
       user_concrete_product = UserConcreteProduct.find_or_create_by(user: @user,
                                        concrete_product_id: concrete_product.id)
-      user_concrete_product.mailing = params_ate[:mailing] || false
       if user_concrete_product.save
         flash[:notice] = I18n.t('controllers.concrete_products.create.succefully')
       else
@@ -58,7 +57,7 @@ class ConcreteProductsController < ApplicationController
   end
 
   def params_ate
-    base = [:product, :variety, :aspect, :packaging, :size, :caliber, :mailing]
+    base = [:product, :variety, :aspect, :packaging, :size, :caliber]
     params.fetch(:concrete_product, {}).permit(base)
   end
 end

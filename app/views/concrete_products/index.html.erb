@@ -34,9 +34,6 @@
         <td id="<%= 'concrete_product_caliber_' + concrete_product.id.to_s %>">
           <%= t("products." + product + "." + ".calibers." + concrete_product.caliber) %>
         </td>
-        <td id="<%= 'concrete_product_mailing_' + concrete_product.id.to_s %>">
-          <%= t("views.#{user_concrete_product.mailing.to_s}") %>
-        </td>
         <%= render current_user.class.name.downcase + "_delete",
           id: concrete_product.id %>
       </tr>

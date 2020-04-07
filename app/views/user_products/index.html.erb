@@ -1,7 +1,7 @@
 <div class="row small-font">
   <div class="card col-4">
     <div class="card-header text-center text-uppercase">
-      <%= t("views.user_products.names") + t("views.with_count", count: @user_products.count) %> :
+      <%= t("views.user_products.names") + t("views.with_count", count: @products.count) %> :
     </div>
     <div class="card-body">
       <table class="table table-responsive table-hover table-all">
@@ -11,7 +11,14 @@
              title="<%= t('views.user_products.product_name') %>">
               <%= t("views.user_products.product_name") %>
             </th>
-            <th colspan="1"></th>
+            <th scope="col" class="text-truncate"
+             title="<%= t('views.user_products.interested') %>">
+              <%= t("views.user_products.interested") %>
+            </th>
+            <th scope="col" class="text-truncate"
+             title="<%= t('views.user_products.mailing') %>">
+              <%= t("views.user_products.mailing") %>
+            </th>
           </tr>
         </thead>
 
@@ -23,12 +30,20 @@
               <tr>
                 <td class="text-truncate"
                     title="<%= t("views.user_products.product_name") + " " +
-                      t("products." + product + ".name") %>">
-                  <%= t("products." + product + ".name") %>
+                      t("products." + product[:name] + ".name") %>">
+                  <%= t("products." + product[:name] + ".name") %>
                 </td>
                 <td>
-                  <%= check_box_tag "user_products[]", product,
-                    (@user_products.include? product), id: "check_user_products_#{product}" %>
+                  <%= check_box_tag "user_products[][product_id]",
+                    product[:id],
+                    product[:user_product],
+                    id: "check_user_products_#{product[:name]}" %>
+                </td>
+                <td>
+                  <%= check_box_tag "user_products[][mailing]",
+                    true,
+                    product[:mailing],
+                    id: "check_user_products_mailing_#{product[:name]}" %>
                 </td>
               </tr>
             <% end %>

@@ -20,6 +20,8 @@ en:
       names: 'Products of interest'
       product_name: 'Product'
       index: 'List of products of interest'
+      interested: 'Interested'
+      mailing: 'Mailing'
       update: 'Update products of interest'
     orders:
       names: 'Orders'

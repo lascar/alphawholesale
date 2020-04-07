@@ -3,7 +3,6 @@ class CreateUserConcreteProduct < ActiveRecord::Migration[6.0]
     create_table :user_concrete_products do |t|
       t.references :user, polymorphic: true, index: true
       t.references :concrete_product
-      t.boolean    :mailing, default: false
 
       t.timestamps
     end

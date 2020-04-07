@@ -135,7 +135,6 @@ ActiveRecord::Schema.define(version: 2020_04_03_081714) do
     t.string "user_type"
     t.bigint "user_id"
     t.bigint "concrete_product_id"
-    t.boolean "mailing", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["concrete_product_id"], name: "index_user_concrete_products_on_concrete_product_id"
