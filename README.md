@@ -6,19 +6,22 @@ For wholesale online.
 
 A Broker is as a man on the middle; everything occurs with his approval.
 
-A Supplier can place an offer or a bid (todo).
+A Supplier can place an offer or a bid on a request (todo).
 
-A Customer can command, or put a request (todo).
+A Customer can command on an offer, or put a request (todo).
 
 A Complete Product can have a size, an aspect, a packaging, a size or a calibre.
 
-An Offer has a complete product, price for supplier and a price for customer; in the middle... the broker.
+An Offer and an Order have a complete product.
+
+An Offer has a price for supplier and a price for customer; in the middle... the broker
+(idem for location).
 
 * Ruby version
 ruby 2.6.3
 
 * System dependencies
-rails 6.0.2.1
+rails 6.0.2.2
 
 * Database
 postgresql
@@ -33,40 +36,37 @@ It use rspec 4 because the 3 has given problems too
 
 ## INSTALATION IN DEVELOPMENT
 
-* For your config/database.yml the db user, password and database must be informed in secret.yml.enc (see SECRET_YML_ENC_EXAMPLE.md)
+* For your config/database.yml the db user, password and database must be
+informed in secret.yml.enc (see SECRET_YML_ENC_EXAMPLE.md)
 
-* <code> bundle exec rake db:create &&  bundle exec rake db:migrate && bundle exec rake db:seed &&  bundle exec rake nb:make_products && bundle exec rake db:seed</code>
+* <code> bundle exec rails db:create &&  bundle exec rails db:migrate &&
+bundle exec rails db:seed &&  bundle exec rails products:make_products &&
+bundle exec rails products:make_examples</code>
 
-* For use of the webpack server in dev you have to run in a console apart <code>./bin/webpack-dev-server</code>.
+* For use of the webpack server in dev you have to run in a console apart
+<code>./bin/webpack-dev-server</code>.
 
 You will obtain 3 users (broker1, supplier1, customer1, password 'password83')
-
-and a list of fake products and 3 offers the second time seed is run.
+and a list of 3 fake products (with each 3 varieties, packagings, sizes and calibers
++ each subcategory an undefined) , 4 concrete products, 2 offers and 1 order.
 
 The products are based on 'config/locales/products/en.yml' (<code>rake nb:make_products</code>).
 
-For production you have to change this list accordingly to his simple syntax.
+Redis must run and you have to run <code>bundle exec sidekiq -C config/sidekiq.yml</code>
+if you want the jobs to run.
 
 If you want to add a product, simply add it in the file (product, variety, aspect and/or packaging);
-the task is idempotent, no problem.
+the tasks and the seeds are idempotent, no problem.
 
-So you can login as customer or supplier, do not forget to attach product before
-
-doing an offer or order.
+So you can login as customer or supplier, do not forget to attach product and
+create a concrete product before doing an offer or order.
 
 You can login as broker at /brokers/sign_in and approve the offer or the order
 
-If you want some examples of attached product, you can run
-
-<code>rails products:make_attached_products_list_examples</code>
-
-You will obtains 8 attached products build on the 2 first products of config/locals/products/en.yml
-
 ## RESILIENT NATURE
 
-No inference are made (we try...) upon the media employed by the user (screen or not, size
-
-of screen, help with webreader or not).
+No inference are made (we try...) upon the media employed by the user
+(screen or not (todo), size of screen, help with webreader or not).
 
 Bootstrap 4 is amazing (thanks to the flexboxes) at that.
 
@@ -113,7 +113,7 @@ It is a work in progress, because it serves me for exploring.
 
 I try this :
 
-* all the 'routes' are covered with each of the user natures (anonymous, customer,
+* all the 'routes' must be covered with each of the user natures (anonymous, customer,
 
 supplier, broker).
 
@@ -137,8 +137,6 @@ And bullet to try to get ride of misuse of activerecord.
 
 It uses webpack instead of sproket (the migration is reflected in the git log).
 
-The stylesheets need a refactorization before to go one with front end; a wip too ;)
-
 ## CREDENTIALS
 
 Rails credentials new system is used so en .gitignore, master.key.
@@ -149,11 +147,13 @@ For master.key, for docker it is in ENV and for development in the config/master
 
 ## JOB AND MAILS
 
-Of course, a wip!
-
 It use sidekiq
 
-For now, just in case a supplier is approved a job is run that sends a mail.
+When a supplier or a customer is approved, an email is send to him.
+
+When an offer is approved or update, an email is send to all interested customers.
+
+When an order is approved or update, an email is send to all interested suppliers.
 
 All the mail config is expect in config/credentials.yml
 
