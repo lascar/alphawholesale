@@ -1,36 +1,34 @@
 class Order < ApplicationRecord
   belongs_to :customer
+  belongs_to :concrete_product, optional: true
   validates :customer, presence: true
   belongs_to :offer
   validates :offer, presence: true
+  before_create :bring_concrete_product
   after_update :warn_interested
 
-  def concrete_product
-    offer.concrete_product
-  end
-
   def product_name
-    offer.product_name
+    concrete_product.product
   end
 
   def variety_name
-    offer.variety_name
+    concrete_product.variety
   end
 
   def aspect_name
-    offer.aspect_name
+    concrete_product.aspect
   end
 
   def packaging_name
-    offer.packaging_name
+    concrete_product.packaging
   end
 
   def size_name
-    offer.size_name
+    concrete_product.size
   end
 
   def caliber_name
-    offer.caliber_name
+    concrete_product.caliber
   end
 
   def unit_price_broker
@@ -75,6 +73,10 @@ class Order < ApplicationRecord
 
   def self.not_expired
     joins(:offer).where('offers.date_end >= ?', Time.now)
+  end
+
+  def bring_concrete_product
+    self.concrete_product_id = offer.concrete_product_id
   end
 
   def warn_interested

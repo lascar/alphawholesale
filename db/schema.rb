@@ -89,11 +89,13 @@ ActiveRecord::Schema.define(version: 2020_04_03_081714) do
   create_table "orders", force: :cascade do |t|
     t.bigint "customer_id"
     t.bigint "offer_id"
+    t.bigint "concrete_product_id"
     t.text "customer_observation"
     t.integer "quantity", default: 1
     t.boolean "approved", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["concrete_product_id"], name: "index_orders_on_concrete_product_id"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
     t.index ["offer_id"], name: "index_orders_on_offer_id"
   end
