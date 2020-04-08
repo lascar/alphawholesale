@@ -1,17 +1,12 @@
 # TODO
 
-- refactor views
+- direct link order concrete product
 
-- refactor test
+- concern has_concrete_product_concern for offer and order
+
+- javascript to do one step create offer and create concrete product
 
 - eliminate path_for with routes restructuring
-
-- email
-  - on approval for supplier
-  - on approval for client
-  - on approval
-    - offer
-    - order
 
 - possibility to fix % fee up to supplier
 
