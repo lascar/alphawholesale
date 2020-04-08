@@ -28,7 +28,9 @@ class Offer < ApplicationRecord
   end
 
   def warn_interested
-    WarnInterestedJob.perform_later(object: self, object_type: 'offer', user_class: 'Customer')
+    if approved
+      WarnInterestedJob.perform_later(object: self, object_type: 'offer', user_class: 'Customer')
+    end
   end
 
 end

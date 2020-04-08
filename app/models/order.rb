@@ -5,6 +5,7 @@ class Order < ApplicationRecord
   belongs_to :offer
   validates :offer, presence: true
   before_create :bring_concrete_product
+  after_save :send_order_approval_if_approved
   after_update :warn_interested
 
   def unit_price_broker
@@ -51,12 +52,21 @@ class Order < ApplicationRecord
     joins(:offer).where('offers.date_end >= ?', Time.now)
   end
 
+  private
+  def send_order_approval_if_approved
+    if previous_changes["approved"] == [false, true]
+      SendCustomerOrderApprovalJob.perform_later(self)
+    end
+  end
+
   def bring_concrete_product
     self.concrete_product_id = offer.concrete_product_id
   end
 
   def warn_interested
-    WarnInterestedJob.perform_later(object: self, object_type: 'order', user_class: 'Supplier')
+    if approved
+      WarnInterestedJob.perform_later(object: self, object_type: 'order', user_class: 'Supplier')
+    end
   end
 
 end
