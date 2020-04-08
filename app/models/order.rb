@@ -1,35 +1,11 @@
 class Order < ApplicationRecord
+  include HasConcreteProductConcern
   belongs_to :customer
-  belongs_to :concrete_product, optional: true
   validates :customer, presence: true
   belongs_to :offer
   validates :offer, presence: true
   before_create :bring_concrete_product
   after_update :warn_interested
-
-  def product_name
-    concrete_product.product
-  end
-
-  def variety_name
-    concrete_product.variety
-  end
-
-  def aspect_name
-    concrete_product.aspect
-  end
-
-  def packaging_name
-    concrete_product.packaging
-  end
-
-  def size_name
-    concrete_product.size
-  end
-
-  def caliber_name
-    concrete_product.caliber
-  end
 
   def unit_price_broker
     offer.unit_price_broker
