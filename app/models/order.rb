@@ -5,7 +5,7 @@ class Order < ApplicationRecord
   belongs_to :offer
   validates :offer, presence: true
   before_create :bring_concrete_product
-  after_save :send_order_approval_if_approved
+  after_commit :send_order_approval_if_approved
   after_update :warn_interested
 
   def unit_price_broker

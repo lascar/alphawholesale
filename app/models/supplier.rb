@@ -15,7 +15,7 @@ class Supplier < ApplicationRecord
   validates :entreprise_name, presence: true, allow_blank: false
   validates :password, presence: true, allow_blank: false,
    length: {minimum: 6}, on: :create
-  after_save :send_welcome_mail_if_approved
+  after_commit :send_welcome_mail_if_approved
 
   def self.with_approved(approved)
     where(approved: approved)
