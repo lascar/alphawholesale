@@ -73,9 +73,7 @@ Bootstrap 4 is amazing (thanks to the flexboxes) at that.
 Javascript is use only for the client's comfort, if javascript is not activated,
 the application still works!
 
-## TODO
-
-Customer can put a request. Supplier can respond to a request.
+## [TODO](TODO.md)
 
 ## DOCKER
 
