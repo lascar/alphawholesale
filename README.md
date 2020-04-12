@@ -6,9 +6,9 @@ For wholesale online.
 
 A Broker is as a man on the middle; everything occurs with his approval.
 
-A Supplier can place an offer or a bid on a request (todo).
+A Supplier can place an offer or a response on a request (todo).
 
-A Customer can command on an offer, or put a request (todo).
+A Customer can command on an offer, or make a request (todo).
 
 A Complete Product can have a size, an aspect, a packaging, a size or a calibre.
 
