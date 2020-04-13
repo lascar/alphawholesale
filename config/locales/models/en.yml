@@ -40,6 +40,12 @@ en:
       zero: "No Order Line"
       one: "Order Line"
       other: "Order Lines"
+    request:
+      name: "Request"
+      zero: "No Request"
+      one: "Request"
+      other: "Requests"
+      show: "Show request"
     concrete_product:
       name: 'Concrete Product'
       attributes:
@@ -144,7 +150,21 @@ en:
         quantity: "Quantity"
         unit: "Unit"
         unit_price: "Unit price"
-
+      request:
+        customer: "Customer"
+        concrete_product: "Concrete Product"
+        quantity: "Quantity"
+        observation: "Customer Observation"
+        approved: "approved"
+        date_start: "Date Start"
+        date_end: "Date End"
+        product_name: "Product"
+        variety_name: "Variety"
+        aspect_name: "Aspect"
+        packaging_name: "Packaging"
+        size_name: "Size"
+        caliber_name: "Caliber"
+        approved: "approved"
   activerecord:
     models:
       broker:

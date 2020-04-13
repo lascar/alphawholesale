@@ -2,200 +2,260 @@
                                               options: {object_id: @broker.id}),
     class: "btn btn-info btn-sm give-me-some-space" %>
 <div class="card shadow-sm">
-  <div class="row">
-    <div class="card col-md-6">
-      <table class="table-bordered table-hover table-sm table-all table-broker">
-        <caption>
-          <%= t('views.brokers.suppliers_not_approved') %>
-        </caption>
-        <thead>
-          <tr>
-            <th><div class="cell-resumen">
-              <%= t("views.suppliers.identifier") %>
-            </div></th>
-            <th><div class="cell-resumen">
-              <%= t("views.suppliers.email") %>
-            </div></th>
-            <th class="table-icons" colspan="3"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @suppliers_without_approved.each do |supplier| %>
+  <div class="row m-2 justify-content-between">
+    <div class="col-6">
+      <div class="card">
+        <table class="table-bordered table-hover table-sm table-all table-broker">
+          <caption>
+            <%= t('views.brokers.suppliers_not_approved') %>
+          </caption>
+          <thead>
             <tr>
-              <td><div class="cell-resumen">
-                <%= supplier.identifier %>
-              </div></td>
-              <td><div class="cell-resumen">
-                <%= supplier.email %>
-              </div></td>
-              <td><%= link_to icon('fas', 'fa-eye'), path_for(user: supplier, path: "user"), title: t("views.suppliers.show") %></td>
-              <td><%= link_to icon('fas', 'fa-edit'),
-                path_for(user: supplier, path: "edit_user"), title: t("views.suppliers.edit") %></td>
-              <td><%= link_to icon('fas', 'fa-trash'), path_for(user: supplier, path: "user"),
-                title: t("views.suppliers.destroy"), method: :delete,
-                data: { confirm: t("views.are_you_sure") } %></td>
-              </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%= link_to t("views.suppliers.new"), path_for(user: "supplier", path: "new_user") %>
-      <br>
-      <%= link_to t("views.suppliers.index"), path_for(user: "supplier", path: "users") %>
-    </div>
-    <div class="card col-md-6">
-      <table class="table-bordered table-hover table-sm table-all table-broker">
-        <caption>
-          <%= t('views.brokers.offers_not_approved') %>
-        </caption>
-        <thead>
-          <tr>
-            <th><div class="cell-resumen">
-              <%= t("views.offers.product_name") %>
-            </div></th>
-            <th><div class="cell-resumen">
-              <%= t("views.offers.quantity") %>
-            </div></th>
-            <th><div class="cell-resumen">
-              <%= t("views.offers.unit_price_supplier") %>
-            </div></th>
-            <th class="table-icons" colspan="3"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @offers_without_approved.each do |offer| %>
-            <tr>
-              <td><div class="cell-resumen">
-                <%= offer.product_name + " " +
-                 (offer.variety_name ? offer.variety_name : "") %>
-                <%= offer.product_name %>
-              </div></td>
-              <td><div class="cell-resumen">
-                <%= offer.quantity.to_s + " " + offer.supplier.unit_type %>
-              </div></td>
-              <td><div class="cell-resumen">
-                <%= offer.unit_price_supplier.to_s + " " + offer.supplier.currency %>
-              </div></td>
-              <td>
-                <%= link_to icon('fas', 'fa-eye'), path_for(path: 'offer',
-                  options: {object_id: offer.id}), title: t("views.offers.show") %>
-              </td>
-              <td>
-                <%= link_to icon('fas', 'fa-edit'), path_for(path: 'edit_offer',
-                  options: {object_id: offer.id}), title: t("views.offers.edit") %>
-              </td>
-              <td>
-                <%= link_to icon('fas', 'fa-trash'), path_for(path: 'offer',
-                  options: {object_id: offer.id}), title: t("views.offers.destroy"),
-                  method: :delete, data: { confirm: t("views.are_you_sure") } %>
-              </td>
+              <th><div class="cell-resumen">
+                <%= t("views.suppliers.identifier") %>
+              </div></th>
+              <th><div class="cell-resumen">
+                <%= t("views.suppliers.email") %>
+              </div></th>
+              <th class="table-icons" colspan="3"></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%= link_to t("views.offers.new"), path_for(path: "new_offer") %>
-      <br>
-      <%= link_to t("views.offers.index"), path_for(path: "offers") %>
+          </thead>
+          <tbody>
+            <% @suppliers_without_approved.each do |supplier| %>
+              <tr>
+                <td><div class="cell-resumen">
+                  <%= supplier.identifier %>
+                </div></td>
+                <td><div class="cell-resumen">
+                  <%= supplier.email %>
+                </div></td>
+                <td><%= link_to icon('fas', 'fa-eye'), path_for(user: supplier, path: "user"), title: t("views.suppliers.show") %></td>
+                <td><%= link_to icon('fas', 'fa-edit'),
+                  path_for(user: supplier, path: "edit_user"), title: t("views.suppliers.edit") %></td>
+                <td><%= link_to icon('fas', 'fa-trash'), path_for(user: supplier, path: "user"),
+                  title: t("views.suppliers.destroy"), method: :delete,
+                  data: { confirm: t("views.are_you_sure") } %></td>
+                </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= link_to t("views.suppliers.new"), path_for(user: "supplier", path: "new_user") %>
+        <br>
+        <%= link_to t("views.suppliers.index"), path_for(user: "supplier", path: "users") %>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <table class="table-bordered table-hover table-sm table-all table-broker">
+          <caption>
+            <%= t("views.brokers.customers_not_approved") %>
+          </caption>
+          <thead>
+            <tr>
+              <th><div class="cell-resumen">
+                <%= t("views.customers.identifier") %>
+              </div></th>
+              <th><div class="cell-resumen">
+                <%= t("views.customers.email") %>
+              </div></th>
+              <th class="table-icons" colspan="3"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @customers_without_approved.each do |customer| %>
+              <tr>
+                <td><div class="cell-resumen">
+                  <%= customer.identifier %>
+                </div></td>
+                <td><div class="cell-resumen">
+                  <%= customer.email %>
+                </div></td>
+                <td>
+                  <%= link_to icon('fas', 'fa-eye'), path_for(user: customer,
+                      path: "user"), title: t("views.customers.show") %>
+                </td>
+                <td>
+                  <%= link_to icon('fas', 'fa-edit'), path_for(user: customer,
+                      path: "edit_user", options: {object_id: customer.id}),
+                      title: t("views.customers.edit") %>
+                </td>
+                <td>
+                  <%= link_to icon('fas', 'fa-trash'), path_for(user: customer,
+                      path: "user", options: {object_id: customer.id}),
+                      title: t("views.customers.destroy"), method: :delete,
+                      data: { confirm: t("views.are_you_sure") } %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= link_to t("views.customers.new"), path_for(user: "customer",
+                                                       path: "new_user") %>
+        <br>
+        <%= link_to t("views.customers.index"), path_for(user: "customer",
+                                                        path: "users") %>
+      </div>
     </div>
   </div>
   <br>
-  <div class="row">
-    <div class="card col-md-4">
-      <table class="table-bordered table-hover table-sm table-all table-broker">
-        <caption>
-          <%= t("views.brokers.customers_not_approved") %>
-        </caption>
-        <thead>
-          <tr>
-            <th><div class="cell-resumen">
-              <%= t("views.customers.identifier") %>
-            </div></th>
-            <th><div class="cell-resumen">
-              <%= t("views.customers.email") %>
-            </div></th>
-            <th class="table-icons" colspan="3"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @customers_without_approved.each do |customer| %>
+  <div class="row m-2 justify-content-between">
+    <div class="col-7">
+      <div class="card">
+        <table class="table-bordered table-hover table-sm table-all table-broker">
+          <caption>
+            <%= t('views.brokers.offers_not_approved') %>
+          </caption>
+          <thead>
             <tr>
-              <td><div class="cell-resumen">
-                <%= customer.identifier %>
-              </div></td>
-              <td><div class="cell-resumen">
-                <%= customer.email %>
-              </div></td>
-              <td>
-                <%= link_to icon('fas', 'fa-eye'), path_for(user: customer,
-                    path: "user"), title: t("views.customers.show") %>
-              </td>
-              <td>
-                <%= link_to icon('fas', 'fa-edit'), path_for(user: customer,
-                    path: "edit_user", options: {object_id: customer.id}),
-                    title: t("views.customers.edit") %>
-              </td>
-              <td>
-                <%= link_to icon('fas', 'fa-trash'), path_for(user: customer,
-                    path: "user", options: {object_id: customer.id}),
-                    title: t("views.customers.destroy"), method: :delete,
-                    data: { confirm: t("views.are_you_sure") } %>
-              </td>
+              <th><div class="cell-resumen">
+                <%= t("views.offers.product_name") %>
+              </div></th>
+              <th><div class="cell-resumen">
+                <%= t("views.offers.quantity") %>
+              </div></th>
+              <th><div class="cell-resumen">
+                <%= t("views.offers.unit_price_supplier") %>
+              </div></th>
+              <th class="table-icons" colspan="3"></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%= link_to t("views.customers.new"), path_for(user: "customer",
-                                                     path: "new_user") %>
-      <br>
-      <%= link_to t("views.customers.index"), path_for(user: "customer",
-                                                      path: "users") %>
+          </thead>
+          <tbody>
+            <% @offers_without_approved.each do |offer| %>
+              <tr>
+                <td><div class="cell-resumen">
+                  <%= offer.product_name + " " +
+                   (offer.variety_name ? offer.variety_name : "") %>
+                  <%= offer.product_name %>
+                </div></td>
+                <td><div class="cell-resumen">
+                  <%= offer.quantity.to_s + " " + offer.supplier.unit_type %>
+                </div></td>
+                <td><div class="cell-resumen">
+                  <%= offer.unit_price_supplier.to_s + " " + offer.supplier.currency %>
+                </div></td>
+                <td>
+                  <%= link_to icon('fas', 'fa-eye'), path_for(path: 'offer',
+                    options: {object_id: offer.id}), title: t("views.offers.show") %>
+                </td>
+                <td>
+                  <%= link_to icon('fas', 'fa-edit'), path_for(path: 'edit_offer',
+                    options: {object_id: offer.id}), title: t("views.offers.edit") %>
+                </td>
+                <td>
+                  <%= link_to icon('fas', 'fa-trash'), path_for(path: 'offer',
+                    options: {object_id: offer.id}), title: t("views.offers.destroy"),
+                    method: :delete, data: { confirm: t("views.are_you_sure") } %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= link_to t("views.offers.new"), path_for(path: "new_offer") %>
+        <br>
+        <%= link_to t("views.offers.index"), path_for(path: "offers") %>
+      </div>
     </div>
-    <div class="card col-md-4">
-      <table class="table-bordered table-hover table-sm table-all table-broker">
-        <caption>
-          <%= t("views.brokers.orders_not_approved") %>
-        </caption>
-        <thead>
-          <tr>
-            <th><div class="cell-resumen">
-              <%= t("views.orders.product_name") %>
-            </div></th>
-            <th><div class="cell-resumen">
-                <%= t("views.orders.quantity") %>
-            </div></th>
-            <th class="table-icons" colspan="3"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @orders_without_approved.each do |order| %>
+    <div class="col-5">
+      <div class="card">
+        <table class="table-bordered table-hover table-sm table-all table-broker">
+          <caption>
+            <%= t("views.brokers.orders_not_approved") %>
+          </caption>
+          <thead>
             <tr>
-              <td><div class="cell-resumen">
-                <%= order.product_name %>
-              </div></td>
-              <td><div class="cell-resumen">
-                <%= order.quantity %>
-              </div></td>
-              <td>
-                <%= link_to icon('fas', 'fa-eye'),
-                  path_for(path: "order", options: {object_id: order.id}),
-                  title: t("views.orders.show") %>
-              </td>
-              <td>
-                <%= link_to icon('fas', 'fa-edit'),
-                  path_for(path: "edit_order", options: {object_id: order.id}),
-                  title: t("views.orders.edit") %>
-              </td>
-              <td>
-                <%= link_to icon('fas', 'fa-trash'),
-                  path_for(path: "order", options: {object_id: order.id}),
-                  title: t("views.orders.destroy"),
-                  method: :delete, data: { confirm: t("views.are_you_sure") } %>
-              </td>
+              <th><div class="cell-resumen">
+                <%= t("views.orders.product_name") %>
+              </div></th>
+              <th><div class="cell-resumen">
+                  <%= t("views.orders.quantity") %>
+              </div></th>
+              <th class="table-icons" colspan="3"></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <br>
-      <%= link_to t("views.orders.index"), path_for(path: "orders") %>
+          </thead>
+          <tbody>
+            <% @orders_without_approved.each do |order| %>
+              <tr>
+                <td><div class="cell-resumen">
+                  <%= order.product_name %>
+                </div></td>
+                <td><div class="cell-resumen">
+                  <%= order.quantity %>
+                </div></td>
+                <td>
+                  <%= link_to icon('fas', 'fa-eye'),
+                    path_for(path: "order", options: {object_id: order.id}),
+                    title: t("views.orders.show") %>
+                </td>
+                <td>
+                  <%= link_to icon('fas', 'fa-edit'),
+                    path_for(path: "edit_order", options: {object_id: order.id}),
+                    title: t("views.orders.edit") %>
+                </td>
+                <td>
+                  <%= link_to icon('fas', 'fa-trash'),
+                    path_for(path: "order", options: {object_id: order.id}),
+                    title: t("views.orders.destroy"),
+                    method: :delete, data: { confirm: t("views.are_you_sure") } %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <br>
+        <%= link_to t("views.orders.index"), path_for(path: "orders") %>
+      </div>
+    </div>
+  </div>
+  <div class="row m-2 justify-content-between">
+    <div class="col-5">
+      <div class="card">
+        <table class="table-bordered table-hover table-sm table-all table-broker">
+          <caption>
+            <%= t('views.brokers.requests_not_approved') %>
+          </caption>
+          <thead>
+            <tr>
+              <th><div class="cell-resumen">
+                <%= t("views.requests.product_name") %>
+              </div></th>
+              <th><div class="cell-resumen">
+                <%= t("views.requests.quantity") %>
+              </div></th>
+              <th class="table-icons" colspan="3"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @requests_without_approved.each do |request| %>
+              <tr>
+                <td><div class="cell-resumen">
+                  <%= request.product_name + " " +
+                   (request.variety_name ? request.variety_name : "") %>
+                  <%= request.product_name %>
+                </div></td>
+                <td><div class="cell-resumen">
+                  <%= request.quantity.to_s + " " + request.customer.unit_type %>
+                </div></td>
+                <td>
+                  <%= link_to icon('fas', 'fa-eye'), path_for(path: 'request',
+                    options: {object_id: request.id}), title: t("views.requests.show") %>
+                </td>
+                <td>
+                  <%= link_to icon('fas', 'fa-edit'), path_for(path: 'edit_request',
+                    options: {object_id: request.id}), title: t("views.requests.edit") %>
+                </td>
+                <td>
+                  <%= link_to icon('fas', 'fa-trash'), path_for(path: 'request',
+                    options: {object_id: request.id}), title: t("views.requests.destroy"),
+                    method: :delete, data: { confirm: t("views.are_you_sure") } %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= link_to t("views.requests.new"), path_for(path: "new_request") %>
+        <br>
+        <%= link_to t("views.requests.index"), path_for(path: "requests") %>
+      </div>
     </div>
   </div>
 </div>

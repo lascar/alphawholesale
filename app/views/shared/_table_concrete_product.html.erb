@@ -1,33 +1,33 @@
 <table class="table-all table-bordered table-responsive">
   <thead>
     <tr>
-      <th><%= t("views.offers.product_name") %></th>
-      <th><%= t("views.offers.variety_name") %></th>
-      <th><%= t("views.offers.aspect_name") %></th>
-      <th><%= t("views.offers.packaging_name") %></th>
-      <th><%= t("views.offers.size_name") %></th>
-      <th><%= t("views.offers.caliber_name") %></th>
+      <th><%= t("views.concrete_products.product_name") %></th>
+      <th><%= t("views.concrete_products.variety_name") %></th>
+      <th><%= t("views.concrete_products.aspect_name") %></th>
+      <th><%= t("views.concrete_products.packaging_name") %></th>
+      <th><%= t("views.concrete_products.size_name") %></th>
+      <th><%= t("views.concrete_products.caliber_name") %></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>
-        <%= t("products.#{offer.product_name}.name") %>
+        <%= t("products.#{object.product_name}.name") %>
       </td>
       <td>
-        <%= t("products.#{offer.product_name}.varieties.#{offer.variety_name}") %>
+        <%= t("products.#{object.product_name}.varieties.#{object.variety_name}") %>
       </td>
       <td>
-        <%= t("products.#{offer.product_name}.aspects.#{offer.aspect_name}") %>
+        <%= t("products.#{object.product_name}.aspects.#{object.aspect_name}") %>
       </td>
       <td>
-        <%= t("products.#{offer.product_name}.packagings.#{offer.packaging_name}") %>
+        <%= t("products.#{object.product_name}.packagings.#{object.packaging_name}") %>
       </td>
       <td>
-        <%= t("products.#{offer.product_name}.sizes.#{offer.size_name}") %>
+        <%= t("products.#{object.product_name}.sizes.#{object.size_name}") %>
       </td>
       <td>
-        <%= t("products.#{offer.product_name}.calibers.#{offer.caliber_name}") %>
+        <%= t("products.#{object.product_name}.calibers.#{object.caliber_name}") %>
         </td>
     </tr>
 </table>

@@ -1,0 +1,95 @@
+<div class="card">
+  <%= render "shared/table_concrete_product", object: @request %>
+</div>
+
+<div class="card">
+  <div class="row">
+    <div class="col-3">
+      <strong><%= t("views.requests.quantity") %>:</strong>
+      <% quantity_string = @request.quantity && @request.customer.unit_type  ?
+        (@request.quantity.to_s + " " + t("unit_types." +
+         @request.customer.unit_type + ".symbol")) : "-" %>
+      <%= quantity_string %>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="row">
+    <div class="col-3">
+      <strong><%= t("views.requests.approved") %></strong>
+      <%= check_box_tag :approved, '', @request.approved, disabled: true %>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="row">
+    <div class="col-3">
+      <strong><%= t("views.requests.date_start") %>:</strong>
+      <%= @request.date_start %>
+    </div>
+
+    <div class="col-3">
+      <strong><%= t("views.requests.date_end") %>:</strong>
+      <%= @request.date_end %>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="row">
+    <div class="col">
+      <strong><%= t("views.requests.customer_observation") %>:</strong>
+      <%= simple_format(@request.customer_observation) %>
+    </div>
+  </div>
+</div>
+<% unless customer_signed_in? %>
+  <%# link_to t("views.bids.new"), path_for(user: current_user, path: "new_bid",
+                             options: {object_id: @request.id}), method: :get %> |
+<% end %>
+<% unless supplier_signed_in? %>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header text-center text-uppercase">
+          <%= t("views.requests.new") %>
+        </div>
+        <div class="card-body">
+          <% unless @products.empty? %>
+            <% path = path_for(user: @user, path: "new_request") %>
+            <%= form_with(url: path, method: 'get', local: true,
+                authenticity_token: true, id: "form_new_request") do |form| %>
+              <div class="field">
+                <%= form.label "new_request[product]", t("views.requests.product_name") %>
+                <%= form.select "new_request[product]", @products, {} %>
+              </div>
+
+              <div class="actions">
+                <%= form.submit t("views.requests.new") %>
+              </div>
+            <% end %>
+            <% if customer_signed_in? %>
+              <%= t("views.customers.have_to_update_products_of_interest") %>
+              <br>
+              <%= link_to t("views.user_products.index"),
+                path_for(user: @user, path: "user_products"),
+                id: "user_products", class:  "btn btn-primary btn-sm" %>
+            <% end %>
+          <% else %>
+            <%= t("views.suppliers.have_no_products_of_interest") %>
+            <br>
+            <%= link_to t("views.user_products.index"),
+              path_for(user: @user, path: "user_products"),
+              id: "user_products", class:  "btn btn-primary btn-sm" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= link_to t("views.requests.edit"),
+    path_for(user: @user, path: "edit_request", options: {object_id: @request.id}),
+    method: :get %>
+<% end %>
+ | <%= link_to t("views.back"), :back %>

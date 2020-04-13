@@ -1,0 +1,83 @@
+<h1><%= t("views.requests.names") + " : " + t("views.with_count", count: @requests.count) %></h1>
+
+<div class="card">
+  <table class="table-all table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th><%= t("views.requests.product_name") %></th>
+        <th><%= t("views.requests.quantity") %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @requests.each do |request| %>
+        <tr>
+          <td><%= request.product_name %></td>
+          <td><%= request.quantity %></td>
+          <td>
+            <%= link_to icon('fas', 'fa-eye'), path_for(user: @user,
+             path: "request", options: {object_id: request.id}), title: t("views.requests.show") %>
+          </td>
+          <td>
+            <% unless supplier_signed_in? %>
+              <%= link_to icon('fas', 'fa-edit'), path_for(user: @user,
+                  path: "edit_request", options: {object_id: request.id}),
+                  title: t("views.requests.edit") %>
+            <% end %>
+          </td>
+          <td>
+            <% unless supplier_signed_in? %>
+              <%= link_to icon('fas', 'fa-trash'), path_for(user: @user,
+               path: "requests", options: {objet_id: request.id}),
+                method: :delete, data: { confirm: t("views.are_you_sure") },
+                title: t("views.requests.destroy") %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<br>
+
+<% unless supplier_signed_in? %>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header text-center text-uppercase">
+          <%= t("views.requests.new") %>
+        </div>
+        <div class="card-body">
+          <% if !@products.empty? && !supplier_signed_in? %>
+            <% path = path_for(user: @user, path: "new_request") %>
+            <%= form_with(url: path, method: 'get', local: true,
+                authenticity_token: true, id: "form_new_request") do |form| %>
+              <div class="field">
+                <%= form.label "new_request[product]", t("views.requests.product_name") %>
+                <%= form.select "new_request[product]", @products, {} %>
+              </div>
+
+              <div class="actions">
+                <%= form.submit t("views.requests.new") %>
+              </div>
+            <% end %>
+          <% end %>
+          <% if @products.empty? %>
+            <%= t("views.customers.have_no_products_of_interest") %>
+            <br>
+            <%= link_to t("views.user_products.index"),
+              path_for(user: @user, path: "user_products"),
+              id: "user_products", class:  "btn btn-primary btn-sm" %>
+          <% else %>
+            <%= t("views.customers.have_to_update_products_of_interest") %>
+            <br>
+            <%= link_to t("views.user_products.index"),
+              path_for(user: @user, path: "user_products"),
+              id: "user_products", class:  "btn btn-primary btn-sm" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

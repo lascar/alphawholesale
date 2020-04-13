@@ -4,6 +4,7 @@ class Customer < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable
   has_many :orders
+  has_many :requests
   has_many :user_concrete_products, as: :user, dependent: :delete_all
   has_many :concrete_products, through: :user_concrete_products
   has_many :user_products, as: :user, dependent: :delete_all

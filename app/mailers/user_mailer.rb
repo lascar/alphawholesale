@@ -46,6 +46,23 @@ class UserMailer < ApplicationMailer
     mail(to: customer.email, subject: I18n.t('mails.order_approval.subject'))
   end
 
+  def request_approval
+    request = params[:request]
+    customer = request.customer
+    @product = request.product_name
+    @variety = request.variety_name
+    @aspect = request.aspect_name
+    @packaging = request.packaging_name
+    @size = request.size_name
+    @caliber = request.caliber_name
+    @quantity = request.quantity
+    @customer_observation = request.customer_observation
+    @date_start = request.date_start
+    @date_end = request.date_end
+    @url  = "#{root_url}/customers/#{customer.id.to_s}/requests/#{request.id.to_s}"
+    mail(to: customer.email, subject: I18n.t('mails.request_approval.subject'))
+  end
+
   def object_update
     user = params[:user]
     object = params[:object]

@@ -1,7 +1,6 @@
 class Offer < ApplicationRecord
   include HasConcreteProductConcern
   belongs_to :supplier
-  belongs_to :concrete_product
   has_many :orders
   validates :supplier, presence: true
   validates :concrete_product, presence: true

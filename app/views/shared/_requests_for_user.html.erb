@@ -1,0 +1,36 @@
+<table class="table table-responsive table-hover table-all">
+  <thead>
+    <tr>
+      <th scope="col" class="text-truncate"
+                      title="<%= t('views.requests.product_name') %>">
+        <%= t("views.requests.product_name") %>
+      </th>
+      <th scope="col" class="text-truncate"
+                      title="<%= t('views.requests.quantity') %>">
+        <%= t("views.requests.quantity") %>
+      </th>
+      <th scope="col" colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @requests.each do |request| %>
+      <% product_name = request.product_name %>
+      <tr>
+        <td class="text-truncate"
+            title="<%= t('views.requests.product_name') + ' ' +
+              t('products.' + product_name + '.name') %>">
+          <%= t('products.' + product_name + ".name") %>
+        </td>
+        <td class="text-truncate" title="<%= t('views.requests.quantity') +
+                                               ' : ' + request.quantity.to_s %>">
+          <%= request.quantity.to_s + " " + request.unit_type %>
+        </td>
+        <td>
+          <%= link_to icon('fas', 'fa-eye'), path_for(user: current_user, path: "request",
+                       options: {object_id: request.id}), title: t("views.requests.show") %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

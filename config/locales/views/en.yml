@@ -70,6 +70,26 @@ en:
       edit: 'Edit offer'
       destroy: 'Destroy offer'
       concrete_product_not_in_list: "create first an appropriate concrete product if you can see it in the list"
+    requests:
+      names: 'Requests'
+      product_name: 'Product name'
+      variety_name: 'Variety name'
+      aspect_name: 'Aspect name'
+      packaging_name: 'Packaging name'
+      size_name: 'Size name'
+      caliber_name: 'Caliber name'
+      quantity: 'Quantity'
+      approved: 'approved'
+      date_start: 'date start'
+      date_end: 'date end'
+      customer_observation: "Supplier's observation"
+      customer: "Customer"
+      index: 'List of requests'
+      show: 'Show request'
+      new: 'New request'
+      edit: 'Edit request'
+      destroy: 'Destroy request'
+      concrete_product_not_in_list: "create first an appropriate concrete product if you can see it in the list"
     brokers:
       name: 'Broker'
       names: 'Brokers'

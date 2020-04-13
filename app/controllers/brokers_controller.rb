@@ -16,6 +16,7 @@ class BrokersController < ApplicationController
     @offers_without_approved = Offer.where(approved: false).
       select{|o| o.date_end >= Time.now}
     @orders_without_approved = Order.where(approved: false)
+    @requests_without_approved = Request.where(approved: false)
   end
 
   # GET /brokers/new

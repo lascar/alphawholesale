@@ -1,0 +1,6 @@
+<h1><%= t("views.requests.edit") %></h1>
+
+<%= render 'form', request: @request, customer_id: @customer_id %>
+<%= link_to t("views.requests.show"), path_for(user: @user, path: "request",
+                                options: {object_id: @request.id}) %> |
+<%= link_to t("views.back"), :back %>

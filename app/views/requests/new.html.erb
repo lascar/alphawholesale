@@ -1,0 +1,5 @@
+<h1><%= t("views.requests.new") %></h1>
+
+<%= render 'form_new', request: @request, customer_id: @customer_id %>
+
+<%= link_to t("views.back"), :back %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_03_081714) do
+ActiveRecord::Schema.define(version: 2020_04_10_095625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -107,6 +107,20 @@ ActiveRecord::Schema.define(version: 2020_04_03_081714) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "requests", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.bigint "concrete_product_id"
+    t.integer "quantity"
+    t.text "customer_observation"
+    t.date "date_start"
+    t.date "date_end"
+    t.boolean "approved", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["concrete_product_id"], name: "index_requests_on_concrete_product_id"
+    t.index ["customer_id"], name: "index_requests_on_customer_id"
+  end
+
   create_table "suppliers", force: :cascade do |t|
     t.string "entreprise_name"
     t.string "email"
@@ -155,5 +169,6 @@ ActiveRecord::Schema.define(version: 2020_04_03_081714) do
     t.index ["user_type", "user_id"], name: "index_user_products_on_user_type_and_user_id"
   end
 
+  add_foreign_key "requests", "customers"
   add_foreign_key "user_products", "products"
 end

@@ -1,0 +1,49 @@
+<%= form_with(model: request, url: path_for(user: current_user,path: "request",
+              options: {object_id: request.id}), local: true) do |form| %>
+  <% if broker_signed_in? %>
+    <div class="row">
+      <div class="col-4">
+        <div class="field">
+          <%= label_tag t("views.requests.customer") %>
+          <%= form.select :customer_id, @customers, selected: request.customer_id%>
+        </div>
+      </div>
+
+      <div class="col-2">
+        <div class="field">
+          <%= label_tag t("views.requests.approved") %>
+          <%= form.check_box :approved %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="card">
+    <div class="row mt-3">
+      <%= render "shared/table_concrete_product", object: request %>
+    </div>
+    <br>
+    <div class="row mt-3">
+      <div class="col-3">
+        <div class="field">
+          <%= label_tag t("views.requests.quantity") %>
+          <%= form.number_field :quantity %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-9">
+        <div class="field">
+          <%= label_tag t("views.requests.customer_observation") %>
+          <div style="clear: both;"></div>
+          <%= form.text_area :customer_observation, :rows => 10, style: 'width:100%;' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

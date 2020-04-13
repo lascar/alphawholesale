@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :products, only: [:index, :show]
   resources :offers, only: [:index, :show], constraints: {id: /[0-9]*/}
+  resources :requests, only: [:index, :show], constraints: {id: /[0-9]*/}
 
   concern :concrete_productable do
     resources :concrete_products, only: [:index, :new, :create, :destroy]
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
       resources :products, constraints: {id: /[0-9]*/}
       resources :offers, controller: 'broker_offers'
       resources :orders, controller: 'broker_orders'
+      resources :requests, controller: 'broker_requests'
       resources :customers, concerns: [:concrete_productable, :user_productable] do
         resources :orders, controller: 'broker_orders'
       end
@@ -48,6 +50,7 @@ Rails.application.routes.draw do
       resources :suppliers
       resources :offers
       resources :orders, only: [:index, :show]
+      resources :requests, only: [:index, :show]
     end
   end
 
@@ -55,6 +58,7 @@ Rails.application.routes.draw do
     resources :customers, concerns: [:concrete_productable, :user_productable] do
       resources :offers, only: [:index, :show]
       resources :orders
+      resources :requests
     end
   end
   match "/(*url)", to: 'welcome#routing_error', via: :all

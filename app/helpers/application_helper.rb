@@ -42,7 +42,7 @@ module ApplicationHelper
   path_new_offer = -> (options:) do
     "/#{options[:pre]}#{options[:post]}offers/new"
   end
-  
+
   path_edit_offer = -> (options:) do
     "/#{options[:pre]}#{options[:post]}offers/#{options[:object_id].to_s}/edit"
   end
@@ -58,9 +58,25 @@ module ApplicationHelper
   path_new_order = -> (options:) do
     "/#{options[:pre]}#{options[:post]}orders/new?offer_id=#{options[:object_id]}"
   end
-  
+
   path_edit_order = -> (options:) do
     "/#{options[:pre]}#{options[:post]}orders/#{options[:object_id].to_s}/edit"
+  end
+
+  path_requests = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}requests/"
+  end
+
+  path_request = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}requests/#{options[:object_id].to_s}"
+  end
+
+  path_new_request = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}requests/new"
+  end
+
+  path_edit_request = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}requests/#{options[:object_id].to_s}/edit"
   end
 
   path_user_products = -> (options:) do
@@ -127,6 +143,10 @@ module ApplicationHelper
     path_for_order: path_order,
     path_for_new_order: path_new_order,
     path_for_edit_order: path_edit_order,
+    path_for_requests: path_requests,
+    path_for_request: path_request,
+    path_for_new_request: path_new_request,
+    path_for_edit_request: path_edit_request,
     path_for_user_products: path_user_products,
     path_for_user_product: path_user_product,
     path_for_new_user_product: path_new_user_product,

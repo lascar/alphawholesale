@@ -40,3 +40,7 @@ en:
       successfully_created: "Order Line was successfully created."
       successfully_updated: "Order Line was successfully updated."
       successfully_destroyed: "Order Line was successfully destroyed."
+    requests:
+      successfully_created: "Request was successfully created."
+      successfully_updated: "Request was successfully updated."
+      successfully_destroyed: "Request was successfully destroyed."

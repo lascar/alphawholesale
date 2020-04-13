@@ -1,0 +1,177 @@
+<%= form_with(model: request, url: path_for(user: current_user, path: "request"),
+             local: true, id: "form_create_request") do |form| %>
+  <% if broker_signed_in? %>
+    <div class="field">
+      <%= form.label :customer, t("views.requests.customer") %>
+      <%= form.select :customer_id, @customers%>
+    </div>
+  <% end %>
+  <%= hidden_field_tag "request[concrete_product[product]]", @product.name %>
+  <div class="card">
+    <div class="row">
+      <div class="col-4">
+        <table class="table-all table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th><%= t('views.concrete_products.variety_name') %></th>
+            </tr>
+          </thead>
+
+          <tbody id="radios_varieties">
+            <% for variety in @product.varieties %>
+              <tr>
+                <td>
+                  <%= radio_button_tag "request[concrete_product[variety]]", variety,
+                      variety == "not_specified", autocomplete: :off %>
+                  <%= form.label "concrete_product[" + variety + "]",
+                      t("products." + @product.name + ".varieties." + variety) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-4">
+        <table class="table-all table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th><%= t('views.concrete_products.aspect_name') %></th>
+            </tr>
+          </thead>
+
+          <tbody id="radios_aspects">
+            <% for aspect in @product.aspects %>
+              <tr>
+                <td>
+                  <%= radio_button_tag "request[concrete_product[aspect]]", aspect,
+                      aspect == "not_specified", autocomplete: :off %>
+                  <%= form.label "concrete_product[" + aspect + "]",
+                      t("products." + @product.name + ".aspects." + aspect) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-4">
+        <table class="table-all table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th><%= t('views.concrete_products.packaging_name') %></th>
+            </tr>
+          </thead>
+
+          <tbody id="radios_packagings">
+            <% for packaging in @product.packagings %>
+              <tr>
+                <td>
+                  <%= radio_button_tag "request[concrete_product[packaging]]", packaging,
+                      packaging == "not_specified", autocomplete: :off %>
+                  <%= form.label "concrete_product[" + packaging + "]",
+                      t("products." + @product.name + ".packagings." + packaging) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br>
+    <div class="row mt-2">
+      <div class="col-4">
+        <table class="table-all table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th><%= t('views.concrete_products.size_name') %></th>
+            </tr>
+          </thead>
+
+          <tbody id="radios_sizes">
+            <% for size in @product.sizes %>
+              <tr>
+                <td>
+                  <%= radio_button_tag "request[concrete_product[size]]", size,
+                      size == "not_specified", autocomplete: :off %>
+                  <%= form.label "concrete_product[" + size + "]",
+                      t("products." + @product.name + ".sizes." + size) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-4">
+        <table class="table-all table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th><%= t('views.concrete_products.caliber_name') %></th>
+            </tr>
+          </thead>
+
+          <tbody id="radios_calibers">
+            <% for caliber in @product.calibers %>
+              <tr>
+                <td>
+                  <%= radio_button_tag "request[concrete_product[caliber]]", caliber,
+                      caliber == "not_specified", autocomplete: :off %>
+                  <%= form.label "concrete_product[" + caliber + "]",
+                      t("products." + @product.name + ".calibers." + caliber) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="card">
+    <div class="row">
+      <div class="col-3">
+        <%= label_tag t('views.requests.quantity') %>
+        <div style="clear: both;"></div>
+        <%= form.number_field :quantity %>
+        &nbsp;
+      </div>
+
+      <div class="col-3">
+        <%= label_tag t('views.requests.date_start') %>
+        <div style="clear: both;"></div>
+        <%= form.text_field :date_start, value: Time.now.strftime("%d/%m/%Y") %>
+        &nbsp;
+      </div>
+
+      <div class="col-3">
+        <%= label_tag t('views.requests.date_end') %>
+        <div style="clear: both;"></div>
+        <%= form.date_field :date_end, min:  Time.now.strftime("%d/%m/%Y") %>
+        &nbsp;
+      </div>
+    </div>
+
+    <div class="row row_request">
+      <div class="col-9">
+        <%= label_tag t('views.requests.customer_observation') %>
+        <div style="clear: both;"></div>
+          <%= form.text_area :supplier_observation, :rows => 10, style: 'width:100%;' %>
+        &nbsp;
+      </div>
+    </div>
+  </div>
+
+  <% if broker_signed_in? %>
+    <div class="card">
+      <div class="row">
+        <div class="col">
+          <%= label_tag t('views.requests.approved') %>
+          <div style="clear: both;"></div>
+          <%= form.check_box :approved %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

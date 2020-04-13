@@ -13,7 +13,11 @@ class CustomersController < ApplicationController
   def show
     authorize @customer
     @orders = @customer.orders
+    @requests = @customer.requests
     @concrete_products = @customer.concrete_products
+    products = @customer.products.pluck(:name)
+    @request = Request.includes(:concrete_product).
+      where(concrete_products: { product: products })
     @offers = Offer.where(approved: true).select{|o| o.date_end >= Time.now}
     @user_products = @customer.products
   end
