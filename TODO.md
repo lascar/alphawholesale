@@ -1,10 +1,10 @@
 # TODO
 
-- unificate new and edit
-
 - eliminate concrete product create as separate workflow
 
 - include user concrete products in offer or request create
+
+- unificate new and edit
 
 - separate supplier and customer on offer, order and request
 
