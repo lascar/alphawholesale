@@ -32,6 +32,13 @@ class OffersController < ApplicationController
     authorize @offer
     @supplier_id = @offer.supplier_id = current_supplier.id
     @product = Product.find_by(name: params_new[:product].scan(regexp).first)
+    @concrete_products = UserConcreteProduct.
+      where(user_type: "Supplier", user_id: @supplier_id).
+      select do |user_concrete_product|
+        user_concrete_product.concrete_product.product == @product.name
+      end.map do |user_concrete_product|
+        ConcreteProduct.find_by(id: user_concrete_product.concrete_product_id)
+    end.uniq.flatten
     @incoterms = INCOTERMS
   end
 
@@ -45,12 +52,20 @@ class OffersController < ApplicationController
   # POST /offers
   def create
     params_offer = offer_params
+    params_offer.delete("new_concrete_product")
     params_offer.delete("concrete_product")
     @offer = Offer.new(params_offer)
     authorize @offer
     @offer.supplier_id = current_supplier.id
-    concrete_product = ConcreteProduct.find_or_create_by (offer_params["concrete_product"])
+    if offer_params["concrete_product_id"] == '0'
+      concrete_product = ConcreteProduct.find_or_create_by (offer_params["new_concrete_product"])
+    else
+      concrete_product = ConcreteProduct.find (offer_params["concrete_product_id"])
+    end
     @offer.concrete_product = concrete_product
+    begin
+      current_supplier.concrete_products << concrete_product
+    rescue; end
     if @offer.save
       flash[:notice] = I18n.t('controllers.offers.successfully_created')
       redirect_to path_for(user: @offer.supplier, path: 'offer',
@@ -115,7 +130,8 @@ class OffersController < ApplicationController
   def offer_params
     base = [:date_start, :date_end, :quantity,:incoterm,
             :unit_price_supplier, :localisation_supplier, :supplier_observation,
-            concrete_product: [:product, :variety, :aspect, :packaging, :size, :caliber]]
+            :concrete_product_id,
+            new_concrete_product: [:product, :variety, :aspect, :packaging, :size, :caliber]]
     params.require(:offer).permit(base)
   end
 end

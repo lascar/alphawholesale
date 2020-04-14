@@ -38,7 +38,7 @@ RSpec.describe "Offers Feature", type: :feature do
         end
         within('#form_create_offer') do
           within('#radios_varieties') do
-            choose 'offer_concrete_product_variety_' + variety1
+            choose 'offer_new_concrete_product_variety_' + variety1
           end
         end
         fill_in 'offer_quantity', :with => 2
