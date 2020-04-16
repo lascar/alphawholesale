@@ -19,10 +19,11 @@ class OffersController < ApplicationController
 
   # GET /offers/1
   def show
+    @offer = Offer.find(params[:id].scan(/\d+/).first.to_i)
     authorize @offer
-    if current_supplier
-      @products = set_supplier_products(current_supplier)
-    end
+    @supplier = @offer.supplier
+    @suppliers = [[@supplier.identifier, @supplier.id]]
+    @incoterms = INCOTERMS
   end
 
   # GET /offers/new
@@ -30,7 +31,8 @@ class OffersController < ApplicationController
     regexp = /\A[0-9A-Za-z_-]*\z/
     @offer = Offer.new
     authorize @offer
-    @supplier_id = @offer.supplier_id = current_supplier.id
+    @supplier = current_supplier
+    @suppliers = [[@supplier.identifier, @supplier.id]]
     @product = Product.find_by(name: params_new[:product].scan(regexp).first)
     @concrete_products = UserConcreteProduct.
       where(user_type: "Supplier", user_id: @supplier_id).
@@ -45,7 +47,8 @@ class OffersController < ApplicationController
   # GET /offers/1/edit
   def edit
     authorize @offer
-    @supplier_id = @offer.supplier_id = current_supplier.id
+    @supplier = current_supplier
+    @suppliers = [[@supplier.identifier, @supplier.id]]
     @incoterms = INCOTERMS
   end
 

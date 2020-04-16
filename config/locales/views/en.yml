@@ -67,7 +67,9 @@ en:
       index: 'List of offers'
       show: 'Show offer'
       new: 'New offer'
+      create: 'Create offer'
       edit: 'Edit offer'
+      update: 'Update offer'
       destroy: 'Destroy offer'
       new_concrete_product: "New concrete product for product %{product}"
       concrete_product_not_in_list: "create first an appropriate concrete product if you can see it in the list"

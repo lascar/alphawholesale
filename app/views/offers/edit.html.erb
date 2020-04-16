@@ -1,6 +1,8 @@
 <h1><%= t("views.offers.edit") %></h1>
 
+<% @edit = true %>
 <%= render 'form', offer: @offer, supplier_id: @supplier_id %>
+
 <%= link_to t("views.offers.show"), path_for(user: @user, path: "offer",
-                                options: {object_id: @offer.id}) %> |
-<%= link_to t("views.back"), :back %>
+  options: {object_id: @offer.id}), class: "btn btn-secondary",
+  title: t("views.offers.show") %>

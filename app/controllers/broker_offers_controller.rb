@@ -26,7 +26,9 @@ class BrokerOffersController < ApplicationController
   # GET /offers/1
   def show
     authorize @offer
-    @products = set_products
+    @supplier = @offer.supplier
+    @suppliers = [[@supplier.identifier, @supplier.id]]
+    @incoterms = INCOTERMS
   end
 
   # GET /offers/new
@@ -36,7 +38,7 @@ class BrokerOffersController < ApplicationController
     regexp = /\A[0-9A-Za-z_-]*\z/
     @product = Product.find_by(name: new_offer_params[:product].scan(regexp).first)
     @suppliers = Supplier.all.pluck(:identifier, :id)
-    @supplier_id = params[:supplier_id]
+    @supplier = Supplier.find_by(id: params[:supplier_id]) || Supplier.first
     @concrete_products = ConcreteProduct.all
     @incoterms = INCOTERMS
   end
