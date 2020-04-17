@@ -26,26 +26,30 @@ class BrokerOrdersController < ApplicationController
   def show
     lookup_context.prefixes << 'orders'
     authorize @order
+    @customer = @order.customer
+    @customers = [[@customer.identifier, @customer.id]]
     @offer = @order.offer
-    @customer_id = customer_signed_in? ? current_customer.id : params[:customer_id]
+    @incoterms = [@order.incoterm]
   end
 
   # GET /orders/new
   def new
-    customer_id = customer_signed_in? ? current_customer.id :
-     params['customer_id']
-    @customers = Customer.all.pluck(:identifier, :id)
+    customer_id = params[:customer_id]
     @offer = Offer.find(params[:offer_id])
+    @customer = Customer.find_by(id: customer_id) || Customer.first
     @order = Order.new(customer_id: customer_id, offer_id: @offer.id)
     authorize @order
+    @customers = Customer.all.pluck(:identifier, :id)
+    @incoterms = [@order.incoterm]
   end
 
   # GET /orders/1/edit
   def edit
     authorize @order
     @customers = Customer.all.pluck(:identifier, :id)
-    @customer_id = @order.customer_id
+    @customer = @order.customer
     @offer = @order.offer
+    @incoterms = [@order.incoterm]
   end
 
   # POST /orders

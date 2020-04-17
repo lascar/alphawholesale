@@ -48,10 +48,6 @@ RSpec.describe OrdersController, type: :controller do
         expect(assigns(:order).persisted?).to be(true)
       end
 
-      it "does not assign customers" do
-        expect(assigns(:customers)).to be(nil)
-      end
-
       it "assigns the customer to the new order" do
         expect(assigns(:order).customer).to eq(customer1)
       end

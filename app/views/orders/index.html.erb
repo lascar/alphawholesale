@@ -72,3 +72,7 @@
   </table>
 </div>
 <br>
+<%= t("views.orders.no_direct_new") %>
+<br>
+<%= link_to t("views.offers.index"), path_for(user: @user, path: "offers"),
+  title: t("views.offers.index"), class: "btn btn-primary" %>

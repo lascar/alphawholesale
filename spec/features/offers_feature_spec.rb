@@ -65,12 +65,8 @@ RSpec.describe "Offers Feature", type: :feature do
         fill_in 'order_quantity', :with => 1
         find('[name=commit]').click
         order1 = Order.last
-        expect(page).to have_no_content(order1.unit_price_supplier.to_s + ' ' +
-                                     I18n.t("currencies." +
-                                            offer1.supplier.currency + ".symbol"))
-        expect(page).to have_content(Order.last.unit_price_broker.to_s + ' ' +
-                                     I18n.t("currencies." +
-                                            offer1.supplier.currency + ".symbol"))
+        expect(find('#order_unit_price_broker').value).to eq('5.00')
+        expect(page).to have_no_css('#order_unit_price_supplier')
         expect(page).to have_content(I18n.t('controllers.orders.successfully_created'))
       end
     end

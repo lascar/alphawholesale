@@ -34,7 +34,6 @@ RSpec.describe OrdersController, type: :controller do
           does not assign customers and render the new template" do
         expect(assigns(:order).persisted?).to be(false)
         expect(assigns(:order).customer_id).to be(customer1.id)
-        expect(assigns(:customers)).to be(nil)
         expect(response).to render_template(:new)
       end
     end

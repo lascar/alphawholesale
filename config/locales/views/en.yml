@@ -37,6 +37,8 @@ en:
       localisation_broker: 'Localisation broker'
       localisation_supplier: 'Localisation supplier'
       incoterm: 'Incoterm'
+      date_start: 'offer date start'
+      date_end: 'offer date end'
       approved: 'approved'
       supplier_observation: "Supplier's observation"
       customer_observation: "Customer's observation"
@@ -44,7 +46,10 @@ en:
       show: 'Show order'
       new: 'Place order'
       edit: 'Edit order'
+      create: 'Create order'
+      update: 'Update order'
       destroy: 'Destroy order'
+      no_direct_new: 'Orders are created from an offer only'
     offers:
       names: 'Offers'
       product_name: 'Product name'

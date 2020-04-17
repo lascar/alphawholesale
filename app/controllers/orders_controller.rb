@@ -22,25 +22,29 @@ class OrdersController < ApplicationController
   # GET /orders/1
   def show
     authorize @order
+    @customer = @order.customer
+    @customers = [[@customer.identifier, @customer.id]]
     @offer = @order.offer
-    @customer_id = customer_signed_in? ? current_customer.id : params[:customer_id]
+    @incoterms = [@order.incoterm]
   end
 
   # GET /orders/new
   def new
-    customer_id = customer_signed_in? ? current_customer.id :
-     params['customer_id']
     @offer = Offer.find(params[:offer_id])
-    @order = Order.new(customer_id: customer_id, offer_id: @offer.id)
+    @customer = current_customer
+    @customers = [[@customer.identifier, @customer.id]]
+    @order = Order.new(customer_id: @customer.id, offer_id: @offer.id)
     authorize @order
+    @incoterms = [@order.incoterm]
   end
 
   # GET /orders/1/edit
   def edit
     authorize @order
-    @customer_id = @order.customer_id
-    @order.customer_id = @customer_id
+    @customer = @order.customer
+    @customers = [[@customer.identifier, @customer.id]]
     @offer = @order.offer
+    @incoterms = [@order.incoterm]
   end
 
   # POST /orders
