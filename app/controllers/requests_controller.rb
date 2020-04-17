@@ -21,9 +21,8 @@ class RequestsController < ApplicationController
   # GET /requests/1
   def show
     authorize @request
-    if current_customer
-      @products = set_customer_products(current_customer)
-    end
+    @customer = @request.customer
+    @customers = [[@customer.identifier, @customer.id]]
   end
 
   # GET /requests/new
@@ -31,14 +30,23 @@ class RequestsController < ApplicationController
     regexp = /\A[0-9A-Za-z_-]*\z/
     @request = Request.new
     authorize @request
-    @customer_id = @request.customer_id = current_customer.id
+    @customer = current_customer
+    @customers = [[@customer.identifier, @customer.id]]
     @product = Product.find_by(name: params_new[:product].scan(regexp).first)
+    @concrete_products = UserConcreteProduct.
+      where(user_type: "Customer", user_id: @customer_id).
+      select do |user_concrete_product|
+        user_concrete_product.concrete_product.product == @product.name
+      end.map do |user_concrete_product|
+        ConcreteProduct.find_by(id: user_concrete_product.concrete_product_id)
+    end.uniq.flatten
   end
 
   # GET /requests/1/edit
   def edit
     authorize @request
-    @customer_id = @request.customer_id = current_customer.id
+    @customer = current_customer
+    @customers = [[@customer.identifier, @customer.id]]
   end
 
   # POST /requests

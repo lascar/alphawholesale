@@ -2,3 +2,5 @@
 
 <% @new = true %>
 <%= render 'form', offer: @offer, supplier_id: @supplier_id %>
+<%= link_to t("views.offers.index"), path_for(user: @user, path: "offers"),
+  class: "btn btn-secondary" %>

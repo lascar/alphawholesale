@@ -2,8 +2,5 @@
 <h1><%= t("views.order.show") %></h1>
 
 <%= render 'form', order: @order %>
-<%= link_to t("views.orders.edit"), path_for(user: @user, path: "edit_order",
-                                             options: {object_id: @order.id}),
-  class: "btn btn-secondary" %>
 <%= link_to t("views.orders.index"), path_for(user: @user, path: "orders"),
   class: "btn btn-secondary" %>

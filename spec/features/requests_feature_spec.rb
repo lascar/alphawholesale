@@ -38,7 +38,7 @@ RSpec.describe "Requests Feature", type: :feature do
         end
         within('#form_create_request') do
           within('#radios_varieties') do
-            choose 'request_concrete_product_variety_' + variety1
+            choose 'request_new_concrete_product_variety_' + variety1
           end
         end
         fill_in 'request_quantity', :with => 2

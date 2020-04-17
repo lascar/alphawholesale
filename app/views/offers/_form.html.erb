@@ -41,8 +41,7 @@
       <!-- END CONCRETE PRODUCT -->
     <% else %>
       <!-- NEW CONCRETE PRODUCT -->
-      <div class="card new_concrete_products" style="display:<%= @new == true ?
-                                                          'block' : 'none' %>">
+      <div class="card" style="display:<%= @new == true ? 'block' : 'none' %>">
         <div class="row p-1">
           <%= hidden_field_tag "offer[new_concrete_product[product]]", @product.name %>
           <div class="col-4">

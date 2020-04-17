@@ -26,25 +26,31 @@ class BrokerRequestsController < ApplicationController
   # GET /requests/1
   def show
     authorize @request
-    @products = set_products
+    @customer = @request.customer
+    @customers = [[@customer.identifier, @customer.id]]
   end
 
   # GET /requests/new
   def new
+    regexp = /\A[0-9A-Za-z_-]*\z/
     @request = Request.new
     authorize @request
-    regexp = /\A[0-9A-Za-z_-]*\z/
     @product = Product.find_by(name: new_request_params[:product].scan(regexp).first)
     @customers = Customer.all.pluck(:identifier, :id)
-    @customer_id = params[:customer_id]
-    @concrete_products = ConcreteProduct.all
+    @customer = Customer.find_by(id: params[:customer_id]) || Customer.first
+    @concrete_products = UserConcreteProduct.all.
+      select do |user_concrete_product|
+        user_concrete_product.concrete_product.product == @product.name
+      end.map do |user_concrete_product|
+        ConcreteProduct.find_by(id: user_concrete_product.concrete_product_id)
+    end.uniq.flatten
   end
 
   # GET /requests/1/edit
   def edit
     authorize @request
     @customers = Customer.all.pluck(:identifier, :id)
-    @customer_id = params[:customer_id]
+    @customer = Customer.find_by(id: params[:customer_id]) || Customer.first
   end
 
   # POST /requests

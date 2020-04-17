@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       resources :requests, controller: 'broker_requests'
       resources :customers, concerns: [:concrete_productable, :user_productable] do
         resources :orders, controller: 'broker_orders'
+        resources :requests, controller: 'broker_requests'
       end
       resources :suppliers, concerns: [:concrete_productable, :user_productable] do
         resources :offers, controller: 'broker_offers'

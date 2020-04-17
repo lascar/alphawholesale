@@ -6,3 +6,5 @@
 <%= link_to t("views.offers.show"), path_for(user: @user, path: "offer",
   options: {object_id: @offer.id}), class: "btn btn-secondary",
   title: t("views.offers.show") %>
+<%= link_to t("views.offers.index"), path_for(user: @user, path: "offers"),
+  class: "btn btn-secondary" %>

@@ -90,13 +90,16 @@ en:
       approved: 'approved'
       date_start: 'date start'
       date_end: 'date end'
-      customer_observation: "Supplier's observation"
+      customer_observation: "Customer's observation"
       customer: "Customer"
       index: 'List of requests'
       show: 'Show request'
       new: 'New request'
+      create: 'Create request'
       edit: 'Edit request'
+      update: 'Update request'
       destroy: 'Destroy request'
+      new_concrete_product: "New concrete product for product %{product}"
       concrete_product_not_in_list: "create first an appropriate concrete product if you can see it in the list"
     brokers:
       name: 'Broker'

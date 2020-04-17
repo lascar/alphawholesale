@@ -1,5 +1,6 @@
-<h1><%= t("views.requests.new") %></h1>
+<% @new = true %>
+<h1><%= t("views.request.new") %></h1>
 
-<%= render 'form_new', request: @request, customer_id: @customer_id %>
-
-<%= link_to t("views.back"), :back %>
+<%= render 'form', order: @order %>
+<%= link_to t("views.requests.index"), path_for(user: @user, path: "requests"),
+  class: "btn btn-secondary" %>
