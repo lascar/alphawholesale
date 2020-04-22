@@ -1,5 +1,7 @@
 # TODO
 
+- deploy on heroku
+
 - action mailbox for acceptation
 
 - separate supplier and customer on offer, request and response
