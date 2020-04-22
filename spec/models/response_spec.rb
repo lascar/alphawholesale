@@ -17,16 +17,16 @@ RSpec.describe Response, :type => :model do
 
   it 'does not queue the job "WarnInterestedJob" if update and not approved' do
     @response1.update(quantity: 2)
-    expect(ActiveJob::Base.queue_adapter.enqueued_jobs.any? {|queue| queue[:job] == WarnInterestedJob}).to be(false) 
+    expect(ActiveJob::Base.queue_adapter.enqueued_jobs.any? {|queue| queue[:job] == WarnInterestedJob}).to be(false)
   end
 
   it 'does queue the job "SendSupplierResponseApprovalJob" on approved' do
     @response1.update(approved: true)
-    expect(ActiveJob::Base.queue_adapter.enqueued_jobs.any? {|queue| queue[:job] == SendSupplierResponseApprovalJob}).to be(true) 
+    expect(ActiveJob::Base.queue_adapter.enqueued_jobs.any? {|queue| queue[:job] == SendSupplierResponseApprovalJob}).to be(true)
   end
 
   it 'queues the job "WarnInterestedJob" if update and approved' do
     @response1.update(quantity: 2)
-    expect(ActiveJob::Base.queue_adapter.enqueued_jobs.any? {|queue| queue[:job] == WarnInterestedJob}).to be(true) 
+    expect(ActiveJob::Base.queue_adapter.enqueued_jobs.any? {|queue| queue[:job] == WarnInterestedJob}).to be(true)
   end
 end

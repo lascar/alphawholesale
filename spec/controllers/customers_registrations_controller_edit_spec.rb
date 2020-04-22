@@ -51,7 +51,7 @@ RSpec.describe Customers::RegistrationsController, type: :controller do
     end
 
     # TEST as a logged customer
-    # TEST when the customer is 
+    # TEST when the customer is
     # TEST then the customer's page is returned
     # TEST and a message of unauthorized is send
     describe "as a logged customer asking for editing the registration

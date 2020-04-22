@@ -24,7 +24,7 @@ RSpec.describe "Orders Feature", type: :feature do
                                 customer_id: customer1.id)}
 
   describe "GET #index" do
-    # TEST as a logged customer 
+    # TEST as a logged customer
     # TEST when the list of orders is asked for
     # TEST then all the customer's orders are assigned
     # TEST and it renders the index
@@ -44,7 +44,7 @@ RSpec.describe "Orders Feature", type: :feature do
       end
     end
 
-    # TEST as a logged supplier 
+    # TEST as a logged supplier
     # TEST when the list of orders is asked for
     # TEST then all the orders approved that are from an this supplier's offer
     # TEST are listed

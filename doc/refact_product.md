@@ -3,7 +3,7 @@
 ## goal
 
 We want to isolate products, varieties, aspects, packagings and attached products
- for be able to provide a service 'ProductsService' backed with mongodb 
+ for be able to provide a service 'ProductsService' backed with mongodb
  (witch suits well with embedded documents, 1-n relations...)
 
 ## constraints to achieve the goal

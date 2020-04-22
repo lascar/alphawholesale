@@ -23,17 +23,17 @@ RSpec.describe Offer, :type => :model do
 
   it 'does not queue the job "WarnInterestedJob" if update and not approved' do
     @offer1.update(incoterm: 'EXW')
-    expect(ActiveJob::Base.queue_adapter.enqueued_jobs.any? {|queue| queue[:job] == WarnInterestedJob}).to be(false) 
+    expect(ActiveJob::Base.queue_adapter.enqueued_jobs.any? {|queue| queue[:job] == WarnInterestedJob}).to be(false)
   end
 
   it 'does queue the job "SendSupplierOfferApprovalJob" on approved' do
     @offer1.update(approved: true)
-    expect(ActiveJob::Base.queue_adapter.enqueued_jobs.any? {|queue| queue[:job] == SendSupplierOfferApprovalJob}).to be(true) 
+    expect(ActiveJob::Base.queue_adapter.enqueued_jobs.any? {|queue| queue[:job] == SendSupplierOfferApprovalJob}).to be(true)
   end
 
   it 'queues the job "WarnInterestedJob" if update and approved' do
     @offer1.update(incoterm: 'EXW')
-    expect(ActiveJob::Base.queue_adapter.enqueued_jobs.any? {|queue| queue[:job] == WarnInterestedJob}).to be(true) 
+    expect(ActiveJob::Base.queue_adapter.enqueued_jobs.any? {|queue| queue[:job] == WarnInterestedJob}).to be(true)
   end
 
 end

@@ -10,7 +10,7 @@ RSpec.describe OffersController, type: :controller do
 
   describe "GET #new" do
     # TEST as a guest user
-    # TEST when offer is asked for new 
+    # TEST when offer is asked for new
     # TEST then 404 is returned
     describe "as guest user" do
 			it "does not routes get /offers/new to offers#new" do

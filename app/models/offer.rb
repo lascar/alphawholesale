@@ -6,7 +6,7 @@ class Offer < ApplicationRecord
   validates :concrete_product, presence: true
   after_commit :send_offer_approval_if_approved
   after_update :warn_interested
- 
+
   def currency
     supplier.currency
   end
