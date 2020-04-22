@@ -70,8 +70,8 @@ namespace :products do
         concrete_product = ConcreteProduct.find_or_create_by(
           product: product.name, variety: varieties_keys[index], aspect: aspects_keys[index],
           packaging: packagings_keys[index], size: sizes_keys[index], caliber: calibers_keys[index])
-        supplier.concrete_products << concrete_product
-        customer.concrete_products << concrete_product
+        supplier.concrete_products << concrete_product unless supplier.concrete_products.include? (concrete_product)
+        customer.concrete_products << concrete_product unless customer.concrete_products.include? (concrete_product)
       end
     end
     concrete_product1 = ConcreteProduct.first
