@@ -1,6 +1,6 @@
 # TODO
 
-- active mail for acceptation
+- action mailbox for acceptation
 
 - separate supplier and customer on offer, request and response
 
