@@ -1,16 +1,11 @@
 # TODO
 
-- separate supplier and customer on offer, order and request
-
-- response to request for supplier
+- separate supplier and customer on offer, request and response
 
 - admin interface
-
-- test mail on approved
-
-- test mail on update
 
 - eliminate path_for with routes restructuring
 
 - possibility to fix % fee up to supplier
 
+- actualize docker

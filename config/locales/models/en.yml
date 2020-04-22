@@ -46,6 +46,12 @@ en:
       one: "Request"
       other: "Requests"
       show: "Show request"
+    response:
+      name: "Response"
+      zero: "No Response"
+      one: "Response"
+      other: "Responses"
+      show: "Show response"
     concrete_product:
       name: 'Concrete Product'
       attributes:
@@ -164,6 +170,26 @@ en:
         packaging_name: "Packaging"
         size_name: "Size"
         caliber_name: "Caliber"
+        approved: "approved"
+      response:
+        supplier: "Supplier"
+        concrete_product: "Concrete Product"
+        quantity: "Quantity"
+        observation: "Supplier Observation"
+        approved: "approved"
+        date_start: "Date Start"
+        date_end: "Date End"
+        product_name: "Product"
+        variety_name: "Variety"
+        aspect_name: "Aspect"
+        packaging_name: "Packaging"
+        size_name: "Size"
+        caliber_name: "Caliber"
+        unit_price_supplier: "Unit price"
+        unit_price_broker: "Unit price"
+        localisation_supplier: "Stock Localisation Supplier"
+        localisation_broker: "Stock Localisation"
+        incoterm: "INCOTERM"
         approved: "approved"
   activerecord:
     models:

@@ -4,18 +4,24 @@
 
 For wholesale online.
 
-A Broker is as a man on the middle; everything occurs with his approval.
+A Broker is as the man in the middle; everything occurs with his approval.
 
-A Supplier can place an offer or a response on a request (todo).
+A Supplier can place an offer or a response on a request.
 
-A Customer can command on an offer, or make a request (todo).
+A Customer can command on an offer, or make a request.
 
-A Complete Product can have a size, an aspect, a packaging, a size or a calibre.
+A Complete Product can vary depending on variety, aspect, packaging, size or caliber.
 
 An Offer and an Order have a complete product.
 
-An Offer has a price for supplier and a price for customer; in the middle... the broker
-(idem for location).
+An Offer has a price for the supplier and a price for the customer;
+in the middle... the broker (idem for location).
+
+The broker has to approve to everything: supplier, customer, offer, order, request or response
+In every approval a mail is sent to the address of the concerned supplier or customer.
+
+In every approved or updated once approved movement (offer, order...) the interrested suppliers or customers
+are mailed to warn them that a change has occurred.
 
 * Ruby version
 ruby 2.6.3
@@ -25,16 +31,19 @@ rails 6.0.2.2
 
 * Database
 postgresql
-Redis server 5.0.5 (https://www.hugeserver.com/kb/install-redis-4-debian-9-stretch/ for install on debian)
+
+Redis server 5.0.5
+(https://www.hugeserver.com/kb/install-redis-4-debian-9-stretch/ for install on debian)
 
 ## UPGRADE TO RAILS 6
 
-It was write in rails 5.2 and used 'delayed_job_active_record' but now it use sidekiq because of the problems with this gem
+It was written in rails 5.2 and used 'delayed_job_active_record' but now it uses
+rails 6 and sidekiq because of the problems with this gem with rails 6.
 
-It use rspec 4 because the 3 has given problems too
+It uses rspec 4 because the 3 has given problems too
 
 
-## INSTALATION IN DEVELOPMENT
+## INSTALLATION IN DEVELOPMENT
 
 * For your config/database.yml the db user, password and database must be
 informed in secret.yml.enc (see SECRET_YML_ENC_EXAMPLE.md)
@@ -43,25 +52,26 @@ informed in secret.yml.enc (see SECRET_YML_ENC_EXAMPLE.md)
 bundle exec rails db:seed &&  bundle exec rails products:make_products &&
 bundle exec rails products:make_examples</code>
 
-* For use of the webpack server in dev you have to run in a console apart
+* For the use of the webpack server in dev you have to run in a console apart
 <code>./bin/webpack-dev-server</code>.
 
 You will obtain 3 users (broker1, supplier1, customer1, password 'password83')
 and a list of 3 fake products (with each 3 varieties, packagings, sizes and calibers
-+ each subcategory an undefined) , 4 concrete products, 2 offers and 1 order.
++ in each subcategory one 'undefined') , 4 concrete products, 2 offers, 1 order,
+2 requests and 1 response.
 
 The products are based on 'config/locales/products/en.yml' (<code>rake nb:make_products</code>).
 
 Redis must run and you have to run <code>bundle exec sidekiq -C config/sidekiq.yml</code>
-if you want the jobs to run.
+if you want the jobs to run and the mails to be sent.
 
 If you want to add a product, simply add it in the file (product, variety, aspect and/or packaging);
 the tasks and the seeds are idempotent, no problem.
 
-So you can login as customer or supplier, do not forget to attach product and
+So you can login as a customer or a supplier, do not forget to attach product and
 create a concrete product before doing an offer or order.
 
-You can login as broker at /brokers/sign_in and approve the offer or the order
+You can login as a broker at /brokers/sign_in and approve the offer or the order
 
 ## RESILIENT NATURE
 
@@ -70,14 +80,12 @@ No inference are made (we try...) upon the media employed by the user
 
 Bootstrap 4 is amazing (thanks to the flexboxes) at that.
 
-Javascript is use only for the client's comfort, if javascript is not activated,
-the application still works!
+If javascript is not activated, the application still works! It must no be a
+essential part for the functionment.
 
 ## [TODO](TODO.md)
 
 ## DOCKER
-
-Todo actualize docker
 
 The application is 'dokerized'. It is using docker-compose.
 
@@ -129,7 +137,8 @@ It is too a wip.
 
 I use reek allthrough I am not so strict.
 
-And bullet to try to get ride of misuse of activerecord.
+And bullet to try to get ride of misuse of activerecord (in particular the uggly
+sql n + 1).
 
 ## FRONT END WITH WEBPACK
 
@@ -149,9 +158,8 @@ It use sidekiq
 
 When a supplier or a customer is approved, an email is send to him.
 
-When an offer is approved or update, an email is send to all interested customers.
-
-When an order is approved or update, an email is send to all interested suppliers.
+When an offer, an order, a request or a response is approved or updated,
+an email is send to all interested customers or suppliers.
 
 All the mail config is expect in config/credentials.yml
 

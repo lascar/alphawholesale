@@ -101,6 +101,32 @@ en:
       destroy: 'Destroy request'
       new_concrete_product: "New concrete product for product %{product}"
       concrete_product_not_in_list: "create first an appropriate concrete product if you can see it in the list"
+    responses:
+      names: 'Responses'
+      product_name: 'Product name'
+      variety_name: 'Variety name'
+      aspect_name: 'Aspect name'
+      packaging_name: 'Packaging name'
+      size_name: 'Size name'
+      caliber_name: 'Caliber name'
+      quantity: 'Quantity'
+      unit_price_supplier: 'Unit price supplier'
+      unit_price_broker: 'Unit price broker'
+      incoterm: 'Incoterm'
+      localisation_broker: 'Localisation broker'
+      localisation_supplier: 'Localisation supplier'
+      approved: 'approved'
+      supplier_observation: "Supplier's observation"
+      customer_observation: "Customer's observation"
+      customer: "Customer"
+      index: 'List of responses'
+      show: 'Show response'
+      new: 'New response'
+      create: 'Create response'
+      edit: 'Edit response'
+      update: 'Update response'
+      destroy: 'Destroy response'
+      no_direct_new: 'Responses are created from an offer only'
     brokers:
       name: 'Broker'
       names: 'Brokers'

@@ -63,6 +63,25 @@ class UserMailer < ApplicationMailer
     mail(to: customer.email, subject: I18n.t('mails.request_approval.subject'))
   end
 
+  def response_approval
+    response = params[:response]
+    supplier = response.supplier
+    @product = response.product_name
+    @variety = response.variety_name
+    @aspect = response.aspect_name
+    @packaging = response.packaging_name
+    @size = response.size_name
+    @caliber = response.caliber_name
+    @quantity = response.quantity
+    @unit_price_supplier = response.unit_price_supplier
+    @localisation_supplier = response.localisation_supplier
+    @incoterm = response.incoterm
+    @supplier_observation = response.supplier_observation
+    @customer_observation = response.customer_observation
+    @url  = "#{root_url}/suppliers/#{supplier.id.to_s}/responses/#{response.id.to_s}"
+    mail(to: supplier.email, subject: I18n.t('mails.response_approval.subject'))
+  end
+
   def object_update
     user = params[:user]
     object = params[:object]

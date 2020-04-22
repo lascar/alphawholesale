@@ -44,3 +44,7 @@ en:
       successfully_created: "Request was successfully created."
       successfully_updated: "Request was successfully updated."
       successfully_destroyed: "Request was successfully destroyed."
+    responses:
+      successfully_created: "Response was successfully created."
+      successfully_updated: "Response was successfully updated."
+      successfully_destroyed: "Response was successfully destroyed."

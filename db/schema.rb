@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_10_095625) do
+ActiveRecord::Schema.define(version: 2020_04_20_102030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -121,6 +121,25 @@ ActiveRecord::Schema.define(version: 2020_04_10_095625) do
     t.index ["customer_id"], name: "index_requests_on_customer_id"
   end
 
+  create_table "responses", force: :cascade do |t|
+    t.bigint "supplier_id", null: false
+    t.bigint "concrete_product_id", null: false
+    t.bigint "request_id", null: false
+    t.integer "quantity"
+    t.decimal "unit_price_supplier", precision: 8, scale: 2, default: "0.0", null: false
+    t.decimal "unit_price_broker", precision: 8, scale: 2, default: "0.0", null: false
+    t.string "localisation_supplier"
+    t.string "localisation_broker"
+    t.string "incoterm"
+    t.text "supplier_observation"
+    t.boolean "approved", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["concrete_product_id"], name: "index_responses_on_concrete_product_id"
+    t.index ["request_id"], name: "index_responses_on_request_id"
+    t.index ["supplier_id"], name: "index_responses_on_supplier_id"
+  end
+
   create_table "suppliers", force: :cascade do |t|
     t.string "entreprise_name"
     t.string "email"
@@ -170,5 +189,8 @@ ActiveRecord::Schema.define(version: 2020_04_10_095625) do
   end
 
   add_foreign_key "requests", "customers"
+  add_foreign_key "responses", "concrete_products"
+  add_foreign_key "responses", "requests"
+  add_foreign_key "responses", "suppliers"
   add_foreign_key "user_products", "products"
 end

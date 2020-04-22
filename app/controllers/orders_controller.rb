@@ -51,8 +51,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     authorize @order
-    @order.customer_id = customer_signed_in? ? current_customer.id :
-      order_params['customer_id']
+    @order.customer_id = current_customer.id
     if @order.save
       flash[:notice] = I18n.t('controllers.orders.successfully_created')
       redirect_to path_for(user: @user, path: 'order', options: {object_id: @order.id})
@@ -90,7 +89,7 @@ class OrdersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def order_params
-    base = [:customer_id, :offer_id, :quantity, :customer_observation]
+    base = [:offer_id, :quantity, :customer_observation]
     params.require(:order).permit(base)
   end
 

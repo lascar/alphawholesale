@@ -4,6 +4,7 @@ class Supplier < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable
   has_many :offers
+  has_many :responses
   has_many :user_concrete_products, as: :user, dependent: :delete_all
   has_many :concrete_products, through: :user_concrete_products
   has_many :user_products, as: :user, dependent: :delete_all

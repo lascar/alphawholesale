@@ -48,9 +48,9 @@
     <%= link_to t("views.offers.index"), path_for(user: @user, path: "offers"),
         class: "btn btn-primary btn-sm" %>
   </div>
-  <div class="col-2">
+  <div class="col-1">
   </div>
-  <div class="card col-5">
+  <div class="card col-6">
     <div class="card-header text-center text-uppercase">
       <%= t("views.orders.names") + t("views.with_count", count: @orders.count) %> :
     </div>
@@ -73,6 +73,19 @@
     </div>
     <br>
     <%= link_to t("views.requests.index"), path_for(user: @user, path: "requests"),
+        class: "btn btn-primary btn-sm" %>
+  </div>
+  <div class="col-1">
+  </div>
+  <div class="card col-5">
+    <div class="card-header text-center text-uppercase">
+      <%= t("views.responses.names") + t("views.with_count", count: @responses.count) %> :
+    </div>
+    <div class="card-body">
+      <%= render "shared/responses_for_user" %>
+    </div>
+    <br>
+    <%= link_to t("views.responses.index"), path_for(user: @user, path: "responses"),
         class: "btn btn-primary btn-sm" %>
   </div>
 </div>

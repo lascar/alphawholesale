@@ -7,6 +7,8 @@ RSpec.describe BrokersController, type: :controller do
                                   email: "broker2@test.com")}
   let(:customer1) {create(:customer)}
   let(:supplier1) {create(:supplier)}
+  let!(:offer1) {create(:offer, date_start: Time.now, date_end: Time.now + 5.days)}
+  let!(:order1) {create(:order, offer: offer1)}
 
   describe "GET #show" do
 
@@ -73,6 +75,10 @@ RSpec.describe BrokersController, type: :controller do
     # TEST and the show template is rendered
     describe "as a logged broker asking for his page" do
       before :each do
+        supplier1.approved = false
+        supplier1.save
+        customer1.approved = false
+        customer1.save
         sign_in(broker1)
         get :show, params: {id: broker1.to_param}
       end
@@ -85,8 +91,8 @@ RSpec.describe BrokersController, type: :controller do
         expect(assigns(:broker)).to eq(broker1)
         expect(assigns(:suppliers_without_approved)).to eq(Supplier.with_approved(false))
         expect(assigns(:customers_without_approved)).to eq(Customer.with_approved(false))
-        expect(assigns(:offers_without_approved)).to eq(Offer.where(approved: false ))
-        expect(assigns(:orders_without_approved)).to eq(Order.where(approved: false))
+        expect(assigns(:offers_without_approved).count).to eq(1)
+        expect(assigns(:orders_without_approved).count).to eq(1)
         expect(response).to render_template(:show)
       end
     end

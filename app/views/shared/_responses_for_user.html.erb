@@ -1,0 +1,59 @@
+<table class="table table-responsive table-hover table-all">
+  <thead>
+    <tr>
+      <th scope="col" class="text-truncate"
+                      title="<%= t('views.responses.product_name') %>">
+        <%= t("views.responses.product_name") %>
+      </th>
+      <th scope="col" class="text-truncate"
+                      title="<%= t('views.responses.quantity') %>">
+        <%= t("views.responses.quantity") %>
+      </th>
+      <% unless customer_signed_in? %>
+        <th scope="col" class="text-truncate"
+                        title="<%= t('views.responses.unit_price_supplier') %>">
+          <%= t("views.responses.unit_price_supplier") %>
+        </th>
+      <% end %>
+      <% unless supplier_signed_in? %>
+        <th scope="col" class="text-truncate"
+                title="<%= t('views.responses.unit_price_broker') %>">
+          <%= t("views.responses.unit_price_broker") %>
+        </th>
+      <% end %>
+      <th scope="col" colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @responses.each do |response| %>
+      <% product_name = response.product_name %>
+      <tr>
+        <td class="text-truncate"
+            title="<%= t('views.responses.product_name') + ' ' +
+              t('products.' + product_name + '.name') %>">
+          <%= t('products.' + product_name + ".name") %>
+        </td>
+        <td class="text-truncate" title="<%= t('views.responses.quantity') +
+                                               ' : ' + response.quantity.to_s %>">
+          <%= response.quantity.to_s + " " + response.unit_type %>
+        </td>
+        <% unless customer_signed_in? %>
+          <td class="text-truncate" title="<%= t('views.responses.unit_price_supplier') +
+            ' : ' + response.unit_price_supplier.to_s %>">
+            <%= response.unit_price_supplier.to_s  + " " + response.supplier.currency %>
+          </td>
+        <% end %>
+        <% unless supplier_signed_in? %>
+          <td class="text-truncate" title="<%= response.unit_price_broker %>">
+            <%= response.unit_price_broker.to_s  + " " + response.supplier.currency %>
+          </td>
+        <% end %>
+        <td>
+          <%= link_to icon('fas', 'fa-eye'), path_for(user: current_user, path: "response",
+                       options: {object_id: response.id}), title: t("views.responses.show") %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

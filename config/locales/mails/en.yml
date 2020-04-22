@@ -63,6 +63,24 @@ en:
       approved: 'has been approved'
       follow_url: "You can see it at %{url}"
       thanks: 'Thanks for requesting and have a great day'
+    response_approval:
+      subject: 'An response approved'
+      title: 'An response approved'
+      response_detail: 'This response'
+      product: "with product : "
+      variety: "with variety : "
+      aspect: "with aspect : "
+      packaging: "with packaging : "
+      size: "with size : "
+      caliber: "with caliber : "
+      quantity: "with quantity : %{quantity}"
+      unit_price_supplier: "with unit_price_supplier : %{unit_price_supplier}"
+      localisation_supplier: "with localisation_supplier : %{localisation_supplier}"
+      incoterm: "with incoterm : %{incoterm}"
+      customer_observation: "with customer_observation : %{customer_observation}"
+      approved: 'has been approved'
+      follow_url: "You can see it at %{url}"
+      thanks: 'Thanks for responding and have a great day'
     offer_update:
       subject: 'An offer that may be of your interest'
       title: 'An offer that may be of your interest'

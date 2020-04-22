@@ -1,0 +1,23 @@
+<%= t("mails.response_approval.title") %>
+===============================================
+
+<%= t("mails.response_approval.response_detail") %>:
+<%= t("mails.response_approval.product") %> <%= t("products." + @product + ".name") %>.
+<%= t("mails.response_approval.variety") %> <%= t("products." + @product + ".varieties." + @variety) %>.
+<%= t("mails.response_approval.aspect") %> <%= t("products." + @product + ".aspects." + @aspect) %>.
+<%= t("mails.response_approval.packaging") %> <%= t("products." + @product + ".packagings." + @packaging) %>.
+<%= t("mails.response_approval.size") %> <%= t("products." + @product + ".sizes." + @size) %>.
+<%= t("mails.response_approval.caliber") %> <%= t("products." + @product + ".calibers." + @caliber) %>.
+
+<%= t("mails.response_approval.quantity", quantity: @quantity) %>.
+<%= t("mails.response_approval.unit_price_supplier", unit_price_supplier: @unit_price_supplier) %>.
+<%= t("mails.response_approval.localisation_supplier", localisation_supplier: @localisation_supplier) %>.
+<%= t("mails.response_approval.incoterm", incoterm: @incoterm) %>.
+<%= t("mails.response_approval.customer_observation", customer_observation: @customer_observation) %>.
+<%= t("mails.response_approval.supplier_observation", supplier_observation: @supplier_observation) %>.
+
+
+<%= t("mails.response_approval.approved") %>.
+<%= t("mails.response_approval.follow_url", url: @url) %>.
+
+<%= t("mails.response_approval.thanks") %>!

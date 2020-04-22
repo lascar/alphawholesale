@@ -79,6 +79,22 @@ module ApplicationHelper
     "/#{options[:pre]}#{options[:post]}requests/#{options[:object_id].to_s}/edit"
   end
 
+  path_responses = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}responses/"
+  end
+
+  path_response = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}responses/#{options[:object_id].to_s}"
+  end
+
+  path_new_response = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}responses/new?request_id=#{options[:object_id]}"
+  end
+
+  path_edit_response = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}responses/#{options[:object_id].to_s}/edit"
+  end
+
   path_user_products = -> (options:) do
     "/#{options[:post]}user_products/"
   end
@@ -143,6 +159,10 @@ module ApplicationHelper
     path_for_order: path_order,
     path_for_new_order: path_new_order,
     path_for_edit_order: path_edit_order,
+    path_for_responses: path_responses,
+    path_for_response: path_response,
+    path_for_new_response: path_new_response,
+    path_for_edit_response: path_edit_response,
     path_for_requests: path_requests,
     path_for_request: path_request,
     path_for_new_request: path_new_request,

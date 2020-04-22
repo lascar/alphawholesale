@@ -13,10 +13,10 @@ class BrokersController < ApplicationController
     authorize @broker
     @suppliers_without_approved = Supplier.with_approved(false)
     @customers_without_approved = Customer.with_approved(false)
-    @offers_without_approved = Offer.where(approved: false).
-      select{|o| o.date_end >= Time.now}
-    @orders_without_approved = Order.where(approved: false)
-    @requests_without_approved = Request.where(approved: false)
+    @offers_without_approved = Offer.where(approved: false).not_expired
+    @orders_without_approved = Order.where(approved: false).not_expired
+    @requests_without_approved = Request.where(approved: false).not_expired
+    @responses_without_approved = Response.where(approved: false).not_expired
   end
 
   # GET /brokers/new

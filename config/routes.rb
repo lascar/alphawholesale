@@ -34,12 +34,14 @@ Rails.application.routes.draw do
       resources :offers, controller: 'broker_offers'
       resources :orders, controller: 'broker_orders'
       resources :requests, controller: 'broker_requests'
+      resources :responses, controller: 'broker_responses'
       resources :customers, concerns: [:concrete_productable, :user_productable] do
         resources :orders, controller: 'broker_orders'
         resources :requests, controller: 'broker_requests'
       end
       resources :suppliers, concerns: [:concrete_productable, :user_productable] do
         resources :offers, controller: 'broker_offers'
+        resources :responses, controller: 'broker_responses'
       end
       resources :brokers
     end
@@ -52,6 +54,7 @@ Rails.application.routes.draw do
       resources :offers
       resources :orders, only: [:index, :show]
       resources :requests, only: [:index, :show]
+      resources :responses
     end
   end
 
@@ -60,6 +63,7 @@ Rails.application.routes.draw do
       resources :offers, only: [:index, :show]
       resources :orders
       resources :requests
+      resources :responses, only: [:index, :show]
     end
   end
   match "/(*url)", to: 'welcome#routing_error', via: :all

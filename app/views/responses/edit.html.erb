@@ -1,0 +1,10 @@
+<h1><%= t("views.responses.edit") %></h1>
+
+<% @edit = true %>
+<%= render 'form', response: @response, supplier_id: @supplier_id %>
+
+<%= link_to t("views.responses.show"), path_for(user: @user, path: "response",
+  options: {object_id: @response.id}), class: "btn btn-secondary",
+  title: t("views.responses.show") %>
+<%= link_to t("views.responses.index"), path_for(user: @user, path: "responses"),
+  class: "btn btn-secondary" %>

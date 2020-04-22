@@ -1,6 +1,7 @@
 class Request < ApplicationRecord
   include HasConcreteProductConcern
   belongs_to :customer
+  has_many :responses
   validates :customer, presence: true
   validates :concrete_product, presence: true
   after_commit :send_offer_approval_if_approved

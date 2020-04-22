@@ -12,10 +12,14 @@ class SuppliersController < ApplicationController
   # GET /suppliers/1
   def show
     authorize @supplier
-    @offers = @supplier.offers.includes(:orders, :concrete_product)
-    @orders = @offers.map{|offer| offer.orders}.compact.flatten
     @concrete_products = @supplier.concrete_products
     @user_products = @supplier.products
+    @offers = @supplier.offers.includes(:orders, :concrete_product).
+      where(approved: true).not_expired
+    @orders = @offers.map{|offer| offer.orders.where(approved: true)}.compact.flatten
+    @requests = Request.not_expired.where(approved: true).includes( :concrete_product).
+      where(concrete_products: { product: @user_products.pluck(:name)})
+    @responses = @supplier.responses.not_expired
   end
 
   # GET /suppliers/new

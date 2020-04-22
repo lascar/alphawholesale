@@ -256,6 +256,62 @@
         <%= link_to t("views.requests.index"), path_for(path: "requests") %>
       </div>
     </div>
+    <div class="col-7">
+      <div class="card">
+        <table class="table-bordered table-hover table-sm table-all table-broker">
+          <caption>
+            <%= t('views.brokers.responses_not_approved') %>
+          </caption>
+          <thead>
+            <tr>
+              <th><div class="cell-resumen">
+                <%= t("views.responses.product_name") %>
+              </div></th>
+              <th><div class="cell-resumen">
+                <%= t("views.responses.quantity") %>
+              </div></th>
+              <th><div class="cell-resumen">
+                <%= t("views.responses.unit_price_supplier") %>
+              </div></th>
+              <th class="table-icons" colspan="3"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @responses_without_approved.each do |response| %>
+              <tr>
+                <td><div class="cell-resumen">
+                  <%= response.product_name + " " +
+                   (response.variety_name ? response.variety_name : "") %>
+                  <%= response.product_name %>
+                </div></td>
+                <td><div class="cell-resumen">
+                  <%= response.quantity.to_s + " " + response.unit_type %>
+                </div></td>
+                <td><div class="cell-resumen">
+                  <%= response.unit_price_supplier.to_s + " " + t("currencies." + response.currency + ".symbol") %>
+                </div></td>
+                <td>
+                  <%= link_to icon('fas', 'fa-eye'), path_for(path: 'response',
+                    options: {object_id: response.id}), title: t("views.responses.show") %>
+                </td>
+                <td>
+                  <%= link_to icon('fas', 'fa-edit'), path_for(path: 'edit_response',
+                    options: {object_id: response.id}), title: t("views.responses.edit") %>
+                </td>
+                <td>
+                  <%= link_to icon('fas', 'fa-trash'), path_for(path: 'response',
+                    options: {object_id: response.id}), title: t("views.responses.destroy"),
+                    method: :delete, data: { confirm: t("views.are_you_sure") } %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= link_to t("views.responses.new"), path_for(path: "new_response") %>
+        <br>
+        <%= link_to t("views.responses.index"), path_for(path: "responses") %>
+      </div>
+    </div>
   </div>
 </div>
 <br>

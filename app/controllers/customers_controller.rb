@@ -20,6 +20,11 @@ class CustomersController < ApplicationController
       where(concrete_products: { product: products })
     @offers = Offer.where(approved: true).select{|o| o.date_end >= Time.now}
     @user_products = @customer.products
+    @requests = Request.not_expired.where(approved: true).includes( :concrete_product).
+      where(concrete_products: { product: @user_products.pluck(:name)})
+    @requests = @customer.requests.not_expired
+    @responses = Response.not_expired.where(approved: true).includes( :concrete_product).
+      where(request_id: @request.pluck(:id))
   end
 
   # GET /customers/new
