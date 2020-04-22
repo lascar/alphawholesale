@@ -1,5 +1,7 @@
 # TODO
 
+- active mail for acceptation
+
 - separate supplier and customer on offer, request and response
 
 - admin interface
