@@ -1,0 +1,6 @@
+<h1><%= t("views.responses.show") %></h1>
+
+<% @show = true %>
+<%= render 'form', response: @response, supplier_id: @supplier_id %>
+<%= link_to t("views.responses.index"), path_for(user: @user, path: "responses"),
+  class: "btn btn-secondary" %>

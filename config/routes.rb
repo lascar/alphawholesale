@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
   root 'welcome#home'
 
@@ -13,56 +14,57 @@ Rails.application.routes.draw do
     sessions: 'customers/sessions'
   }
 
-  concern :offertable do
-    resources :offers
+  resources :products, only: [:index, :show]
+  resources :offers, only: [:index, :show], constraints: {id: /[0-9]*/}
+  resources :requests, only: [:index, :show], constraints: {id: /[0-9]*/}
+
+  concern :concrete_productable do
+    resources :concrete_products, only: [:index, :new, :create, :destroy]
   end
 
-  concern :orderable do
-    resources :orders
+  concern :user_productable do
+    resources :user_products, only: [:index, :update]
   end
 
-  concern :tenderable do
-    resources :tenders
-    resources :tender_lines
-  end
-
-  concern :productable do
-    resources :products
-    resources :packagings
-    resources :aspects
-    resources :sizes
-    resources :varieties
-    get 'products/get_names', to: 'products#get_names', as: :products_get_names
-  end
-
-  resources :brokers
   authenticated :broker do
-    resources :offers
-    resources :packagings
-    resources :aspects
-    resources :sizes
-    resources :varieties
-    get 'products/get_names', to: 'products#get_names', as: :products_get_names
-    resources :products
-    resources :orders
-    resources :tenders
-    resources :tender_lines
+    resources :suppliers
+    resources :customers
+    resources :brokers, concerns: [:concrete_productable] do
+      resources :products, constraints: {id: /[0-9]*/}
+      resources :offers, controller: 'broker_offers'
+      resources :orders, controller: 'broker_orders'
+      resources :requests, controller: 'broker_requests'
+      resources :responses, controller: 'broker_responses'
+      resources :customers, concerns: [:concrete_productable, :user_productable] do
+        resources :orders, controller: 'broker_orders'
+        resources :requests, controller: 'broker_requests'
+      end
+      resources :suppliers, concerns: [:concrete_productable, :user_productable] do
+        resources :offers, controller: 'broker_offers'
+        resources :responses, controller: 'broker_responses'
+      end
+      resources :brokers
+    end
+    mount Sidekiq::Web => '/sidekiq'
   end
 
-  resources :suppliers, concerns: [:offertable, :orderable, :productable, :tenderable] do
-    member do
-      get 'attach_products', as: :attach_products
-      post 'attach_products_create', as: :attach_products_create
-      post 'detach_product', as: :detach_product
+  authenticated :supplier do
+    resources :suppliers, concerns: [:concrete_productable, :user_productable] do
+      resources :suppliers
+      resources :offers
+      resources :orders, only: [:index, :show]
+      resources :requests, only: [:index, :show]
+      resources :responses
     end
   end
 
-  resources :customers, concerns: [:offertable, :orderable, :tenderable, :productable] do
-    member do
-      get 'attach_products', as: :attach_products
-      post 'attach_products_create', as: :attach_products_create
-      post 'detach_product', as: :detach_product
+  authenticated :customer do
+    resources :customers, concerns: [:concrete_productable, :user_productable] do
+      resources :offers, only: [:index, :show]
+      resources :orders
+      resources :requests
+      resources :responses, only: [:index, :show]
     end
   end
-
+  match "/(*url)", to: 'welcome#routing_error', via: :all
 end

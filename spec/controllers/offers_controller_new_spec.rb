@@ -9,45 +9,25 @@ RSpec.describe OffersController, type: :controller do
   let!(:offer2) {create(:offer, supplier: supplier2)}
 
   describe "GET #new" do
-
     # TEST as a guest user
     # TEST when offer is asked for new
-    # TEST then the 'welcome' page is returned
-    # TEST and a message of unauthenticated is send
+    # TEST then 404 is returned
     describe "as guest user" do
-      before :each do
-        get :new
-      end
-
-      it "returns the root page" do
-        expect(response.redirect_url).to eq("http://test.host/")
-      end
-
-      it "returns a non authorized message" do
-        expect(flash.alert).to match(I18n.t(
-         'devise.failure.unauthenticated'))
-      end
+			it "does not routes get /offers/new to offers#new" do
+				expect{ get :new  }.
+         to raise_error(ActionController::UrlGenerationError)
+			end
     end
 
     # TEST as a logged customer
-    # TEST when offer is asked for new
-    # TEST then the customer's page is returned
-    # TEST and a message of unauthorized is send
-    describe "as a logged customer" do
-      before :each do
+    # TEST when offer is asked for creating
+    # TEST then 404 is returned
+    describe "as a customer" do
+			it "does not routes post /customers/1/offers to offers#create" do
         sign_in(customer1)
-        get :new
-      end
-
-      it "returns the customer's page" do
-        expect(response.redirect_url).to eq(
-         "http://test.host/customers/" + customer1.id.to_s)
-      end
-
-      it "returns a non authorized message" do
-        expect(flash.alert).to match(
-         I18n.t('devise.errors.messages.not_authorized'))
-      end
+				expect{ get :new, params: {customer_id: customer1.id} }.
+         to raise_error(ActionController::UrlGenerationError)
+			end
     end
   end
 end

@@ -2,36 +2,50 @@
 
 class Customers::RegistrationsController < Devise::RegistrationsController
   include Utilities
-  before_action :verify_permission_user
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   def new
+    if supplier_signed_in? or customer_signed_in?
+      raise Pundit::NotAuthorizedError
+    end
     @currencies, @unit_types = put_currencies_unit_types
     super
   end
 
   # POST /resource
   def create
+    if supplier_signed_in? or customer_signed_in?
+      raise Pundit::NotAuthorizedError
+    end
     @currencies, @unit_types = put_currencies_unit_types
     super
   end
 
   # GET /resource/edit
   def edit
+    if !current_customer.id == params[:id] or !broker_signed_in?
+      raise Pundit::NotAuthorizedError
+    end
     @currencies, @unit_types = put_currencies_unit_types
     super
   end
 
   # PUT /resource
   def update
+    if !current_customer.id == params[:id] or !broker_signed_in?
+      raise Pundit::NotAuthorizedError
+    end
     @currencies, @unit_types = put_currencies_unit_types
     super
   end
 
   # DELETE /resource
   def destroy
+    if !broker_signed_in?
+      raise Pundit::NotAuthorizedError
+    end
     super
   end
 

@@ -1,0 +1,21 @@
+<%= t("mails.request_approval.title") %>
+===============================================
+
+<%= t("mails.request_approval.request_detail") %>:
+<%= t("mails.request_approval.product") %> <%= t("products." + @product + ".name") %>.
+<%= t("mails.request_approval.variety") %> <%= t("products." + @product + ".varieties." + @variety) %>.
+<%= t("mails.request_approval.aspect") %> <%= t("products." + @product + ".aspects." + @aspect) %>.
+<%= t("mails.request_approval.packaging") %> <%= t("products." + @product + ".packagings." + @packaging) %>.
+<%= t("mails.request_approval.size") %> <%= t("products." + @product + ".sizes." + @size) %>.
+<%= t("mails.request_approval.caliber") %> <%= t("products." + @product + ".calibers." + @caliber) %>.
+
+<%= t("mails.request_approval.quantity", quantity: @quantity) %>.
+<%= t("mails.request_approval.customer_observation", customer_observation: @customer_observation) %>.
+<%= t("mails.request_approval.date_start", date_start: @date_start) %>.
+<%= t("mails.request_approval.date_end", date_end: @date_end) %>.
+
+
+<%= t("mails.request_approval.approved") %>.
+<%= t("mails.request_approval.follow_url", url: @url) %>.
+
+<%= t("mails.request_approval.thanks") %>!

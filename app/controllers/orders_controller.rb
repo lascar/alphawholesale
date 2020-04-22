@@ -1,87 +1,84 @@
 class OrdersController < ApplicationController
   include Utilities
-  include OrdersHelper
   before_action :authenticate_user!
-  before_action :verify_permission, except: [:show]
-  before_action only: [:show] do
-    verify_permission_nested_except_customer("offer")
-  end
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
   def index
-    if current_broker
-      orders = Order.with_approved(true).includes(:offer)
-    elsif customer_signed_in?
+    authorize :order, :index?
+    @orders = Order.includes(offer: [:concrete_product, :supplier])
+    if customer_signed_in?
       @customer_id = current_customer.id
-      orders = Order.where(customer_id: @customer_id).includes(:offer)
+      @orders = @orders.where(customer_id: @customer_id)
     elsif supplier_signed_in?
       @supplier_id = current_supplier.id
-      orders = Order.joins(:offer).where('offers.supplier_id = ?', @supplier_id).
-        with_approved(true).includes(:offer)
+      @orders = @orders.where('offers.supplier_id = ?', @supplier_id)
     end
-    @orders = map_orders_for_index(orders)
+    unless params[:expired_too]
+      @orders = @orders.not_expired
+    end
   end
 
   # GET /orders/1
   def show
+    authorize @order
+    @customer = @order.customer
+    @customers = [[@customer.identifier, @customer.id]]
     @offer = @order.offer
-    @customer_id = customer_signed_in? ? current_customer.id : params[:customer_id]
+    @incoterms = [@order.incoterm]
   end
 
   # GET /orders/new
   def new
-    customer_id = customer_signed_in? ? current_customer.id :
-     params['customer_id']
-    if broker_signed_in?
-      @customers = Customer.all.pluck(:identifier, :id)
-    end
     @offer = Offer.find(params[:offer_id])
-    @offer_nested = make_offer_nested(@offer)
-    @order = Order.new(customer_id: customer_id, offer_id: @offer.id)
+    @customer = current_customer
+    @customers = [[@customer.identifier, @customer.id]]
+    @order = Order.new(customer_id: @customer.id, offer_id: @offer.id)
+    authorize @order
+    @incoterms = [@order.incoterm]
   end
 
   # GET /orders/1/edit
   def edit
-    if broker_signed_in?
-      @customers = Customer.all.pluck(:identifier, :id)
-    end
-    @customer_id = @order.customer_id
-    @order.customer_id = @customer_id
+    authorize @order
+    @customer = @order.customer
+    @customers = [[@customer.identifier, @customer.id]]
     @offer = @order.offer
-    @offer_nested = make_offer_nested(@offer)
+    @incoterms = [@order.incoterm]
   end
 
   # POST /orders
   def create
     @order = Order.new(order_params)
-    @order.customer_id = customer_signed_in? ? current_customer.id :
-      order_params['customer_id']
+    authorize @order
+    @order.customer_id = current_customer.id
     if @order.save
       flash[:notice] = I18n.t('controllers.orders.successfully_created')
-      redirect_to order_show_path(@order)
+      redirect_to path_for(user: @user, path: 'order', options: {object_id: @order.id})
     else
       flash[:alert] = helper_activerecord_error_message('order', @order.errors.messages)
-      redirect_to order_new_path(order_params[:offer_id])
+      redirect_to path_for(user: @user, path: 'new_order', options: {object_id: order_params[:offer_id]})
     end
   end
 
   # PATCH/PUT /orders/1
   def update
+    authorize @order
     if @order.update(order_params)
       flash[:notice] = I18n.t('controllers.orders.successfully_updated')
-      redirect_to order_show_path
+      redirect_to path_for(user: @user, path: 'order', options: {object_id: @order.id})
     else
       flash[:alert] = helper_activerecord_error_message('order', @order.errors.messages)
-      redirect_to order_edit_path
+      redirect_to path_for(user: @user, path: 'edit_order', options: {object_id: @order.id})
     end
   end
 
   # DELETE /orders/1
   def destroy
+    authorize @order
     @order.destroy
     flash[:notice] = I18n.t('controllers.orders.successfully_destroyed')
-    redirect_to order_index_path
+    redirect_to path_for(user: @user, path: 'orders')
   end
 
   private
@@ -92,10 +89,7 @@ class OrdersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def order_params
-    base = [:customer_id, :offer_id, :quantity, :customer_observation]
-    if broker_signed_in?
-      base.push(:approved)
-    end
+    base = [:offer_id, :quantity, :customer_observation]
     params.require(:order).permit(base)
   end
 

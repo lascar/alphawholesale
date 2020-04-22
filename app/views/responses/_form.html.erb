@@ -1,0 +1,300 @@
+<%= form_with(model: response, url: path_for(user: current_user, path: "response", options: {object_id: response.id}),
+             local: true, id: "form_create_response") do |form| %>
+  <!-- SUPPLIER, LOCATION AND APPROVAL -->
+  <div class="card m-3">
+    <div class="card">
+      <div class="row p-1">
+        <div class="col-3">
+          <strong><%= t("views.responses.supplier") %></strong>
+          <%= form.select :supplier_id,
+               options_for_select(@suppliers, @supplier ? @supplier.id : nil),
+               {}, {disabled: (@show || !broker_signed_in?), class: "form-control-sm"} %>
+        </div>
+        <% if !customer_signed_in? %>
+          <div class="col-3">
+            <strong><%= t('views.responses.localisation_supplier') %>:</strong>
+            <%= form.text_field :localisation_supplier, disabled: @show,
+              class: "form-control-sm" %>&nbsp;
+          </div>
+        <% end %>
+        <% if !supplier_signed_in? %>
+          <div class="col-3">
+            <strong><%= t('views.responses.localisation_broker') %>:</strong>
+            <%= form.text_field :localisation_broker, disabled: @show,
+              class: "form-control-sm" %>&nbsp;
+          </div>
+        <% end %>
+        <div class="col-3">
+          <strong><%= t('views.responses.approved') %>:</strong>
+          <%= form.check_box :approved, class: "form-control-sm",
+            disabled: (@show || !broker_signed_in?) %>
+        </div>
+      </div>
+    </div>
+    <!-- END SUPPLIER, LOCATION AND APPROVAL -->
+
+    <% unless @new %>
+      <!-- CONCRETE PRODUCT -->
+      <div class="card">
+        <%= render "shared/table_concrete_product", object: @response %>
+      </div>
+      <!-- END CONCRETE PRODUCT -->
+    <% else %>
+      <!-- NEW CONCRETE PRODUCT -->
+      <div class="card" style="display:<%= @new == true ? 'block' : 'none' %>">
+        <div class="row p-1">
+          <%= hidden_field_tag "response[new_concrete_product[product]]", @product.name %>
+          <div class="col-4">
+            <%= radio_button_tag "response[concrete_product_id]", 0, true, autocomplete: :off %>
+            <%= form.label "response[concrete_product]",
+                t("views.responses.new_concrete_product", product: @product.name) %>
+          </div>
+          <div class="col-4">
+            <table class="table-all table-bordered table-responsive">
+              <thead>
+                <tr>
+                  <th><%= t('views.concrete_products.variety_name') %></th>
+                </tr>
+              </thead>
+              <tbody id="radios_varieties">
+                <% for variety in @product.varieties %>
+                  <tr>
+                    <td>
+                      <%= radio_button_tag "response[new_concrete_product[variety]]",
+                        variety, variety == "not_specified", autocomplete: :off %>
+                        <%= label_tag "response[new_concrete_product[variety][#{variety}]]",
+                          t("products.#{@product.name}.varieties.#{variety}") %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-4">
+            <table class="table-all table-bordered table-responsive">
+              <thead>
+                <tr>
+                  <th><%= t('views.concrete_products.aspect_name') %></th>
+                </tr>
+              </thead>
+              <tbody id="radios_aspects">
+                <% for aspect in @product.aspects %>
+                  <tr>
+                    <td>
+                      <%= radio_button_tag "response[new_concrete_product[aspect]]",
+                        aspect, aspect == "not_specified", autocomplete: :off %>
+                      <%= label_tag "response[new_concrete_product[aspect][#{aspect}]]",
+                          t("products.#{@product.name}.aspects.#{aspect}") %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-4">
+            <table class="table-all table-bordered table-responsive">
+              <thead>
+                <tr>
+                  <th><%= t('views.concrete_products.packaging_name') %></th>
+                </tr>
+              </thead>
+              <tbody id="radios_packagings">
+                <% for packaging in @product.packagings %>
+                  <tr>
+                    <td>
+                      <%= radio_button_tag "response[new_concrete_product[packaging]]",
+                        packaging, packaging == "not_specified", autocomplete: :off %>
+                      <%= label_tag "response[new_concrete_product[packaging][#{packaging}]]",
+                          t("products.#{@product.name}.packagings.#{packaging}") %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-4">
+            <table class="table-all table-bordered table-responsive">
+              <thead>
+                <tr>
+                  <th><%= t('views.concrete_products.size_name') %></th>
+                </tr>
+              </thead>
+              <tbody id="radios_sizes">
+                <% for size in @product.sizes %>
+                  <tr>
+                    <td>
+                      <%= radio_button_tag "response[new_concrete_product[size]]",
+                        size, size == "not_specified", autocomplete: :off %>
+                      <%= label_tag "response[new_concrete_product[size][#{size}]]",
+                          t("products.#{@product.name}.sizes.#{size}") %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-4">
+            <table class="table-all table-bordered table-responsive">
+              <thead>
+                <tr>
+                  <th><%= t('views.concrete_products.caliber_name') %></th>
+                </tr>
+              </thead>
+              <tbody id="radios_calibers">
+                <% for caliber in @product.calibers %>
+                  <tr>
+                    <td>
+                      <%= radio_button_tag "response[new_concrete_product[caliber]]",
+                        caliber, caliber == "not_specified", autocomplete: :off %>
+                      <%= label_tag "response[new_concrete_product[caliber][#{caliber}]]",
+                          t("products.#{@product.name}.calibers.#{caliber}") %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- END NEW CONCRETE PRODUCT -->
+
+      <!-- ATTACHED CONCRETE PRODUCTS -->
+      <div class="card attached_concrete_products"
+        style="display:<%= @new == true ? 'block' : 'none' %>">
+        <div class="row p-1">
+            <table class="table-all table-bordered table-responsive">
+              <thead>
+                <tr>
+                  <th colspan="1"></th>
+                  <th><%= t('views.concrete_products.product_name') %></th>
+                  <th><%= t('views.concrete_products.variety_name') %></th>
+                  <th><%= t('views.concrete_products.aspect_name') %></th>
+                  <th><%= t('views.concrete_products.packaging_name') %></th>
+                  <th><%= t('views.concrete_products.size_name') %></th>
+                  <th><%= t('views.concrete_products.caliber_name') %></th>
+                </tr>
+              </thead>
+              <tbody id="radios_concrete_products">
+                <% for concrete_product in @concrete_products %>
+                  <tr>
+                    <td>
+                      <%= radio_button_tag "response[concrete_product_id]",
+                        concrete_product.id, false, autocomplete: :off %>
+                    </td>
+                    <td>
+                      <%= t("products.#{@product.name}.name") %>
+                    </td>
+                    <td>
+                      <%= t("products.#{@product.name}.varieties.#{concrete_product.variety}") %>
+                    </td>
+                    <td>
+                      <%= t("products.#{@product.name}.aspects.#{concrete_product.aspect}") %>
+                    </td>
+                    <td>
+                      <%= t("products.#{@product.name}.packagings.#{concrete_product.packaging}") %>
+                    </td>
+                    <td>
+                      <%= t("products.#{@product.name}.sizes.#{concrete_product.size}") %>
+                    </td>
+                    <td>
+                      <%= t("products.#{@product.name}.calibers.#{concrete_product.caliber}") %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+        </div>
+      </div>
+      <!-- END ATTACHED CONCRETE PRODUCTS -->
+    <% end %>
+    <!-- PRICE -->
+    <div class="card">
+      <div class="row p-1">
+        <div class="col-3">
+          <strong><%= t("views.responses.quantity") %>:</strong>
+          <%== form.number_field :quantity, {disabled: @show, class: "form-control-sm"} %>&nbsp;
+          <%= @supplier ?  t("unit_types." + @supplier.unit_type + ".symbol") : '' %>
+        </div>
+        <% if !customer_signed_in? %>
+          <div class="col-3">
+            <strong><%= t("views.responses.unit_price_supplier") %>:</strong>
+            <%= form.number_field :unit_price_supplier,
+              {value: number_to_currency(form.object.unit_price_supplier.to_f,
+               delimiter: '', unit: ''), step: 0.01, disabled: @show,
+              class: "form-control-sm"} %>&nbsp;
+            <%= @supplier ? t("currencies." + @supplier.currency + ".symbol") : '' %>
+          </div>
+        <% end %>
+        <% if !supplier_signed_in? %>
+          <div class="col-3">
+            <strong><%= t('views.responses.unit_price_broker') %>:</strong>
+            <%= form.number_field :unit_price_broker,
+              {step: 0.01, disabled: @show, class: "form-control-sm",
+               value: number_to_currency(form.object.unit_price_broker.to_f,
+                                         delimiter: '', unit: '') }
+             %>&nbsp;
+            <%= @supplier ? t("currencies." + @supplier.currency + ".symbol") : '' %>
+          </div>
+        <% end %>
+        <div class="col-3">
+          <strong><%= t('views.responses.incoterm') %>:</strong>
+          <%= form.select :incoterm, options_for_select(@incoterms, @incoterm), {},
+            {disabled: @show, class: "form-control-sm"} %>
+        </div>
+      </div>
+    </div>
+    <!-- END PRICE -->
+
+    <!-- OBSERVATION -->
+    <div class="card">
+      <div class="row p-1">
+        <div class="col-2">
+          <strong><%= t('views.requests.customer_observation') %>:</strong>
+        </div>
+        <div class="col-10">
+          <%= text_area_tag "customer_observation",
+            response.request.customer_observation, disabled: true, rows: 4,
+              style: "width: 100%" %>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="row p-1">
+        <div class="col-2">
+          <strong><%= t('views.responses.supplier_observation') %>:</strong>
+        </div>
+        <div class="col-10">
+          <%= form.text_area :supplier_observation, disabled: @show, rows: 4,
+              style: "width: 100%" %>
+        </div>
+      </div>
+    </div>
+    <!-- END OBSERVATION -->
+
+    <!-- SUBMIT -->
+    <div class="actions" >
+      <% if @show %>
+        <% unless supplier_signed_in? %>
+          <%= link_to t("views.orders.new"),path_for(user: current_user,
+            path: "new_order", options: {object_id: @response.id}), method: :get,
+            class: "btn btn-primary" %> |
+        <% end %>
+        <% unless customer_signed_in? %>
+          <%= link_to t("views.responses.edit"), path_for(user: @user,
+              path: "edit_response", options: {object_id: response.id}),
+              class: "btn btn-primary", title: t("views.responses.edit") %>
+        <% end %>
+      <% else %>
+        <% action_string = action_name == 'new' ? t("views.responses.create") :
+          t("views.responses.update") %>
+        <%= form.submit action_string, class: "btn btn-primary", title: action_string %>
+      <% end %>
+    </div>
+    <!-- END SUBMIT -->
+  </div>
+
+<% end %>
+<%= link_to t("views.responses.index"), path_for(path: "responses"),
+  class: "btn btn-secondary", title: t("views.responses.index") %>

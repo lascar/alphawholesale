@@ -17,7 +17,9 @@
 /yarn-error.log
 
 .byebug_history
+.sass-cache
 
+*org
 *~
 *swp
 Session.vim
@@ -39,7 +41,9 @@ log-docker.log
 /config/master.key
 # environment variables for docker
 .env
+/public/assets/
 /public/packs-test
+/public/packs/
 /node_modules
 yarn-debug.log*
 .yarn-integrity
@@ -47,3 +51,4 @@ yarn-debug.log*
 /node_modules
 yarn-debug.log*
 .yarn-integrity
+/doc/rspec_failures*

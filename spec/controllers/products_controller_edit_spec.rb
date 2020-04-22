@@ -15,7 +15,7 @@ RSpec.describe ProductsController, type: :controller do
     # TEST and a message of unauthenticated is send
     describe "as guest user" do
       before :each do
-        get :edit, params: {id: product1.to_param}
+        get :edit, params: {broker_id: broker1.id, id: product1.to_param}
       end
 
       it "returns the root page" do
@@ -35,7 +35,7 @@ RSpec.describe ProductsController, type: :controller do
     describe "as a logged customer" do
       before :each do
         sign_in(customer1)
-        get :edit, params: {id: product1.to_param}
+        get :edit, params: {broker_id: broker1.id, id: product1.to_param}
       end
 
       it "returns the customer's page" do
@@ -50,13 +50,13 @@ RSpec.describe ProductsController, type: :controller do
     end
 
     # TEST as a logged supplier
-    # TEST when a product is asked for edit that is not owned
-    # TEST then the customer's page is returned
+    # TEST when a product is asked for edit
+    # TEST then the supplier's page is returned
     # TEST and a message of unauthorized is send
     describe "as a logged supplier" do
       before :each do
         sign_in(supplier1)
-        get :edit, params: {id: product1.to_param}
+        get :edit, params: {broker_id: broker1.id, id: product1.to_param}
       end
 
       it "returns the supplier's page" do
@@ -70,27 +70,6 @@ RSpec.describe ProductsController, type: :controller do
       end
     end
 
-    # TEST as a logged customer
-    # TEST when a product that he owns is asked for edit
-    # TEST then the asked product is assigned
-    # TEST then the product's edit page is rendered
-    describe "as a logged broker" do
-      before :each do
-        product1.supplier = supplier1
-        product1.save
-        sign_in(supplier1)
-        get :edit, params: {id: product1.to_param}
-      end
-
-      it "assigns the product" do
-        expect(assigns(:product)).to eq(product1)
-      end
-
-      it "render the edit template" do
-        expect(response).to render_template(:edit)
-      end
-    end
-
     # TEST as a logged broker
     # TEST when a product is asked for edit
     # TEST then the asked product is assigned
@@ -98,7 +77,7 @@ RSpec.describe ProductsController, type: :controller do
     describe "as a logged broker" do
       before :each do
         sign_in(broker1)
-        get :edit, params: {id: product1.to_param}
+        get :edit, params: {broker_id: broker1.id, id: product1.to_param}
       end
 
       it "assigns the product" do

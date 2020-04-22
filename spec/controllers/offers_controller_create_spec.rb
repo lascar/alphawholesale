@@ -2,48 +2,35 @@ require 'rails_helper'
 
 RSpec.describe OffersController, type: :controller do
   let(:customer1) {create(:customer)}
-  let(:supplier1) {create(:supplier)}
+  let(:supplier1) {create(:supplier); }
+  let(:concrete_product1) {create(:concrete_product, suppliers: [supplier1])}
   let(:supplier2) {create(:supplier)}
   let(:broker1) {create(:broker)}
   let(:product1) {create(:product)}
-  let!(:offer1) {create(:offer, supplier: supplier1)}
-  let!(:offer2) {create(:offer, supplier: supplier2)}
-  let(:offer_hash) {{ quantity: 1, unit_price_supplier: 1, product_id: product1.id}}
+  let!(:offer1) {create(:offer, supplier: supplier1, concrete_product: concrete_product1)}
+  let!(:offer2) {create(:offer, supplier: supplier2, concrete_product: concrete_product1)}
+  let(:offer_hash) {{ quantity: 1, unit_price_supplier: 1, supplier: supplier1, concrete_product_id: concrete_product1.id}}
 
   describe "POST #create" do
 
     # TEST as a guest user
     # TEST when offer is asked for creating
-    # TEST then the 'welcome' page is returned
-    # TEST and a message of unauthenticated is send
+    # TEST then 404 is returned
     describe "as guest user" do
-      before :each do
-        post :create, params: {offer: offer_hash}
-      end
-
-      context "when creating" do
-        it {is_expected.to redirect_to "http://test.host/"}
-        it {is_expected.to set_flash[:alert].to I18n.t(
-         'devise.failure.unauthenticated')}
-      end
+			it "does not routes post /offers to offers#create" do
+				expect{ post :create, params: {offer: offer_hash} }.
+         to raise_error(ActionController::UrlGenerationError)
+			end
     end
 
     # TEST as a logged customer
     # TEST when offer is asked for creating
-    # TEST then the customer's page is returned
-    # TEST and a message of unauthorized is send
-    describe "as a logged customer" do
-      before :each do
-        sign_in(customer1)
-        post :create, params: {offer: offer_hash}
-      end
-
-      context "when creating" do
-        it {is_expected.to redirect_to(
-         "http://test.host/customers/#{customer1.id.to_s}")}
-        it {is_expected.to set_flash[:alert].to I18n.t(
-         'devise.errors.messages.not_authorized')}
-      end
+    # TEST then 404 is returned
+    describe "as a customer" do
+			it "does not routes post /customers/1/offers to offers#create" do
+				expect{ post :create, params: {customer_id: customer1.id, offer: offer_hash} }.
+         to raise_error(ActionController::UrlGenerationError)
+			end
     end
 
     # TEST as a logged supplier
@@ -54,7 +41,7 @@ RSpec.describe OffersController, type: :controller do
     describe "as a logged supplier" do
       before :each do
         sign_in(supplier1)
-        post :create, params: {offer: offer_hash}
+        post :create, params: {supplier_id: supplier1.id, offer: offer_hash}
       end
 
       it "assigns a new offer" do
@@ -74,47 +61,6 @@ RSpec.describe OffersController, type: :controller do
         expect(response.redirect_url).to eq(
          "http://test.host/suppliers/" + offer.supplier_id.to_s +
          "/offers/" + offer.id.to_s)
-      end
-    end
-
-    # TEST as a logged broker
-    # TEST when offer is asked for creating without supplier
-    # TEST then the newly created offer is assigned
-    # TEST and suppliers is assigned
-    # TEST and the new template is rendered
-    describe "as a logged broker" do
-      before :each do
-        sign_in(broker1)
-        post :create, params: {offer: offer_hash}
-      end
-
-      it "assigns a new offer" do
-        expect(assigns(:offer).persisted?).to be(false)
-      end
-
-      it "renders the new template" do
-        expect(response.redirect_url).to eq("http://test.host/offers/new")
-      end
-    end
-
-    # TEST as a logged broker
-    # TEST when offer is asked for creating with supplier
-    # TEST then the newly created offer is assigned
-    # TEST and the new template is rendered
-    describe "as a logged broker" do
-      before :each do
-        sign_in(broker1)
-        offer_hash[:supplier_id] = supplier1.id
-        post :create, params: {offer: offer_hash}
-      end
-
-      it "assigns a new offer" do
-        expect(assigns(:offer).persisted?).to be(true)
-      end
-
-      it "redirect to the newly created offer" do
-        offer_id = assigns(:offer).id.to_s
-        expect(response.redirect_url).to eq("http://test.host/offers/" + offer_id)
       end
     end
   end

@@ -1,19 +1,211 @@
 module ApplicationHelper
-  include VarietiesHelper
-  # http://www.socialmemorycomplex.net/2007/09/16/text_field-and-currency-values/
-  def flag_icon(country_sym)
-      "<span class=\"flag-icon flag-icon-#{country_sym.to_s}\"></span>".html_safe
+  path_products = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}products"
   end
+
+  path_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}products/#{options[:object_id].to_s}"
+  end
+
+  path_new_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}products/new"
+  end
+
+  path_edit_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}products/#{options[:object_id].to_s}/edit"
+  end
+
+  path_concrete_products = -> (options:) do
+      "/#{options[:pre]}#{options[:post]}concrete_products"
+  end
+
+  path_concrete_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}concrete_products/#{options[:object_id].to_s}"
+  end
+
+  path_new_concrete_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}concrete_products/new"
+  end
+
+  path_edit_concrete_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}concrete_products/#{options[:object_id].to_s}/edit"
+  end
+
+  path_offers = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}offers/"
+  end
+
+  path_offer = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}offers/#{options[:object_id].to_s}"
+  end
+
+  path_new_offer = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}offers/new"
+  end
+
+  path_edit_offer = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}offers/#{options[:object_id].to_s}/edit"
+  end
+
+  path_orders = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}orders/"
+  end
+
+  path_order = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}orders/#{options[:object_id].to_s}"
+  end
+
+  path_new_order = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}orders/new?offer_id=#{options[:object_id]}"
+  end
+
+  path_edit_order = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}orders/#{options[:object_id].to_s}/edit"
+  end
+
+  path_requests = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}requests/"
+  end
+
+  path_request = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}requests/#{options[:object_id].to_s}"
+  end
+
+  path_new_request = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}requests/new"
+  end
+
+  path_edit_request = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}requests/#{options[:object_id].to_s}/edit"
+  end
+
+  path_responses = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}responses/"
+  end
+
+  path_response = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}responses/#{options[:object_id].to_s}"
+  end
+
+  path_new_response = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}responses/new?request_id=#{options[:object_id]}"
+  end
+
+  path_edit_response = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}responses/#{options[:object_id].to_s}/edit"
+  end
+
+  path_user_products = -> (options:) do
+    "/#{options[:post]}user_products/"
+  end
+
+  path_user_product = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}user_products/#{options[:object_id].to_s}"
+  end
+
+  path_new_user_product = -> (options:) do
+    "/#{options[:post]}user_products/new"
+  end
+
+  path_edit_user_product = -> (options:) do
+    "/#{options[:post]}user_products/#{options[:object_id].to_s}/edit"
+  end
+
+  path_users = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}"
+  end
+
+  path_user = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}"
+  end
+
+  path_new_user = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}new"
+  end
+
+  path_edit_user = -> (options:) do
+    "/#{options[:pre]}#{options[:post]}#{options[:object_id].to_s}/edit"
+  end
+
+  path_brokers = -> (options:) do
+    "/#{options[:post]}"
+  end
+
+  path_broker = -> (options:) do
+    "/#{options[:pre]}#{options[:object_id].to_s}"
+  end
+
+  path_new_broker = -> (options:) do
+    "/#{options[:pre]}new"
+  end
+
+  path_edit_broker = -> (options:) do
+    "/#{options[:post]}#{options[:object_id].to_s}/edit"
+  end
+
+  PATH = {
+    path_for_products: path_products,
+    path_for_product: path_product,
+    path_for_new_product: path_new_product,
+    path_for_edit_product: path_edit_product,
+    path_for_concrete_products: path_concrete_products,
+    path_for_concrete_product: path_concrete_product,
+    path_for_new_concrete_product: path_new_concrete_product,
+    path_for_offers: path_offers,
+    path_for_offer: path_offer,
+    path_for_new_offer: path_new_offer,
+    path_for_edit_offer: path_edit_offer,
+    path_for_orders: path_orders,
+    path_for_order: path_order,
+    path_for_new_order: path_new_order,
+    path_for_edit_order: path_edit_order,
+    path_for_responses: path_responses,
+    path_for_response: path_response,
+    path_for_new_response: path_new_response,
+    path_for_edit_response: path_edit_response,
+    path_for_requests: path_requests,
+    path_for_request: path_request,
+    path_for_new_request: path_new_request,
+    path_for_edit_request: path_edit_request,
+    path_for_user_products: path_user_products,
+    path_for_user_product: path_user_product,
+    path_for_new_user_product: path_new_user_product,
+    path_for_edit_user_product: path_edit_user_product,
+    path_for_users: path_users,
+    path_for_user: path_user,
+    path_for_new_user: path_new_user,
+    path_for_edit_user: path_edit_user,
+    path_for_brokers: path_brokers,
+    path_for_broker: path_broker,
+    path_for_new_broker: path_new_broker,
+    path_for_edit_broker: path_edit_broker,
+  }
+
+  def path_for(user: nil, path: nil, options: {})
+    path_for = PATH["path_for_#{path}".to_sym]
+    if path_for
+      if broker_signed_in? && user.class.name != 'Broker'
+        options[:pre] = "brokers/#{current_broker.id.to_s}/"
+      end
+      if user
+        id = user.is_a?(String) ? nil : user.id
+        options[:post] ="#{user_type(user)}s/#{id ? id.to_s + '/' : ''}"
+      end
+      # binding.pry if options[:debug]
+      path_for.call(options: options)
+    end
+  end
+
 
   def icon(class1, class2, *classes)
     clases = "#{class1} #{class2} " + classes.join(' ')
     "<i class=\"#{clases}\"></i>".html_safe
   end
-    
-	def monetary_field(objname, method, value)
-		text_field "#{objname}", "#{method}", value: ('%0.2f' % value), size: 6,
+
+  def monetary_field(objname, method, value)
+    text_field "#{objname}", "#{method}", value: ('%0.2f' % value), size: 6,
      class: 'monetary_field', autocomplete: :off
-	end
+  end
 
   def resource
     resource_name = request.controller_class.name
@@ -38,37 +230,20 @@ module ApplicationHelper
     end
   end
 
-  def current_user_type(user_type)
-    (user_type == 'broker' && current_broker) ||
-    (user_type == 'supplier' && current_supplier) ||
-    (user_type == 'customer' && current_customer)
-  end
-
-  def user_type
-    (broker_signed_in? && 'broker') ||
-      (supplier_signed_in? && 'supplier') ||
-      (customer_signed_in? && 'customer') ||
-      ''
+  def user_type(user=current_user)
+    return user if user.is_a?(String)
+    user&.class&.name&.downcase || ''
   end
 
   def user_logged(user_type)
-    case user_type
-    when 'supplier'
-     user = current_supplier
-     path = supplier_path(user)
-    when 'customer'
-     user = current_customer
-     path = customer_path(user)
-    when 'broker'
-     user = current_broker
-     path = broker_path(user)
-    end
-    identifier = user ? user.identifier : ''
     string = ''
     if !user_type.blank?
+			path = {broker: broker_path(current_user),
+							supplier: supplier_path(current_user),
+							customer: customer_path(current_user)}
       string += <<-HERE
           <li>
-            #{link_to t('control_panel'), path, class: 'btn btn-gris btn-sm'}
+      #{link_to t('views.control_panel'), path[user_type.to_sym], class: 'btn btn-gris btn-sm'}
           </li>
 HERE
     end
@@ -77,13 +252,13 @@ HERE
 
   def helper_activerecord_error_message(attribute, messages)
     message = ''
-    messages.each do |k,v|
-      message += I18n.t('activerecord.attributes.' + attribute + '.' + k.to_s) +
-       ' : ' + v.inject('')do |s, m|
-        s += ' ' + m.to_s + ', '
+    messages.keys.each do |key|
+      messages[key].each do |error|
+        message += I18n.t('models.attributes.' + attribute + '.' + key.to_s) +
+                   + ' : ' + error + '<br>'
       end
     end
-    message.sub(/, $/, '')
+    message
   end
 
   def helper_devise_error_message(devise_messages)
@@ -92,7 +267,7 @@ HERE
     messages = devise_messages.respond_to?('messages') ?
       devise_messages.messages : []
     messages.each do |key, array|
-      message += I18n.t('activerecord.attributes.' + domain +
+      message += I18n.t('models.attributes.' + domain +
                         '.' + key.to_s)
       message += " : "
       array.inject(message) do |m, v|

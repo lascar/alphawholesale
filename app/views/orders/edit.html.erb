@@ -1,5 +1,9 @@
-<h1><%= t("offer.editing") %></h1>
+<% @edit = true %>
+<h1><%= t("views.order.edit") %></h1>
 
 <%= render 'form', order: @order %>
-<%= link_to t("show"), order_show_path(@order) %> |
-<%= link_to t("back"), :back %>
+<%= link_to t("views.orders.show"), path_for(user: @user, path: "order",
+                                             options: {object_id: @order.id}),
+  class: "btn btn-secondary" %>
+<%= link_to t("views.orders.index"), path_for(user: @user, path: "orders"),
+  class: "btn btn-secondary" %>

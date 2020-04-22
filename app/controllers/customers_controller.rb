@@ -1,31 +1,43 @@
 class CustomersController < ApplicationController
   include Utilities
-  include SuppliersHelper
   before_action :authenticate_user!
-  before_action :verify_permission_user
-  before_action :set_customer, only: [:show, :edit, :update, :destroy,
-                                      :attach_products, :attach_products_create]
+  before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
   # GET /customers
   def index
+    authorize :customer, :index?
     @customers = Customer.with_approved(true)
   end
 
   # GET /customers/1
   def show
+    authorize @customer
     @orders = @customer.orders
-    @products = @customer.products
+    @requests = @customer.requests
+    @concrete_products = @customer.concrete_products
+    products = @customer.products.pluck(:name)
+    @request = Request.includes(:concrete_product).
+      where(concrete_products: { product: products })
     @offers = Offer.where(approved: true).select{|o| o.date_end >= Time.now}
+    @user_products = @customer.products
+    @requests = Request.not_expired.where(approved: true).includes( :concrete_product).
+      where(concrete_products: { product: @user_products.pluck(:name)})
+    @requests = @customer.requests.not_expired
+    @responses = Response.not_expired.where(approved: true).includes( :concrete_product).
+      where(request_id: @request.pluck(:id))
   end
 
   # GET /customers/new
   def new
+    @customer = Customer.new
+    authorize @customer
     @currencies, @unit_types = put_currencies_unit_types
     redirect_to new_customer_registration_path
   end
 
   # GET /customers/1/edit
   def edit
+    authorize @customer
     @currencies, @unit_types = put_currencies_unit_types
     @minimum_password_length = PASSWORD_LENGTH_MIN
   end
@@ -33,60 +45,45 @@ class CustomersController < ApplicationController
   # POST /customers
   def create
     @customer = Customer.new(customer_params)
+    authorize @customer
     if @customer.save
       redirect_to @customer,
        notice: I18n.t('controllers.customers.successfully_created')
     else
       flash[:alert] = helper_activerecord_error_message('customer',
                                                   @customer.errors.messages)
-      redirect_to customer_new_path
+      redirect_to path_for(user: @user, path: 'new_customer')
     end
   end
 
   # PATCH/PUT /customers/1
   def update
+    authorize @customer
     if @customer.update(customer_params)
       if customer_params[:approved]
-        SupplierMailer.with(user: @customer).welcome_email.deliver_later
+        UserMailer.with(user: @customer).welcome_email.deliver_later
       end
       redirect_to @customer,
        notice: I18n.t('controllers.customers.successfully_updated') and return
     else
       flash[:alert] = helper_activerecord_error_message('customer',
                                                   @customer.errors.messages)
-      redirect_to customer_edit_path
+      redirect_to path_for(user: @user, path: 'edit_customer')
     end
   end
 
   # DELETE /customers/1
   def destroy
+    authorize @customer
     @customer.destroy
-    redirect_to customers_url,
+    redirect_to path_for(user: 'customer', path: 'users'),
      notice: I18n.t('controllers.customers.successfully_destroyed')
-  end
-
-  # GET /customers/1/attach_product
-  def attach_products
-    @products_attached = @customer.products.ids
-    @products = Product.with_approved(true).
-     select{|p| !@products_attached.include?(p.id)}
-  end
-
-  # POST /customers/1/attach_product_create
-  def attach_products_create
-    message = ""
-    @customer.products = []
-    params[:products].each do |product_id|
-      product = Product.find_by_id(product_id)
-      @customer.products << product
-    end
-    redirect_to "/customers/" + @customer.id.to_s, notice: message
   end
 
  private
   # Use callbacks to share common setup or constraints between actions.
   def set_customer
-    @customer = Customer.find(params[:id])
+    @customer = Customer.find_by(id: params[:id] || params[:customer_id])
   end
 
   # Only allow a trusted parameter "white list" through.

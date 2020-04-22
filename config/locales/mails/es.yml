@@ -1,8 +1,0 @@
-es:
-  mails:
-    welcome:
-      subject: 'Bienvenido a alphawholesale'
-      title: 'Bienvenido a alphawholesale'
-      approved: 'El usuario %{identifier} ha sido aprobado'
-      follow_url: 'Para entrar en el sitio, seguir: %{url}'
-      thanks: 'Gracias por enregistrarse'

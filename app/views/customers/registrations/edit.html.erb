@@ -1,4 +1,4 @@
-<h2><%= t("edit") %> <%= resource_name.to_s.humanize %></h2>
+<h2><%= t("views." + resource_name.to_s + "s.update") %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <% if !devise_error_messages!.empty? %>
@@ -96,13 +96,13 @@
   </div>
 
   <div class="actions">
-    <%= f.submit t("update") %>
+    <%= f.submit t("views.customers.update") %>
   </div>
 <% end %>
 
 <h3><%= t("devise.messages.cancel_account") %></h3>
 
-<%= link_to t("back"), :back %>
-<p><%= t("devise.messages.unhappy") %>? <%= button_to t("devise.messages.cancel_account"), registration_path(resource_name), data: { confirm: t("are_you_sure") }, method: :delete %></p>
+<%= link_to t("views.back"), :back %>
+<p><%= t("devise.messages.unhappy") %>? <%= button_to t("devise.messages.cancel_account"), registration_path(resource_name), data: { confirm: t("views.are_you_sure") }, method: :delete %></p>
 
-<%= link_to t("back"), :back %>
+<%= link_to t("views.back"), :back %>

@@ -16,20 +16,19 @@
       <div class="container-fluid">
         <div class="logo_wrapper">
           <a href="#">
-            <%= image_tag(asset_pack_path('packs/src/images/logoNB.svg'),
-             alt: "logo", class: "img_responsive") %>
-          </a>
+            <%= image_pack_tag "media/packs/src/media/logoNB.svg",
+                          alt: "logo", class: "img_responsive" %>
+        </a>
         </div>
-        <%# binding.pry %>
         <%= render "layouts/login_logout_menu" %>
       </div>
     </nav>
 
     <div id="container" class="container-fluid">
       <p id="notice" class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <p class="alert"><%= alert ? alert.html_safe : nil %></p>
       <%= yield %>
-		</div>
+    </div>
 
     <footer class="page-footer font-small blue pt-4">
       <%= render "layouts/choose_lang" %>

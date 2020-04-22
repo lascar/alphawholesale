@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= t("mails.#{@object_type}_update.title") %></h1>
+    <%= t("mails.#{@object_type}_update.#{@object_type}_detail") %>:
+    <p>
+      <%= t("mails.#{@object_type}_update.product") %> <%= t("products." + @product + ".name") %>.
+      <%= t("mails.#{@object_type}_update.variety") %> <%= t("products." + @product + ".varieties." + @variety) %>.
+      <%= t("mails.#{@object_type}_update.aspect") %> <%= t("products." + @product + ".aspects." + @aspect) %>.
+      <%= t("mails.#{@object_type}_update.packaging") %> <%= t("products." + @product + ".packagings." + @packaging) %>.
+      <%= t("mails.#{@object_type}_update.size") %> <%= t("products." + @product + ".sizes." + @size) %>.
+      <%= t("mails.#{@object_type}_update.caliber") %> <%= t("products." + @product + ".calibers." + @caliber) %>.
+      <br>
+    </p>
+    <p>
+      <%= t("mails.#{@object_type}_update.quantity", quantity: @quantity) %>.
+      <% if @oject_type == "offer" %>
+        <%= t("mails.#{@object_type}_update.unit_price_broker", unit_price_broker: @unit_price_broker) %>.
+        <%= t("mails.#{@object_type}_update.localisation_broker", localisation_broker: @localisation_broker) %>.
+      <% else %>
+        <%= t("mails.#{@object_type}_update.unit_price_supplier", unit_price_supplier: @unit_price_supplier) %>.
+        <%= t("mails.#{@object_type}_update.localisation_supplier", localisation_supplier: @localisation_supplier) %>.
+      <% end %>
+      <%= t("mails.#{@object_type}_update.supplier_observation", supplier_observation: @supplier_observation) %>.
+      <%= t("mails.#{@object_type}_update.incoterm", incoterm: @incoterm) %>.
+      <% if @oject_type == "order" %>
+        <%= t("mails.#{@object_type}_update.customer_observation", customer_observation: @customer_observation) %>.
+      <% end %>
+      <%= t("mails.#{@object_type}_update.date_start", date_start: @date_start) %>.
+      <%= t("mails.#{@object_type}_update.date_end", date_end: @date_end) %>.
+    </p>
+    <p>
+      <%= t("mails.#{@object_type}_update.follow_url", url: @url) %>.
+    </p>
+    <p><%= t("mails.#{@object_type}_update.thanks") %>!</p>
+  </body>
+</html>

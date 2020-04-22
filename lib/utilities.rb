@@ -1,34 +1,28 @@
 # for tools generals
 module Utilities
-  def make_offers_new_products(products)
-    product_names = products.map do |product|
-      [product.name, product.id]
-    end.uniq
-    product_names.inject({}) do |products_hash, product_array|
-      product_name = product_array.first
-      product_id = product_array.last
-      product =
-      {"product_id" => product_id,
-      "variety" =>
-       products.select{|p| p.name == product_name}.first.varieties.map do |variety|
-         [variety.name, variety.id]
-       end,
-      "aspects" =>
-       products.select{|p| p.name == product_name}.first.aspects.map do |aspect|
-        [aspect.name, aspect.id]
-      end,
-      "sizes" =>
-       products.select{|p| p.name == product_name}.first.sizes.map do |size|
-        [size.name, size.id]
-      end,
-      "packagings" =>
-       products.select{|p| p.name == product_name}.first.packagings.map do |packaging|
-        [packaging.name, packaging.id]
-      end
-      }
-      products_hash[product_name] = product
-      products_hash
-    end
+
+  def verif_def_attach_prd (definition)
+    product_def = definition[:product]
+    variety_def = definition[:variety] || ""
+    aspect_def = definition[:aspect] || ""
+    packaging_def = definition[:packaging] || ""
+    size_def = definition[:size] || ""
+    caliber_def = definition[:caliber] || ""
+    regexp = /^[0-9a-zA-Z_\- ]+$/
+    product = product_def && product_def.match(regexp) && Product.find_by_name(product_def)
+    product_name = product&.name
+    variety = (product && variety_def.match(regexp) &&
+               product.varieties.include?(variety_def)) ? variety_def : nil
+    aspect = (product && aspect_def.match(regexp) &&
+      product.aspects.include?(aspect_def)) ? aspect_def : nil
+    packaging = (product && packaging_def.match(regexp) &&
+      product.packagings.include?(packaging_def)) ? packaging_def : nil
+    size = (product && size_def.match(regexp) &&
+      product.sizes.include?(size_def)) ? size_def : nil
+    caliber = (product && caliber_def.match(regexp) &&
+      product.calibers.include?(caliber_def)) ? caliber_def : nil
+    {product: product_name, variety: variety, aspect: aspect, packaging: packaging,
+     size: size, caliber: caliber}
   end
 
   def put_currencies_unit_types
@@ -45,40 +39,5 @@ module Utilities
        unit_type]
     end
     return [currencies, unit_types]
-  end
-
-  def map_offers_for_index(offers)
-    offers.map do |offer|
-      {id: offer.id,
-       product_name: offer.product.name + " " +
-         (offer.variety ? offer.variety.name : ""),
-       quantity: offer.quantity.to_s + ' ' +
-         I18n.t('unit_types.' + offer.supplier.unit_type + '.symbol'),
-       supplier_price: (offer.unit_price_supplier &&
-               offer.supplier.currency ?
-                (offer.unit_price_supplier.to_s + " " +
-                 t("currencies." + offer.supplier.currency + ".symbol")) :
-                 "-"),
-       broker_price: (offer.unit_price_broker &&
-               offer.supplier.currency ?
-                (offer.unit_price_broker.to_s + " " +
-                 t("currencies." + offer.supplier.currency + ".symbol")) :
-                 "-")
-      }
-    end
-  end
-
-  def map_orders_for_index(orders)
-    orders.map do |order|
-      {id: order.id, product_name: order.offer.product.name,
-       quantity: order.quantity.to_s + ' ' +
-       I18n.t('unit_types.' + order.offer.supplier.unit_type + '.symbol')}
-    end
-  end
-
-  def make_offer_nested(offer)
-    {product_name: offer.product_name, variety_name: offer.variety_name,
-     aspect_name: offer.aspect_name, packaging_name: offer.packaging_name,
-    supplier_currency: offer.supplier_currency}
   end
 end

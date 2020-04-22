@@ -1,0 +1,22 @@
+<table class="table table-responsive table-hover table-all">
+  <thead>
+    <tr>
+      <th scope="col" class="text-truncate"
+       title="<%= t('views.user_products.product_name') %>">
+        <%= t("views.user_products.product_name") %>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_products.each do |product| %>
+      <% product_name = product.name %>
+      <tr>
+        <td class="text-truncate"
+            title="<%= t("views.user_products.product_name") + " " +
+              t("products." + product_name + ".name") %>">
+          <%= t("products." + product_name + ".name") %>
+        </td>
+      <% end %>
+  </tbody>
+</table>

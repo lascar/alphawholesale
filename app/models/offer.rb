@@ -1,42 +1,35 @@
 class Offer < ApplicationRecord
+  include HasConcreteProductConcern
   belongs_to :supplier
-  belongs_to :product
-  belongs_to :variety, optional: true
-  belongs_to :aspect, optional: true
-  belongs_to :size, optional: true
-  belongs_to :packaging, optional: true
+  has_many :orders
   validates :supplier, presence: true
-  validates :product, presence: true
+  validates :concrete_product, presence: true
+  after_commit :send_offer_approval_if_approved
+  after_update :warn_interested
 
-  def product_name
-    product ? product.name : nil
+  def currency
+    supplier.currency
   end
 
-  def variety_name
-    variety ? variety.name : nil
-  end
-
-  def aspect_name
-    aspect ?  aspect.name : nil
-  end
-
-  def packaging_name
-    packaging ? packaging.name : nil
-  end
-
-  def supplier_currency
-    supplier ? supplier.currency : nil
-  end
-
-  def self.by_supplier(supplier_id)
-    where(supplier_id: supplier_id)
-  end
-
-  def self.with_approved(approved)
-    where(approved: approved)
+  def unit_type
+    supplier.unit_type
   end
 
   def self.not_expired
     where('date_end >= ?', Time.now)
   end
+
+  private
+  def send_offer_approval_if_approved
+    if previous_changes["approved"] == [false, true]
+      SendSupplierOfferApprovalJob.perform_later(self)
+    end
+  end
+
+  def warn_interested
+    if approved
+      WarnInterestedJob.perform_later(object: self, object_type: 'offer', user_class: 'Customer')
+    end
+  end
+
 end

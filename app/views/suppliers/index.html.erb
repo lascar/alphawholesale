@@ -1,11 +1,10 @@
-<%# binding.pry %>
-<h1><%= Supplier.model_name.human(count: 2) %></h1>
+h1><%= t("views.suppliers.names") + t("views.with_count", count: @suppliers.count) %></h1>
 
 <table class="table-all table-bordered table-hover">
   <thead>
     <tr>
-      <th><%= Supplier.human_attribute_name("identifier") %></th>
-      <th><%= Supplier.human_attribute_name("email") %></th>
+      <th><%= t("views.suppliers.identifier") %></th>
+      <th><%= t("views.suppliers.email") %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,11 +14,16 @@
       <tr>
         <td><%= supplier.identifier %></td>
         <td><%= supplier.email %></td>
-        <td><%= link_to icon('fas', 'fa-eye'), supplier, title: t("show") %></td>
-        <td><%= link_to icon('fas', 'fa-edit'), edit_supplier_path(supplier),
-          title: t("edit") %></td>
-        <td><%= link_to icon('fas', 'fa-trash'), supplier,
-         title: t("destroy"), method: :delete,
+        <td>
+          <%= link_to icon('fas', 'fa-eye'), path_for(user: supplier, path: "user"),
+            title: t("views.suppliers.show") %>
+        </td>
+        <td>
+          <%= link_to icon('fas', 'fa-edit'),
+            path_for(user: supplier, path: 'edit_user'), title: t("views.suppliers.edit") %>
+        </td>
+        <td><%= link_to icon('fas', 'fa-trash'), path_for(user: supplier, path: "user"),
+         title: t("views.suppliers.destroy"), method: :delete,
          data: { confirm: t(:are_you_sure) } %></td>
       </tr>
     <% end %>
@@ -27,4 +31,4 @@
 </table>
 
 <br>
-<%= link_to t("suppliers.new"), new_supplier_registration_url %>
+<%= link_to t("views.suppliers.new"), new_supplier_registration_url %>

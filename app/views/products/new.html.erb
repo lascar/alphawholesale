@@ -1,6 +1,6 @@
-<h1><%= t("products.new") %></h1>
+<h1><%= t("views.products.new") %></h1>
 
 <%= render 'form', product: @product %>
 
-<%= link_to t("back"), :back %>
-<%= link_to t("products.list"), list_products_path %>
+<%= link_to t("views.back"), :back %>
+<%= link_to t("views.products.index"), path_for(user: @user, path: 'products') %>

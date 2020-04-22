@@ -1,0 +1,7 @@
+<% @show = true %>
+<h1><%= t("views.request.show") %></h1>
+
+<%= render 'form', order: @order %>
+<%= link_to t("views.requests.index"), path_for(user: @user, path: "requests"),
+  class: "btn btn-secondary" %>
+

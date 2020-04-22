@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :supplier do
-    sequence(:identifier) {|n| "Supplier #{n}"}
-    sequence(:email) {|n| "supplier#{n}@example.com"}
+    identifier { generate :identifier }
+    email { generate :email }
     password { "password" }
     approved { true }
     tin { "heoduo" }
@@ -22,7 +22,8 @@ FactoryBot.define do
       # attributes; `create_list`'s second argument is the number of records
       # to create and we make sure the supplier is associated properly to the offer
       after(:create) do |supplier, evaluator|
-        create_list(:offer, evaluator.offers_count, supplier: supplier)
+        create_list(:offer, evaluator.offers_count, supplier: supplier,
+                    approved: true, date_start: Time.now, date_end: Time.now + 5.days)
       end
     end
   end

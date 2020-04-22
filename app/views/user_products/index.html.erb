@@ -1,0 +1,67 @@
+<div class="row small-font">
+  <div class="card col-4">
+    <div class="card-header text-center text-uppercase">
+      <%= t("views.user_products.names") + t("views.with_count", count: @products.count) %> :
+    </div>
+    <div class="card-body">
+      <table class="table table-responsive table-hover table-all">
+        <thead>
+          <tr>
+            <th scope="col" class="text-truncate"
+             title="<%= t('views.user_products.product_name') %>">
+              <%= t("views.user_products.product_name") %>
+            </th>
+            <th scope="col" class="text-truncate"
+             title="<%= t('views.user_products.interested') %>">
+              <%= t("views.user_products.interested") %>
+            </th>
+            <th scope="col" class="text-truncate"
+             title="<%= t('views.user_products.mailing') %>">
+              <%= t("views.user_products.mailing") %>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <%= form_with(url: path_for(user: @user, path: "user_product",
+                                      options: {object_id: @user.id}),
+                        method: :patch, local: true) do |form| %>
+            <% @products.each do |product| %>
+              <tr>
+                <td class="text-truncate"
+                    title="<%= t("views.user_products.product_name") + " " +
+                      t("products." + product[:name] + ".name") %>">
+                  <%= t("products." + product[:name] + ".name") %>
+                </td>
+                <td>
+                  <%= check_box_tag "user_products[][product_id]",
+                    product[:id],
+                    product[:user_product],
+                    id: "check_user_products_#{product[:name]}" %>
+                </td>
+                <td>
+                  <%= check_box_tag "user_products[][mailing]",
+                    true,
+                    product[:mailing],
+                    id: "check_user_products_mailing_#{product[:name]}" %>
+                </td>
+              </tr>
+            <% end %>
+            <tr>
+              <td>
+                <%= submit_tag t("views.user_products.update") %>
+              </td>
+              <td>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <br>
+      <%= link_to t("views.concrete_products.index"),
+        path_for(user: @user, path: "concrete_products"),
+        id: "concrete_products", class:  "btn btn-primary btn-sm" %>
+    </div>
+  </div>
+</div>
+

@@ -1,22 +1,20 @@
 require 'rails_helper'
+# `rails-controller-testing` gem.
 
 RSpec.describe OrdersController, type: :controller do
+  let(:supplier1) {create(:supplier)}
+  let(:customer1) {create(:customer)}
+  let(:offer1) {create(:offer, supplier: supplier1)}
+  let!(:order1) {create(:order, customer: customer1, offer: offer1)}
 
   describe "GET #index" do
     # TEST as a guest user
-    # TEST when the list of orders is asked for
-    # TEST then the root page is returned
-    # TEST and a message of unauthenticated is send
-    describe "as guest user" do
-      before :each do
-        get :index
-      end
-
-      it "returns the root page and returns a non authenticated message" do
-        expect(response.redirect_url).to eq("http://test.host/")
-        expect(flash.alert).to match(
-         I18n.t('devise.failure.unauthenticated'))
-      end
+    # TEST when the list of orders is asked
+    # TEST then it is routed to routing error
+    it "does not routes /orders to orders#index" do
+      expect(:get => "/orders").to route_to(controller: 'welcome',
+                                              action: 'routing_error',
+                                              url: 'orders')
     end
   end
 end

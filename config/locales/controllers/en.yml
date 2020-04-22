@@ -1,5 +1,15 @@
 en:
   controllers:
+    action_not_allowed: 'Not allowed'
+    unauthenticated: "You need to sign in or sign up before continuing."
+    user_products:
+      update:
+        succefully: "User products were successfully updated."
+    concrete_products:
+      create:
+        succefully: "Concrete product was successfully created."
+      destroy:
+        succefully: "Concrete product were successfully eliminated."
     customers:
       successfully_created: "Customer was successfully created."
       successfully_updated: "Customer was successfully updated."
@@ -8,10 +18,6 @@ en:
       successfully_created: "Supplier was successfully created."
       successfully_updated: "Supplier was successfully updated."
       successfully_destroyed: "Supplier was successfully destroyed."
-      product_detached: "Product Detached"
-      product_attached: "Product %{product_reference} Attached. "
-      product_not_attached: "Product %{product_reference} NOT Attached. "
-      product_not_detached: "Product NOT Detached"
     suppliers_registrations:
       action_not_allowed_from_here: "You must perform from suppliers"
     brokers:
@@ -22,22 +28,6 @@ en:
       successfully_created: "Product was successfully created."
       successfully_updated: "Product was successfully updated."
       successfully_destroyed: "Product was successfully destroyed."
-    packagings:
-      successfully_created: "Packaging was successfully created."
-      successfully_updated: "Packaging was successfully updated."
-      successfully_destroyed: "Packaging was successfully destroyed."
-    origins:
-      successfully_created: "Origin was successfully created."
-      successfully_updated: "Origin was successfully updated."
-      successfully_destroyed: "Origin was successfully destroyed."
-    aspects:
-      successfully_created: "Aspect was successfully created."
-      successfully_updated: "Aspect was successfully updated."
-      successfully_destroyed: "Aspect was successfully destroyed."
-    sizes:
-      successfully_created: "Size was successfully created."
-      successfully_updated: "Size was successfully updated."
-      successfully_destroyed: "Size was successfully destroyed."
     offers:
       successfully_created: "Offer was successfully created."
       successfully_updated: "Offer was successfully updated."
@@ -50,11 +40,11 @@ en:
       successfully_created: "Order Line was successfully created."
       successfully_updated: "Order Line was successfully updated."
       successfully_destroyed: "Order Line was successfully destroyed."
-    tenders:
-      successfully_created: "Tender was successfully created."
-      successfully_updated: "Tender was successfully updated."
-      successfully_destroyed: "Tender was successfully destroyed."
-    tender_lines:
-      successfully_created: "Tender Line was successfully created."
-      successfully_updated: "Tender Line was successfully updated."
-      successfully_destroyed: "Tender Line was successfully destroyed."
+    requests:
+      successfully_created: "Request was successfully created."
+      successfully_updated: "Request was successfully updated."
+      successfully_destroyed: "Request was successfully destroyed."
+    responses:
+      successfully_created: "Response was successfully created."
+      successfully_updated: "Response was successfully updated."
+      successfully_destroyed: "Response was successfully destroyed."

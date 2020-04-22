@@ -1,8 +1,0 @@
-<h1><%= t("aspects.new") %></h1>
-
-<%= render 'form', aspect: @aspect %>
-
-<%= link_to t("back"), :back %>
-<% if broker_signed_in? %>
-  <%= link_to t("aspects.list"), aspects_path %>
-<% end %>

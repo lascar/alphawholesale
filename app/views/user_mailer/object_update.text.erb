@@ -1,0 +1,31 @@
+<%= t("mails.#{@object_type}_update.title") %>
+===============================================
+
+<%= t("mails.#{@object_type}_update.#{@object_type}_detail") %>:
+<%= t("mails.#{@object_type}_update.product") %> <%= t("products." + @product + ".name") %>.
+<%= t("mails.#{@object_type}_update.variety") %> <%= t("products." + @product + ".varieties." + @variety) %>.
+<%= t("mails.#{@object_type}_update.aspect") %> <%= t("products." + @product + ".aspects." + @aspect) %>.
+<%= t("mails.#{@object_type}_update.packaging") %> <%= t("products." + @product + ".packagings." + @packaging) %>.
+<%= t("mails.#{@object_type}_update.size") %> <%= t("products." + @product + ".sizes." + @size) %>.
+<%= t("mails.#{@object_type}_update.caliber") %> <%= t("products." + @product + ".calibers." + @caliber) %>.
+
+<%= t("mails.#{@object_type}_update.quantity", quantity: @quantity) %>.
+<% if @oject_type == "offer" %>
+  <%= t("mails.#{@object_type}_update.unit_price_broker", unit_price_broker: @unit_price_broker) %>.
+  <%= t("mails.#{@object_type}_update.localisation_broker", localisation_broker: @localisation_broker) %>.
+<% else %>
+  <%= t("mails.#{@object_type}_update.unit_price_supplier", unit_price_supplier: @unit_price_supplier) %>.
+  <%= t("mails.#{@object_type}_update.localisation_supplier", localisation_supplier: @localisation_supplier) %>.
+<% end %>
+<%= t("mails.#{@object_type}_update.incoterm", incoterm: @incoterm) %>.
+<%= t("mails.#{@object_type}_update.supplier_observation", supplier_observation: @supplier_observation) %>.
+<% if @oject_type == "order" %>
+  <%= t("mails.#{@object_type}_update.customer_observation", customer_observation: @customer_observation) %>.
+<% end %>
+<%= t("mails.#{@object_type}_update.date_start", date_start: @date_start) %>.
+<%= t("mails.#{@object_type}_update.date_end", date_end: @date_end) %>.
+
+
+<%= t("mails.#{@object_type}_update.follow_url", url: @url) %>.
+
+<%= t("mails.#{@object_type}_update.thanks") %>!

@@ -7,6 +7,8 @@ RSpec.describe BrokersController, type: :controller do
                                   email: "broker2@test.com")}
   let(:customer1) {create(:customer)}
   let(:supplier1) {create(:supplier)}
+  let!(:offer1) {create(:offer, date_start: Time.now, date_end: Time.now + 5.days)}
+  let!(:order1) {create(:order, offer: offer1)}
 
   describe "GET #show" do
 
@@ -67,30 +69,30 @@ RSpec.describe BrokersController, type: :controller do
     # TEST then the broker is assigned
     # TEST and the suppliers without approved is assigned
     # TEST and the customers without approved is assigned
-    # TEST and the products without approved is assigned
+    # TEST and the products
     # TEST and the offers without approved is assigned
-    # TEST and the tenders without approved is assigned
     # TEST and the orders without approved is assigned
     # TEST and the show template is rendered
     describe "as a logged broker asking for his page" do
       before :each do
+        supplier1.approved = false
+        supplier1.save
+        customer1.approved = false
+        customer1.save
         sign_in(broker1)
         get :show, params: {id: broker1.to_param}
       end
 
       it "assigns the broker and assigns the suppliers_without_approved and
        assigns the customers_without_approved and
-       assigns the products_without_approved and
+       assigns the products and
        assigns the offers_without_approved and
-       assigns the tenders_without_approved and
        assigns the orders_without_approved and renders the show template" do
         expect(assigns(:broker)).to eq(broker1)
         expect(assigns(:suppliers_without_approved)).to eq(Supplier.with_approved(false))
         expect(assigns(:customers_without_approved)).to eq(Customer.with_approved(false))
-        expect(assigns(:products_without_approved)).to eq(Product.with_approved(false))
-        expect(assigns(:offers_without_approved)).to eq(Offer.with_approved(false))
-        expect(assigns(:tenders_without_approved)).to eq(Tender.with_approved(false))
-        expect(assigns(:orders_without_approved)).to eq(Order.with_approved(false))
+        expect(assigns(:offers_without_approved).count).to eq(1)
+        expect(assigns(:orders_without_approved).count).to eq(1)
         expect(response).to render_template(:show)
       end
     end

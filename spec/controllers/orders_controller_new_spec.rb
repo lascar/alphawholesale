@@ -10,39 +10,13 @@ RSpec.describe OrdersController, type: :controller do
   let!(:order2) {create(:order, customer: customer2, offer: offer1)}
 
   describe "GET #new" do
-
     # TEST as a guest user
     # TEST when order is asked for new
-    # TEST then the 'welcome' page is returned
-    # TEST and a message of unauthenticated is send
-    describe "as guest user" do
-      before :each do
-        get :new, params: {offer_id: offer1}
-      end
-
-      it "returns the root page and returns a non authorized message" do
-        expect(response.redirect_url).to eq("http://test.host/")
-        expect(flash.alert).to match(I18n.t(
-         'devise.failure.unauthenticated'))
-      end
-    end
-
-    # TEST as a logged supplier
-    # TEST when order is asked for new
-    # TEST then the supplier's page is returned
-    # TEST and a message of unauthorized is send
-    describe "as a logged supplier" do
-      before :each do
-        sign_in(supplier1)
-        get :new, params: {offer_id: offer1}
-      end
-
-      it "returns the supplier's page and returns a non authorized message" do
-        expect(response.redirect_url).to eq(
-         "http://test.host/suppliers/" + supplier1.id.to_s)
-        expect(flash.alert).to match(
-         I18n.t('devise.errors.messages.not_authorized'))
-      end
+    # TEST then it is routed to routing error
+    it "does not routes /orders/new to orders#new" do
+      expect(:get => "/orders/new").to route_to(controller: 'welcome',
+                                                 action: 'routing_error',
+                                                   url: 'orders/new')
     end
 
     # TEST as a logged customer
@@ -53,14 +27,13 @@ RSpec.describe OrdersController, type: :controller do
     describe "as a logged customer" do
       before :each do
         sign_in(customer1)
-        get :new, params: {offer_id: offer1}
+        get :new, params: {customer_id: customer1.id, offer_id: offer1.id}
       end
 
       it "assigns a order new and puts the customer as the new order's customer and
           does not assign customers and render the new template" do
         expect(assigns(:order).persisted?).to be(false)
         expect(assigns(:order).customer_id).to be(customer1.id)
-        expect(assigns(:customers)).to be(nil)
         expect(response).to render_template(:new)
       end
     end

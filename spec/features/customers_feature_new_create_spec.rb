@@ -10,7 +10,7 @@ RSpec.describe 'Customers Feature new', type: :feature do
                        street_and_number: 'street_and_number', city: 'city',
                        code_postal: 'code_postal', country: 'spain', state: 'state',
                        telephone_number1: 'telephone_number1',
-                       telephone_number2: 'telephone_number2', 
+                       telephone_number2: 'telephone_number2',
                        password: 'password2', password_confirmation: 'password2',
                        current_password: 'password1'}}
 

@@ -1,24 +1,13 @@
 <%= form_with(model: broker, local: true) do |form| %>
-  <% if broker.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(broker.errors.count, "error") %> <%= t("brokers.prohibited_broker_saved") %></h2>
-
-      <ul>
-      <% broker.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="field">
-    <%= form.label :identifier %>
+    <%= form.label :identifier, t("views.brokers.identifier") %>
     <%= form.text_field :identifier %>
   </div>
 
   <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
+    <%= form.label :email, t("views.brokers.email") %>
+      <%= form.text_field :email %>
   </div>
 
   <div class="actions">

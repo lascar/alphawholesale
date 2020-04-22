@@ -1,0 +1,9 @@
+<% @edit = true %>
+<h1><%= t("views.request.edit") %></h1>
+
+<%= render 'form', request: @request %>
+
+<%= link_to t("views.requests.show"), path_for(user: @user, path: "request",
+  options: {object_id: @request.id}), class: "btn btn-secondary" %>
+<%= link_to t("views.requests.index"), path_for(user: @user, path: "requests"),
+  class: "btn btn-secondary" %>

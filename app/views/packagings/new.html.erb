@@ -1,8 +1,0 @@
-<h1><%= t("packagings.new") %></h1>
-
-<%= render 'form', packaging: @packaging %>
-
-<%= link_to t("back"), :back %>
-<% if broker_signed_in? %>
-  <%= link_to t("packagings.list"), packagings_path %>
-<% end %>

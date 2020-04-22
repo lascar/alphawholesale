@@ -1,0 +1,56 @@
+<h1><%= t("views.concrete_products.edit") %></h1>
+</br>
+<%= form_tag(path_for(user: @user, path: 'concrete_products'),
+  authenticity_token: true, method: :put) do -%>
+  <%= label_tag :product %>
+  <div class="row">
+      <div class="card">
+        <table class="table-all table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th><%= t('views.concrete_products.product_name') %></th>
+              <th><%= t('views.concrete_products.variety_name') %></th>
+              <th><%= t('views.concrete_products.aspect_name') %></th>
+              <th><%= t('views.concrete_products.packaging_name') %></th>
+              <th class="table-icons-1" colspan="1"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% for concrete_product in @concrete_products %>
+              <tr>
+                <% product_name = concrete_product[:product_name] %>
+                <% variety_name = concrete_product[:variety_name] ?
+                  t("product.variety." + product_name + "." + concrete_product[:variety_name].to_s,
+                    default: t("product.variety.nil")) :
+                   t("product.variety.nil") %>
+                <% aspect_name = concrete_product[:aspect_name] ?
+                  t("product.aspect." + product_name + "." + concrete_product[:aspect_name].to_s,
+                    default: t("product.aspect.nil")) :
+                   t("product.aspect.nil") %>
+                <% packaging_name = concrete_product[:packaging_name] ?
+                  t("product.packaging." + product_name + "." + concrete_product[:packaging_name].to_s,
+                    default: t("product.packaging.nil")) :
+                   t("product.packaging.nil") %>
+                <td><%= t("product.name." + product_name) %></td>
+                <td><%= variety_name %></td>
+                <td><%= aspect_name %></td>
+                <td><%= packaging_name %></td>
+                <td>
+                  <%= check_box_tag "concrete_products[]",
+                   concrete_product[:id],
+                   concrete_product[:is_attached],
+                   id: "concrete_product_" + concrete_product[:id].to_s %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+  </div>
+
+  <div><%= submit_tag t("views.concrete_products.save") %></div>
+<% end -%>
+
+<%= link_to t("views.concrete_products.show"), @concrete_product %> |
+<%= link_to t("views.back"), :back %>

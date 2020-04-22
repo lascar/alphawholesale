@@ -51,7 +51,7 @@ RSpec.describe Suppliers::RegistrationsController, type: :controller do
     end
 
     # TEST as a logged supplier
-    # TEST when the supplier is 
+    # TEST when the supplier is
     # TEST then the supplier's page is returned
     # TEST and a message of unauthorized is send
     describe "as a logged supplier asking for editing the registration

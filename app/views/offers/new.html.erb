@@ -1,5 +1,6 @@
-<h1><%= t("offers.new") %></h1>
+<h1><%= t("views.offers.new") %></h1>
 
-<%= render 'form_new', offer: @offer %>
-
-<%= link_to t("back"), :back %>
+<% @new = true %>
+<%= render 'form', offer: @offer, supplier_id: @supplier_id %>
+<%= link_to t("views.offers.index"), path_for(user: @user, path: "offers"),
+  class: "btn btn-secondary" %>

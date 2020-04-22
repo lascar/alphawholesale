@@ -1,31 +1,38 @@
 class SuppliersController < ApplicationController
   include Utilities
   before_action :authenticate_user!
-  before_action :verify_permission_user
-  before_action :set_supplier,
-   only: [:show, :edit, :update, :destroy,
-          :attach_products, :attach_products_create]
+  before_action :set_supplier, only: [:show, :edit, :update, :destroy]
 
   # GET /suppliers
   def index
+    authorize :supplier, :index?
     @suppliers = Supplier.with_approved(true)
   end
 
   # GET /suppliers/1
   def show
-    @offers = @supplier.offers.includes(:product)
-    @products = @supplier.products
+    authorize @supplier
+    @concrete_products = @supplier.concrete_products
+    @user_products = @supplier.products
+    @offers = @supplier.offers.includes(:orders, :concrete_product).
+      where(approved: true).not_expired
+    @orders = @offers.map{|offer| offer.orders.where(approved: true)}.compact.flatten
+    @requests = Request.not_expired.where(approved: true).includes( :concrete_product).
+      where(concrete_products: { product: @user_products.pluck(:name)})
+    @responses = @supplier.responses.not_expired
   end
 
   # GET /suppliers/new
   def new
     @currencies, @unit_types = put_currencies_unit_types
     @supplier = Supplier.new
+    authorize @supplier
     redirect_to new_supplier_registration_path
   end
 
   # GET /suppliers/1/edit
   def edit
+    authorize @supplier
     @currencies, @unit_types = put_currencies_unit_types
     @minimum_password_length = PASSWORD_LENGTH_MIN
   end
@@ -33,6 +40,7 @@ class SuppliersController < ApplicationController
   # POST /suppliers
   def create
     @supplier = Supplier.new(supplier_params)
+    authorize @supplier
 
     if @supplier.save
       redirect_to @supplier,
@@ -40,48 +48,29 @@ class SuppliersController < ApplicationController
     else
       flash[:alert] = helper_activerecord_error_message('supplier',
                                                   @supplier.errors.messages)
-      redirect_to supplier_new_path
+      redirect_to path_for(user: @user, path: 'new_supplier')
     end
   end
 
   # PATCH/PUT /suppliers/1
   def update
+    authorize @supplier
     if @supplier.update(supplier_params)
-      if @supplier.previous_changes["approved"] == [false, true]
-        SendUserApprovalJob.perform_later(@supplier)
-      end
-      redirect_to( @supplier,
+      redirect_to( path_for(user: @supplier, path: 'user'),
        notice: I18n.t('controllers.suppliers.successfully_updated')) and return
     else
       flash[:alert] = helper_activerecord_error_message('supplier',
                                                   @supplier.errors.messages)
-      redirect_to supplier_edit_path
+      redirect_to path_for(user: @user, path: 'edit_supplier')
     end
   end
 
   # DELETE /suppliers/1
   def destroy
+    authorize @supplier
     @supplier.destroy
     redirect_to suppliers_url,
      notice: I18n.t('controllers.suppliers.successfully_destroyed')
-  end
-
-  # GET /suppliers/1/attach_product
-  def attach_products
-    @products_attached = @supplier.products.ids
-    @products = Product.with_approved(true) +
-     Product.where(supplier_id: @supplier.id, approved: false)
-  end
-
-  # POST /suppliers/1/attach_product_create
-  def attach_products_create
-    message = ""
-    @supplier.products = []
-    params[:products].each do |product_id|
-      product = Product.find_by_id(product_id)
-      @supplier.products << product
-    end
-    redirect_to "/suppliers/" + @supplier.id.to_s, notice: message
   end
 
   private

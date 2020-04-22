@@ -2,29 +2,19 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_12_154932) do
+ActiveRecord::Schema.define(version: 2020_04_20_102030) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
   enable_extension "plpgsql"
-
-  create_table "aspects", force: :cascade do |t|
-    t.bigint "supplier_id"
-    t.bigint "product_id"
-    t.string "name"
-    t.boolean "approved", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_aspects_on_product_id"
-    t.index ["supplier_id"], name: "index_aspects_on_supplier_id"
-  end
 
   create_table "brokers", force: :cascade do |t|
     t.string "email"
@@ -39,8 +29,19 @@ ActiveRecord::Schema.define(version: 2019_02_12_154932) do
     t.index ["reset_password_token"], name: "index_brokers_on_reset_password_token", unique: true
   end
 
+  create_table "concrete_products", force: :cascade do |t|
+    t.string "product", null: false
+    t.string "variety", default: "not_specified"
+    t.string "aspect", default: "not_specified"
+    t.string "packaging", default: "not_specified"
+    t.string "size", default: "not_specified"
+    t.string "caliber", default: "not_specified"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product"], name: "index_concrete_products_on_product"
+  end
+
   create_table "customers", force: :cascade do |t|
-    t.boolean "approved", default: false
     t.string "entreprise_name"
     t.string "email"
     t.string "tin"
@@ -58,6 +59,7 @@ ActiveRecord::Schema.define(version: 2019_02_12_154932) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.boolean "approved", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["approved"], name: "index_customers_on_approved"
@@ -65,113 +67,80 @@ ActiveRecord::Schema.define(version: 2019_02_12_154932) do
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
-  create_table "delayed_jobs", force: :cascade do |t|
-    t.integer "priority", default: 0, null: false
-    t.integer "attempts", default: 0, null: false
-    t.text "handler", null: false
-    t.text "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string "locked_by"
-    t.string "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
-  end
-
   create_table "offers", force: :cascade do |t|
     t.bigint "supplier_id"
-    t.bigint "product_id"
-    t.bigint "variety_id"
-    t.bigint "aspect_id"
-    t.bigint "size_id"
-    t.bigint "packaging_id"
-    t.boolean "approved", default: false
+    t.bigint "concrete_product_id"
     t.integer "quantity"
     t.decimal "unit_price_supplier", precision: 8, scale: 2, default: "0.0", null: false
     t.decimal "unit_price_broker", precision: 8, scale: 2, default: "0.0", null: false
     t.string "localisation_supplier"
     t.string "localisation_broker"
     t.string "incoterm"
-    t.text "observation"
+    t.text "supplier_observation"
     t.date "date_start"
     t.date "date_end"
+    t.boolean "approved", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["aspect_id"], name: "index_offers_on_aspect_id"
-    t.index ["packaging_id"], name: "index_offers_on_packaging_id"
-    t.index ["product_id"], name: "index_offers_on_product_id"
-    t.index ["size_id"], name: "index_offers_on_size_id"
+    t.index ["concrete_product_id"], name: "index_offers_on_concrete_product_id"
     t.index ["supplier_id"], name: "index_offers_on_supplier_id"
-    t.index ["variety_id"], name: "index_offers_on_variety_id"
   end
 
   create_table "orders", force: :cascade do |t|
     t.bigint "customer_id"
     t.bigint "offer_id"
+    t.bigint "concrete_product_id"
     t.text "customer_observation"
     t.integer "quantity", default: 1
     t.boolean "approved", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["concrete_product_id"], name: "index_orders_on_concrete_product_id"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
     t.index ["offer_id"], name: "index_orders_on_offer_id"
   end
 
-  create_table "packagings", force: :cascade do |t|
-    t.bigint "supplier_id"
-    t.bigint "product_id"
-    t.string "name"
-    t.boolean "approved", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_packagings_on_product_id"
-    t.index ["supplier_id"], name: "index_packagings_on_supplier_id"
-  end
-
-  create_table "product_customers", force: :cascade do |t|
-    t.bigint "customer_id"
-    t.bigint "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_product_customers_on_customer_id"
-    t.index ["product_id"], name: "index_product_customers_on_product_id"
-  end
-
-  create_table "product_suppliers", force: :cascade do |t|
-    t.bigint "supplier_id"
-    t.bigint "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_product_suppliers_on_product_id"
-    t.index ["supplier_id"], name: "index_product_suppliers_on_supplier_id"
-  end
-
   create_table "products", force: :cascade do |t|
-    t.bigint "supplier_id"
-    t.string "reference"
     t.string "name"
-    t.string "variety"
-    t.boolean "approved", default: false
+    t.jsonb "assortments", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["supplier_id"], name: "index_products_on_supplier_id"
   end
 
-  create_table "sizes", force: :cascade do |t|
-    t.bigint "supplier_id"
-    t.bigint "product_id"
-    t.string "name"
+  create_table "requests", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.bigint "concrete_product_id"
+    t.integer "quantity"
+    t.text "customer_observation"
+    t.date "date_start"
+    t.date "date_end"
     t.boolean "approved", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_sizes_on_product_id"
-    t.index ["supplier_id"], name: "index_sizes_on_supplier_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["concrete_product_id"], name: "index_requests_on_concrete_product_id"
+    t.index ["customer_id"], name: "index_requests_on_customer_id"
+  end
+
+  create_table "responses", force: :cascade do |t|
+    t.bigint "supplier_id", null: false
+    t.bigint "concrete_product_id", null: false
+    t.bigint "request_id", null: false
+    t.integer "quantity"
+    t.decimal "unit_price_supplier", precision: 8, scale: 2, default: "0.0", null: false
+    t.decimal "unit_price_broker", precision: 8, scale: 2, default: "0.0", null: false
+    t.string "localisation_supplier"
+    t.string "localisation_broker"
+    t.string "incoterm"
+    t.text "supplier_observation"
+    t.boolean "approved", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["concrete_product_id"], name: "index_responses_on_concrete_product_id"
+    t.index ["request_id"], name: "index_responses_on_request_id"
+    t.index ["supplier_id"], name: "index_responses_on_supplier_id"
   end
 
   create_table "suppliers", force: :cascade do |t|
-    t.boolean "approved", default: false
     t.string "entreprise_name"
     t.string "email"
     t.string "tin"
@@ -189,6 +158,7 @@ ActiveRecord::Schema.define(version: 2019_02_12_154932) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.boolean "approved", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["approved"], name: "index_suppliers_on_approved"
@@ -196,45 +166,31 @@ ActiveRecord::Schema.define(version: 2019_02_12_154932) do
     t.index ["reset_password_token"], name: "index_suppliers_on_reset_password_token", unique: true
   end
 
-  create_table "tender_lines", force: :cascade do |t|
-    t.bigint "tender_id"
-    t.bigint "product_id"
-    t.bigint "variety_id"
-    t.bigint "aspect_id"
-    t.bigint "size_id"
-    t.bigint "packaging_id"
-    t.integer "unit"
-    t.integer "unit_price"
-    t.text "observation"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["aspect_id"], name: "index_tender_lines_on_aspect_id"
-    t.index ["packaging_id"], name: "index_tender_lines_on_packaging_id"
-    t.index ["product_id"], name: "index_tender_lines_on_product_id"
-    t.index ["size_id"], name: "index_tender_lines_on_size_id"
-    t.index ["tender_id"], name: "index_tender_lines_on_tender_id"
-    t.index ["variety_id"], name: "index_tender_lines_on_variety_id"
+  create_table "user_concrete_products", force: :cascade do |t|
+    t.string "user_type"
+    t.bigint "user_id"
+    t.bigint "concrete_product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["concrete_product_id"], name: "index_user_concrete_products_on_concrete_product_id"
+    t.index ["user_type", "user_id"], name: "index_user_concrete_products_on_user_type_and_user_id"
   end
 
-  create_table "tenders", force: :cascade do |t|
-    t.bigint "customer_id"
-    t.boolean "approved", default: false
-    t.datetime "date_start"
-    t.datetime "date_end"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_tenders_on_customer_id"
+  create_table "user_products", force: :cascade do |t|
+    t.string "user_type", null: false
+    t.bigint "user_id", null: false
+    t.bigint "product_id", null: false
+    t.jsonb "conditions", default: {}, null: false
+    t.boolean "mailing", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_user_products_on_product_id"
+    t.index ["user_type", "user_id"], name: "index_user_products_on_user_type_and_user_id"
   end
 
-  create_table "varieties", force: :cascade do |t|
-    t.bigint "product_id"
-    t.bigint "supplier_id"
-    t.string "name"
-    t.boolean "approved", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_varieties_on_product_id"
-    t.index ["supplier_id"], name: "index_varieties_on_supplier_id"
-  end
-
+  add_foreign_key "requests", "customers"
+  add_foreign_key "responses", "concrete_products"
+  add_foreign_key "responses", "requests"
+  add_foreign_key "responses", "suppliers"
+  add_foreign_key "user_products", "products"
 end

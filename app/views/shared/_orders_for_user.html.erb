@@ -1,0 +1,58 @@
+<table class="table table-responsive table-hover table-all">
+  <thead>
+    <tr>
+      <th scope="col" class="text-truncate"
+                      title="<%= t("views.orders.product_name") %>">
+        <%= t("views.orders.product_name") %>
+      </th>
+      <th scope="col" class="text-truncate"
+                      title="<%= t("views.orders.quantity") %>">
+        <%= t("views.orders.quantity") %>
+      </th>
+      <% unless supplier_signed_in? %>
+        <th scope="col" class="text-truncate"
+                        title="<%= t("views.orders.unit_price_broker") %>">
+          <%= t("views.orders.unit_price_broker") %>
+        </th>
+      <% end %>
+      <% unless customer_signed_in? %>
+        <th scope="col" class="text-truncate"
+                        title="<%= t("views.orders.unit_price_supplier") %>">
+          <%= t("views.orders.unit_price_supplier") %>
+        </th>
+      <% end %>
+      <th scope="col" colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td class="text-truncate" title="<%= t("products." +
+                                               order.product_name + ".name") %>">
+          <%= t("products." + order.product_name + ".name") %>
+        </td>
+        <td class="text-truncate" title="<%= t("views.orders.quantity") +
+          " : " + order.quantity.to_s + " " + order.unit_type  %>">
+          <%= order.quantity.to_s + " " + order.unit_type %>
+        </td>
+        <% unless customer_signed_in? %>
+          <td class="text-truncate" title="<%= t("views.orders.unit_price_supplier") +
+            " : " + order.unit_price_supplier.to_s %>">
+            <%= order.unit_price_supplier.to_s  + " " + order.currency %>
+          </td>
+        <% end %>
+        <% unless supplier_signed_in? %>
+          <td class="text-truncate" title="<%= t("views.orders.unit_price_broker") +
+            " : " + order.unit_price_broker.to_s %>">
+            <%= order.unit_price_broker.to_s  + " " + order.currency %>
+          </td>
+        <% end %>
+        <td>
+          <%= link_to icon('fas', 'fa-eye'), path_for(user: current_user, path: "order",
+                                                      options: {object_id: order.id}), title: t("views.orders.show") %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

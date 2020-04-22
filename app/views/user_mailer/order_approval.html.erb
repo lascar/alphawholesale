@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= t("mails.order_approval.title") %></h1>
+    <%= t("mails.order_approval.order_detail") %>:
+    <p>
+      <%= t("mails.order_approval.product") %> <%= t("products." + @product + ".name") %>.
+      <%= t("mails.order_approval.variety") %> <%= t("products." + @product + ".varieties." + @variety) %>.
+      <%= t("mails.order_approval.aspect") %> <%= t("products." + @product + ".aspects." + @aspect) %>.
+      <%= t("mails.order_approval.packaging") %> <%= t("products." + @product + ".packagings." + @packaging) %>.
+      <%= t("mails.order_approval.size") %> <%= t("products." + @product + ".sizes." + @size) %>.
+      <%= t("mails.order_approval.caliber") %> <%= t("products." + @product + ".calibers." + @caliber) %>.
+      <br>
+    </p>
+    <p>
+      <%= t("mails.order_approval.quantity", quantity: @quantity) %>.
+      <%= t("mails.order_approval.unit_price_broker", unit_price_broker: @unit_price_broker) %>.
+      <%= t("mails.order_approval.localisation_broker", localisation_broker: @localisation_broker) %>.
+      <%= t("mails.order_approval.incoterm", incoterm: @incoterm) %>.
+      <%= t("mails.order_approval.supplier_observation", supplier_observation: @supplier_observation) %>.
+      <%= t("mails.order_approval.customer_observation", customer_observation: @customer_observation) %>.
+      <%= t("mails.order_approval.date_start", date_start: @date_start) %>.
+      <%= t("mails.order_approval.date_end", date_end: @date_end) %>.
+    </p>
+    <p>
+      <%= t("mails.order_approval.approved") %>.
+    </p>
+    <p>
+      <%= t("mails.order_approval.follow_url", url: @url) %>.
+    </p>
+    <p><%= t("mails.order_approval.thanks") %>!</p>
+  </body>
+</html>

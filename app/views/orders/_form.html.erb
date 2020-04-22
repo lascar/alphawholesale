@@ -1,134 +1,132 @@
-<%# binding.pry %>
-<%= form_with(order_form_hash(@order)) do |form| %>
-  <% if @order.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@order.errors.count, "error") %>
-        prohibited this order from being saved:
-      </h2>
-
-      <ul>
-        <% @order.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+<%= form_with(model: @order, url: path_for(user: @user, path: "order",
+              options: {object_id: @order.id}), local: true) do |form| %>
+  <%= form.hidden_field :offer_id, value: @offer.id %>
+  <!-- CUSTOMER, LOCATION AND APPROVAL -->
+  <div class="card m-3">
+    <div class="card">
+      <div class="row p-1">
+        <div class="col-3">
+          <strong><%= t("views.orders.customer") %></strong>
+          <%= form.select :customer_id,
+               options_for_select(@customers, @customer.id),
+               {}, {disabled: (@show || !broker_signed_in?), class: "form-control-sm"} %>
+        </div>
+        <% if !supplier_signed_in? %>
+          <div class="col-3">
+            <strong><%= t('views.orders.localisation_broker') %>:</strong>
+            <%= form.text_field :localisation_broker, disabled: @show,
+              class: "form-control-sm" %>&nbsp;
+          </div>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <% if broker_signed_in? %>
-    <div class="field">
-      <%= form.label :customer %>
-      <%= form.select :customer_id, @customers%>
-    </div>
-
-    <div class="field">
-      <%= form.label :approved %>
-      <%= form.check_box :approved %>
-    </div>
-  <% end %>
-
-  <div class="card">
-    <div class="row">
-      <div class="col-3">
-        <strong><%= Offer.human_attribute_name("product") %>:</strong>
-        <%= t("product.name." + @offer_nested[:product_name]) %>
-      </div>
-
-      <div class="col-3">
-        <strong><%= Product.human_attribute_name("variety") %>:</strong>
-        <%= @offer_nested[:variety_name] ? t("product.variety." + @offer_nested[:product_name] + 
-                               "." + @offer_nested[:variety_name]) : "" %>
-      </div>
-
-      <div class="col-3">
-        <strong><%= Offer.human_attribute_name("aspect") %>:</strong>
-        <%= @offer_nested[:aspect_name] ? t("product.aspect." + @offer_nested[:product_name] +
-                              "." + @offer_nested[:aspect_name]) : "" %>
-      </div>
-
-      <div class="col-3">
-        <strong><%= Offer.human_attribute_name("packaging") %>:</strong>
-        <%= @offer_nested[:packaging_name] ? t("product.packaging." + @offer_nested[:product_name] +
-                                 "." + @offer_nested[:packaging_name]) : "" %>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="row">
-      <div class="col-3">
-        <div class="field">
-          <%= form.label :quantity %>
-          <%= form.number_field :quantity, min: 1, max: @offer.quantity %>
-        </div>
-      </div>
-
-      <% if !customer_signed_in? %>
-        <div class="col-3">
-          <strong><%= Offer.human_attribute_name("unit_price_supplier") %>:</strong>
-          <%= @offer.unit_price_supplier.to_s + " " + t("currencies." +
-              @offer_nested[:supplier_currency] + ".symbol") %>
-        </div>
-      <% end %>
-
-      <% if !supplier_signed_in? %>
-        <div class="col-3">
-          <strong><%= Offer.human_attribute_name("unit_price_broker") %>:</strong>
-          <%= @offer.unit_price_broker.to_s + " " + t("currencies." +
-              @offer_nested[:supplier_currency] + ".symbol") %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="row">
-      <div class="col-3">
-        <div class="field">
-          <strong><%= Offer.human_attribute_name("incoterm") %>:</strong>
-          <%= @offer.incoterm %>
-        </div>
-      </div>
-
-      <% if !customer_signed_in? %>
-        <div class="col-3">
-          <div class="field">
-            <strong><%= Offer.human_attribute_name("localisation_supplier") %>:</strong>
-            <%= @offer.localisation_supplier %>
+        <% if !customer_signed_in? %>
+          <div class="col-3">
+            <strong><%= t('views.orders.localisation_supplier') %>:</strong>
+            <%= form.text_field :localisation_supplier, disabled: @show,
+              class: "form-control-sm" %>&nbsp;
           </div>
-        </div>
-      <% end %>
-
-      <% if !supplier_signed_in? %>
+        <% end %>
         <div class="col-3">
-          <div class="field">
-            <strong><%= Offer.human_attribute_name("localisation_broker") %>:</strong>
-            <%= @offer.localisation_broker %>
-          </div>
+          <strong><%= t('views.orders.approved') %>:</strong>
+          <%= form.check_box :approved, class: "form-control-sm",
+            disabled: (@show || !broker_signed_in?) %>
         </div>
+      </div>
+    </div>
+    <!-- END CUSTOMER, LOCATION AND APPROVAL -->
+
+    <!-- CONCRETE PRODUCT -->
+    <div class="card">
+      <%= render "shared/table_concrete_product", object: @offer %>
+    </div>
+    <!-- END CONCRETE PRODUCT -->
+    <!-- PRICE -->
+    <div class="card">
+      <div class="row p-1">
+        <div class="col-3">
+          <strong><%= t("views.orders.quantity") %>:</strong>
+          <%== form.number_field :quantity, {disabled: @show, class: "form-control-sm"} %>&nbsp;
+          <%= t("unit_types." + @order.unit_type + ".symbol") %>
+        </div>
+        <% if !customer_signed_in? %>
+          <div class="col-3">
+            <strong><%= t("views.orders.unit_price_supplier") %>:</strong>
+            <%= form.number_field :unit_price_supplier,
+              {value: number_to_currency(form.object.unit_price_supplier.to_f,
+               delimiter: '', unit: ''), step: 0.01, disabled: @show,
+              class: "form-control-sm"} %>&nbsp;
+            <%= t("currencies." + @order.currency + ".symbol") %>
+          </div>
+        <% end %>
+        <% if !supplier_signed_in? %>
+          <div class="col-3">
+            <strong><%= t('views.orders.unit_price_broker') %>:</strong>
+            <%= form.number_field :unit_price_broker,
+              {step: 0.01, disabled: @show, class: "form-control-sm",
+               value: number_to_currency(form.object.unit_price_broker.to_f,
+                                         delimiter: '', unit: '') }
+             %>&nbsp;
+            <%= t("currencies." + @order.currency + ".symbol") %>
+          </div>
+        <% end %>
+        <div class="col-3">
+          <strong><%= t('views.orders.incoterm') %>:</strong>
+          <%= form.select :incoterm, @incoterms, {},
+              {disabled: true, class: "form-control-sm"} %>
+        </div>
+      </div>
+    </div>
+    <!-- END PRICE -->
+    <!-- TIMING -->
+    <div class="card">
+      <div class="row p-1">
+        <div class="col-3">
+          <strong><%= t('views.orders.date_start') %>:</strong>
+          <%= form.text_field :date_start, disabled: true, class: "form-control-sm" %>
+        </div>
+
+        <div class="col-3">
+          <strong><%= t('views.orders.date_end') %>:</strong>
+          <%= form.text_field :date_end, disabled: true, class: "form-control-sm" %>
+        </div>
+      </div>
+    </div>
+    <!-- END TIMING -->
+    <!-- OBSERVATION -->
+    <div class="card">
+      <div class="row p-1">
+        <div class="col-2">
+          <strong><%= t('views.orders.supplier_observation') %>:</strong>
+        </div>
+        <div class="col-10">
+          <%= form.text_area :supplier_observation, disabled: true, rows: 4,
+              style: "width: 100%" %>
+        </div>
+      </div>
+      <div class="row p-1">
+        <div class="col-2">
+          <strong><%= t('views.orders.customer_observation') %>:</strong>
+        </div>
+        <div class="col-10">
+          <%= form.text_area :customer_observation, disabled: @show, rows: 4,
+              style: "width: 100%" %>
+        </div>
+      </div>
+    </div>
+    <!-- END OBSERVATION -->
+    <!-- SUBMIT -->
+    <div class="actions" >
+      <% if @show %>
+        <% unless supplier_signed_in? %>
+          <%= link_to t("views.orders.edit"), path_for(user: @user,
+              path: "edit_order", options: {object_id: order.id}),
+              class: "btn btn-primary", title: t("views.offers.edit") %>
+        <% end %>
+      <% else %>
+        <% action_string = action_name == 'new' ? t("views.orders.create") :
+          t("views.orders.update") %>
+        <%= form.submit action_string, class: "btn btn-primary", title: action_string %>
       <% end %>
     </div>
-  </div>
-
-  <div class="card">
-    <div class="row">
-      <div class="col-9">
-        <strong><%= Offer.human_attribute_name("observation") %>:</strong>
-        <%= simple_format(@offer.observation) %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-9">
-        <div class="field">
-          <%= form.label :customer_observation %>
-          <div style="clear: both;"></div>
-          <%= form.text_area :customer_observation, :rows => 10, style: 'width:100%;' %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="actions">
-    <%= form.hidden_field :offer_id, value: @offer.id %>
-    <%= form.submit class: "btn btn-primary" %>
+    <!-- END SUBMIT -->
   </div>
 <% end %>

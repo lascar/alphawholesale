@@ -1,119 +1,111 @@
 <p>
-  <strong><%= Product.human_attribute_name("reference") %></strong>
-  <%= @product.reference %>
+  <strong><%= t("views.products.product_name") %></strong>
+  <%= t("products." + @product.name + ".name") %>
 </p>
 
-<p>
-  <strong><%= Product.human_attribute_name("name") %></strong>
-  <%= t("product.name." + @product.name) %>
-</p>
-
-<p>
-  <strong><%= Product.human_attribute_name("approved") %></strong>
-  <%= check_box_tag :approved, '', @product.approved, disabled: true %>
-</p>
-
-<p>
-  <h6><%= Aspect.model_name.human(count: @product.aspects.count) %></h6>
-  <% if @product.aspects.count > 0 %>
-    <div class="row">
-      <div class="col-md-8">
-        <div class="card">
-          <table class="table-all table-bordered">
-            <thead>
-              <tr>
-                <th><%= Aspect.human_attribute_name("name") %></th>
-                <th class="table-icons-1" colspan="1"></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% for aspect in @product.aspects %>
-                <tr>
-                  <td><%= t("product.aspect." + @product.name + "." + aspect.name) %></td>
-                  <td>
-                    <% if broker_signed_in? %>
-                      <%# binding.pry %>
-                      <%= link_to icon('fas', 'fa-trash'), aspect_path(aspect.id), title: t("destroy"),
-                       method: :delete, data: { confirm: t(:are_you_sure) } %>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
+<div class="row small-font">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <b>
+          <%= t("views.products.variety_names") +
+            t("views.with_count", count: @product.varieties.count) %>
+        </b>
       </div>
+      <table class="table table-responsive table-hover table-all">
+        <tbody>
+          <% for variety in @product.varieties %>
+            <tr>
+              <td><%= t("products." + @product.name + ".varieties." + variety) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
-  <% end %>
-</p>
-<p>
-  <h6><%= Size.model_name.human(count: @product.sizes.count) %></h6>
-  <% if @product.sizes.count > 0 %>
-    <div class="row">
-      <div class="col-md-8">
-        <div class="card">
-          <table class="table-all table-bordered">
-            <thead>
-              <tr>
-                <th><%= Size.human_attribute_name("name") %></th>
-                <th class="table-icons-1" colspan="1"></th>
-              </tr>
-            </thead>
+  </div>
 
-            <tbody>
-              <% for size in @product.sizes %>
-                <tr>
-                  <td><%= t("product.size." + @product.name + "." + size.name) %></td>
-                  <td>
-                    <% if broker_signed_in? %>
-                      <%# binding.pry %>
-                      <%= link_to icon('fas', 'fa-trash'), size_path(size.id), title: t("destroy"),
-                       method: :delete, data: { confirm: t(:are_you_sure) } %>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <b>
+          <%= t("views.products.aspect_names") +
+            t("views.with_count", count: @product.aspects.count) %>
+        </b>
       </div>
+      <table class="table table-responsive table-hover table-all">
+        <tbody>
+          <% for aspect in @product.aspects %>
+            <tr>
+              <td><%= t("products." + @product.name + ".aspects." + aspect) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
-  <% end %>
-</p>
-<p>
-  <h6><%= Packaging.model_name.human(count: @product.packagings.count) %></h6>
-  <% if @product.packagings.count > 0 %>
-    <div class="row">
-      <div class="col-md-8">
-        <div class="card">
-          <table class="table-all table-bordered">
-            <thead>
-              <tr>
-                <th><%= Packaging.human_attribute_name("name") %></th>
-                <th class="table-icons-1" colspan="1"></th>
-              </tr>
-            </thead>
+  </div>
 
-            <tbody>
-              <% for packaging in @product.packagings %>
-                <tr>
-                  <td><%= t("product.packaging." + @product.name + "." + packaging.name) %></td>
-                  <td>
-                    <% if broker_signed_in? %>
-                      <%# binding.pry %>
-                      <%= link_to icon('fas', 'fa-trash'), packaging_path(packaging.id), title: t("destroy"),
-                       method: :delete, data: { confirm: t(:are_you_sure) } %>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <b>
+          <%= t("views.products.packaging_names") +
+            t("views.with_count", count: @product.packagings.count) %>
+        </b>
       </div>
+      <table class="table table-responsive table-hover table-all">
+        <tbody>
+          <% for packaging in @product.packagings %>
+            <tr>
+              <td><%= t("products." + @product.name + ".packagings." + packaging) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
-  <% end %>
-</p>
-<%= link_to t("edit"), edit_product_path(@product) %> |
-<%= link_to t("products.list"), products_path %>
+  </div>
+</div>
+<br>
+<div class="row small-font">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <b>
+          <%= t("views.products.size_names") +
+            t("views.with_count", count: @product.sizes.count) %>
+        </b>
+      </div>
+      <table class="table table-responsive table-hover table-all">
+        <tbody>
+          <% for size in @product.sizes %>
+            <tr>
+              <td><%= t("products." + @product.name + ".sizes." + size) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header text-center text-uppercase">
+        <b>
+          <%= t("views.products.caliber_names") +
+            t("views.with_count", count: @product.calibers.count) %>
+        </b>
+      </div>
+      <table class="table table-responsive table-hover table-all">
+        <tbody>
+          <% for caliber in @product.calibers %>
+            <tr>
+              <td><%= t("products." + @product.name + ".calibers." + caliber) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<br>
+<%= link_to t("views.back"), path_for(user: current_user, path: "products") %>

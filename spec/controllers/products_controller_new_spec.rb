@@ -15,7 +15,7 @@ RSpec.describe ProductsController, type: :controller do
     # TEST and a message of unauthenticated is send
     describe "as guest user" do
       before :each do
-        get :new
+        get :new, params: {broker_id: broker1.id}
       end
 
       it "returns the root page" do
@@ -35,7 +35,7 @@ RSpec.describe ProductsController, type: :controller do
     describe "as a logged customer" do
       before :each do
         sign_in(customer1)
-        get :new
+        get :new, params: {broker_id: broker1.id}
       end
 
       it "returns the customer's page" do
@@ -51,20 +51,22 @@ RSpec.describe ProductsController, type: :controller do
 
     # TEST as a logged supplier
     # TEST when product is asked for new
-    # TEST then a new product is assigned
-    # TEST then the product's new page is rendered
+    # TEST then the supplier's page is returned
+    # TEST and a message of unauthorized is send
     describe "as a logged supplier" do
       before :each do
         sign_in(supplier1)
-        get :new
+        get :new, params: {broker_id: broker1.id}
       end
 
-      it "assigns the product" do
-        expect(assigns(:product).persisted?).to be(false)
+      it "returns the supplier's page" do
+        expect(response.redirect_url).to eq(
+         "http://test.host/suppliers/" + supplier1.id.to_s)
       end
 
-      it "render the new template" do
-        expect(response).to render_template(:new)
+      it "returns a non authorized message" do
+        expect(flash.alert).to match(
+         I18n.t('devise.errors.messages.not_authorized'))
       end
     end
 
@@ -75,7 +77,7 @@ RSpec.describe ProductsController, type: :controller do
     describe "as a logged broker" do
       before :each do
         sign_in(broker1)
-        get :new
+        get :new, params: {broker_id: broker1.id}
       end
 
       it "assigns the product" do
