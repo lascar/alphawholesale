@@ -1,9 +1,46 @@
+# https://gist.github.com/winston/bf1758a3d5c57e5cfb3f
 # config/initializers/sidekiq.rb
 
-Sidekiq.configure_server do |config|
-  config.redis = { url: 'redis://localhost:6379/0', namespace: "app3_sidekiq_#{Rails.env}" }
-end
+require 'sidekiq_calculations'
 
-Sidekiq.configure_client do |config|
-  config.redis = { url: 'redis://localhost:6379/0', namespace: "app3_sidekiq_#{Rails.env}" }
+if defined?(Sidekiq)
+  Sidekiq::Worker::ClassMethods.class_eval do
+    def perform_async_with_retry(*args)
+      perform_async_count = 0
+      begin
+        perform_async_without_retry(*args)
+      rescue Redis::CannotConnectError
+        if (perform_async_count+=1) <= 3
+          sleep 1
+          retry
+        else
+          raise
+        end
+      end
+    end
+    alias_method :perform_async_without_retry, :perform_async
+    alias_method :perform_async, :perform_async_with_retry
+  end
+
+  # NOTE: The configuration hash must have symbolized keys.
+  Sidekiq.configure_client do |config|
+    sidekiq_calculations = SidekiqCalculations.new
+    sidekiq_calculations.raise_error_for_env!
+
+    config.redis = {
+				url: ENV['REDIS_URL'] || 'redis://localhost:6379/0',
+      size: sidekiq_calculations.client_redis_size
+    }
+  end
+
+  # NOTE: The configuration hash must have symbolized keys.
+  Sidekiq.configure_server do |config|
+    sidekiq_calculations = SidekiqCalculations.new
+    sidekiq_calculations.raise_error_for_env!
+
+    config.options[:concurrency] = sidekiq_calculations.server_concurrency_size
+    config.redis = {
+      url: ENV['URL'] || 'redis://localhost:6379/0'
+    }
+  end
 end
