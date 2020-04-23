@@ -74,6 +74,30 @@ Rails.application.configure do
 		authentication: Rails.application.credentials.mail[:production][:AUTHENTICATION],
 		enable_starttls_auto: Rails.application.credentials.mail[:production][:ENABLE_STARTTLS_AUTO],
 	}
+  if Rails.application.credentials && Rails.application.credentials.mail && Rails.application.credentials.mail[:production]
+    config.action_mailer.default_url_options =
+      { host: Rails.application.credentials.mail[:production][:HOST],
+        port: Rails.application.credentials.mail[:production][:HOST_PORT] }
+	  config.action_mailer.smtp_settings = {
+      address: Rails.application.credentials.mail[:production][:ADDRESS],
+		  user_name: Rails.application.credentials.mail[:production][:USER_NAME],
+		  password: Rails.application.credentials.mail[:production][:PASSWORD],
+		  authentication: Rails.application.credentials.mail[:production][:AUTHENTICATION],
+		  enable_starttls_auto: Rails.application.credentials.mail[:production][:ENABLE_STARTTLS_AUTO],
+	  }
+  else
+    config.action_mailer.default_url_options =
+     { host: ["HOST"],
+       port: ["HOST_PORT"] }
+    config.action_mailer.smtp_settings = {
+      address: ["ADDRESS"],
+      user_name: ["USER_NAME"],
+      password: ["PASSWORD"],
+      authentication: ["AUTHENTICATION"],
+      enable_starttls_auto: ["ENABLE_STARTTLS_AUTO"],
+    }
+  end
+
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
