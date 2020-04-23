@@ -15,7 +15,7 @@ group :production do
   gem "rack-timeout"
 end
 # webpack
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '~> 5.x'
 
 # device
 gem 'devise', '>= 4.7.1'
@@ -74,5 +74,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-# for diagnosis in heroku
-gem 'net-ping'
