@@ -2,6 +2,8 @@
 
 # README
 
+Run at https://alphawholesale.herokuapp.com/
+
 For wholesale online.
 
 A Broker is as the man in the middle; everything occurs with his approval.
