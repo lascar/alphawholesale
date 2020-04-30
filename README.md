@@ -164,7 +164,7 @@ When an offer, an order, a request or a response is approved or updated,
 an email is send to all interested customers or suppliers.
 
 <details>
-<summary>Click here to see the mail config is expect in config/credentials.yml</summary>
+<summary>Click here to see the mail config that is expected in config/credentials.yml</summary>
 <pre>
 mail:
   development:
