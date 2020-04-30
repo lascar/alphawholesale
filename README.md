@@ -163,9 +163,9 @@ When a supplier or a customer is approved, an email is send to him.
 When an offer, an order, a request or a response is approved or updated,
 an email is send to all interested customers or suppliers.
 
-All the mail config is expect in config/credentials.yml
-
-````
+<details>
+<summary>Click here to see the mail config is expect in config/credentials.yml</summary>
+<pre>
 mail:
   development:
     HOST: localhost
@@ -185,7 +185,7 @@ mail:
     PASSWORD: "telohascreido!"
     AUTHENTICATION: "plain"
     ENABLE_STARTTLS_AUTO: true
-````
+</pre>
 If you use a mecanism like '2-Step Verification' in gmail, you need to create an application password:
 
 https://support.google.com/accounts/answer/185833
