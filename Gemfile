@@ -10,7 +10,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'sidekiq'
 gem 'redis-namespace'
 group :production do
-  gem 'puma', '~> 4.3'
+  gem 'puma', '~> 5.6'
   # for heroku
   gem "rack-timeout"
 end
